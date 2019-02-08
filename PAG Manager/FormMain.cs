@@ -1,0 +1,1100 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Collections;
+using System.IO;
+using System.Globalization;
+
+namespace PAG_Manager
+{
+    public partial class FormMain : Form //This class manages everything related to interacting with the form or any of its elements. As there is a lot of interaction with the form, this class is very big.
+    {
+        protected string FILELOC = (AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\");
+        //Setting up all class instances to be used throughout the program
+        StudentLookup sl = new StudentLookup(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\");
+        Admin ad = new Admin(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\");
+        Admin contentSelection = new Admin(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\");
+        PagSkillRelation psr = new PagSkillRelation(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\");
+        AwardPag ap = new AwardPag(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\");
+
+        public FormMain()//Initialising the form
+        {
+            InitializeComponent();
+        }
+
+        private void FormMain_Load(object sender, EventArgs e)//All first time setup for non-admin features. Admin setup appears later
+        {
+            // CREATE FILES IF NOT EXSIST
+            StreamWriter setupPag = File.AppendText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagList.csv");
+            setupPag.Close();
+            StreamWriter setupPagSkillRelation = File.AppendText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagSkillRelation.csv");
+            setupPagSkillRelation.Close();
+            StreamWriter setupSkill = File.AppendText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\SkillList.csv");
+            setupSkill.Close();
+            StreamWriter setupStudentRecord = File.AppendText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\StudentRecord.csv");
+            setupStudentRecord.Close();
+            StreamWriter setupPagAchievement = File.AppendText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagAchievement.csv");
+            setupPagAchievement.Close();
+            StreamWriter setupSkillRequirement = File.AppendText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\SkillRequirement.csv");
+            setupSkillRequirement.Close();
+            // HIDING ADMIN TAB
+            //tabControlMain.TabPages.Remove(tabAdmin); //This line may be disabled while testing admin features, do not delete!
+
+            // ACTIVITY/CONTENT SELECTION
+            // LOAD ALL DATA
+            ReloadAllData(false);
+        }
+
+        private void ReloadAllData(bool admin)//Reloads all data into the program when big changes are made
+        {//The parameter decides if the admin stuff will be reloaded. This saves processing power if the user does not need admin functions.
+            ArrayList pagList = ad.LoadData("PagList.csv");//Admin stuff and pag relations
+            if (admin)
+            {
+                listBoxPagList.Items.Clear();//Clears all items from boxes before re-adding them
+                listBoxPagRelation.Items.Clear();
+                listBoxSkillList.Items.Clear();
+                dataGridViewSkillRequirement.Rows.Clear();
+                checkedListBoxSkillRelation.Items.Clear();
+
+                for (int i = 0; i < pagList.Count; i++)//giving each entry a number
+                {
+                    listBoxPagList.Items.Add(pagList[i]);
+                    listBoxPagRelation.Items.Add(pagList[i]);
+                }
+                ArrayList skillList = ad.LoadData("SkillList.csv");
+                for (int i = 0; i < skillList.Count; i++)//giving each entry a number
+                {
+                    listBoxSkillList.Items.Add(skillList[i]);
+                    checkedListBoxSkillRelation.Items.Add(skillList[i]);
+                    dataGridViewSkillRequirement.Rows.Add(skillList[i]);
+                }
+                ad.BuildSkillRequirementIfEmpty();//build skill requirement table
+                ArrayList skillRequirement = new ArrayList();
+                skillRequirement = ad.LoadSkillRequirementNumber();
+                for (int skill = 0; skill < skillRequirement.Count; skill++)
+                {
+                    dataGridViewSkillRequirement.Rows[skill].Cells[1].Value = Convert.ToString(skillRequirement[skill]);
+                }
+            }
+            psr.StartNewRelation(pagList.Count);
+            psr.LoadRelationFromFile();
+            // STUDENT LOOKUP NAMES LIST
+            listBoxStudentNames.Items.Clear();
+            ArrayList studentNames = sl.LoadNames();
+            for (int i = 0; i < studentNames.Count; i++)
+            {
+                listBoxStudentNames.Items.Add(studentNames[i]);
+            }
+            sl.BuildLookupData();
+            //Loading activity/content selection
+            checkedListBoxActivitySelectionPag.Items.Clear();//Clears all items before re-adding them
+            dataGridViewContentSelectionPag.Rows.Clear();
+            dataGridViewActivitySelectionSkills.Rows.Clear();
+            checkedListBoxContentSelectionSkill.Items.Clear();
+
+            ArrayList pagNames = contentSelection.LoadData("PagList.csv");
+            for (int i = 0; i < pagNames.Count; i++)
+            {
+                checkedListBoxActivitySelectionPag.Items.Add(pagNames[i]);
+                dataGridViewContentSelectionPag.Rows.Add(pagNames[i]);
+            }
+            ArrayList skillNames = contentSelection.LoadData("SkillList.csv");
+            for (int i = 0; i < skillNames.Count; i++)
+            {
+                dataGridViewActivitySelectionSkills.Rows.Add(skillNames[i]);
+                checkedListBoxContentSelectionSkill.Items.Add(skillNames[i]);
+            }
+            dataGridViewActivitySelectionSkills.AutoResizeColumns();
+
+            //Skill and pag table clear
+            while (dataGridViewSkills.Columns.Count > 5)
+            {
+                dataGridViewSkills.Columns.RemoveAt(5);
+            }
+            while (dataGridViewPag.Columns.Count > 5)
+            {
+                dataGridViewPag.Columns.RemoveAt(5);
+            }
+            dataGridViewSkills.Rows.Clear();
+            dataGridViewPag.Rows.Clear();
+
+            // SKILLS TABLE
+            //AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\"
+            SkillsDatabase sd = new SkillsDatabase();
+            ArrayList skillHeaders = sd.LoadHeaders();
+            for (int i = 0; i < skillHeaders.Count; i++)
+            {
+                dataGridViewSkills.Columns.Add("Skill" + Convert.ToString(i), Convert.ToString(skillHeaders[i]));
+            }
+            ArrayList skillData = new ArrayList();
+            skillData = sd.LoadSkillData();
+            for (int row = 0; row < skillData.Count; row++)
+            {
+                string[] seperatedLine = Convert.ToString(skillData[row]).Split(new[] { "," }, StringSplitOptions.None);
+                dataGridViewSkills.Rows.Add(seperatedLine);
+            }
+            dataGridViewSkills.Columns[0].Visible = false;
+            // PAG DATES TABLE
+            PagDatabase pd = new PagDatabase();
+            ArrayList pagHeaders = pd.LoadHeaders();
+            for (int i = 0; i < pagHeaders.Count; i++)
+            {
+                dataGridViewPag.Columns.Add("Skill" + Convert.ToString(i), Convert.ToString(pagHeaders[i]));
+            }
+            ArrayList tableData = new ArrayList();
+            tableData = pd.LoadPagData();
+            for (int row = 0; row < tableData.Count; row++)
+            {
+                string[] seperatedLine = Convert.ToString(tableData[row]).Split(new[] { "," }, StringSplitOptions.None);
+                dataGridViewPag.Rows.Add(seperatedLine);
+            }
+            dataGridViewPag.Columns[0].Visible = false;
+            //Tree view - Years, classes and students
+            treeViewYearSelect.Nodes.Clear();
+            ap.ImportRelation(psr.GetAllRelations());
+
+            Dictionary<int, string> yearDictionary = new Dictionary<int, string>();//building and retriving nodes
+            List<List<string>> classList = new List<List<string>>();
+            List<List<string>> studentList = new List<List<string>>();
+            List<List<List<int>>> studentIDList = new List<List<List<int>>>();//This 3d list has to be built along with the tree diagram, so it cannot be done within an external class
+            // ^This 3d array studentID[1][2][3] = year id 1, class id 2, student id 3
+            ap.BuildClassTreeDictionary();//builds the lists
+
+            yearDictionary = ap.GetYearDictionary();//retrieves the generated lists
+            classList = ap.GetClassList();
+            studentList = ap.GetStudentList();//0 = id, 1 = yearid, 2 = classid, 3 = full name
+
+            for (int i = 0; i < yearDictionary.Count; i++)//adding top level nodes
+            {
+                treeViewYearSelect.Nodes.Add(yearDictionary[i]);
+            }
+            for (int i = 0; i < classList.Count; i++)//adding class nodes
+            {
+                for (int j = 0; j < classList[i].Count; j++)
+                {
+                    treeViewYearSelect.Nodes[i].Nodes.Add(classList[i][j]);
+                }
+            }            
+            //building studentID
+            studentIDList.Clear();
+            for (int year = 0; year < yearDictionary.Count; year++)
+            {
+                studentIDList.Add(new List<List<int>> { });
+                for (int myClass = 0; myClass < classList[year].Count; myClass++)
+                {
+                    studentIDList[year].Add(new List<int> { });
+                }
+            }
+            for (int i = 0; i < studentList.Count; i++)//adds students to classes and studentIDList
+            {
+                treeViewYearSelect.Nodes[Convert.ToInt32(studentList[i][1])].Nodes[Convert.ToInt32(studentList[i][2])].Nodes.Add(studentList[i][3]);
+                studentIDList[Convert.ToInt32(studentList[i][1])][Convert.ToInt32(studentList[i][2])].Add(Convert.ToInt32(studentList[i][0]));
+            }
+            ap.SetStudentID(studentIDList);
+            //Tree view- Pags and skills
+            treeViewPagSelect.Nodes.Clear();
+            ap.BuildPagTreeDictionary();
+            List<List<string>> pagTreeID = ap.GetPagTreeName();
+            pagList = ap.GetPagList();
+            for (int i = 0; i < pagTreeID.Count; i++)//adding class nodes
+            {
+                treeViewPagSelect.Nodes.Add(Convert.ToString(pagList[i]));
+                for (int j = 0; j < pagTreeID[i].Count; j++)
+                {
+                    treeViewPagSelect.Nodes[i].Nodes.Add(Convert.ToString(pagTreeID[i][j]));
+                }
+            }
+            for (int node = 0; node < treeViewYearSelect.Nodes.Count; node++)//expands all the year nodes for ease of use
+            {
+                treeViewYearSelect.Nodes[node].Expand();
+            }
+        }
+
+        private void radioButtonAdmin_CheckedChanged(object sender, EventArgs e)//ADMIN: Allows advanced database editing
+        {
+            dataGridViewSkills.ReadOnly = false;
+        }
+
+        private void button1_Click(object sender, EventArgs e)//ADMIN: opens file explorer to the main directory as well as shows a messagebox with the directory
+        {
+            MessageBox.Show(AppDomain.CurrentDomain.BaseDirectory, "Main Save Directory");
+            System.Diagnostics.Process.Start(AppDomain.CurrentDomain.BaseDirectory);
+        }
+
+        private void button2_Click(object sender, EventArgs e)//leave this for testing purposes
+        {
+            
+        }
+
+        public int FindNextIndex(string fileName)
+        {
+            string lineRead;
+            string[] SeperatedLine;
+            int highestNumber;
+            StreamReader sr = new StreamReader(fileName);
+            lineRead = sr.ReadLine();
+            while (lineRead != null)
+            {
+                SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                highestNumber = Convert.ToInt32(SeperatedLine[0]) + 1;
+                lineRead = sr.ReadLine();
+                if (lineRead == null)
+                {
+                    sr.Close();
+                    return highestNumber;
+                }
+            }
+            sr.Close();
+            return -1;
+        }
+
+        private void textBoxLookupName_TextChanged(object sender, EventArgs e)//Student lookup search
+        {
+            LookupUpdate();
+        }
+
+        private void LookupUpdate()//Student lookup search
+        {
+            ArrayList studentNames = sl.FilterNames(textBoxLookupName.Text);
+            listBoxStudentNames.Items.Clear();
+            for (int i = 0; i < studentNames.Count; i++)
+            {
+                listBoxStudentNames.Items.Add(studentNames[i]);
+            }
+        }
+
+        private void listBoxStudentNames_SelectedIndexChanged(object sender, EventArgs e)//Student Lookup get student
+        {
+            if (listBoxStudentNames.SelectedIndex != -1)
+            {
+                //stops user interaction whilst data loads
+                dataGridViewStudentLookup.Visible = false;
+                sl.LoadState = true;//stops auto colouring of cells
+                //Shows student id of person clicked
+                //MessageBox.Show(Convert.ToString(sl.GetStudentPosition(listBoxStudentNames.SelectedIndex)));
+                dataGridViewStudentLookup.Columns[0].HeaderText = Convert.ToString(listBoxStudentNames.SelectedItem);
+                for (int rows = 0; rows < dataGridViewStudentLookup.Rows.Count; rows++)
+                {
+                    for (int cells = 1; cells < dataGridViewStudentLookup.Columns.Count; cells++)
+                    {
+                        if (Convert.ToString(dataGridViewStudentLookup.Rows[rows].Cells[cells].Value) != "")
+                        {
+                            dataGridViewStudentLookup.Rows[rows].Cells[cells].Value = "";
+                        }
+                    }
+                }
+                List<Tuple<int, int, string>> lookupData = new List<Tuple<int, int, string>>();
+                lookupData = sl.LookupStudent(sl.GetStudentPosition(listBoxStudentNames.SelectedIndex));
+                for (int record = 0; record < lookupData.Count; record++)
+                {
+                    dataGridViewStudentLookup.Rows[lookupData[record].Item1].Cells[lookupData[record].Item2].Value = lookupData[record].Item3;
+                }
+            }
+            for (int row = 1; row < dataGridViewStudentLookup.RowCount; row++)
+            {
+                for (int cell = 0; cell < dataGridViewStudentLookup.ColumnCount; cell++)
+                {
+                    dataGridViewStudentLookup.Rows[row].Cells[cell].Style.BackColor = Color.White;
+                    if (Convert.ToString(dataGridViewStudentLookup.Rows[row].Cells[cell].Value) != "")
+                    {
+                        if (Convert.ToString(dataGridViewStudentLookup.Rows[row].Cells[cell].Value) == "Achieved")
+                        {
+                            dataGridViewStudentLookup.Rows[row].Cells[cell].Style.BackColor = Color.Gold;
+                        }
+                        if (Convert.ToString(dataGridViewStudentLookup.Rows[row].Cells[cell].Value) == "Not Achieved")
+                        {
+                            dataGridViewStudentLookup.Rows[row].Cells[cell].Style.BackColor = Color.OrangeRed;
+                        }
+                        if (Convert.ToString(dataGridViewStudentLookup.Rows[row].Cells[cell].Value) == "Absent")
+                        {
+                            dataGridViewStudentLookup.Rows[row].Cells[cell].Style.BackColor = Color.MediumPurple;
+                        }
+                    }
+                }
+            }
+            for (int cell = 1; cell < dataGridViewStudentLookup.ColumnCount; cell++)
+            {
+                dataGridViewStudentLookup.Rows[0].Cells[cell].Style.BackColor = Color.White;
+                if (dataGridViewStudentLookup.Rows[0].Cells[cell].Value != null)
+                {
+                    dataGridViewStudentLookup.Rows[0].Cells[cell].Style.BackColor = Color.LawnGreen;
+                }
+            }
+            dataGridViewStudentLookup.Visible = true;
+            sl.LoadState = false;//allows auto colouring of cells
+        }
+
+        private void adminToolStripMenuItem_Click(object sender, EventArgs e)//Enables and disables the admin tab; does NOT initiate first time admin load
+        {
+            if (tabControlMain.TabPages.Contains(tabAdmin))
+            {
+                tabControlMain.TabPages.Remove(tabAdmin);
+                adminToolStripMenuItem.Text = "Enable Admin";
+                MessageBox.Show("Admin mode has been disabled.", "PAG Manager");
+            }
+            else
+            {
+                tabControlMain.TabPages.Add(tabAdmin);
+                adminToolStripMenuItem.Text = "Disable Admin";
+                MessageBox.Show("Admin mode has been enabled.\nDo not change anything unless you know what you are doing.", "PAG Manager");
+            }
+        }
+
+        private void tabControlMain_SelectedIndexChanged(object sender, EventArgs e)//This sorts out individual tab loads
+        {
+            if (Convert.ToString(tabControlMain.SelectedTab) == "TabPage: {Activity Selection}")
+            {
+                dataGridViewActivitySelectionSkills.AutoResizeColumns();
+            }
+            if (Convert.ToString(tabControlMain.SelectedTab) == "TabPage: {Specification Content Selection}")
+            {
+                dataGridViewContentSelectionPag.AutoResizeColumns();
+                listBoxContentSelectionInclusion.SelectedIndex = 0;
+                psr.SetInclusion(0);
+            }
+            if (Convert.ToString(tabControlMain.SelectedTab) == "TabPage: {Admin}")//This handles all the first time admin-only load only when the admin tab is first opened
+            {
+                ReloadAllData(true);
+            }
+            if (Convert.ToString(tabControlMain.SelectedTab) == "TabPage: {PAG View}")
+            {
+                for (int row = 0; row < dataGridViewPag.RowCount; row++)
+                {
+                    for (int cell = 5; cell < dataGridViewPag.ColumnCount; cell++)
+                    {
+                        if (Convert.ToString(dataGridViewPag.Rows[row].Cells[cell].Value) == "Absent")
+                        {
+                            dataGridViewPag.Rows[row].Cells[cell].Style.BackColor = Color.OrangeRed;
+                        }
+                        else if (Convert.ToString(dataGridViewPag.Rows[row].Cells[cell].Value) != "")
+                        {
+                            dataGridViewPag.Rows[row].Cells[cell].Style.BackColor = Color.Gold;
+                        }
+                    }
+                }
+            }
+            if (Convert.ToString(tabControlMain.SelectedTab) == "TabPage: {Student Lookup}")
+            {
+                dataGridViewStudentLookup
+                //Prepares first time use of student lookup tab
+                dataGridViewStudentLookup.Columns.Clear();
+                dataGridViewStudentLookup.Rows.Clear();
+                //Load all pags and put into columns
+                PagDatabase pd = new PagDatabase();
+                ArrayList pagHeaders = pd.LoadHeaders();
+                dataGridViewStudentLookup.Columns.Add("0", "");//Loads first column as skill
+                dataGridViewStudentLookup.Columns[0].ReadOnly = true;
+                dataGridViewStudentLookup.Columns[0].Width = 300;
+                for (int i = 0; i < pagHeaders.Count; i++)
+                {
+                    dataGridViewStudentLookup.Columns.Add(Convert.ToString(i + 1), Convert.ToString(pagHeaders[i]));
+                }
+                //load all skills and put into rows
+                SkillsDatabase sd = new SkillsDatabase();
+                ArrayList skillHeaders = sd.LoadHeaders();
+                dataGridViewStudentLookup.Rows.Add("Date Completed");
+                for (int i = 0; i < skillHeaders.Count; i++)
+                {
+                    dataGridViewStudentLookup.Rows.Add(skillHeaders[i]);
+                }
+                dataGridViewStudentLookup.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+                listBoxStudentNames.SelectedIndex = -1;//deselects anything currently selected from the list box
+            }
+        }
+
+        private void tabControlAdmin_Resize(object sender, EventArgs e)//ADMIN: This resizes the text boxes when the form is resized when PAG/Skill tab is active. Very CPU intensive
+        {
+            pagListToolStripTextBox.Size = new Size((tabControlAdmin.Size.Width / 2) - 148, 25);
+            skillListToolStripTextBox.Size = new Size((tabControlAdmin.Size.Width / 2) - 148, 25);
+        }
+
+        private void listBoxPagList_SelectedIndexChanged(object sender, EventArgs e)//ADMIN: Sets the text box text to the selected list box value
+        {
+            if (listBoxPagList.SelectedIndex != -1)
+            {
+                pagListToolStripTextBox.Text = (Convert.ToString(listBoxPagList.SelectedItem));
+            }
+        }
+
+        private void pagListToolStripTextBox_TextChanged(object sender, EventArgs e)//ADMIN: Changes the list box selected value to the user modified value in the text box
+        {
+            int location;
+            if (pagListToolStripTextBox.Text.Contains(","))//filters out all commas and replaces them with semi-colons to avoid messing with the CSV files
+            {
+                location = pagListToolStripTextBox.SelectionStart;
+                pagListToolStripTextBox.Text = pagListToolStripTextBox.Text.Replace(",", ";");
+                pagListToolStripTextBox.SelectionStart = location;
+            }
+            if (listBoxPagList.SelectedIndex != -1)
+            {
+                listBoxPagList.Items[listBoxPagList.SelectedIndex] = pagListToolStripTextBox.Text;
+            }
+        }
+
+        private void listBoxSkillList_SelectedIndexChanged(object sender, EventArgs e)//ADMIN: Sets the text box text to the selected list box value
+        {
+            if (listBoxSkillList.SelectedIndex != -1)
+            {
+                skillListToolStripTextBox.Text = (Convert.ToString(listBoxSkillList.SelectedItem));
+            }
+        }
+
+        private void skillListToolStripTextBox_TextChanged(object sender, EventArgs e)//ADMIN: Changes the list box selected value to the user modified value in the text box
+        {
+            int location;
+            if (skillListToolStripTextBox.Text.Contains(","))//filters out all commas and replaces them with semi-colons to avoid messing with the CSV files
+            {
+                location = skillListToolStripTextBox.SelectionStart;
+                skillListToolStripTextBox.Text = skillListToolStripTextBox.Text.Replace(",", ";");
+                skillListToolStripTextBox.SelectionStart = location;
+            }
+            if (listBoxSkillList.SelectedIndex != -1)
+            {
+                listBoxSkillList.Items[listBoxSkillList.SelectedIndex] = skillListToolStripTextBox.Text;
+            }
+        }
+
+        private void pagListToolStripButtonAddRecord_Click(object sender, EventArgs e)//ADMIN: creates a new pag and selects the text for instant renaming
+        {
+            listBoxPagList.Items.Add("New PAG");
+            listBoxPagList.SelectedIndex = listBoxPagList.Items.Count-1;
+            pagListToolStripTextBox.Focus();
+            pagListToolStripTextBox.SelectAll();
+        }
+
+        private void skillListToolStripButtonAddRecord_Click(object sender, EventArgs e)//ADMIN: creates a new skill and selects the text for instant renaming
+        {
+            listBoxSkillList.Items.Add("New Skill");
+            listBoxSkillList.SelectedIndex = listBoxSkillList.Items.Count - 1;
+            skillListToolStripTextBox.Focus();
+            skillListToolStripTextBox.SelectAll();
+        }
+
+        private void pagListToolStripButtonRemovePag_Click(object sender, EventArgs e)//ADMIN: removes the selected list box index
+        {
+            if (listBoxPagList.SelectedIndex != -1)
+            {
+                listBoxPagList.Items.RemoveAt(listBoxPagList.SelectedIndex);
+            }
+        }
+
+        private void skillListToolStripButtonRemovePag_Click(object sender, EventArgs e)//ADMIN: removes the selected list box index
+        {
+            if (listBoxSkillList.SelectedIndex != -1)
+            {
+                listBoxSkillList.Items.RemoveAt(listBoxSkillList.SelectedIndex);
+            }
+        }
+
+        private void buttonLoadDefaults_Click(object sender, EventArgs e)//ADMIN: Writes defaults saved internally within the program into external files that can be used/modified by the program
+        {
+            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagList.csv", (PAG_Manager.Properties.Resources.PagList));
+            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\SkillList.csv", (PAG_Manager.Properties.Resources.SkillList));
+            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagSkillRelation.csv", (PAG_Manager.Properties.Resources.PagSkillRelation));
+            MessageBox.Show("Defaults successfully loaded", "PAG Manager");
+            ReloadAllData(true);
+        }
+
+        private void pagListToolStripButtonSave_Click(object sender, EventArgs e)//ADMIN: Saves all PAG Data
+        {
+            ArrayList pagList = new ArrayList();
+            for(int i = 0; i < listBoxPagList.Items.Count; i++)
+            {
+                pagList.Add(listBoxPagList.Items[i]);
+            }
+            ad.SaveData(pagList, "PagList.csv");
+            ReloadAllData(true);
+            MessageBox.Show("PAG names saved", "PAG Manager");
+        }
+
+        private void skillListToolStripButtonSave_Click(object sender, EventArgs e)//ADMIN: Saves all Skill Data
+        {
+            ArrayList skillList = new ArrayList();
+            for (int i = 0; i < listBoxSkillList.Items.Count; i++)
+            {
+                skillList.Add(listBoxSkillList.Items[i]);
+            }
+            ad.SaveData(skillList, "SkillList.csv");
+            ReloadAllData(true);
+            MessageBox.Show("Skill names saved", "PAG Manager");
+        }
+
+        private void ClearTickBoxes()//ADMIN: Clears all check boxes from skill relations
+        {
+            for(int i = 0; i < checkedListBoxSkillRelation.Items.Count; i++)
+            {
+                checkedListBoxSkillRelation.SetItemCheckState(i, CheckState.Unchecked);
+            }
+        }
+
+        private void listBoxPagRelation_SelectedIndexChanged(object sender, EventArgs e)//ADMIN: Clears all check boxes and reticks new boxes for the selected PAG
+        {
+            checkedListBoxSkillRelation.SelectedIndex = -1;
+            ClearTickBoxes();
+            List<int> boxesToTick = psr.GetRelations(listBoxPagRelation.SelectedIndex);
+            if (boxesToTick != null)
+            {
+                for (int i = 0; i < boxesToTick.Count; i++)
+                {
+                    if (boxesToTick[i] != -1)
+                    {
+                        checkedListBoxSkillRelation.SetItemCheckState(boxesToTick[i], CheckState.Checked);
+                    }
+                }
+            }
+        }
+
+        private void checkedListBoxSkillRelation_ItemCheck(object sender, ItemCheckEventArgs e)//ADMIN: Sets or removes a relation when the checked list box is modified
+        {
+            if (listBoxPagRelation.SelectedIndex != -1)
+            {
+                if (checkedListBoxSkillRelation.SelectedIndex != -1)
+                {
+                    if (checkedListBoxSkillRelation.GetItemChecked(checkedListBoxSkillRelation.SelectedIndex) == false) //Checking if the checked box is checked or unchecked
+                    {
+                        psr.SetRelation(listBoxPagRelation.SelectedIndex, checkedListBoxSkillRelation.SelectedIndex);
+                    }
+                    else
+                    {
+                        psr.RemoveRelation(listBoxPagRelation.SelectedIndex, checkedListBoxSkillRelation.SelectedIndex);
+                    }
+                }
+            }
+        }
+
+        private void buttonBuildPagSkillRelation_Click(object sender, EventArgs e)//ADMIN: rewrites all relations to file
+        {
+            psr.BuildFromScratch();
+        }
+
+        private void dataGridViewActivitySelectionSkills_SelectionChanged(object sender, EventArgs e)//Stops selection of the activity selection skills list
+        {
+            dataGridViewActivitySelectionSkills.ClearSelection();
+        }
+
+        private void RecolourActivitySelection()//Uncolours all cells, then cycles through each cell and colouring if nesessary 
+        {
+            for (int i = 0; i < dataGridViewActivitySelectionSkills.RowCount; i++)
+            {
+                dataGridViewActivitySelectionSkills.Rows[i].Cells[0].Style.BackColor = Color.White;
+            }
+            for (int i = 0; i < checkedListBoxActivitySelectionPag.Items.Count; i++)//Goes through each selected box highlighting all the matching skills
+            {
+                if ((checkedListBoxActivitySelectionPag.GetItemChecked(i)&& checkedListBoxActivitySelectionPag.SelectedIndex != i) || (checkedListBoxActivitySelectionPag.SelectedIndex == i && checkedListBoxActivitySelectionPag.GetItemChecked(checkedListBoxActivitySelectionPag.SelectedIndex)==false))//checks if the box is ticked
+                {
+                    List<int> skillsToHighlight = psr.GetRelations(i);//gets all related skills
+                    if (skillsToHighlight != null)//checks if skills have been returned
+                    {
+                        for (int j = 0; j < skillsToHighlight.Count; j++)//loops colouring in all skills
+                        {
+                            dataGridViewActivitySelectionSkills.Rows[skillsToHighlight[j]].Cells[0].Style.BackColor = Color.Yellow;
+                        }
+                    }
+                }
+            }
+
+        }
+        private CheckState ChangeCheckState(CheckState checkForCheck)//Returns the opposite CheckState to what has been entered
+        {
+            if (checkForCheck == CheckState.Checked)
+            {
+                return CheckState.Unchecked;
+            }
+            else
+            {
+                return CheckState.Checked;
+            }
+        }
+
+        private void buttonActivitySelectResetSelection_Click(object sender, EventArgs e)//Clears all of the activity selection and then recolours
+        {
+            for (int i = 0; i < checkedListBoxActivitySelectionPag.Items.Count; i++)
+            {
+                checkedListBoxActivitySelectionPag.SetItemCheckState(i, CheckState.Unchecked);
+            }
+            checkedListBoxActivitySelectionPag.SelectedIndex = -1;
+            RecolourActivitySelection();
+        }
+
+        private void checkedListBoxActivitySelectionPag_ItemCheck(object sender, ItemCheckEventArgs e)//recolours when item is about to be checked
+        {
+            RecolourActivitySelection();
+        }
+
+        private void buttonContentSelectionSelectionReset_Click(object sender, EventArgs e)//Clears all of the content selection and then recolours
+        {
+            checkedListBoxContentSelectionSkill.SelectedIndex = -1;
+            for (int i = 0; i < checkedListBoxContentSelectionSkill.Items.Count; i++)
+            {
+                checkedListBoxContentSelectionSkill.SetItemCheckState(i, CheckState.Unchecked);
+            }
+            ArrayList BLANKARRAYLIST = new ArrayList();
+            RecolourContentSelection();
+        }
+
+        private void dataGridViewContentSelectionPag_SelectionChanged(object sender, EventArgs e)
+        {
+            dataGridViewContentSelectionPag.ClearSelection();
+        }
+
+        private void checkedListBoxContentSelectionSkill_ItemCheck(object sender, ItemCheckEventArgs e)//reverse lookups pags to skills
+        {
+            RecolourContentSelection();
+        }
+        private void RecolourContentSelection()
+        {
+            ArrayList list = new ArrayList();
+            list.Clear();
+            for (int i = 0; i < checkedListBoxContentSelectionSkill.Items.Count; i++)//Step 1: build a list of all checked/about to be checked items
+            {//Below if statement evals (A & B) | (¬A & c)
+                if ((checkedListBoxContentSelectionSkill.SelectedIndex == i && checkedListBoxContentSelectionSkill.GetItemChecked(checkedListBoxContentSelectionSkill.SelectedIndex) == false) || (checkedListBoxContentSelectionSkill.SelectedIndex != i && checkedListBoxContentSelectionSkill.GetItemChecked(i)))
+                {
+                    list.Add(i);
+                }
+            }
+            for (int i = 0; i < dataGridViewContentSelectionPag.RowCount; i++)//Step 2: Clear all excisiting colours 
+            {
+                dataGridViewContentSelectionPag.Rows[i].Cells[0].Style.BackColor = Color.White;
+            }
+            if (list.Count > 0)//Checks the list is not empty
+            {
+                ArrayList matchingPag = psr.ReverseRelationLookup(list);//Step 3: calculate and recolour required cells
+                for (int i = 0; i < matchingPag.Count; i++)
+                {
+                    dataGridViewContentSelectionPag.Rows[Convert.ToInt32(matchingPag[i])].Cells[0].Style.BackColor = Color.Yellow;
+                }
+            }
+        }
+
+        private void listBoxContentSelectionInclusion_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            psr.SetInclusion(listBoxContentSelectionInclusion.SelectedIndex);
+            checkedListBoxContentSelectionSkill.SelectedIndex = -1;
+            RecolourContentSelection();
+        }
+
+        // Updates all child tree nodes recursively
+        private void CheckAllChildNodes(TreeNode treeNode, bool nodeChecked)
+        {
+            foreach (TreeNode node in treeNode.Nodes)
+            {
+                node.Checked = nodeChecked;
+                if (node.Nodes.Count > 0)
+                {
+                    this.CheckAllChildNodes(node, nodeChecked);
+                }
+            }
+        }
+        
+        private void treeViewYearSelect_AfterCheck(object sender, TreeViewEventArgs e)
+        {
+            if (e.Action != TreeViewAction.Unknown)//checks if the tree has been changed
+            {
+                if (e.Node.Nodes.Count > 0)//If it has child nodes, then check them
+                {
+                    this.CheckAllChildNodes(e.Node, e.Node.Checked);
+                }
+                UpdateSelectedStudentLabel();
+            }
+        }
+
+        private void UpdateSelectedStudentLabel()
+        {
+            int selectedStudents = 0;
+            int absentStudents = 0;
+            for (int yearID = 0; yearID < treeViewYearSelect.Nodes.Count; yearID++)
+            {
+                for (int classID = 0; classID < treeViewYearSelect.Nodes[yearID].Nodes.Count; classID++)
+                {
+                    for (int studentID = 0; studentID < treeViewYearSelect.Nodes[yearID].Nodes[classID].Nodes.Count; studentID++)//searches every student box to check if it has been ticked or not
+                    {
+                        if (treeViewYearSelect.Nodes[yearID].Nodes[classID].Nodes[studentID].Checked)
+                        {
+                            selectedStudents++;
+                        }
+                        else if (treeViewYearSelect.Nodes[yearID].Nodes[classID].Checked)
+                        {
+                            absentStudents++;
+                        }
+                    }
+                }
+            }
+            labelAwardPagSelectedStudents.Text = "You have selected " + Convert.ToString(selectedStudents) + " student";
+            if (selectedStudents != 1)
+            {
+                labelAwardPagSelectedStudents.Text += "s";
+            }
+            labelAwardPagSelectedAbsent.Text = Convert.ToString(absentStudents) + " students within the selected class will be marked as absent";
+        }
+
+        private void treeViewPagSelect_AfterCheck(object sender, TreeViewEventArgs e)
+        {
+            if (e.Action != TreeViewAction.Unknown)//checks if the tree has been changed
+            {
+                if (e.Node.Nodes.Count > 0)//If it has child nodes, then check them
+                {
+                    this.CheckAllChildNodes(e.Node, e.Node.Checked);
+                }
+                UpdateSelectedPagLabel();
+            }
+        }
+        
+        private void UpdateSelectedPagLabel()
+        {
+            int selectedPags = 0;
+            int failedSkills = 0;
+            for (int pag = 0; pag < treeViewPagSelect.Nodes.Count; pag++)//searches each pag to check if its ticked
+            {
+                if (treeViewPagSelect.Nodes[pag].Checked)
+                {
+                    selectedPags++;
+                    for (int skill = 0; skill < treeViewPagSelect.Nodes[pag].Nodes.Count; skill++)//searched through each skill within the pag to see if its not checked
+                    {
+                        if (treeViewPagSelect.Nodes[pag].Nodes[skill].Checked == false)
+                        {
+                            failedSkills++;
+                        }
+                    }
+                }
+            }
+            if (selectedPags == 1)
+            {
+                labelAwardPagSelectedPag.Text = "You are awarding " + Convert.ToString(selectedPags) + " PAG";
+            }
+            else
+            {
+                labelAwardPagSelectedPag.Text = "You are awarding " + Convert.ToString(selectedPags) + " PAG's";
+            }
+            if (failedSkills == 1)
+            {
+                labelAwardPagSelectedFailedSkills.Text = Convert.ToString(failedSkills) + " skill within the selected PAG's will be marked as failed";
+            }
+            else
+            {
+                labelAwardPagSelectedFailedSkills.Text = Convert.ToString(failedSkills) + " skills within the selected PAG's will be marked as failed";
+            }
+        }
+
+        private void dateTimePickerAwardPag_ValueChanged(object sender, EventArgs e)
+        {
+            if (dateTimePickerAwardPag.Value.Date > DateTime.Now)
+            {
+                MessageBox.Show("The selected date is in the future. Change the value if you did not mean to select a future date", "Warning",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+            }
+        }
+
+        private void treeViewYearSelect_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            
+        }
+
+        private void buttonAwardPag_Click(object sender, EventArgs e)//Prepare execution of -> AddPagAwards(ArrayList studentID, ArrayList pagsCompleted, DateTime dateCompleted, List<List<int>> skillsFailed)
+        {
+            List<List<List<int>>> studentIDList = ap.GetStudentID();
+            //Part 1: ArrayList studentID
+            ArrayList studentsToAwardPag = new ArrayList();
+            ArrayList absentStudents = new ArrayList();
+            for (int yearID = 0; yearID < treeViewYearSelect.Nodes.Count; yearID++)//getting students to award pag to.
+            {
+                for (int classID = 0; classID < treeViewYearSelect.Nodes[yearID].Nodes.Count; classID++)
+                {
+                    for (int studentID = 0; studentID < treeViewYearSelect.Nodes[yearID].Nodes[classID].Nodes.Count; studentID++)
+                    {
+                        if (treeViewYearSelect.Nodes[yearID].Nodes[classID].Nodes[studentID].Checked)
+                        {
+                            studentsToAwardPag.Add(studentIDList[yearID][classID][studentID]);
+                        }
+                        else if (treeViewYearSelect.Nodes[yearID].Nodes[classID].Checked)
+                        {
+                            absentStudents.Add(studentIDList[yearID][classID][studentID]);
+                        }
+                    }
+                }
+            }
+            //Part 4 Preperation - Getting pag id tree list
+            List<List<int>> pagTreeID = ap.GetPagTreeID();
+            List<List<int>> skillsFailed = new List<List<int>>();
+            //Part 2: ArrayList pagsCompleted
+            ArrayList pagsCompletedByStudents = new ArrayList();
+            for (int pag = 0; pag < treeViewPagSelect.Nodes.Count; pag++)//searches each pag to check if its ticked
+            {
+                skillsFailed.Add(new List<int> { });//Part 4 preperation, creating new blank entrys to be modified
+                if(treeViewPagSelect.Nodes[pag].Checked)
+                {
+                    pagsCompletedByStudents.Add(pag);
+                    for (int skill = 0; skill < treeViewPagSelect.Nodes[pag].Nodes.Count; skill++)//Part 4: searches through each skill within each checked pag to see if its not checked
+                    {
+                        if (treeViewPagSelect.Nodes[pag].Nodes[skill].Checked == false)
+                        {
+                            skillsFailed[pag].Add(pagTreeID[pag][skill]);
+                        }
+                    }
+                }
+            }
+            //Part 3: Date
+            DateTime dateCompleted = new DateTime();
+            dateCompleted = dateTimePickerAwardPag.Value;
+            ap.AddPagAbsence(absentStudents, pagsCompletedByStudents);//The pags are the same for students that were absent, so the pags completed by student list works fine
+            ap.AddPagAwards(studentsToAwardPag, pagsCompletedByStudents, dateCompleted, skillsFailed);
+            ReloadAllData(false);
+        }
+
+        private void buttonAwardPagClearSelection_Click(object sender, EventArgs e)
+        {
+            for (int yearID = 0; yearID < treeViewYearSelect.Nodes.Count; yearID++)
+            {
+                treeViewYearSelect.Nodes[yearID].Checked = false;
+                for (int classID = 0; classID < treeViewYearSelect.Nodes[yearID].Nodes.Count; classID++)
+                {
+                    treeViewYearSelect.Nodes[yearID].Nodes[classID].Checked = false;
+                    for (int studentID = 0; studentID < treeViewYearSelect.Nodes[yearID].Nodes[classID].Nodes.Count; studentID++)
+                    {
+                        if (treeViewYearSelect.Nodes[yearID].Nodes[classID].Nodes[studentID].Checked)
+                        {
+                            treeViewYearSelect.Nodes[yearID].Nodes[classID].Nodes[studentID].Checked = false;
+                        }
+                    }
+                }
+            }
+            UpdateSelectedStudentLabel();
+            for (int pag = 0; pag < treeViewPagSelect.Nodes.Count; pag++)//unchecks all pag and skill nodes
+            {
+                treeViewPagSelect.Nodes[pag].Checked = false;
+                for (int skill = 0; skill < treeViewPagSelect.Nodes[pag].Nodes.Count; skill++)
+                {
+                    treeViewPagSelect.Nodes[pag].Nodes[skill].Checked = false;
+                }
+            }
+        }
+
+        private void buttonSaveSkillRequirement_Click(object sender, EventArgs e)
+        {
+            StreamWriter sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\SkillRequirement.csv");
+            for (int skill = 0; skill < dataGridViewSkillRequirement.Rows.Count; skill++)//loops through every skill, adding its id and requirement to a file
+            {
+                sw.WriteLine(skill + "," + dataGridViewSkillRequirement.Rows[skill].Cells[1].Value);
+            }
+            sw.Close();
+            MessageBox.Show("Skill Requirements saved","PAG Manager");
+        }
+
+        private void buttonImportCSV_Click(object sender, EventArgs e)
+        {
+            openFileDialogImportCSV.ShowDialog();//When the user clicks the import csv button
+        }
+
+        private void openFileDialogImportCSV_FileOk(object sender, CancelEventArgs e)
+        {//Only happens when the user clicks OK
+            ArrayList csvLines = new ArrayList();
+            csvLines = ad.LoadStudentCSV(openFileDialogImportCSV.FileName);
+            dataGridViewStudentImport.Rows.Clear();//Clearing the table in case there is already stuff there
+            dataGridViewStudentImport.Columns.Clear();
+            string[] seperatedLine;
+            int columns = 0;
+            for (int line = 0; line < csvLines.Count; line++)
+            {
+                seperatedLine = Convert.ToString(csvLines[line]).Split(new[] { "," }, StringSplitOptions.None);
+                while (columns < seperatedLine.Count())
+                {
+                    dataGridViewStudentImport.Columns.Add(Convert.ToString(columns), "");
+                    columns++;
+                }
+                dataGridViewStudentImport.Rows.Add(seperatedLine);
+            }
+            buttonAddStudentRecord.Enabled = true;
+        }
+
+        private void openFileDialogImportCSV_HelpRequest(object sender, EventArgs e)
+        {//The help button within the dialog
+            MessageBox.Show(Convert.ToString("Help Coming soon"));
+        }
+
+        private void Button1_Click_1(object sender, EventArgs e)
+        {
+            ArrayList columnOrder = new ArrayList();
+            ArrayList orderedCSV = new ArrayList();
+            int index = FindNextIndex(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\StudentRecord.csv");
+            for (int column = 0; column < dataGridViewStudentImport.Columns.Count; column++)
+            {
+                columnOrder.Add(dataGridViewStudentImport.Columns[column].DisplayIndex);//goes though every column getting the user sorted index
+            }
+            for (int rows = 0; rows < dataGridViewStudentImport.Rows.Count; rows++)
+            {//adds every cell in order they have been arranged to a csv
+                orderedCSV.Add(Convert.ToString(dataGridViewStudentImport.Rows[rows].Cells[columnOrder.IndexOf(0)].Value) + "," + Convert.ToString(dataGridViewStudentImport.Rows[rows].Cells[columnOrder.IndexOf(1)].Value) + "," + Convert.ToString(dataGridViewStudentImport.Rows[rows].Cells[columnOrder.IndexOf(2)].Value) + "," + Convert.ToString(dataGridViewStudentImport.Rows[rows].Cells[columnOrder.IndexOf(3)].Value));
+            }
+            StreamWriter sw = File.AppendText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\StudentRecord.csv");
+            string csvQuoteRemoved;
+            for (int line = 0; line < orderedCSV.Count-1; line++)//writes every line to file
+            {
+                csvQuoteRemoved = Convert.ToString(orderedCSV[line]).Replace("\"","");//removes " if they exsist
+                sw.WriteLine(Convert.ToString(index) + "," + csvQuoteRemoved);
+                index++;
+            }
+            sw.Close();
+            ReloadAllData(true);
+            MessageBox.Show("Records added", "PAG Manager");
+        }
+
+        private void hidePagViewColumnsWithoutPAGDataToolStripMenuItem_CheckStateChanged(object sender, EventArgs e)
+        {
+            for (int column = 5; column < dataGridViewPag.Columns.Count; column++)
+            {
+                dataGridViewPag.Columns[column].Width = 100;
+                if (hidePagViewColumnsWithoutPAGDataToolStripMenuItem.CheckState == CheckState.Checked)
+                {
+                    bool flag = false;
+                    for (int row = 0; row < dataGridViewPag.Rows.Count; row++)
+                    {
+                        if (Convert.ToString(dataGridViewPag.Rows[row].Cells[column].Value) != "")
+                        {
+                            row = dataGridViewPag.Rows.Count;
+                            flag = true;
+                        }
+                    }
+                    if (flag == false)
+                    {
+                        dataGridViewPag.Columns[column].Width = 10;
+                    }
+                }
+            }
+        }
+
+        private void checkBoxShowStudentID_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxShowStudentID.CheckState == CheckState.Checked)
+            {
+                dataGridViewPag.Columns[0].Visible = true;
+                dataGridViewSkills.Columns[0].Visible = true;
+            }
+            else
+            {
+                dataGridViewPag.Columns[0].Visible = false;
+                dataGridViewSkills.Columns[0].Visible = false;
+            }
+        }
+
+        private void DataGridViewStudentLookup_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            //This big case statment changes the value of what the user has typed to Achieved, Not achieved or absent, whichever is closest
+            if (dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value.ToString() != null && e.RowIndex != 0)
+            {
+                switch (dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value.ToString())
+                {
+                    case "":
+                        break;
+                    case "Achieved":
+                        break;
+                    case "Not Achieved":
+                        break;
+                    case "Absent":
+                        break;
+                    default:
+                        List<int> bestFit = new List<int>();
+                        string userInput = dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value.ToString();
+                        bestFit.Add(sl.LevenshteinDistance(userInput, "Achieved"));
+                        bestFit.Add(sl.LevenshteinDistance(userInput, "Not Achiev"));//reduced because otherwise its too long to ever be selected
+                        bestFit.Add(sl.LevenshteinDistance(userInput, "Absent"));
+                        int bestIndex = bestFit.IndexOf(bestFit.Min());
+                        if (userInput.ToLower().Contains("yes") || userInput.ToLower().Contains("pass"))
+                        {
+                            bestIndex = 0;
+                        }
+                        if (userInput.ToLower().Contains("no") || userInput.ToLower().Contains("fail"))
+                        {
+                            bestIndex = 1;
+                        }
+                        switch (Convert.ToString(bestIndex))
+                        {
+                            case "0":
+                                dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value = "Achieved";
+                                break;
+                            case "1":
+                                dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value = "Not Achieved";
+                                break;
+                            case "2":
+                                dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value = "Absent";
+                                break;
+                            default:
+                                dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value = "";
+                                break;
+                        }
+                        break;
+                }
+            }
+            else if (dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value.ToString() != null && e.RowIndex == 0)
+            {
+                DateTime inputDate = new DateTime();
+                if (DateTime.TryParse(dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value.ToString(), out inputDate))//check for valid datetime
+                {
+                    dataGridViewStudentLookup[e.ColumnIndex, 0].Value = inputDate.ToString("dd/MM/yyyy");
+                }
+                else
+                {
+                    dataGridViewStudentLookup[e.ColumnIndex, 0].Value = System.DateTime.Today.ToString("dd/MM/yyyy");
+                }
+            }
+            if (Convert.ToString(dataGridViewStudentLookup[e.ColumnIndex, 0].Value) == "")
+            {
+                dataGridViewStudentLookup[e.ColumnIndex, 0].Value = System.DateTime.Today.ToString("dd/MM/yyyy");
+            }
+        }
+
+        private void dataGridViewStudentLookup_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            try//recolouring modified cells
+            {
+                if (e.RowIndex == 0)
+                {
+                    if (Convert.ToString(dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex]) == "")
+                    {
+                        dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.LawnGreen;
+                    }
+                    else
+                    {
+                        dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.White;
+                    }
+                }
+                else
+                {
+                    if (Convert.ToString(dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value) == "Achieved")
+                    {
+                        dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.Gold;
+                    }
+                    else if (Convert.ToString(dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value) == "Not Achieved")
+                    {
+                        dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.OrangeRed;
+                    }
+                    else if (Convert.ToString(dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value) == "Absent")
+                    {
+                        dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.MediumPurple;
+                    }
+                    else
+                    {
+                        dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.White;
+                    }
+                }
+            }
+            catch (System.ArgumentOutOfRangeException)
+            {
+                //This stops exceptions for when the program tries to colour cells that dont exist, when the table is being loaded
+            }
+        }
+
+        private void dataGridViewStudentLookup_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyValue == (char)Keys.Delete)
+            {
+                if (dataGridViewStudentLookup.CurrentCell.ColumnIndex != 0)
+                {
+                    dataGridViewStudentLookup[dataGridViewStudentLookup.CurrentCell.ColumnIndex, dataGridViewStudentLookup.CurrentCell.RowIndex].Value = "";
+                }
+            }
+        }
+    }
+}
