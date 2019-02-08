@@ -19,6 +19,8 @@ namespace PAG_Manager
         Dictionary<int, Dictionary<int, Dictionary<int, string>>> studentInfo = new Dictionary<int, Dictionary<int, Dictionary<int, string>>>();
         Dictionary<int, int> skillLookup = new Dictionary<int, int>();
         Dictionary<int, int> pagLookup = new Dictionary<int, int>();
+        //tuple contains <isNew true = new, false = old, studentID, pagID, date, int>
+        List<Tuple<bool, int, int, string, int>> changes = new List<Tuple<bool, int, int, string, int>>();
         public StudentLookup(string FileLocation)
         {
             fileLocation = FileLocation;
@@ -191,12 +193,22 @@ namespace PAG_Manager
                 for (int j = 1; j <= m; j++)
                 {
                     int cost = (t[j - 1] == s[i - 1]) ? 0 : 1;
-                    d[i, j] = Math.Min(
-                        Math.Min(d[i - 1, j] + 1, d[i, j - 1] + 1),
-                        d[i - 1, j - 1] + cost);
+                    d[i, j] = Math.Min(Math.Min(d[i - 1, j] + 1, d[i, j - 1] + 1),d[i - 1, j - 1] + cost);
                 }
             }
             return d[n, m];
+        }
+        public void ResetChanges()
+        {
+            changes.Clear();
+        }
+        public void AddChange()//this needs to overwrite if 
+        {
+
+        }
+        public void PushChanges()
+        {
+
         }
     }
 }

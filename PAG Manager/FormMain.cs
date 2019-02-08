@@ -381,7 +381,7 @@ namespace PAG_Manager
             }
             if (Convert.ToString(tabControlMain.SelectedTab) == "TabPage: {Student Lookup}")
             {
-                dataGridViewStudentLookup
+                dataGridViewStudentLookup.Visible = false;
                 //Prepares first time use of student lookup tab
                 dataGridViewStudentLookup.Columns.Clear();
                 dataGridViewStudentLookup.Rows.Clear();
@@ -1051,7 +1051,7 @@ namespace PAG_Manager
             {
                 if (e.RowIndex == 0)
                 {
-                    if (Convert.ToString(dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex]) == "")
+                    if (Convert.ToString(dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value) != "")
                     {
                         dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.LawnGreen;
                     }

@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabActivitySelection = new System.Windows.Forms.TabPage();
             this.tableLayoutPanelActivitySelection = new System.Windows.Forms.TableLayoutPanel();
@@ -68,10 +68,12 @@
             this.tabLookup = new System.Windows.Forms.TabPage();
             this.tableLayoutPanelLookup = new System.Windows.Forms.TableLayoutPanel();
             this.groupBoxLookupSearch = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.checkBoxArchives = new System.Windows.Forms.CheckBox();
             this.textBoxLookupName = new System.Windows.Forms.TextBox();
             this.labelLookupName = new System.Windows.Forms.Label();
             this.listBoxStudentNames = new System.Windows.Forms.ListBox();
+            this.dataGridViewStudentLookup = new System.Windows.Forms.DataGridView();
             this.tabAwardPag = new System.Windows.Forms.TabPage();
             this.tableLayoutPanelAwardPag = new System.Windows.Forms.TableLayoutPanel();
             this.treeViewYearSelect = new System.Windows.Forms.TreeView();
@@ -139,8 +141,6 @@
             this.openManualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialogImportCSV = new System.Windows.Forms.OpenFileDialog();
-            this.dataGridViewStudentLookup = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
             this.tabControlMain.SuspendLayout();
             this.tabActivitySelection.SuspendLayout();
             this.tableLayoutPanelActivitySelection.SuspendLayout();
@@ -158,6 +158,7 @@
             this.tabLookup.SuspendLayout();
             this.tableLayoutPanelLookup.SuspendLayout();
             this.groupBoxLookupSearch.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudentLookup)).BeginInit();
             this.tabAwardPag.SuspendLayout();
             this.tableLayoutPanelAwardPag.SuspendLayout();
             this.groupBoxAwardPag.SuspendLayout();
@@ -178,7 +179,6 @@
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudentImport)).BeginInit();
             this.menuStripMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudentLookup)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControlMain
@@ -632,6 +632,15 @@
             this.groupBoxLookupSearch.TabStop = false;
             this.groupBoxLookupSearch.Text = "Student Lookup";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(460, 20);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(203, 13);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "THIS IS READ ONLY AT THE MOMENT";
+            // 
             // checkBoxArchives
             // 
             this.checkBoxArchives.AutoSize = true;
@@ -669,6 +678,28 @@
             this.listBoxStudentNames.Size = new System.Drawing.Size(174, 463);
             this.listBoxStudentNames.TabIndex = 1;
             this.listBoxStudentNames.SelectedIndexChanged += new System.EventHandler(this.listBoxStudentNames_SelectedIndexChanged);
+            // 
+            // dataGridViewStudentLookup
+            // 
+            this.dataGridViewStudentLookup.AllowUserToAddRows = false;
+            this.dataGridViewStudentLookup.AllowUserToDeleteRows = false;
+            this.dataGridViewStudentLookup.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewStudentLookup.DefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridViewStudentLookup.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewStudentLookup.Location = new System.Drawing.Point(183, 63);
+            this.dataGridViewStudentLookup.Name = "dataGridViewStudentLookup";
+            this.dataGridViewStudentLookup.Size = new System.Drawing.Size(584, 463);
+            this.dataGridViewStudentLookup.TabIndex = 2;
+            this.dataGridViewStudentLookup.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewStudentLookup_CellEndEdit);
+            this.dataGridViewStudentLookup.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStudentLookup_CellValueChanged);
+            this.dataGridViewStudentLookup.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridViewStudentLookup_KeyDown);
             // 
             // tabAwardPag
             // 
@@ -1356,37 +1387,6 @@
             this.openFileDialogImportCSV.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogImportCSV_FileOk);
             this.openFileDialogImportCSV.HelpRequest += new System.EventHandler(this.openFileDialogImportCSV_HelpRequest);
             // 
-            // dataGridViewStudentLookup
-            // 
-            this.dataGridViewStudentLookup.AllowUserToAddRows = false;
-            this.dataGridViewStudentLookup.AllowUserToDeleteRows = false;
-            this.dataGridViewStudentLookup.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewStudentLookup.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridViewStudentLookup.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewStudentLookup.Location = new System.Drawing.Point(183, 63);
-            this.dataGridViewStudentLookup.Name = "dataGridViewStudentLookup";
-            this.dataGridViewStudentLookup.Size = new System.Drawing.Size(584, 463);
-            this.dataGridViewStudentLookup.TabIndex = 2;
-            this.dataGridViewStudentLookup.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewStudentLookup_CellEndEdit);
-            this.dataGridViewStudentLookup.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStudentLookup_CellValueChanged);
-            this.dataGridViewStudentLookup.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridViewStudentLookup_KeyDown);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(460, 20);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(203, 13);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "THIS IS READ ONLY AT THE MOMENT";
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1422,6 +1422,7 @@
             this.tableLayoutPanelLookup.ResumeLayout(false);
             this.groupBoxLookupSearch.ResumeLayout(false);
             this.groupBoxLookupSearch.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudentLookup)).EndInit();
             this.tabAwardPag.ResumeLayout(false);
             this.tableLayoutPanelAwardPag.ResumeLayout(false);
             this.groupBoxAwardPag.ResumeLayout(false);
@@ -1449,7 +1450,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudentImport)).EndInit();
             this.menuStripMain.ResumeLayout(false);
             this.menuStripMain.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudentLookup)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
