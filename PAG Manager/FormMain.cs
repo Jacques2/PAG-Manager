@@ -45,12 +45,24 @@ namespace PAG_Manager
             setupSkillRequirement.Close();
             // HIDING ADMIN TAB
             //tabControlMain.TabPages.Remove(tabAdmin); //This line may be disabled while testing admin features, do not delete!
-
+            ReloadAllSettings();
             // ACTIVITY/CONTENT SELECTION
             // LOAD ALL DATA
             ReloadAllData(false);
         }
-
+        private void ReloadAllSettings()
+        {
+            string lineRead;
+            string[] SeperatedLine;
+            StreamReader sr = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\settings.dat");//opens the student record file to start reading names
+            lineRead = sr.ReadLine();
+            SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+            if (SeperatedLine[1] == "true")
+            {
+                this.WindowState = FormWindowState.Maximized;
+            }
+            sr.Close();
+        }
         private void ReloadAllData(bool admin)//Reloads all data into the program when big changes are made
         {//The parameter decides if the admin stuff will be reloaded. This saves processing power if the user does not need admin functions.
             ArrayList pagList = ad.LoadData("PagList.csv");//Admin stuff and pag relations
@@ -271,21 +283,37 @@ namespace PAG_Manager
 
         private void listBoxStudentNames_SelectedIndexChanged(object sender, EventArgs e)//Student Lookup get student
         {
-            if (listBoxStudentNames.SelectedIndex != -1)
+            bool unsavedChanges = false;
+            if (sl.GetUnsavedChanges() && listBoxStudentNames.SelectedIndex != -1)
             {
+                DialogResult result = MessageBox.Show("You have unsaved changes, do you wish to proceed and lose these changes?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
+                if (result == DialogResult.Yes)
+                {
+                    sl.SetUnsavedChanges(false);
+                }
+                else
+                {
+                    unsavedChanges = true;
+                    listBoxStudentNames.SelectedIndex = -1;
+                }
+            }
+            if (listBoxStudentNames.SelectedIndex != -1 && unsavedChanges == false)
+            {
+                sl.ResetChanges();
+                sl.ClearPagsWithData();//clears all pags containing data as it needs to be rebuilt for the new student
                 //stops user interaction whilst data loads
-                dataGridViewStudentLookup.Visible = false;
+                dataGridViewStudentLookup.Enabled = false;
                 sl.LoadState = true;//stops auto colouring of cells
                 //Shows student id of person clicked
                 //MessageBox.Show(Convert.ToString(sl.GetStudentPosition(listBoxStudentNames.SelectedIndex)));
-                dataGridViewStudentLookup.Columns[0].HeaderText = Convert.ToString(listBoxStudentNames.SelectedItem);
+                dataGridViewStudentLookup.Columns[0].HeaderText = Convert.ToString(listBoxStudentNames.SelectedItem + "\n X/12 Pags Required \n X/Y Skills Required");
                 for (int rows = 0; rows < dataGridViewStudentLookup.Rows.Count; rows++)
                 {
                     for (int cells = 1; cells < dataGridViewStudentLookup.Columns.Count; cells++)
                     {
-                        if (Convert.ToString(dataGridViewStudentLookup.Rows[rows].Cells[cells].Value) != "")
+                        if (Convert.ToString(dataGridViewStudentLookup.Rows[rows].Cells[cells].Value) != null)
                         {
-                            dataGridViewStudentLookup.Rows[rows].Cells[cells].Value = "";
+                            dataGridViewStudentLookup.Rows[rows].Cells[cells].Value = null;
                         }
                     }
                 }
@@ -294,6 +322,7 @@ namespace PAG_Manager
                 for (int record = 0; record < lookupData.Count; record++)
                 {
                     dataGridViewStudentLookup.Rows[lookupData[record].Item1].Cells[lookupData[record].Item2].Value = lookupData[record].Item3;
+                    sl.AddPagWithData(lookupData[record].Item2);
                 }
             }
             for (int row = 1; row < dataGridViewStudentLookup.RowCount; row++)
@@ -326,7 +355,7 @@ namespace PAG_Manager
                     dataGridViewStudentLookup.Rows[0].Cells[cell].Style.BackColor = Color.LawnGreen;
                 }
             }
-            dataGridViewStudentLookup.Visible = true;
+            dataGridViewStudentLookup.Enabled = true;
             sl.LoadState = false;//allows auto colouring of cells
         }
 
@@ -348,6 +377,18 @@ namespace PAG_Manager
 
         private void tabControlMain_SelectedIndexChanged(object sender, EventArgs e)//This sorts out individual tab loads
         {
+            if (sl.GetUnsavedChanges() && Convert.ToString(tabControlMain.SelectedTab) != "TabPage: {Student Lookup}")
+            {
+                DialogResult result = MessageBox.Show("You have unsaved changes, do you wish to proceed and lose these changes?","Warning",MessageBoxButtons.YesNo,MessageBoxIcon.Exclamation,MessageBoxDefaultButton.Button2);
+                if (result == DialogResult.No)
+                {
+                    tabControlMain.SelectedTab = tabLookup;
+                }
+                else
+                {
+                    sl.SetUnsavedChanges(false);
+                }
+            }
             if (Convert.ToString(tabControlMain.SelectedTab) == "TabPage: {Activity Selection}")
             {
                 dataGridViewActivitySelectionSkills.AutoResizeColumns();
@@ -379,9 +420,10 @@ namespace PAG_Manager
                     }
                 }
             }
-            if (Convert.ToString(tabControlMain.SelectedTab) == "TabPage: {Student Lookup}")
+            if (Convert.ToString(tabControlMain.SelectedTab) == "TabPage: {Student Lookup}" && sl.GetUnsavedChanges() == false)
             {
-                dataGridViewStudentLookup.Visible = false;
+                dataGridViewStudentLookup.Enabled = false;
+                textBoxLookupName.Text = "";
                 //Prepares first time use of student lookup tab
                 dataGridViewStudentLookup.Columns.Clear();
                 dataGridViewStudentLookup.Rows.Clear();
@@ -405,6 +447,10 @@ namespace PAG_Manager
                 }
                 dataGridViewStudentLookup.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
                 listBoxStudentNames.SelectedIndex = -1;//deselects anything currently selected from the list box
+                foreach (DataGridViewColumn column in dataGridViewStudentLookup.Columns)
+                {
+                    column.SortMode = DataGridViewColumnSortMode.NotSortable;
+                }
             }
         }
 
@@ -982,7 +1028,16 @@ namespace PAG_Manager
         private void DataGridViewStudentLookup_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             //This big case statment changes the value of what the user has typed to Achieved, Not achieved or absent, whichever is closest
-            if (dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value.ToString() != null && e.RowIndex != 0)
+            string contents;
+            try
+            {
+                contents = dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value.ToString();
+            }
+            catch (Exception)
+            {
+                contents = "";
+            }
+            if (contents != "" && e.RowIndex != 0)
             {
                 switch (dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value.ToString())
                 {
@@ -1027,7 +1082,7 @@ namespace PAG_Manager
                         break;
                 }
             }
-            else if (dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value.ToString() != null && e.RowIndex == 0)
+            else if (contents != "" && e.RowIndex == 0)
             {
                 DateTime inputDate = new DateTime();
                 if (DateTime.TryParse(dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value.ToString(), out inputDate))//check for valid datetime
@@ -1043,6 +1098,9 @@ namespace PAG_Manager
             {
                 dataGridViewStudentLookup[e.ColumnIndex, 0].Value = System.DateTime.Today.ToString("dd/MM/yyyy");
             }
+            //add a change to the change log
+            sl.AddChange(e.ColumnIndex);
+            sl.SetUnsavedChanges(true);
         }
 
         private void dataGridViewStudentLookup_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -1095,6 +1153,19 @@ namespace PAG_Manager
                     dataGridViewStudentLookup[dataGridViewStudentLookup.CurrentCell.ColumnIndex, dataGridViewStudentLookup.CurrentCell.RowIndex].Value = "";
                 }
             }
+        }
+
+        private void startMaximisedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (startMaximisedToolStripMenuItem.Checked)
+            {
+
+            }
+        }
+
+        private void buttonLookupSubmitModifications_Click(object sender, EventArgs e)
+        {
+            sl.SetUnsavedChanges(false);
         }
     }
 }

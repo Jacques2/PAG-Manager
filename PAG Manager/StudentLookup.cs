@@ -19,8 +19,18 @@ namespace PAG_Manager
         Dictionary<int, Dictionary<int, Dictionary<int, string>>> studentInfo = new Dictionary<int, Dictionary<int, Dictionary<int, string>>>();
         Dictionary<int, int> skillLookup = new Dictionary<int, int>();
         Dictionary<int, int> pagLookup = new Dictionary<int, int>();
-        //tuple contains <isNew true = new, false = old, studentID, pagID, date, int>
-        List<Tuple<bool, int, int, string, int>> changes = new List<Tuple<bool, int, int, string, int>>();
+        bool unsavedChanges = false;
+        //tuple contains <studentID, pagID, date, int>
+        ArrayList changes = new ArrayList();
+        List<int> pagsWithData = new List<int>();
+        public void SetUnsavedChanges(bool change)
+        {
+            unsavedChanges = change;
+        }
+        public bool GetUnsavedChanges()
+        {
+            return unsavedChanges;
+        }
         public StudentLookup(string FileLocation)
         {
             fileLocation = FileLocation;
@@ -202,13 +212,45 @@ namespace PAG_Manager
         {
             changes.Clear();
         }
-        public void AddChange()//this needs to overwrite if 
+        public void AddChange(int column)
         {
-
+            if (changes.Contains(column))
+            {
+                changes.Add(column);
+            }
         }
-        public void PushChanges()
+        public ArrayList GetChanges()
         {
-
+            return changes;
+        }
+        public void ClearPagsWithData()
+        {
+            pagsWithData.Clear();
+        }
+        public void AddPagWithData(int position)
+        {
+            if (pagsWithData.Contains(position) == false)
+            {
+                pagsWithData.Add(position);
+            }
+        }
+        public bool DoesPagWithDataContain(int position)
+        {
+            if (pagsWithData.Contains(position))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public void RemovePagWithData(int position)
+        {
+            if (pagsWithData.Contains(position))
+            {
+                pagsWithData.Remove(position);
+            }
         }
     }
 }
