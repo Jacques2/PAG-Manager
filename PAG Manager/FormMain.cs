@@ -307,6 +307,7 @@ namespace PAG_Manager
                 //Shows student id of person clicked
                 //MessageBox.Show(Convert.ToString(sl.GetStudentPosition(listBoxStudentNames.SelectedIndex)));
                 dataGridViewStudentLookup.Columns[0].HeaderText = Convert.ToString(listBoxStudentNames.SelectedItem + "\n X/12 Pags Required \n X/Y Skills Required");
+                //clears every cell
                 for (int rows = 0; rows < dataGridViewStudentLookup.Rows.Count; rows++)
                 {
                     for (int cells = 1; cells < dataGridViewStudentLookup.Columns.Count; cells++)
@@ -317,6 +318,7 @@ namespace PAG_Manager
                         }
                     }
                 }
+                //gets every record and adds to table
                 List<Tuple<int, int, string>> lookupData = new List<Tuple<int, int, string>>();
                 lookupData = sl.LookupStudent(sl.GetStudentPosition(listBoxStudentNames.SelectedIndex));
                 for (int record = 0; record < lookupData.Count; record++)
@@ -325,6 +327,7 @@ namespace PAG_Manager
                     sl.AddPagWithData(lookupData[record].Item2);
                 }
             }
+            //colouring cells
             for (int row = 1; row < dataGridViewStudentLookup.RowCount; row++)
             {
                 for (int cell = 0; cell < dataGridViewStudentLookup.ColumnCount; cell++)
@@ -447,10 +450,26 @@ namespace PAG_Manager
                 }
                 dataGridViewStudentLookup.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
                 listBoxStudentNames.SelectedIndex = -1;//deselects anything currently selected from the list box
+                //locks sorting the columns
                 foreach (DataGridViewColumn column in dataGridViewStudentLookup.Columns)
                 {
                     column.SortMode = DataGridViewColumnSortMode.NotSortable;
                 }
+                //locks all the cells that are not relevent to the skill
+                for (int column = 1; column < dataGridViewStudentLookup.ColumnCount; column++)
+                {
+                    List<int> skillsInPag = new List<int>();
+                    skillsInPag = psr.GetRelations(sl.ReversePagLookup(column));
+                    for (int row = 0; row < dataGridViewStudentLookup.RowCount -1; row++)
+                    {
+                        if (skillsInPag.Contains(sl.ReverseSkillLookup(row)) == false)
+                        {
+                            dataGridViewStudentLookup.Rows[row + 1].Cells[column].ReadOnly = true;
+                            dataGridViewStudentLookup.Rows[row + 1].Cells[column].Style.BackColor = Color.FromArgb(200, 200, 200);
+                        }
+                    }
+                }
+
             }
         }
 
@@ -1094,7 +1113,7 @@ namespace PAG_Manager
                     dataGridViewStudentLookup[e.ColumnIndex, 0].Value = System.DateTime.Today.ToString("dd/MM/yyyy");
                 }
             }
-            if (Convert.ToString(dataGridViewStudentLookup[e.ColumnIndex, 0].Value) == "")
+            if (Convert.ToString(dataGridViewStudentLookup[e.ColumnIndex, 0].Value) == "" && e.RowIndex != 0 && contents != "")
             {
                 dataGridViewStudentLookup[e.ColumnIndex, 0].Value = System.DateTime.Today.ToString("dd/MM/yyyy");
             }
@@ -1165,7 +1184,25 @@ namespace PAG_Manager
 
         private void buttonLookupSubmitModifications_Click(object sender, EventArgs e)
         {
+            ArrayList changes = new ArrayList(sl.GetChanges());
+            List<int> skills = new List<int>();
+            for (int change = 0; change < skills.Count; change++)
+            {
+                skills = psr.GetRelations(sl.ReversePagLookup(Convert.ToInt32(changes[change])));
+                for (int skill = 0; skill < skills.Count; skill++)
+                {
+                    MessageBox.Show(Convert.ToString(skills[skill]));
+                }
+            }
+            sl.ResetChanges();
             sl.SetUnsavedChanges(false);
+
+            dataGridViewStudentLookup.Rows[2].Cells[2].ReadOnly = true;
+        }
+
+        private void checkBoxArchives_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

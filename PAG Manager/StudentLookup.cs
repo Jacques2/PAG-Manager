@@ -23,6 +23,16 @@ namespace PAG_Manager
         //tuple contains <studentID, pagID, date, int>
         ArrayList changes = new ArrayList();
         List<int> pagsWithData = new List<int>();
+        public int ReversePagLookup(int position)
+        {
+            int pagID = pagLookup.FirstOrDefault(x => x.Value == position).Key;
+            return pagID;
+        }
+        public int ReverseSkillLookup(int position)
+        {
+            int skillID = skillLookup.FirstOrDefault(x => x.Value == position).Key;
+            return skillID;
+        }
         public void SetUnsavedChanges(bool change)
         {
             unsavedChanges = change;
@@ -214,7 +224,7 @@ namespace PAG_Manager
         }
         public void AddChange(int column)
         {
-            if (changes.Contains(column))
+            if (changes.Contains(column) == false)
             {
                 changes.Add(column);
             }
@@ -243,13 +253,6 @@ namespace PAG_Manager
             else
             {
                 return false;
-            }
-        }
-        public void RemovePagWithData(int position)
-        {
-            if (pagsWithData.Contains(position))
-            {
-                pagsWithData.Remove(position);
             }
         }
     }
