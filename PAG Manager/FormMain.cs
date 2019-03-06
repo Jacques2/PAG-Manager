@@ -1067,6 +1067,16 @@ namespace PAG_Manager
             {
                 contents = "";
             }
+            if (contents == "" && e.RowIndex == 0)
+            {
+                List<int> skillIDs = new List<int>();
+                skillIDs = psr.GetRelations(sl.ReversePagLookup(e.ColumnIndex));
+                for (int skill = 0; skill < skillIDs.Count; skill++)
+                {
+                    int position = sl.LookupSkill(skillIDs[skill]);
+                    dataGridViewStudentLookup.Rows[position + 1].Cells[e.ColumnIndex].Value = null;
+                }
+            }
             if (contents != "" && e.RowIndex != 0)
             {
                 switch (dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value.ToString())
@@ -1168,7 +1178,7 @@ namespace PAG_Manager
             {
                 if (e.RowIndex == 0)
                 {
-                    if (Convert.ToString(dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value) != null)
+                    if (Convert.ToString(dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value) != null && Convert.ToString(dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value) != "")
                     {
                         if (Convert.ToString(dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value) == "Absent")
                         {
@@ -1182,6 +1192,13 @@ namespace PAG_Manager
                     else
                     {
                         dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.White;
+                        List<int> skillIDs = new List<int>();
+                        skillIDs = psr.GetRelations(sl.ReversePagLookup(e.ColumnIndex));
+                        for (int skill = 0; skill < skillIDs.Count; skill++)
+                        {
+                            int position = sl.LookupSkill(skillIDs[skill]);
+                            dataGridViewStudentLookup.Rows[position + 1].Cells[e.ColumnIndex].Value = null;
+                        }
                     }
                 }
                 else
@@ -1231,14 +1248,16 @@ namespace PAG_Manager
 
         private void buttonLookupSubmitModifications_Click(object sender, EventArgs e)
         {
+            //first builds a new dictionary to store all the new data to be written to file
+            Dictionary<int, string> newData = new Dictionary<int, string>();
             ArrayList changes = new ArrayList(sl.GetChanges());
             List<int> skills = new List<int>();
-            for (int change = 0; change < skills.Count; change++)
+            for (int change = 0; change < changes.Count; change++)
             {
                 skills = psr.GetRelations(sl.ReversePagLookup(Convert.ToInt32(changes[change])));
                 for (int skill = 0; skill < skills.Count; skill++)
                 {
-                    MessageBox.Show(Convert.ToString(skills[skill]));
+                    //MessageBox.Show(Convert.ToString(skills[skill]));
                 }
             }
             sl.ResetChanges();
