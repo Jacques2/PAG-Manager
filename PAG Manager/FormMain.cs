@@ -308,13 +308,17 @@ namespace PAG_Manager
                 //MessageBox.Show(Convert.ToString(sl.GetStudentPosition(listBoxStudentNames.SelectedIndex)));
                 dataGridViewStudentLookup.Columns[0].HeaderText = Convert.ToString(listBoxStudentNames.SelectedItem + "\n X/12 Pags Required \n X/Y Skills Required");
                 //clears every cell
-                for (int rows = 0; rows < dataGridViewStudentLookup.Rows.Count; rows++)
+                for (int column = 1; column < dataGridViewStudentLookup.ColumnCount; column++)
                 {
-                    for (int cells = 1; cells < dataGridViewStudentLookup.Columns.Count; cells++)
+                    dataGridViewStudentLookup.Rows[0].Cells[column].Value = null;
+                    List<int> skillsInPag = new List<int>();
+                    skillsInPag = psr.GetRelations(sl.ReversePagLookup(column));
+                    for (int row = 0; row < dataGridViewStudentLookup.RowCount - 1; row++)
                     {
-                        if (Convert.ToString(dataGridViewStudentLookup.Rows[rows].Cells[cells].Value) != null)
+                        if (skillsInPag.Contains(sl.ReverseSkillLookup(row)) && dataGridViewStudentLookup.Rows[row + 1].Cells[column].Value != null)
                         {
-                            dataGridViewStudentLookup.Rows[rows].Cells[cells].Value = null;
+                            dataGridViewStudentLookup.Rows[row + 1].Cells[column].Style.BackColor = Color.White;
+                            dataGridViewStudentLookup.Rows[row + 1].Cells[column].Value = null;
                         }
                     }
                 }
@@ -332,20 +336,19 @@ namespace PAG_Manager
             {
                 for (int cell = 0; cell < dataGridViewStudentLookup.ColumnCount; cell++)
                 {
-                    dataGridViewStudentLookup.Rows[row].Cells[cell].Style.BackColor = Color.White;
                     if (Convert.ToString(dataGridViewStudentLookup.Rows[row].Cells[cell].Value) != "")
                     {
                         if (Convert.ToString(dataGridViewStudentLookup.Rows[row].Cells[cell].Value) == "Achieved")
                         {
-                            dataGridViewStudentLookup.Rows[row].Cells[cell].Style.BackColor = Color.Gold;
+                            dataGridViewStudentLookup.Rows[row].Cells[cell].Style.BackColor = Color.LawnGreen;
                         }
                         if (Convert.ToString(dataGridViewStudentLookup.Rows[row].Cells[cell].Value) == "Not Achieved")
                         {
-                            dataGridViewStudentLookup.Rows[row].Cells[cell].Style.BackColor = Color.OrangeRed;
+                            dataGridViewStudentLookup.Rows[row].Cells[cell].Style.BackColor = Color.FromArgb(241,130,48);
                         }
                         if (Convert.ToString(dataGridViewStudentLookup.Rows[row].Cells[cell].Value) == "Absent")
                         {
-                            dataGridViewStudentLookup.Rows[row].Cells[cell].Style.BackColor = Color.MediumPurple;
+                            dataGridViewStudentLookup.Rows[row].Cells[cell].Style.BackColor = Color.Yellow;
                         }
                     }
                 }
@@ -355,7 +358,14 @@ namespace PAG_Manager
                 dataGridViewStudentLookup.Rows[0].Cells[cell].Style.BackColor = Color.White;
                 if (dataGridViewStudentLookup.Rows[0].Cells[cell].Value != null)
                 {
-                    dataGridViewStudentLookup.Rows[0].Cells[cell].Style.BackColor = Color.LawnGreen;
+                    if (Convert.ToString(dataGridViewStudentLookup.Rows[0].Cells[cell].Value) == "Absent")
+                    {
+                        dataGridViewStudentLookup.Rows[0].Cells[cell].Style.BackColor = Color.Yellow;
+                    }
+                    else
+                    {
+                        dataGridViewStudentLookup.Rows[0].Cells[cell].Style.BackColor = Color.SkyBlue;
+                    }
                 }
             }
             dataGridViewStudentLookup.Enabled = true;
@@ -425,6 +435,7 @@ namespace PAG_Manager
             }
             if (Convert.ToString(tabControlMain.SelectedTab) == "TabPage: {Student Lookup}" && sl.GetUnsavedChanges() == false)
             {
+                listBoxStudentNames.SelectedIndex = -1;
                 dataGridViewStudentLookup.Enabled = false;
                 textBoxLookupName.Text = "";
                 //Prepares first time use of student lookup tab
@@ -1104,7 +1115,11 @@ namespace PAG_Manager
             else if (contents != "" && e.RowIndex == 0)
             {
                 DateTime inputDate = new DateTime();
-                if (DateTime.TryParse(dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value.ToString(), out inputDate))//check for valid datetime
+                if (dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value.ToString().ToLower().Contains("a"))
+                {
+                    dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value = "Absent";
+                }
+                else if (DateTime.TryParse(dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value.ToString(), out inputDate))//check for valid datetime
                 {
                     dataGridViewStudentLookup[e.ColumnIndex, 0].Value = inputDate.ToString("dd/MM/yyyy");
                 }
@@ -1128,9 +1143,16 @@ namespace PAG_Manager
             {
                 if (e.RowIndex == 0)
                 {
-                    if (Convert.ToString(dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value) != "")
+                    if (Convert.ToString(dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value) != null)
                     {
-                        dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.LawnGreen;
+                        if (Convert.ToString(dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value) == "Absent")
+                        {
+                            dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.Yellow;
+                        }
+                        else
+                        {
+                            dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.SkyBlue;
+                        }
                     }
                     else
                     {
@@ -1141,15 +1163,15 @@ namespace PAG_Manager
                 {
                     if (Convert.ToString(dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value) == "Achieved")
                     {
-                        dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.Gold;
+                        dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.LawnGreen;
                     }
                     else if (Convert.ToString(dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value) == "Not Achieved")
                     {
-                        dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.OrangeRed;
+                        dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.FromArgb(241, 130, 48);
                     }
                     else if (Convert.ToString(dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value) == "Absent")
                     {
-                        dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.MediumPurple;
+                        dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Style.BackColor = Color.Yellow;
                     }
                     else
                     {
@@ -1169,7 +1191,7 @@ namespace PAG_Manager
             {
                 if (dataGridViewStudentLookup.CurrentCell.ColumnIndex != 0)
                 {
-                    dataGridViewStudentLookup[dataGridViewStudentLookup.CurrentCell.ColumnIndex, dataGridViewStudentLookup.CurrentCell.RowIndex].Value = "";
+                    dataGridViewStudentLookup[dataGridViewStudentLookup.CurrentCell.ColumnIndex, dataGridViewStudentLookup.CurrentCell.RowIndex].Value = null;
                 }
             }
         }
