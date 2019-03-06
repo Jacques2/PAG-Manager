@@ -1098,9 +1098,17 @@ namespace PAG_Manager
                         {
                             case "0":
                                 dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value = "Achieved";
+                                if (dataGridViewStudentLookup[e.ColumnIndex,0].Value.ToString() == "Absent")
+                                {
+                                    dataGridViewStudentLookup[e.ColumnIndex, 0].Value = System.DateTime.Today.ToString("dd/MM/yyyy");
+                                }
                                 break;
                             case "1":
                                 dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value = "Not Achieved";
+                                if (dataGridViewStudentLookup[e.ColumnIndex, 0].Value.ToString() == "Absent")
+                                {
+                                    dataGridViewStudentLookup[e.ColumnIndex, 0].Value = System.DateTime.Today.ToString("dd/MM/yyyy");
+                                }
                                 break;
                             case "2":
                                 dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value = "Absent";
@@ -1118,14 +1126,31 @@ namespace PAG_Manager
                 if (dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value.ToString().ToLower().Contains("a"))
                 {
                     dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value = "Absent";
-                }
-                else if (DateTime.TryParse(dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value.ToString(), out inputDate))//check for valid datetime
-                {
-                    dataGridViewStudentLookup[e.ColumnIndex, 0].Value = inputDate.ToString("dd/MM/yyyy");
+                    List<int> skillIDs = new List<int>();
+                    skillIDs = psr.GetRelations(sl.ReversePagLookup(e.ColumnIndex));
+                    for (int skill = 0; skill < skillIDs.Count; skill++)
+                    {
+                        int position = sl.LookupSkill(skillIDs[skill]);
+                        dataGridViewStudentLookup.Rows[position + 1].Cells[e.ColumnIndex].Value = "Absent";
+                    }
                 }
                 else
                 {
-                    dataGridViewStudentLookup[e.ColumnIndex, 0].Value = System.DateTime.Today.ToString("dd/MM/yyyy");
+                    if (DateTime.TryParse(dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value.ToString(), out inputDate))//check for valid datetime
+                    {
+                        dataGridViewStudentLookup[e.ColumnIndex, 0].Value = inputDate.ToString("dd/MM/yyyy");
+                    }
+                    else
+                    {
+                        dataGridViewStudentLookup[e.ColumnIndex, 0].Value = System.DateTime.Today.ToString("dd/MM/yyyy");
+                    }
+                    List<int> skillIDs = new List<int>();
+                    skillIDs = psr.GetRelations(sl.ReversePagLookup(e.ColumnIndex));
+                    for (int skill = 0; skill < skillIDs.Count; skill++)
+                    {
+                        int position = sl.LookupSkill(skillIDs[skill]);
+                        dataGridViewStudentLookup.Rows[position + 1].Cells[e.ColumnIndex].Value = "Achieved";
+                    }
                 }
             }
             if (Convert.ToString(dataGridViewStudentLookup[e.ColumnIndex, 0].Value) == "" && e.RowIndex != 0 && contents != "")

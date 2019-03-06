@@ -33,6 +33,10 @@ namespace PAG_Manager
             int skillID = skillLookup.FirstOrDefault(x => x.Value == position).Key;
             return skillID;
         }
+        public int LookupSkill(int id)
+        {
+            return skillLookup[id];
+        }
         public void SetUnsavedChanges(bool change)
         {
             unsavedChanges = change;
