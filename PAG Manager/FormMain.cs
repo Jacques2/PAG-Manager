@@ -241,7 +241,16 @@ namespace PAG_Manager
 
         private void button2_Click(object sender, EventArgs e)//leave this for testing purposes
         {
-            
+            //lineChanger("yaaaa", AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagAchievement.csv",14);
+        }
+
+        static void lineChanger(string newText, string fileName, int line_to_edit)
+        {
+            string[] array = File.ReadAllLines(fileName);
+            List<string> arrLine = new List<string>(array);
+            arrLine[line_to_edit - 1] = newText;
+            arrLine.Add("TASTY");
+            File.WriteAllLines(fileName, arrLine);
         }
 
         public int FindNextIndex(string fileName)
@@ -325,6 +334,7 @@ namespace PAG_Manager
                 //gets every record and adds to table
                 List<Tuple<int, int, string>> lookupData = new List<Tuple<int, int, string>>();
                 lookupData = sl.LookupStudent(sl.GetStudentPosition(listBoxStudentNames.SelectedIndex));
+                sl.SetCurrentStudentID(sl.GetStudentPosition(listBoxStudentNames.SelectedIndex));
                 for (int record = 0; record < lookupData.Count; record++)
                 {
                     dataGridViewStudentLookup.Rows[lookupData[record].Item1].Cells[lookupData[record].Item2].Value = lookupData[record].Item3;
@@ -480,7 +490,8 @@ namespace PAG_Manager
                         }
                     }
                 }
-
+                //freezes the first column
+                dataGridViewStudentLookup.Columns[0].Frozen = true;
             }
         }
 
@@ -1077,7 +1088,7 @@ namespace PAG_Manager
                     dataGridViewStudentLookup.Rows[position + 1].Cells[e.ColumnIndex].Value = null;
                 }
             }
-            if (contents != "" && e.RowIndex != 0)
+            if (contents != "" && e.RowIndex != 0 && contents != null)
             {
                 switch (dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value.ToString())
                 {
@@ -1234,6 +1245,7 @@ namespace PAG_Manager
                 if (dataGridViewStudentLookup.CurrentCell.ColumnIndex != 0)
                 {
                     dataGridViewStudentLookup[dataGridViewStudentLookup.CurrentCell.ColumnIndex, dataGridViewStudentLookup.CurrentCell.RowIndex].Value = null;
+                    sl.AddChange(dataGridViewStudentLookup.CurrentCell.ColumnIndex);
                 }
             }
         }
@@ -1248,22 +1260,66 @@ namespace PAG_Manager
 
         private void buttonLookupSubmitModifications_Click(object sender, EventArgs e)
         {
-            //first builds a new dictionary to store all the new data to be written to file
+            //first builds a new arraylist to store all the new data to be written to file
             Dictionary<int, string> newData = new Dictionary<int, string>();
+            string dataString = "";
             ArrayList changes = new ArrayList(sl.GetChanges());
             List<int> skills = new List<int>();
+            int studentID = sl.GetCurrentStudentID();
             for (int change = 0; change < changes.Count; change++)
             {
+                int pagID = sl.ReversePagLookup(Convert.ToInt32(changes[change]));
+                int column = Convert.ToInt32(changes[change]);
+                dataString = studentID.ToString();
+                dataString += ",";
+                dataString += Convert.ToString(pagID);
+                dataString += ",";
+                dataString += dataGridViewStudentLookup[sl.LookupPag(Convert.ToInt32(changes[change]))-1,0].Value;
+                dataString += ",";
                 skills = psr.GetRelations(sl.ReversePagLookup(Convert.ToInt32(changes[change])));
-                for (int skill = 0; skill < skills.Count; skill++)
+                ArrayList skillOrder = new ArrayList(sl.GetSkillOrder(pagID));
+                for (int skill = 0; skill < skillOrder.Count; skill++)
                 {
-                    //MessageBox.Show(Convert.ToString(skills[skill]));
+                    //loops through every skill, setting cellContents to the contents of the skill, then translating that to skill
+                    int skillValue;
+                    string cellContents = "Not Achieved";
+                    try
+                    {
+                        cellContents = dataGridViewStudentLookup[Convert.ToInt32(changes[change]), sl.ReverseSkillLookup(Convert.ToInt32(skillOrder[skill])) + 1].Value.ToString();
+                    }
+                    catch
+                    {
+                        cellContents = "Not Achieved";
+                        dataGridViewStudentLookup[Convert.ToInt32(changes[change]), sl.ReverseSkillLookup(Convert.ToInt32(skillOrder[skill])) + 1].Value = "Not Achieved";
+                    }
+                    switch (cellContents)
+                    {
+                        case "Achieved":
+                            skillValue = 0;
+                            break;
+                        case "Not Achieved":
+                            skillValue = 1;
+                            break;
+                        case "Absent":
+                            skillValue = 2;
+                            break;
+                        default:
+                            //invalid contents so writing 9 which will get picked up later by the student lookup modify record
+                            skillValue = 9;
+                            break;
+                    }
+                    dataString += skillValue.ToString();
                 }
+                newData.Add(column,dataString);
             }
+            bool isSuccess = sl.UpdateStudentData(newData);//updates the student data and returns wether it succeded or not
             sl.ResetChanges();
             sl.SetUnsavedChanges(false);
-
-            dataGridViewStudentLookup.Rows[2].Cells[2].ReadOnly = true;
+            //changes tab if update fails so that fresh copy can be reloaded
+            if (isSuccess == false)
+            {
+                tabControlMain.SelectedIndex = 0;
+            }
         }
 
         private void checkBoxArchives_CheckedChanged(object sender, EventArgs e)

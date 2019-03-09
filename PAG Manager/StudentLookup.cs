@@ -19,10 +19,12 @@ namespace PAG_Manager
         Dictionary<int, Dictionary<int, Dictionary<int, string>>> studentInfo = new Dictionary<int, Dictionary<int, Dictionary<int, string>>>();
         Dictionary<int, int> skillLookup = new Dictionary<int, int>();
         Dictionary<int, int> pagLookup = new Dictionary<int, int>();
+        Dictionary<int, SortedList<int, Tuple<int, int>>> relations = new Dictionary<int, SortedList<int, Tuple<int, int>>>();
         bool unsavedChanges = false;
         //tuple contains <studentID, pagID, date, int>
         ArrayList changes = new ArrayList();
         List<int> pagsWithData = new List<int>();
+        int currentStudentID;
         public int ReversePagLookup(int position)
         {
             int pagID = pagLookup.FirstOrDefault(x => x.Value == position).Key;
@@ -36,6 +38,10 @@ namespace PAG_Manager
         public int LookupSkill(int id)
         {
             return skillLookup[id];
+        }
+        public int LookupPag(int id)
+        {
+            return pagLookup[id];
         }
         public void SetUnsavedChanges(bool change)
         {
@@ -116,21 +122,23 @@ namespace PAG_Manager
                 pagLineRead = pagReader.ReadLine();
             }
             //Reads all skill and pag info into a relations dictionary with key = pagId, value = (sorted list with key = skill position value = skillID)
-            Dictionary<int, SortedList<int, int>> relations = new Dictionary<int, SortedList<int, int>>();
+            relations.Clear();
             StreamReader relationReader = new StreamReader(fileLocation + "PagSkillRelation.csv");
             string relationLineRead;
             relationLineRead = relationReader.ReadLine();
+            int line = 0;
             while (relationLineRead != null)
             {
+                line++;
                 seperatedLine = relationLineRead.Split(new[] { "," }, StringSplitOptions.None);//decomposes the line into seperate variables
                 int pagID = Convert.ToInt32(seperatedLine[0]);
                 int skillID = Convert.ToInt32(seperatedLine[1]);
                 int skillPosition = Convert.ToInt32(seperatedLine[2]);
                 if (relations.ContainsKey(pagID) == false)//creates new entry for pag if no exist
                 {
-                    relations.Add(pagID, new SortedList<int, int>());
+                    relations.Add(pagID, new SortedList<int, Tuple<int, int>>());
                 }
-                relations[pagID].Add(skillPosition, skillID);
+                relations[pagID].Add(skillPosition, new Tuple<int, int>(skillID, line));
                 relationLineRead = relationReader.ReadLine();
             }
             //puts all student info into a dictionary with key = studentID value = (Dictionary key = PagID value = (Dictionary key = SkillID value = record))
@@ -160,19 +168,19 @@ namespace PAG_Manager
                     switch (Convert.ToString(seperatedSkills[skill]))
                     {
                         case "0":
-                            skillStatus = "Not Achieved";
+                            skillStatus = "Achieved";
                             break;
                         case "1":
-                            skillStatus = "Achieved";
+                            skillStatus = "Not Achieved";
                             break;
                         case "2":
                             skillStatus = "Absent";
                             break;
                         default:
-                            skillStatus = "?";
+                            skillStatus = "";
                             break;
                     }
-                    studentInfo[studentID][pagID].Add(relations[pagID][skill],skillStatus);
+                    studentInfo[studentID][pagID].Add(relations[pagID][skill].Item1,skillStatus);
                 }
                 studentInfo[studentID][pagID].Add(-999, date);
                 studentLineRead = studentReader.ReadLine();
@@ -258,6 +266,57 @@ namespace PAG_Manager
             {
                 return false;
             }
+        }
+        public void SetCurrentStudentID(int id)
+        {
+            currentStudentID = id;
+        }
+        public int GetCurrentStudentID()
+        {
+            return currentStudentID;
+        }
+        public ArrayList GetSkillOrder(int pagId)
+        {
+            ArrayList skillOrder = new ArrayList();
+            for (int position = 0; position < relations[pagId].Count; position++)
+            {
+                skillOrder.Add(relations[pagId].ElementAt(position).Value.Item1);
+            }
+            return skillOrder;
+        }
+        public bool UpdateStudentData(Dictionary<int,string> newData)
+        {
+            bool success = true; //if the update fails, the program needs to switch tabs
+            //replaces or adds new data into the pag achievement data file
+            string[] array = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagAchievement.csv");
+            List<string> arrLine = new List<string>(array);
+            //copies the file in case the editing goes wrong
+            File.Copy(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagAchievement.csv", AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagAchievement.temp", true);
+            for (int record = 0; record < newData.Count; record++)
+            {
+                int column = newData.ElementAt(record).Key;
+                string dataLine = newData.ElementAt(record).Value;
+                if (pagsWithData.Contains(column))//checks if the data has to be overwritten or replaced
+                {
+                    //arrLine[line_to_edit - 1] = newText;
+                }
+                else//data does not exist in database
+                {
+                    arrLine.Add(dataLine);
+                }
+            }
+            //writing the new pag achievement to file
+            File.WriteAllLines(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagAchievement.csv", arrLine);
+            //checking if edit failed and reverting if so
+            string pagData = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagAchievement.csv");
+            if (pagData == "")
+            {
+                File.Copy(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagAchievement.temp", AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagAchievement.csv", true);
+                MessageBox.Show("Student edit failed. Reverting to previous student data", "Alert");
+                success = false;
+            }
+            File.Delete(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagAchievement.temp");
+            return success;
         }
     }
 }
