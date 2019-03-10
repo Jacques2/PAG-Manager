@@ -16,7 +16,7 @@ namespace PAG_Manager
         private ArrayList namePosition;
         public bool LoadState { get; set; } = false;//This is used to stop auto colouring of cells when the table loads
         ArrayList fullNamePositions = new ArrayList();
-        Dictionary<int, Dictionary<int, Dictionary<int, string>>> studentInfo = new Dictionary<int, Dictionary<int, Dictionary<int, string>>>();
+        Dictionary<int, Dictionary<int, Tuple<Dictionary<int, string>,int>>> studentInfo = new Dictionary<int, Dictionary<int, Tuple<Dictionary<int, string>, int>>>();
         Dictionary<int, int> skillLookup = new Dictionary<int, int>();
         Dictionary<int, int> pagLookup = new Dictionary<int, int>();
         Dictionary<int, SortedList<int, int>> relations = new Dictionary<int, SortedList<int, int>>();
@@ -108,6 +108,7 @@ namespace PAG_Manager
                 skillLookup.Add(Convert.ToInt32(seperatedLine[0]), index);
                 skillLineRead = skillReader.ReadLine();
             }
+            skillReader.Close();
             //Builds Dictionary with key = pagID, value = Position - Used for LookupStudent()
             pagLookup.Clear();
             StreamReader pagReader = new StreamReader(fileLocation + "PagList.csv");
@@ -121,15 +122,14 @@ namespace PAG_Manager
                 pagLookup.Add(Convert.ToInt32(seperatedLine[0]), index);
                 pagLineRead = pagReader.ReadLine();
             }
+            pagReader.Close();
             //Reads all skill and pag info into a relations dictionary with key = pagId, value = (sorted list with key = skill position value = skillID)
             relations.Clear();
             StreamReader relationReader = new StreamReader(fileLocation + "PagSkillRelation.csv");
             string relationLineRead;
             relationLineRead = relationReader.ReadLine();
-            int line = 0;
             while (relationLineRead != null)
             {
-                line++;
                 seperatedLine = relationLineRead.Split(new[] { "," }, StringSplitOptions.None);//decomposes the line into seperate variables
                 int pagID = Convert.ToInt32(seperatedLine[0]);
                 int skillID = Convert.ToInt32(seperatedLine[1]);
@@ -141,13 +141,16 @@ namespace PAG_Manager
                 relations[pagID].Add(skillPosition, skillID);
                 relationLineRead = relationReader.ReadLine();
             }
+            relationReader.Close();
             //puts all student info into a dictionary with key = studentID value = (Dictionary key = PagID value = tuple(Dictionary key = SkillID value = record), fileLine)
             studentInfo.Clear();
             StreamReader studentReader = new StreamReader(fileLocation + "PagAchievement.csv");
             string studentLineRead;
             studentLineRead = studentReader.ReadLine();
+            int currentLine = 0;
             while (studentLineRead != null)
             {
+                currentLine++;
                 seperatedLine = studentLineRead.Split(new[] { "," }, StringSplitOptions.None);//decomposes the line into seperate variables
                 int studentID = Convert.ToInt32(seperatedLine[0]);
                 int pagID = Convert.ToInt32(seperatedLine[1]);
@@ -156,11 +159,11 @@ namespace PAG_Manager
                 char[] seperatedSkills = combinedSkills.ToCharArray();
                 if (studentInfo.ContainsKey(studentID) == false)//creates new entry for student if not exist
                 {
-                    studentInfo.Add(studentID,new Dictionary<int, Dictionary<int, string>>());
+                    studentInfo.Add(studentID,new Dictionary<int, Tuple<Dictionary<int, string>, int>>());
                 }
                 if (studentInfo[studentID].ContainsKey(pagID) == false)//creates new entry for pag within student if not exist
                 {
-                    studentInfo[studentID].Add(pagID,new Dictionary<int, string>());
+                    studentInfo[studentID].Add(pagID,new Tuple<Dictionary<int, string>, int>(new Dictionary<int, string>(),currentLine));
                 }
                 for (int skill = 0; skill < seperatedSkills.Count(); skill++)
                 {
@@ -180,11 +183,12 @@ namespace PAG_Manager
                             skillStatus = "";
                             break;
                     }
-                    studentInfo[studentID][pagID].Add(relations[pagID][skill],skillStatus);
+                    studentInfo[studentID][pagID].Item1.Add(relations[pagID][skill],skillStatus);
                 }
-                studentInfo[studentID][pagID].Add(-999, date);
+                studentInfo[studentID][pagID].Item1.Add(-999, date);
                 studentLineRead = studentReader.ReadLine();
             }
+            studentReader.Close();
         }
         public List<Tuple<int, int, string>> LookupStudent(int studentID)
         {
@@ -193,9 +197,9 @@ namespace PAG_Manager
             {
                 for (int record = 0; record < studentInfo[studentID].Count; record++)
                 {
-                    for (int skill = 0; skill < studentInfo[studentID].ElementAt(record).Value.Count; skill++)
+                    for (int skill = 0; skill < studentInfo[studentID].ElementAt(record).Value.Item1.Count; skill++)
                     {//adds skill position, pag position and text to list
-                        lookupData.Add(new Tuple<int, int, string>(pagLookup[studentInfo[studentID].ElementAt(record).Value.ElementAt(skill).Key], pagLookup[studentInfo[studentID].ElementAt(record).Key], studentInfo[studentID].ElementAt(record).Value.ElementAt(skill).Value));
+                        lookupData.Add(new Tuple<int, int, string>(pagLookup[studentInfo[studentID].ElementAt(record).Value.Item1.ElementAt(skill).Key], pagLookup[studentInfo[studentID].ElementAt(record).Key], studentInfo[studentID].ElementAt(record).Value.Item1.ElementAt(skill).Value));
                     }
                 }
             }
@@ -301,6 +305,8 @@ namespace PAG_Manager
                     string[] seperatedLine = newData.ElementAt(record).Value.Split(new[] { "," }, StringSplitOptions.None);//decomposes the line into seperate variables
                     int studentID = Convert.ToInt32(seperatedLine[0]);
                     int pagID = Convert.ToInt32(seperatedLine[1]);
+                    int lineToReplace = studentInfo[studentID][pagID].Item2;
+                    arrLine[lineToReplace - 1] = dataLine;
                 }
                 else//data does not exist in database
                 {

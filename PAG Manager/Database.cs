@@ -131,6 +131,7 @@ namespace PAG_Manager
                 }
                 recordRead = recordReader.ReadLine();
             }
+            recordReader.Close();
             //build pag data into tableData
             string lineToWriteToTable;
             for (int student = 0; student < studentInfo.Count; student++)

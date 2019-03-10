@@ -241,16 +241,7 @@ namespace PAG_Manager
 
         private void button2_Click(object sender, EventArgs e)//leave this for testing purposes
         {
-            //lineChanger("yaaaa", AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagAchievement.csv",14);
-        }
 
-        static void lineChanger(string newText, string fileName, int line_to_edit)
-        {
-            string[] array = File.ReadAllLines(fileName);
-            List<string> arrLine = new List<string>(array);
-            arrLine[line_to_edit - 1] = newText;
-            arrLine.Add("TASTY");
-            File.WriteAllLines(fileName, arrLine);
         }
 
         public int FindNextIndex(string fileName)
@@ -927,7 +918,10 @@ namespace PAG_Manager
             //Part 3: Date
             DateTime dateCompleted = new DateTime();
             dateCompleted = dateTimePickerAwardPag.Value;
-            ap.AddPagAbsence(absentStudents, pagsCompletedByStudents);//The pags are the same for students that were absent, so the pags completed by student list works fine
+            if (absentStudents.Count != 0)//check if there is any need to add absenses
+            {
+                ap.AddPagAbsence(absentStudents, pagsCompletedByStudents);//The pags are the same for students that were absent, so the pags completed by student list works fine
+            }
             ap.AddPagAwards(studentsToAwardPag, pagsCompletedByStudents, dateCompleted, skillsFailed);
             ReloadAllData(false);
         }
