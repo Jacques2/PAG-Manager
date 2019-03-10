@@ -217,11 +217,11 @@ namespace PAG_Manager
                 {
                     if (skillsFailed[Convert.ToInt32(pagsCompleted[pag])].Contains(Convert.ToInt32(skillPositions[skill])))
                     {
-                        skillsCompleted[pag] += "0";
+                        skillsCompleted[pag] += "1";
                     }
                     else
                     {
-                        skillsCompleted[pag] += "1";
+                        skillsCompleted[pag] += "0";
                     }
                 }
 

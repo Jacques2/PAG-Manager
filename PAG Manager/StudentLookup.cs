@@ -19,7 +19,7 @@ namespace PAG_Manager
         Dictionary<int, Dictionary<int, Dictionary<int, string>>> studentInfo = new Dictionary<int, Dictionary<int, Dictionary<int, string>>>();
         Dictionary<int, int> skillLookup = new Dictionary<int, int>();
         Dictionary<int, int> pagLookup = new Dictionary<int, int>();
-        Dictionary<int, SortedList<int, Tuple<int, int>>> relations = new Dictionary<int, SortedList<int, Tuple<int, int>>>();
+        Dictionary<int, SortedList<int, int>> relations = new Dictionary<int, SortedList<int, int>>();
         bool unsavedChanges = false;
         //tuple contains <studentID, pagID, date, int>
         ArrayList changes = new ArrayList();
@@ -136,12 +136,12 @@ namespace PAG_Manager
                 int skillPosition = Convert.ToInt32(seperatedLine[2]);
                 if (relations.ContainsKey(pagID) == false)//creates new entry for pag if no exist
                 {
-                    relations.Add(pagID, new SortedList<int, Tuple<int, int>>());
+                    relations.Add(pagID, new SortedList<int, int>());
                 }
-                relations[pagID].Add(skillPosition, new Tuple<int, int>(skillID, line));
+                relations[pagID].Add(skillPosition, skillID);
                 relationLineRead = relationReader.ReadLine();
             }
-            //puts all student info into a dictionary with key = studentID value = (Dictionary key = PagID value = (Dictionary key = SkillID value = record))
+            //puts all student info into a dictionary with key = studentID value = (Dictionary key = PagID value = tuple(Dictionary key = SkillID value = record), fileLine)
             studentInfo.Clear();
             StreamReader studentReader = new StreamReader(fileLocation + "PagAchievement.csv");
             string studentLineRead;
@@ -180,7 +180,7 @@ namespace PAG_Manager
                             skillStatus = "";
                             break;
                     }
-                    studentInfo[studentID][pagID].Add(relations[pagID][skill].Item1,skillStatus);
+                    studentInfo[studentID][pagID].Add(relations[pagID][skill],skillStatus);
                 }
                 studentInfo[studentID][pagID].Add(-999, date);
                 studentLineRead = studentReader.ReadLine();
@@ -280,7 +280,7 @@ namespace PAG_Manager
             ArrayList skillOrder = new ArrayList();
             for (int position = 0; position < relations[pagId].Count; position++)
             {
-                skillOrder.Add(relations[pagId].ElementAt(position).Value.Item1);
+                skillOrder.Add(relations[pagId].ElementAt(position).Value);
             }
             return skillOrder;
         }
@@ -298,7 +298,9 @@ namespace PAG_Manager
                 string dataLine = newData.ElementAt(record).Value;
                 if (pagsWithData.Contains(column))//checks if the data has to be overwritten or replaced
                 {
-                    //arrLine[line_to_edit - 1] = newText;
+                    string[] seperatedLine = newData.ElementAt(record).Value.Split(new[] { "," }, StringSplitOptions.None);//decomposes the line into seperate variables
+                    int studentID = Convert.ToInt32(seperatedLine[0]);
+                    int pagID = Convert.ToInt32(seperatedLine[1]);
                 }
                 else//data does not exist in database
                 {

@@ -119,7 +119,7 @@ namespace PAG_Manager
                 char[] skillSplit = currentSkillID.ToCharArray();
                 for (int skill = 0; skill < skillSplit.Count(); skill++)//goes through each skill
                 {
-                    if (Convert.ToInt32(skillSplit[skill]) == Convert.ToChar('1'))//checks if skill is complete
+                    if (Convert.ToInt32(skillSplit[skill]) == Convert.ToChar('0'))//checks if skill is complete
                     {
                         if (pagRecord[currentStudentID].ContainsKey(psrData[currentPagID][skill]) == false)
                         {
