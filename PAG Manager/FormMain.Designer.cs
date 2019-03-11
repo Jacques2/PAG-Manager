@@ -650,7 +650,7 @@
             this.buttonLookupSubmitModifications.Name = "buttonLookupSubmitModifications";
             this.buttonLookupSubmitModifications.Size = new System.Drawing.Size(92, 23);
             this.buttonLookupSubmitModifications.TabIndex = 6;
-            this.buttonLookupSubmitModifications.Text = "Update Record";
+            this.buttonLookupSubmitModifications.Text = "Save Changes";
             this.buttonLookupSubmitModifications.UseVisualStyleBackColor = true;
             this.buttonLookupSubmitModifications.Click += new System.EventHandler(this.buttonLookupSubmitModifications_Click);
             // 

@@ -1314,6 +1314,7 @@ namespace PAG_Manager
             {
                 tabControlMain.SelectedIndex = 0;
             }
+            ReloadAllData(false);
         }
 
         private void checkBoxArchives_CheckedChanged(object sender, EventArgs e)
