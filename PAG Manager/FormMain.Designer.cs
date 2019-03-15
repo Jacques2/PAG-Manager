@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabActivitySelection = new System.Windows.Forms.TabPage();
@@ -87,6 +87,7 @@
             this.buttonAwardPag = new System.Windows.Forms.Button();
             this.labelPagAwardSettingsSelectDate = new System.Windows.Forms.Label();
             this.dateTimePickerAwardPag = new System.Windows.Forms.DateTimePicker();
+            this.tabReport = new System.Windows.Forms.TabPage();
             this.tabAdmin = new System.Windows.Forms.TabPage();
             this.tabControlAdmin = new System.Windows.Forms.TabControl();
             this.tabGeneral = new System.Windows.Forms.TabPage();
@@ -124,6 +125,17 @@
             this.SkillRequirementsTableSkillName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SkillRequirementsTableRequiredAmount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonSaveSkillRequirement = new System.Windows.Forms.Button();
+            this.tabGroup = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanelPagGroup = new System.Windows.Forms.TableLayoutPanel();
+            this.pagGroupToolStrip = new System.Windows.Forms.ToolStrip();
+            this.pagGroupToolStripLabel = new System.Windows.Forms.ToolStripLabel();
+            this.pagGroupToolStripTextBox = new System.Windows.Forms.ToolStripTextBox();
+            this.pagGroupToolStripSeperator = new System.Windows.Forms.ToolStripSeparator();
+            this.pagGroupToolStripButtonAdd = new System.Windows.Forms.ToolStripButton();
+            this.pagGroupToolStripRemove = new System.Windows.Forms.ToolStripButton();
+            this.pagGroupToolStripSave = new System.Windows.Forms.ToolStripButton();
+            this.listBoxGroupList = new System.Windows.Forms.ListBox();
+            this.checkedListBoxPagList = new System.Windows.Forms.CheckedListBox();
             this.tabStudentImport = new System.Windows.Forms.TabPage();
             this.tableLayoutPanelImportStudents = new System.Windows.Forms.TableLayoutPanel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
@@ -143,18 +155,6 @@
             this.openManualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialogImportCSV = new System.Windows.Forms.OpenFileDialog();
-            this.tabReport = new System.Windows.Forms.TabPage();
-            this.tabGroup = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanelPagGroup = new System.Windows.Forms.TableLayoutPanel();
-            this.pagGroupToolStrip = new System.Windows.Forms.ToolStrip();
-            this.pagGroupToolStripLabel = new System.Windows.Forms.ToolStripLabel();
-            this.pagGroupToolStripTextBox = new System.Windows.Forms.ToolStripTextBox();
-            this.pagGroupToolStripSeperator = new System.Windows.Forms.ToolStripSeparator();
-            this.pagGroupToolStripButtonAdd = new System.Windows.Forms.ToolStripButton();
-            this.pagGroupToolStripRemove = new System.Windows.Forms.ToolStripButton();
-            this.pagGroupToolStripSave = new System.Windows.Forms.ToolStripButton();
-            this.listBoxGroupList = new System.Windows.Forms.ListBox();
-            this.checkedListBoxPagList = new System.Windows.Forms.CheckedListBox();
             this.tabControlMain.SuspendLayout();
             this.tabActivitySelection.SuspendLayout();
             this.tableLayoutPanelActivitySelection.SuspendLayout();
@@ -188,14 +188,14 @@
             this.tabSkillRequirements.SuspendLayout();
             this.tableLayoutPanelSkillRequirement.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSkillRequirement)).BeginInit();
+            this.tabGroup.SuspendLayout();
+            this.tableLayoutPanelPagGroup.SuspendLayout();
+            this.pagGroupToolStrip.SuspendLayout();
             this.tabStudentImport.SuspendLayout();
             this.tableLayoutPanelImportStudents.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudentImport)).BeginInit();
             this.menuStripMain.SuspendLayout();
-            this.tabGroup.SuspendLayout();
-            this.tableLayoutPanelPagGroup.SuspendLayout();
-            this.pagGroupToolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlMain
@@ -714,14 +714,14 @@
             this.dataGridViewStudentLookup.AllowUserToAddRows = false;
             this.dataGridViewStudentLookup.AllowUserToDeleteRows = false;
             this.dataGridViewStudentLookup.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewStudentLookup.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewStudentLookup.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewStudentLookup.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewStudentLookup.Location = new System.Drawing.Point(183, 63);
             this.dataGridViewStudentLookup.Name = "dataGridViewStudentLookup";
@@ -870,6 +870,16 @@
             this.dateTimePickerAwardPag.Size = new System.Drawing.Size(170, 20);
             this.dateTimePickerAwardPag.TabIndex = 3;
             this.dateTimePickerAwardPag.ValueChanged += new System.EventHandler(this.dateTimePickerAwardPag_ValueChanged);
+            // 
+            // tabReport
+            // 
+            this.tabReport.Location = new System.Drawing.Point(4, 22);
+            this.tabReport.Name = "tabReport";
+            this.tabReport.Padding = new System.Windows.Forms.Padding(3);
+            this.tabReport.Size = new System.Drawing.Size(776, 511);
+            this.tabReport.TabIndex = 7;
+            this.tabReport.Text = "Student Report";
+            this.tabReport.UseVisualStyleBackColor = true;
             // 
             // tabAdmin
             // 
@@ -1261,6 +1271,117 @@
             this.buttonSaveSkillRequirement.UseVisualStyleBackColor = true;
             this.buttonSaveSkillRequirement.Click += new System.EventHandler(this.buttonSaveSkillRequirement_Click);
             // 
+            // tabGroup
+            // 
+            this.tabGroup.Controls.Add(this.tableLayoutPanelPagGroup);
+            this.tabGroup.Location = new System.Drawing.Point(4, 22);
+            this.tabGroup.Name = "tabGroup";
+            this.tabGroup.Padding = new System.Windows.Forms.Padding(3);
+            this.tabGroup.Size = new System.Drawing.Size(762, 479);
+            this.tabGroup.TabIndex = 5;
+            this.tabGroup.Text = "PAG Groups";
+            this.tabGroup.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanelPagGroup
+            // 
+            this.tableLayoutPanelPagGroup.ColumnCount = 2;
+            this.tableLayoutPanelPagGroup.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelPagGroup.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelPagGroup.Controls.Add(this.pagGroupToolStrip, 0, 0);
+            this.tableLayoutPanelPagGroup.Controls.Add(this.listBoxGroupList, 0, 1);
+            this.tableLayoutPanelPagGroup.Controls.Add(this.checkedListBoxPagList, 1, 1);
+            this.tableLayoutPanelPagGroup.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelPagGroup.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanelPagGroup.Name = "tableLayoutPanelPagGroup";
+            this.tableLayoutPanelPagGroup.RowCount = 2;
+            this.tableLayoutPanelPagGroup.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanelPagGroup.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelPagGroup.Size = new System.Drawing.Size(756, 473);
+            this.tableLayoutPanelPagGroup.TabIndex = 1;
+            // 
+            // pagGroupToolStrip
+            // 
+            this.pagGroupToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.pagGroupToolStripLabel,
+            this.pagGroupToolStripTextBox,
+            this.pagGroupToolStripSeperator,
+            this.pagGroupToolStripButtonAdd,
+            this.pagGroupToolStripRemove,
+            this.pagGroupToolStripSave});
+            this.pagGroupToolStrip.Location = new System.Drawing.Point(0, 0);
+            this.pagGroupToolStrip.Name = "pagGroupToolStrip";
+            this.pagGroupToolStrip.Size = new System.Drawing.Size(378, 25);
+            this.pagGroupToolStrip.TabIndex = 0;
+            this.pagGroupToolStrip.Text = "PAG list tool strip";
+            // 
+            // pagGroupToolStripLabel
+            // 
+            this.pagGroupToolStripLabel.Name = "pagGroupToolStripLabel";
+            this.pagGroupToolStripLabel.Size = new System.Drawing.Size(48, 22);
+            this.pagGroupToolStripLabel.Text = "Groups:";
+            // 
+            // pagGroupToolStripTextBox
+            // 
+            this.pagGroupToolStripTextBox.Name = "pagGroupToolStripTextBox";
+            this.pagGroupToolStripTextBox.Size = new System.Drawing.Size(226, 25);
+            this.pagGroupToolStripTextBox.TextChanged += new System.EventHandler(this.pagGroupToolStripTextBox_TextChanged);
+            // 
+            // pagGroupToolStripSeperator
+            // 
+            this.pagGroupToolStripSeperator.Name = "pagGroupToolStripSeperator";
+            this.pagGroupToolStripSeperator.Size = new System.Drawing.Size(6, 25);
+            // 
+            // pagGroupToolStripButtonAdd
+            // 
+            this.pagGroupToolStripButtonAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.pagGroupToolStripButtonAdd.Image = ((System.Drawing.Image)(resources.GetObject("pagGroupToolStripButtonAdd.Image")));
+            this.pagGroupToolStripButtonAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.pagGroupToolStripButtonAdd.Name = "pagGroupToolStripButtonAdd";
+            this.pagGroupToolStripButtonAdd.Size = new System.Drawing.Size(23, 22);
+            this.pagGroupToolStripButtonAdd.Text = "Add Record";
+            this.pagGroupToolStripButtonAdd.Click += new System.EventHandler(this.pagGroupToolStripButtonAdd_Click);
+            // 
+            // pagGroupToolStripRemove
+            // 
+            this.pagGroupToolStripRemove.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.pagGroupToolStripRemove.Image = ((System.Drawing.Image)(resources.GetObject("pagGroupToolStripRemove.Image")));
+            this.pagGroupToolStripRemove.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.pagGroupToolStripRemove.Name = "pagGroupToolStripRemove";
+            this.pagGroupToolStripRemove.Size = new System.Drawing.Size(23, 22);
+            this.pagGroupToolStripRemove.Text = "Remove Record";
+            this.pagGroupToolStripRemove.Click += new System.EventHandler(this.pagGroupToolStripRemove_Click);
+            // 
+            // pagGroupToolStripSave
+            // 
+            this.pagGroupToolStripSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.pagGroupToolStripSave.Image = ((System.Drawing.Image)(resources.GetObject("pagGroupToolStripSave.Image")));
+            this.pagGroupToolStripSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.pagGroupToolStripSave.Name = "pagGroupToolStripSave";
+            this.pagGroupToolStripSave.Size = new System.Drawing.Size(23, 22);
+            this.pagGroupToolStripSave.Text = "Save Data";
+            this.pagGroupToolStripSave.Click += new System.EventHandler(this.pagGroupToolStripSave_Click);
+            // 
+            // listBoxGroupList
+            // 
+            this.listBoxGroupList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBoxGroupList.FormattingEnabled = true;
+            this.listBoxGroupList.Location = new System.Drawing.Point(3, 28);
+            this.listBoxGroupList.Name = "listBoxGroupList";
+            this.listBoxGroupList.Size = new System.Drawing.Size(372, 442);
+            this.listBoxGroupList.TabIndex = 1;
+            this.listBoxGroupList.SelectedIndexChanged += new System.EventHandler(this.listBoxGroupList_SelectedIndexChanged);
+            // 
+            // checkedListBoxPagList
+            // 
+            this.checkedListBoxPagList.CheckOnClick = true;
+            this.checkedListBoxPagList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkedListBoxPagList.FormattingEnabled = true;
+            this.checkedListBoxPagList.Location = new System.Drawing.Point(381, 28);
+            this.checkedListBoxPagList.Name = "checkedListBoxPagList";
+            this.checkedListBoxPagList.Size = new System.Drawing.Size(372, 442);
+            this.checkedListBoxPagList.TabIndex = 2;
+            this.checkedListBoxPagList.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.checkedListBoxPagList_ItemCheck);
+            // 
             // tabStudentImport
             // 
             this.tabStudentImport.Controls.Add(this.tableLayoutPanelImportStudents);
@@ -1435,124 +1556,6 @@
             this.openFileDialogImportCSV.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogImportCSV_FileOk);
             this.openFileDialogImportCSV.HelpRequest += new System.EventHandler(this.openFileDialogImportCSV_HelpRequest);
             // 
-            // tabReport
-            // 
-            this.tabReport.Location = new System.Drawing.Point(4, 22);
-            this.tabReport.Name = "tabReport";
-            this.tabReport.Padding = new System.Windows.Forms.Padding(3);
-            this.tabReport.Size = new System.Drawing.Size(776, 511);
-            this.tabReport.TabIndex = 7;
-            this.tabReport.Text = "Student Report";
-            this.tabReport.UseVisualStyleBackColor = true;
-            // 
-            // tabGroup
-            // 
-            this.tabGroup.Controls.Add(this.tableLayoutPanelPagGroup);
-            this.tabGroup.Location = new System.Drawing.Point(4, 22);
-            this.tabGroup.Name = "tabGroup";
-            this.tabGroup.Padding = new System.Windows.Forms.Padding(3);
-            this.tabGroup.Size = new System.Drawing.Size(762, 479);
-            this.tabGroup.TabIndex = 5;
-            this.tabGroup.Text = "PAG Groups";
-            this.tabGroup.UseVisualStyleBackColor = true;
-            // 
-            // tableLayoutPanelPagGroup
-            // 
-            this.tableLayoutPanelPagGroup.ColumnCount = 2;
-            this.tableLayoutPanelPagGroup.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelPagGroup.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelPagGroup.Controls.Add(this.pagGroupToolStrip, 0, 0);
-            this.tableLayoutPanelPagGroup.Controls.Add(this.listBoxGroupList, 0, 1);
-            this.tableLayoutPanelPagGroup.Controls.Add(this.checkedListBoxPagList, 1, 1);
-            this.tableLayoutPanelPagGroup.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelPagGroup.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanelPagGroup.Name = "tableLayoutPanelPagGroup";
-            this.tableLayoutPanelPagGroup.RowCount = 2;
-            this.tableLayoutPanelPagGroup.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanelPagGroup.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelPagGroup.Size = new System.Drawing.Size(756, 473);
-            this.tableLayoutPanelPagGroup.TabIndex = 1;
-            // 
-            // pagGroupToolStrip
-            // 
-            this.pagGroupToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.pagGroupToolStripLabel,
-            this.pagGroupToolStripTextBox,
-            this.pagGroupToolStripSeperator,
-            this.pagGroupToolStripButtonAdd,
-            this.pagGroupToolStripRemove,
-            this.pagGroupToolStripSave});
-            this.pagGroupToolStrip.Location = new System.Drawing.Point(0, 0);
-            this.pagGroupToolStrip.Name = "pagGroupToolStrip";
-            this.pagGroupToolStrip.Size = new System.Drawing.Size(378, 25);
-            this.pagGroupToolStrip.TabIndex = 0;
-            this.pagGroupToolStrip.Text = "PAG list tool strip";
-            // 
-            // pagGroupToolStripLabel
-            // 
-            this.pagGroupToolStripLabel.Name = "pagGroupToolStripLabel";
-            this.pagGroupToolStripLabel.Size = new System.Drawing.Size(48, 22);
-            this.pagGroupToolStripLabel.Text = "Groups:";
-            // 
-            // pagGroupToolStripTextBox
-            // 
-            this.pagGroupToolStripTextBox.Name = "pagGroupToolStripTextBox";
-            this.pagGroupToolStripTextBox.Size = new System.Drawing.Size(226, 25);
-            this.pagGroupToolStripTextBox.TextChanged += new System.EventHandler(this.pagGroupToolStripTextBox_TextChanged);
-            // 
-            // pagGroupToolStripSeperator
-            // 
-            this.pagGroupToolStripSeperator.Name = "pagGroupToolStripSeperator";
-            this.pagGroupToolStripSeperator.Size = new System.Drawing.Size(6, 25);
-            // 
-            // pagGroupToolStripButtonAdd
-            // 
-            this.pagGroupToolStripButtonAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.pagGroupToolStripButtonAdd.Image = ((System.Drawing.Image)(resources.GetObject("pagGroupToolStripButtonAdd.Image")));
-            this.pagGroupToolStripButtonAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.pagGroupToolStripButtonAdd.Name = "pagGroupToolStripButtonAdd";
-            this.pagGroupToolStripButtonAdd.Size = new System.Drawing.Size(23, 22);
-            this.pagGroupToolStripButtonAdd.Text = "Add Record";
-            this.pagGroupToolStripButtonAdd.Click += new System.EventHandler(this.pagGroupToolStripButtonAdd_Click);
-            // 
-            // pagGroupToolStripRemove
-            // 
-            this.pagGroupToolStripRemove.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.pagGroupToolStripRemove.Image = ((System.Drawing.Image)(resources.GetObject("pagGroupToolStripRemove.Image")));
-            this.pagGroupToolStripRemove.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.pagGroupToolStripRemove.Name = "pagGroupToolStripRemove";
-            this.pagGroupToolStripRemove.Size = new System.Drawing.Size(23, 22);
-            this.pagGroupToolStripRemove.Text = "Remove Record";
-            this.pagGroupToolStripRemove.Click += new System.EventHandler(this.pagGroupToolStripRemove_Click);
-            // 
-            // pagGroupToolStripSave
-            // 
-            this.pagGroupToolStripSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.pagGroupToolStripSave.Image = ((System.Drawing.Image)(resources.GetObject("pagGroupToolStripSave.Image")));
-            this.pagGroupToolStripSave.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.pagGroupToolStripSave.Name = "pagGroupToolStripSave";
-            this.pagGroupToolStripSave.Size = new System.Drawing.Size(23, 22);
-            this.pagGroupToolStripSave.Text = "Save Data";
-            // 
-            // listBoxGroupList
-            // 
-            this.listBoxGroupList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBoxGroupList.FormattingEnabled = true;
-            this.listBoxGroupList.Location = new System.Drawing.Point(3, 28);
-            this.listBoxGroupList.Name = "listBoxGroupList";
-            this.listBoxGroupList.Size = new System.Drawing.Size(372, 442);
-            this.listBoxGroupList.TabIndex = 1;
-            this.listBoxGroupList.SelectedIndexChanged += new System.EventHandler(this.listBoxGroupList_SelectedIndexChanged);
-            // 
-            // checkedListBoxPagList
-            // 
-            this.checkedListBoxPagList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkedListBoxPagList.FormattingEnabled = true;
-            this.checkedListBoxPagList.Location = new System.Drawing.Point(381, 28);
-            this.checkedListBoxPagList.Name = "checkedListBoxPagList";
-            this.checkedListBoxPagList.Size = new System.Drawing.Size(372, 442);
-            this.checkedListBoxPagList.TabIndex = 2;
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1609,6 +1612,11 @@
             this.tabSkillRequirements.ResumeLayout(false);
             this.tableLayoutPanelSkillRequirement.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSkillRequirement)).EndInit();
+            this.tabGroup.ResumeLayout(false);
+            this.tableLayoutPanelPagGroup.ResumeLayout(false);
+            this.tableLayoutPanelPagGroup.PerformLayout();
+            this.pagGroupToolStrip.ResumeLayout(false);
+            this.pagGroupToolStrip.PerformLayout();
             this.tabStudentImport.ResumeLayout(false);
             this.tableLayoutPanelImportStudents.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
@@ -1616,11 +1624,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudentImport)).EndInit();
             this.menuStripMain.ResumeLayout(false);
             this.menuStripMain.PerformLayout();
-            this.tabGroup.ResumeLayout(false);
-            this.tableLayoutPanelPagGroup.ResumeLayout(false);
-            this.tableLayoutPanelPagGroup.PerformLayout();
-            this.pagGroupToolStrip.ResumeLayout(false);
-            this.pagGroupToolStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -1338,8 +1338,9 @@ namespace PAG_Manager
         }
 
         private void pagGroupToolStripButtonAdd_Click(object sender, EventArgs e)
-        {
-            listBoxGroupList.Items.Add("New PAG");
+        {//adds a new item, highlights it and adds an id for it in student report
+            listBoxGroupList.Items.Add("New Group");
+            sr.AddGroup();
             listBoxGroupList.SelectedIndex = listBoxGroupList.Items.Count - 1;
             pagGroupToolStripTextBox.Focus();
             pagGroupToolStripTextBox.SelectAll();
@@ -1349,6 +1350,7 @@ namespace PAG_Manager
         {
             if (listBoxGroupList.SelectedIndex != -1)
             {
+                sr.DeleteGroup(listBoxGroupList.SelectedIndex);
                 listBoxGroupList.Items.RemoveAt(listBoxGroupList.SelectedIndex);
             }
         }
@@ -1366,6 +1368,7 @@ namespace PAG_Manager
             {
                 listBoxGroupList.Items[listBoxGroupList.SelectedIndex] = pagGroupToolStripTextBox.Text;
             }
+            sr.RenameGroup(sr.GetGroupId(listBoxGroupList.SelectedIndex), pagGroupToolStripTextBox.Text);
         }
 
         private void listBoxGroupList_SelectedIndexChanged(object sender, EventArgs e)
@@ -1379,15 +1382,36 @@ namespace PAG_Manager
                 }
                 pagGroupToolStripTextBox.Text = (Convert.ToString(listBoxGroupList.SelectedItem));
                 //gets list of pags for each group
-                Dictionary<int, Tuple<string, List<int>>> groupInfo = new Dictionary<int, Tuple<string, List<int>>>();
-                groupInfo = sr.GetGroupInfo();
                 List<int> pagsInGroup = new List<int>();
-                pagsInGroup = groupInfo.ElementAt(listBoxGroupList.SelectedIndex).Value.Item2;
+                pagsInGroup = sr.GetGroupPagList(sr.GetGroupId(listBoxGroupList.SelectedIndex));
                 for (int i = 0; i < pagsInGroup.Count; i++)
                 {
                     checkedListBoxPagList.SetItemCheckState(sl.LookupPag(pagsInGroup[i])-1,CheckState.Checked);
                 }
             }
+        }
+
+        private void checkedListBoxPagList_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            if (checkedListBoxPagList.SelectedIndex != -1)
+            {
+                int groupID = sr.GetGroupId(listBoxGroupList.SelectedIndex);
+                if (e.NewValue == CheckState.Checked)
+                {
+                    sr.AddPagToGroup(groupID, sl.ReversePagLookup(checkedListBoxPagList.SelectedIndex + 1));
+                }
+                else
+                {
+                    sr.RemovePagFromGroup(groupID, sl.ReversePagLookup(checkedListBoxPagList.SelectedIndex + 1));
+                }
+                checkedListBoxPagList.SelectedIndex = -1;
+            }
+        }
+
+        private void pagGroupToolStripSave_Click(object sender, EventArgs e)
+        {
+            sr.WritePagGroupInfo();
+            ReloadAllData(true);
         }
     }
 }
