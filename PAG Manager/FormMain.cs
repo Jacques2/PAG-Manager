@@ -22,6 +22,7 @@ namespace PAG_Manager
         Admin contentSelection = new Admin(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\");
         PagSkillRelation psr = new PagSkillRelation(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\");
         AwardPag ap = new AwardPag(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\");
+        StudentReport sr = new StudentReport(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\");
 
         public FormMain()//Initialising the form
         {
@@ -43,6 +44,8 @@ namespace PAG_Manager
             setupPagAchievement.Close();
             StreamWriter setupSkillRequirement = File.AppendText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\SkillRequirement.csv");
             setupSkillRequirement.Close();
+            StreamWriter setupPagGroup = File.AppendText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagGroup.csv");
+            setupPagGroup.Close();
             // HIDING ADMIN TAB
             //tabControlMain.TabPages.Remove(tabAdmin); //This line may be disabled while testing admin features, do not delete!
             ReloadAllSettings();
@@ -66,18 +69,22 @@ namespace PAG_Manager
         private void ReloadAllData(bool admin)//Reloads all data into the program when big changes are made
         {//The parameter decides if the admin stuff will be reloaded. This saves processing power if the user does not need admin functions.
             ArrayList pagList = ad.LoadData("PagList.csv");//Admin stuff and pag relations
+            //Load group information for student reports
+            sr.LoadGroupInformation();
             if (admin)
             {
                 listBoxPagList.Items.Clear();//Clears all items from boxes before re-adding them
                 listBoxPagRelation.Items.Clear();
                 listBoxSkillList.Items.Clear();
+                listBoxGroupList.Items.Clear();
                 dataGridViewSkillRequirement.Rows.Clear();
                 checkedListBoxSkillRelation.Items.Clear();
-
+                checkedListBoxPagList.Items.Clear();
                 for (int i = 0; i < pagList.Count; i++)//giving each entry a number
                 {
                     listBoxPagList.Items.Add(pagList[i]);
                     listBoxPagRelation.Items.Add(pagList[i]);
+                    checkedListBoxPagList.Items.Add(pagList[i]);
                 }
                 ArrayList skillList = ad.LoadData("SkillList.csv");
                 for (int i = 0; i < skillList.Count; i++)//giving each entry a number
@@ -92,6 +99,13 @@ namespace PAG_Manager
                 for (int skill = 0; skill < skillRequirement.Count; skill++)
                 {
                     dataGridViewSkillRequirement.Rows[skill].Cells[1].Value = Convert.ToString(skillRequirement[skill]);
+                }
+                //builds group table
+                Dictionary<int, Tuple<string, List<int>>> groupInfo = new Dictionary<int, Tuple<string, List<int>>>();
+                groupInfo = sr.GetGroupInfo();
+                for (int group = 0; group < groupInfo.Count; group++)
+                {
+                    listBoxGroupList.Items.Add(groupInfo.ElementAt(group).Value.Item1);
                 }
             }
             psr.StartNewRelation(pagList.Count);
@@ -157,7 +171,7 @@ namespace PAG_Manager
             ArrayList pagHeaders = pd.LoadHeaders();
             for (int i = 0; i < pagHeaders.Count; i++)
             {
-                dataGridViewPag.Columns.Add("Skill" + Convert.ToString(i), Convert.ToString(pagHeaders[i]));
+                dataGridViewPag.Columns.Add("Pag" + Convert.ToString(i), Convert.ToString(pagHeaders[i]));
             }
             ArrayList tableData = new ArrayList();
             tableData = pd.LoadPagData();
@@ -490,6 +504,7 @@ namespace PAG_Manager
         {
             pagListToolStripTextBox.Size = new Size((tabControlAdmin.Size.Width / 2) - 148, 25);
             skillListToolStripTextBox.Size = new Size((tabControlAdmin.Size.Width / 2) - 148, 25);
+            pagGroupToolStripTextBox.Size = new Size((tabControlAdmin.Size.Width / 2) - 148, 25);
         }
 
         private void listBoxPagList_SelectedIndexChanged(object sender, EventArgs e)//ADMIN: Sets the text box text to the selected list box value
@@ -1319,7 +1334,60 @@ namespace PAG_Manager
 
         private void checkBoxArchives_CheckedChanged(object sender, EventArgs e)
         {
+            //check archives button clicked in student lookup
+        }
 
+        private void pagGroupToolStripButtonAdd_Click(object sender, EventArgs e)
+        {
+            listBoxGroupList.Items.Add("New PAG");
+            listBoxGroupList.SelectedIndex = listBoxGroupList.Items.Count - 1;
+            pagGroupToolStripTextBox.Focus();
+            pagGroupToolStripTextBox.SelectAll();
+        }
+
+        private void pagGroupToolStripRemove_Click(object sender, EventArgs e)
+        {
+            if (listBoxGroupList.SelectedIndex != -1)
+            {
+                listBoxGroupList.Items.RemoveAt(listBoxGroupList.SelectedIndex);
+            }
+        }
+
+        private void pagGroupToolStripTextBox_TextChanged(object sender, EventArgs e)
+        {
+            int location;
+            if (pagGroupToolStripTextBox.Text.Contains(","))//filters out all commas and replaces them with semi-colons to avoid messing with the CSV files
+            {
+                location = pagGroupToolStripTextBox.SelectionStart;
+                pagGroupToolStripTextBox.Text = pagGroupToolStripTextBox.Text.Replace(",", ";");
+                pagGroupToolStripTextBox.SelectionStart = location;
+            }
+            if (listBoxGroupList.SelectedIndex != -1)
+            {
+                listBoxGroupList.Items[listBoxGroupList.SelectedIndex] = pagGroupToolStripTextBox.Text;
+            }
+        }
+
+        private void listBoxGroupList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBoxGroupList.SelectedIndex != -1)
+            {
+                //uncheck every box
+                for (int item = 0; item < checkedListBoxPagList.Items.Count; item++)
+                {
+                    checkedListBoxPagList.SetItemCheckState(item, CheckState.Unchecked);
+                }
+                pagGroupToolStripTextBox.Text = (Convert.ToString(listBoxGroupList.SelectedItem));
+                //gets list of pags for each group
+                Dictionary<int, Tuple<string, List<int>>> groupInfo = new Dictionary<int, Tuple<string, List<int>>>();
+                groupInfo = sr.GetGroupInfo();
+                List<int> pagsInGroup = new List<int>();
+                pagsInGroup = groupInfo.ElementAt(listBoxGroupList.SelectedIndex).Value.Item2;
+                for (int i = 0; i < pagsInGroup.Count; i++)
+                {
+                    checkedListBoxPagList.SetItemCheckState(sl.LookupPag(pagsInGroup[i])-1,CheckState.Checked);
+                }
+            }
         }
     }
 }
