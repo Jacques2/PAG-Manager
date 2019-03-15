@@ -118,6 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="PagGroup" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\MyAssets\PagGroup.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
   <data name="PagList" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\MyAssets\PagList.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
@@ -126,5 +129,8 @@
   </data>
   <data name="SkillList" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\MyAssets\SkillList.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="SkillRequirement" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\MyAssets\SkillRequirement.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
 </root>

@@ -78,9 +78,11 @@
     </Compile>
     <None Include="bin\Debug\SaveData\Current\PagList.csv" />
     <None Include="bin\Debug\SaveData\Current\SkillList.csv" />
+    <None Include="MyAssets\PagGroup.csv" />
     <None Include="MyAssets\PagList.csv" />
     <None Include="MyAssets\PagSkillRelation.csv" />
     <None Include="MyAssets\SkillList.csv" />
+    <None Include="MyAssets\SkillRequirement.csv" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -98,6 +100,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <None Include="Resources\SkillRequirement.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

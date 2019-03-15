@@ -61,12 +61,33 @@ namespace PAG_Manager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 000,Moles determination Activity 1 - Determination of the composition of copper(II) carbonate basic
-        ///001,Moles determination Activity 2 - Determination of relative atomic mass of magnesium
-        ///002,Moles determination Activity 3 - Determination of the formula for magnesium oxide
-        ///003,Acid-base titration Activity 1 - Determination of concentration of hydrochloric acid
-        ///004,Acid-base titration Activity 2 - Determination of the molar mass of an acid
-        ///005,Acid-base titration Activity 3 - Identification of an unknow [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to 0,Chemistry Group 1,0,1,2
+        ///1,Chemistry Group 2,3,4,5
+        ///2,Chemistry Group 3,6,7,8
+        ///3,Chemistry Group 4,9,10,11
+        ///4,Chemistry Group 5,12,13,14
+        ///5,Chemistry Group 6,15,16,17
+        ///6,Chemistry Group 7,18,19,20
+        ///7,Chemistry Group 8,21,22,23
+        ///8,Chemistry Group 9,24,25,26
+        ///9,Chemistry Group 10,27,28,29
+        ///10,Chemistry Group 11,30,31,32
+        ///11,Chemistry Group 12,33,34,35
+        ///.
+        /// </summary>
+        internal static string PagGroup {
+            get {
+                return ResourceManager.GetString("PagGroup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 000,1.1 Moles determination Activity 1 - Determination of the composition of copper(II) carbonate basic
+        ///001,1.2 Moles determination Activity 2 - Determination of relative atomic mass of magnesium
+        ///002,1.3 Moles determination Activity 3 - Determination of the formula for magnesium oxide
+        ///003,2.1 Acid-base titration Activity 1 - Determination of concentration of hydrochloric acid
+        ///004,2.2 Acid-base titration Activity 2 - Determination of the molar mass of an acid
+        ///005,2.3 Acid-base titration Activity 3 - Ide [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string PagList {
             get {
@@ -163,6 +184,49 @@ namespace PAG_Manager.Properties {
         internal static string SkillList {
             get {
                 return ResourceManager.GetString("SkillList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 0,1
+        ///1,1
+        ///2,1
+        ///3,1
+        ///4,1
+        ///5,1
+        ///6,1
+        ///7,1
+        ///8,1
+        ///9,1
+        ///10,1
+        ///11,1
+        ///12,1
+        ///13,1
+        ///14,1
+        ///15,1
+        ///16,1
+        ///17,1
+        ///18,1
+        ///19,1
+        ///20,1
+        ///21,1
+        ///22,1
+        ///23,1
+        ///24,1
+        ///25,1
+        ///26,1
+        ///27,1
+        ///28,1
+        ///29,5
+        ///30,5
+        ///31,5
+        ///32,5
+        ///33,5
+        ///.
+        /// </summary>
+        internal static string SkillRequirement {
+            get {
+                return ResourceManager.GetString("SkillRequirement", resourceCulture);
             }
         }
     }

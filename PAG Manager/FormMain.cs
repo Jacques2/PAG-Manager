@@ -590,6 +590,8 @@ namespace PAG_Manager
             File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagList.csv", (PAG_Manager.Properties.Resources.PagList));
             File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\SkillList.csv", (PAG_Manager.Properties.Resources.SkillList));
             File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagSkillRelation.csv", (PAG_Manager.Properties.Resources.PagSkillRelation));
+            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagGroup.csv", (PAG_Manager.Properties.Resources.PagGroup));
+            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\SkillRequirement.csv", (PAG_Manager.Properties.Resources.SkillRequirement));
             MessageBox.Show("Defaults successfully loaded", "PAG Manager");
             ReloadAllData(true);
         }
