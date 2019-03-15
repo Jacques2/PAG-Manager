@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
+using System.Collections;
 
 namespace PAG_Manager
 {
@@ -127,6 +128,75 @@ namespace PAG_Manager
         {
             groupInfo.Remove(GetGroupId(position));
             groupIdPosition.RemoveAt(position);
+        }
+        public int GetNumberOfStudents()
+        {
+            string[] array = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\StudentRecord.csv");
+            return array.Count();
+        }
+        //---------------------------------Below functions are for report generation--------------------------------
+        // dictionary has key = studentID, value = list(pags)
+        Dictionary<int, List<int>> studentPagData = new Dictionary<int, List<int>>();
+        Dictionary<int, List<int>> groupData = new Dictionary<int, List<int>>();
+        public void BuildPagList()
+        {
+            string lineRead;
+            string[] SeperatedLine;
+            StreamReader sr = new StreamReader(fileLocation + "PagAchievement.csv");
+            lineRead = sr.ReadLine();
+            while (lineRead != null)
+            {
+                SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                if (SeperatedLine[3] != "Absent")//checks to see if pag actually was achived
+                {
+                    int studentID = Convert.ToInt32(SeperatedLine[0]);
+                    int pagID = Convert.ToInt32(SeperatedLine[1]);
+                    if (studentPagData.ContainsKey(studentID) == false)//checks if student has been added so far
+                    {
+                        studentPagData.Add(studentID, new List<int>());
+                    }
+                    studentPagData[studentID].Add(pagID);
+                }
+                lineRead = sr.ReadLine();
+            }
+            sr.Close();
+        }
+        public ArrayList GetMissingGroups(int studentID)
+        {
+            ArrayList groupsFailed = new ArrayList();
+            for (int group = 0; group < groupInfo.Count; group++)
+            {
+                List<int> pagsInGroup = new List<int>(groupInfo.ElementAt(group).Value.Item2);
+                bool hasPassed = false;
+                for (int pag = 0; pag < pagsInGroup.Count; pag++)
+                {
+                    int pagID = pagsInGroup[pag];
+                    if (studentPagData[studentID].Contains(pagID))
+                    {
+                        hasPassed = true;
+                    }
+                }
+                if (hasPassed == false)
+                {
+                    groupsFailed.Add(groupInfo.ElementAt(group).Value.Item1);
+                }
+            }
+            return groupsFailed;
+        }
+        public Dictionary<int, Tuple<string, string, string, string>> GetAllStudentInformation()
+        {
+            Dictionary<int, Tuple<string, string, string, string>> studentInfo = new Dictionary<int, Tuple<string, string, string, string>>();
+            StreamReader studentReader = new StreamReader(fileLocation + "StudentRecord.csv");
+            string studentRead = studentReader.ReadLine();
+            string[] SeperatedLine;
+            while (studentRead != null)
+            {
+                SeperatedLine = studentRead.Split(new[] { "," }, StringSplitOptions.None);
+                studentInfo.Add(Convert.ToInt32(SeperatedLine[0]), Tuple.Create(SeperatedLine[1], SeperatedLine[2], SeperatedLine[3], SeperatedLine[4]));
+                studentRead = studentReader.ReadLine();
+            }
+            studentReader.Close();
+            return studentInfo;
         }
     }
 }

@@ -1415,5 +1415,52 @@ namespace PAG_Manager
             sr.WritePagGroupInfo();
             ReloadAllData(true);
         }
+
+        private void buttonGenerateReport_Click(object sender, EventArgs e)
+        {
+            dataGridViewStudentReport.Rows.Clear();
+            int studentAmount = sr.GetNumberOfStudents();
+            int incrementAmount = 100 / studentAmount;
+            int progress = 0;
+            //pre individual student processing
+            sr.BuildPagList();
+            Dictionary<int, Tuple<string, string, string, string>> studentInfo = new Dictionary<int, Tuple<string, string, string, string>>();
+            studentInfo = sr.GetAllStudentInformation();
+            for (int student = 0; student < studentInfo.Count; student++)
+            {
+                int currentStudentID = studentInfo.ElementAt(student).Key;
+                string studentFName = studentInfo.ElementAt(student).Value.Item1;
+                string studentSName = studentInfo.ElementAt(student).Value.Item2;
+                string studentClass = studentInfo.ElementAt(student).Value.Item3;
+                string studentYear = studentInfo.ElementAt(student).Value.Item4;
+                ArrayList missingGroups = new ArrayList();
+                missingGroups = sr.GetMissingGroups(currentStudentID);
+                string missingGroupString = "";
+                for (int i = 0; i < missingGroups.Count; i++)
+                {
+                    missingGroupString += missingGroups[i];
+                    if (i + 1 != missingGroups.Count)
+                    {
+                        missingGroupString += ", ";
+                    }
+                }
+                if (missingGroupString == "")//adding column data, depending on result
+                {
+                    dataGridViewStudentReport.Rows.Add(studentFName, studentSName, studentClass, studentYear, "No Missing Groups");
+                    dataGridViewStudentReport.Rows[dataGridViewStudentReport.Rows.Count - 1].Cells[4].Style.BackColor = Color.LawnGreen;
+                }
+                else
+                {
+                    dataGridViewStudentReport.Rows.Add(studentFName, studentSName, studentClass, studentYear, "Missing PAG's from: " + missingGroupString);
+                    dataGridViewStudentReport.Rows[dataGridViewStudentReport.Rows.Count - 1].Cells[4].Style.BackColor = Color.Yellow;
+                }
+                //increment progress bar
+                progress += incrementAmount;
+                progressBarStudentReport.Value = progress;
+            }
+            progressBarStudentReport.Value = 0;
+            dataGridViewStudentReport.AutoResizeColumns();
+            dataGridViewStudentReport.AutoResizeRows();
+        }
     }
 }
