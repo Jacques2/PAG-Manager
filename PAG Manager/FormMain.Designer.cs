@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabActivitySelection = new System.Windows.Forms.TabPage();
             this.tableLayoutPanelActivitySelection = new System.Windows.Forms.TableLayoutPanel();
@@ -727,14 +728,14 @@
             this.dataGridViewStudentLookup.AllowUserToAddRows = false;
             this.dataGridViewStudentLookup.AllowUserToDeleteRows = false;
             this.dataGridViewStudentLookup.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewStudentLookup.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewStudentLookup.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewStudentLookup.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewStudentLookup.Location = new System.Drawing.Point(183, 63);
             this.dataGridViewStudentLookup.Name = "dataGridViewStudentLookup";
@@ -1641,37 +1642,48 @@
             // 
             // StudentReportFName
             // 
+            this.StudentReportFName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.StudentReportFName.Frozen = true;
             this.StudentReportFName.HeaderText = "First Name";
             this.StudentReportFName.Name = "StudentReportFName";
-            this.StudentReportFName.Width = 104;
+            this.StudentReportFName.ReadOnly = true;
+            this.StudentReportFName.Width = 82;
             // 
             // StudentReportSName
             // 
+            this.StudentReportSName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.StudentReportSName.Frozen = true;
             this.StudentReportSName.HeaderText = "Last Name";
             this.StudentReportSName.Name = "StudentReportSName";
-            this.StudentReportSName.Width = 104;
+            this.StudentReportSName.ReadOnly = true;
+            this.StudentReportSName.Width = 83;
             // 
             // StudentReportYear
             // 
+            this.StudentReportYear.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.StudentReportYear.Frozen = true;
             this.StudentReportYear.HeaderText = "Year";
             this.StudentReportYear.Name = "StudentReportYear";
-            this.StudentReportYear.Width = 105;
+            this.StudentReportYear.ReadOnly = true;
+            this.StudentReportYear.Width = 54;
             // 
             // StudentReportClass
             // 
+            this.StudentReportClass.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.StudentReportClass.Frozen = true;
             this.StudentReportClass.HeaderText = "Class";
             this.StudentReportClass.Name = "StudentReportClass";
-            this.StudentReportClass.Width = 104;
+            this.StudentReportClass.ReadOnly = true;
+            this.StudentReportClass.Width = 57;
             // 
             // StudentReportCondition
             // 
+            this.StudentReportCondition.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.StudentReportCondition.DefaultCellStyle = dataGridViewCellStyle2;
             this.StudentReportCondition.HeaderText = "Condition";
             this.StudentReportCondition.Name = "StudentReportCondition";
-            this.StudentReportCondition.Width = 104;
+            this.StudentReportCondition.ReadOnly = true;
             // 
             // FormMain
             // 

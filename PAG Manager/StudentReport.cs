@@ -137,7 +137,12 @@ namespace PAG_Manager
         //---------------------------------Below functions are for report generation--------------------------------
         // dictionary has key = studentID, value = list(pags)
         Dictionary<int, List<int>> studentPagData = new Dictionary<int, List<int>>();
+        //dictionary has key = groupID, value = list(pags)
         Dictionary<int, List<int>> groupData = new Dictionary<int, List<int>>();
+        //dictionary with key = student id value = Sorted list(key = skill id value = times achieved)
+        Dictionary<int, SortedList<int, int>> pagRecord = new Dictionary<int, SortedList<int, int>>();
+        //dictionary with key = pagID, value = time required to achieve
+        Dictionary<int, int> skillRequirement = new Dictionary<int, int>();
         public void BuildPagList()
         {
             string lineRead;
@@ -197,6 +202,125 @@ namespace PAG_Manager
             }
             studentReader.Close();
             return studentInfo;
+        }
+        public void BuildSkillInformation()
+        {
+            //before building skill information, skill requirement data is obtained
+            skillRequirement.Clear();
+            string lineRead;
+            string[] SeperatedLine;
+            StreamReader requirementReader = new StreamReader(fileLocation + "SkillRequirement.csv");
+            lineRead = requirementReader.ReadLine();
+            while (lineRead != null)
+            {
+                SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                int readSkillID = Convert.ToInt32(SeperatedLine[0]);
+                int requirement = Convert.ToInt32(SeperatedLine[1]);
+                skillRequirement[readSkillID] = requirement;
+                lineRead = requirementReader.ReadLine();
+            }
+            requirementReader.Close();
+            //starts building skill information
+            pagRecord.Clear();
+            ArrayList tableData = new ArrayList();
+            //Load every skill into a dictionary with key = skill id value = position in table
+            Dictionary<int, int> skillID = new Dictionary<int, int>();
+            StreamReader sr = new StreamReader(fileLocation + "SkillList.csv");
+            int currentIndex = 0;//position of the column within the table
+            lineRead = sr.ReadLine();
+            while (lineRead != null)
+            {
+                currentIndex++;
+                SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                skillID.Add(Convert.ToInt32(SeperatedLine[0]), currentIndex);
+                lineRead = sr.ReadLine();
+            }
+            sr.Close();
+            //load all student information into dictionary with key = student id value = FName LName Year Class
+            Dictionary<int, Tuple<string, string, string, string>> studentInfo = new Dictionary<int, Tuple<string, string, string, string>>();
+            StreamReader studentReader = new StreamReader(fileLocation + "StudentRecord.csv");
+            string studentRead = studentReader.ReadLine();
+            while (studentRead != null)
+            {
+                SeperatedLine = studentRead.Split(new[] { "," }, StringSplitOptions.None);
+                studentInfo.Add(Convert.ToInt32(SeperatedLine[0]), Tuple.Create(SeperatedLine[1], SeperatedLine[2], SeperatedLine[3], SeperatedLine[4]));
+                studentRead = studentReader.ReadLine();
+            }
+            studentReader.Close();
+            //load all psr data into dictionary key = pag id value = sorted list(key = pos in dictionary value = skill ID)
+            Dictionary<int, SortedList<int, int>> psrData = new Dictionary<int, SortedList<int, int>>();
+            StreamReader psrReader = new StreamReader(fileLocation + "PagSkillRelation.csv");
+            string psrRead = psrReader.ReadLine();
+            int pagID;
+            while (psrRead != null)
+            {
+                SeperatedLine = psrRead.Split(new[] { "," }, StringSplitOptions.None);
+                pagID = Convert.ToInt32(SeperatedLine[0]);
+                if (psrData.ContainsKey(pagID) == false)//Does relation already contain pag data
+                {
+                    psrData.Add(pagID, new SortedList<int, int>());
+                }
+                psrData[pagID].Add(Convert.ToInt32(SeperatedLine[2]), Convert.ToInt32(SeperatedLine[1]));
+                psrRead = psrReader.ReadLine();
+            }
+            psrReader.Close();
+            //Load all pag achivement data into a dictionary with key = student id value = Sorted list(key = skill id value = times achieved)
+            string recordRead;
+            StreamReader recordReader = new StreamReader(fileLocation + "PagAchievement.csv");
+            recordRead = recordReader.ReadLine();
+            while (recordRead != null)
+            {
+                SeperatedLine = recordRead.Split(new[] { "," }, StringSplitOptions.None);
+                int currentStudentID = Convert.ToInt32(SeperatedLine[0]);
+                int currentPagID = Convert.ToInt32(SeperatedLine[1]);
+                string currentSkillID = SeperatedLine[3];
+                if (pagRecord.ContainsKey(currentStudentID) == false)//creating student record if not exsist
+                {
+                    pagRecord.Add(currentStudentID, new SortedList<int, int>());
+                }
+                char[] skillSplit = currentSkillID.ToCharArray();
+                for (int skill = 0; skill < skillSplit.Count(); skill++)//goes through each skill
+                {
+                    if (Convert.ToInt32(skillSplit[skill]) == Convert.ToChar('0'))//checks if skill is complete
+                    {
+                        if (pagRecord[currentStudentID].ContainsKey(psrData[currentPagID][skill]) == false)
+                        {
+                            pagRecord[currentStudentID][psrData[currentPagID][skill]] = 0;
+                        }
+                        pagRecord[currentStudentID][psrData[currentPagID][skill]]++;
+                    }
+                }
+                recordRead = recordReader.ReadLine();
+            }
+            recordReader.Close();
+        }
+        public ArrayList GetMissingSkills(int studentID)
+        {
+            ArrayList missingSkills = new ArrayList();
+            for (int skill = 0; skill < skillRequirement.Count; skill++)
+            {
+                int currentSkill = skillRequirement.ElementAt(skill).Key;
+                int timesRequired = skillRequirement.ElementAt(skill).Value;
+                if (pagRecord.ContainsKey(studentID))//checks if student exists in database
+                {
+                    if (pagRecord[studentID].ContainsKey(currentSkill))//checks if skill exists for student
+                    {
+                        if (pagRecord[studentID][currentSkill] < timesRequired)//checks if the skill has not been met enough
+                        {
+                            missingSkills.Add(currentSkill);
+                        }
+                    }
+                    else
+                    {
+                        missingSkills.Add(currentSkill);
+                    }
+                }
+                else
+                {
+                    missingSkills.Add(currentSkill);
+                }
+            }
+            return missingSkills;
         }
     }
 }

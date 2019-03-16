@@ -1426,6 +1426,7 @@ namespace PAG_Manager
             sr.BuildPagList();
             Dictionary<int, Tuple<string, string, string, string>> studentInfo = new Dictionary<int, Tuple<string, string, string, string>>();
             studentInfo = sr.GetAllStudentInformation();
+            sr.BuildSkillInformation();
             for (int student = 0; student < studentInfo.Count; student++)
             {
                 int currentStudentID = studentInfo.ElementAt(student).Key;
@@ -1433,6 +1434,19 @@ namespace PAG_Manager
                 string studentSName = studentInfo.ElementAt(student).Value.Item2;
                 string studentClass = studentInfo.ElementAt(student).Value.Item3;
                 string studentYear = studentInfo.ElementAt(student).Value.Item4;
+                //get missing skills for student
+                ArrayList missingSkills = new ArrayList();
+                missingSkills = sr.GetMissingSkills(currentStudentID);
+                string missingSkillString = "";
+                for (int i = 0; i < missingSkills.Count; i++)
+                {
+                    missingSkillString += missingSkills[i];
+                    if (i + 1 != missingSkills.Count)
+                    {
+                        missingSkillString += ", ";
+                    }
+                }
+                //get missing groups for student
                 ArrayList missingGroups = new ArrayList();
                 missingGroups = sr.GetMissingGroups(currentStudentID);
                 string missingGroupString = "";
@@ -1446,21 +1460,36 @@ namespace PAG_Manager
                 }
                 if (missingGroupString == "")//adding column data, depending on result
                 {
-                    dataGridViewStudentReport.Rows.Add(studentFName, studentSName, studentClass, studentYear, "No Missing Groups");
-                    dataGridViewStudentReport.Rows[dataGridViewStudentReport.Rows.Count - 1].Cells[4].Style.BackColor = Color.LawnGreen;
+                    if (missingSkillString == "")
+                    {
+                        dataGridViewStudentReport.Rows.Add(studentFName, studentSName, studentClass, studentYear, "Student has passed");
+                        dataGridViewStudentReport.Rows[dataGridViewStudentReport.Rows.Count - 1].Cells[4].Style.BackColor = Color.LawnGreen;
+                    }
+                    else
+                    {
+                        dataGridViewStudentReport.Rows.Add(studentFName, studentSName, studentClass, studentYear, "Missing Skills: " + missingSkillString);
+                        dataGridViewStudentReport.Rows[dataGridViewStudentReport.Rows.Count - 1].Cells[4].Style.BackColor = Color.Yellow;
+                    }
                 }
                 else
                 {
-                    dataGridViewStudentReport.Rows.Add(studentFName, studentSName, studentClass, studentYear, "Missing PAG's from: " + missingGroupString);
-                    dataGridViewStudentReport.Rows[dataGridViewStudentReport.Rows.Count - 1].Cells[4].Style.BackColor = Color.Yellow;
+                    if (missingSkillString == "")
+                    {
+                        dataGridViewStudentReport.Rows.Add(studentFName, studentSName, studentClass, studentYear, "Missing PAG's from: " + missingGroupString);
+                        dataGridViewStudentReport.Rows[dataGridViewStudentReport.Rows.Count - 1].Cells[4].Style.BackColor = Color.Yellow;
+                    }
+                    else
+                    {
+                        dataGridViewStudentReport.Rows.Add(studentFName, studentSName, studentClass, studentYear, "Missing PAG's from: " + missingGroupString + Environment.NewLine + "Missing Skills: " + missingSkillString);
+                        dataGridViewStudentReport.Rows[dataGridViewStudentReport.Rows.Count - 1].Cells[4].Style.BackColor = Color.Yellow;
+                    }
                 }
                 //increment progress bar
                 progress += incrementAmount;
                 progressBarStudentReport.Value = progress;
+                dataGridViewStudentReport.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             }
             progressBarStudentReport.Value = 0;
-            dataGridViewStudentReport.AutoResizeColumns();
-            dataGridViewStudentReport.AutoResizeRows();
         }
     }
 }
