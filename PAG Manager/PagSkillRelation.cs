@@ -34,7 +34,10 @@ namespace PAG_Manager
         {
             if (relation.ContainsKey(pagID))//checks if data for pag already exists
             {
-                relation.Remove(pagID);
+                if (relation[pagID].Contains(skillID))
+                {
+                    relation[pagID].Remove(skillID);
+                }
             }
         }
         public List<int> GetRelations(int PagID)
