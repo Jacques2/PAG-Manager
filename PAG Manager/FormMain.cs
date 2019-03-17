@@ -108,7 +108,7 @@ namespace PAG_Manager
                     listBoxGroupList.Items.Add(groupInfo.ElementAt(group).Value.Item1);
                 }
             }
-            psr.StartNewRelation(pagList.Count);
+            psr.ClearRelations();
             psr.LoadRelationFromFile();
             // STUDENT LOOKUP NAMES LIST
             listBoxStudentNames.Items.Clear();
@@ -1420,8 +1420,7 @@ namespace PAG_Manager
         {
             dataGridViewStudentReport.Rows.Clear();
             int studentAmount = sr.GetNumberOfStudents();
-            int incrementAmount = 100 / studentAmount;
-            int progress = 0;
+            progressBarStudentReport.Maximum = studentAmount;
             //pre individual student processing
             sr.BuildPagList();
             Dictionary<int, Tuple<string, string, string, string>> studentInfo = new Dictionary<int, Tuple<string, string, string, string>>();
@@ -1485,11 +1484,10 @@ namespace PAG_Manager
                     }
                 }
                 //increment progress bar
-                progress += incrementAmount;
-                progressBarStudentReport.Value = progress;
-                dataGridViewStudentReport.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+                progressBarStudentReport.Value++;
             }
-            progressBarStudentReport.Value = 0;
+            //progressBarStudentReport.Value = 0;
+            dataGridViewStudentReport.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
         }
     }
 }

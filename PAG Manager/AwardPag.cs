@@ -11,7 +11,7 @@ namespace PAG_Manager
 {
     class AwardPag
     {
-        private List<List<int>> relation = new List<List<int>>();
+        private Dictionary<int, List<int>> relation = new Dictionary<int, List<int>>();
         private string fileLocation;
         private bool relationImported = false;
 
@@ -29,7 +29,7 @@ namespace PAG_Manager
         {
             fileLocation = inputFileLocation;
         }
-        public void ImportRelation(List<List<int>> inputRelation)
+        public void ImportRelation(Dictionary<int, List<int>> inputRelation)
         {
             relation = inputRelation;
             relationImported = true;
@@ -152,10 +152,10 @@ namespace PAG_Manager
             //loops through every relation adding it to the pag tree
             for (int i = 0; i < relation.Count; i++)//i = current pag id
             {
-                for (int j = 0; j < relation[i].Count; j++)//j = skill within a pag
+                for (int j = 0; j < relation.ElementAt(i).Value.Count; j++)//j = skill within a pag
                 {
-                    pagTreeID[i].Add(relation[i][j]);//adds the id to the ID list
-                    pagTreeName[i].Add(Convert.ToString(skillList[relation[i][j]]));//adds the value to the name list
+                    pagTreeID[i].Add(relation.ElementAt(i).Value[j]);//adds the id to the ID list
+                    pagTreeName[i].Add(Convert.ToString(skillList[relation.ElementAt(i).Value[j]]));//adds the value to the name list
                 }
             }
         }

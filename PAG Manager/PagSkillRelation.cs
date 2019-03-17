@@ -11,28 +11,31 @@ namespace PAG_Manager
 {
     class PagSkillRelation
     {
-        private List<List<int>> relation = new List<List<int>>();
+        private Dictionary<int, List<int>> relation = new Dictionary<int, List<int>>();
         private string fileLocation;
         private int inclusion;
         public PagSkillRelation(string FileLocation)
         {
             fileLocation = FileLocation;
         }
-        public void StartNewRelation(int size)
+        public void ClearRelations()
         {
             relation.Clear();
-            for (int i = 0; i < size; i++)
-            {
-                relation.Add(new List<int> {});
-            }
         }
         public void SetRelation(int pagID, int skillID)
         {
+            if (relation.ContainsKey(pagID) == false)//checks if data for pag already exists
+            {
+                relation.Add(pagID, new List<int>());
+            }
             relation[pagID].Add(skillID);
         }
         public void RemoveRelation(int pagID, int skillID)
         {
-            relation[pagID].Remove(skillID);
+            if (relation.ContainsKey(pagID))//checks if data for pag already exists
+            {
+                relation.Remove(pagID);
+            }
         }
         public List<int> GetRelations(int PagID)
         {
@@ -42,10 +45,10 @@ namespace PAG_Manager
             }
             catch (System.ArgumentOutOfRangeException)
             {
-                return null;
+                return new List<int>();
             }
         }
-        public List<List<int>> GetAllRelations()
+        public Dictionary<int, List<int>> GetAllRelations()
         {
             return relation;
         }
@@ -53,11 +56,13 @@ namespace PAG_Manager
         {
             File.Delete(fileLocation + "PagSkillRelation.csv");
             StreamWriter sw = new StreamWriter(fileLocation + "PagSkillRelation.csv");//overwrites exsisting data
-            for (int pagID = 0; pagID < relation.Count; pagID++)
+            for (int pag = 0; pag < relation.Count; pag++)
             {
-                for (int skillID = 0; skillID < relation[pagID].Count; skillID++)//This loops through every record in the 2d list to write to the file
+                List<int> listOfSkills = new List<int>(relation.ElementAt(pag).Value);
+                int pagID = relation.ElementAt(pag).Key;
+                for (int skillID = 0; skillID < listOfSkills.Count; skillID++)//This loops through every record in the dictionary to write to the file
                 {
-                    sw.WriteLine(pagID + "," + relation[pagID][skillID] + "," + skillID);
+                    sw.WriteLine(pagID + "," + listOfSkills[skillID] + "," + skillID);
                 }
             }
             sw.Close();
@@ -92,7 +97,7 @@ namespace PAG_Manager
                 {
                     for (int j = 0; j < skillIDs.Count; j++)//Loops through every skill inputed
                     {
-                        if (relation[i].Contains(Convert.ToInt32(skillIDs[j])))//checks if the pag contains the skill
+                        if (relation.ElementAt(i).Value.Contains(Convert.ToInt32(skillIDs[j])))//checks if the pag contains the skill
                         {
                             if (matchingPag.Contains(i) == false)//Check if matchingPag does not already contain the value
                             {
@@ -112,7 +117,7 @@ namespace PAG_Manager
                 {
                     for (int j = 0; j < skillIDs.Count; j++)//Loops through every skill inputed
                     {
-                        if (relation[i].Contains(Convert.ToInt32(skillIDs[j])) == false)//checks if the pag does not contain the skill
+                        if (relation.ElementAt(i).Value.Contains(Convert.ToInt32(skillIDs[j])) == false)//checks if the pag does not contain the skill
                         {
                             if (matchingPag.Contains(i) == true)//Check if matchingPag does not already contain the value
                             {

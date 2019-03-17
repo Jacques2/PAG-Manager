@@ -173,12 +173,15 @@ namespace PAG_Manager
             {
                 List<int> pagsInGroup = new List<int>(groupInfo.ElementAt(group).Value.Item2);
                 bool hasPassed = false;
-                for (int pag = 0; pag < pagsInGroup.Count; pag++)
+                if (studentPagData.ContainsKey(studentID))
                 {
-                    int pagID = pagsInGroup[pag];
-                    if (studentPagData[studentID].Contains(pagID))
+                    for (int pag = 0; pag < pagsInGroup.Count; pag++)
                     {
-                        hasPassed = true;
+                        int pagID = pagsInGroup[pag];
+                        if (studentPagData[studentID].Contains(pagID))
+                        {
+                            hasPassed = true;
+                        }
                     }
                 }
                 if (hasPassed == false)
