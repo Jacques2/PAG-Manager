@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabActivitySelection = new System.Windows.Forms.TabPage();
             this.tableLayoutPanelActivitySelection = new System.Windows.Forms.TableLayoutPanel();
@@ -93,11 +93,6 @@
             this.buttonGenerateReport = new System.Windows.Forms.Button();
             this.progressBarStudentReport = new System.Windows.Forms.ProgressBar();
             this.dataGridViewStudentReport = new System.Windows.Forms.DataGridView();
-            this.StudentReportFName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StudentReportSName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StudentReportYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StudentReportClass = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StudentReportCondition = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelReportSettings = new System.Windows.Forms.Label();
             this.tabAdmin = new System.Windows.Forms.TabPage();
             this.tabControlAdmin = new System.Windows.Forms.TabControl();
@@ -166,6 +161,12 @@
             this.openManualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialogImportCSV = new System.Windows.Forms.OpenFileDialog();
+            this.StudentReportID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StudentReportFName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StudentReportSName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StudentReportYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StudentReportClass = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StudentReportCondition = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControlMain.SuspendLayout();
             this.tabActivitySelection.SuspendLayout();
             this.tableLayoutPanelActivitySelection.SuspendLayout();
@@ -940,6 +941,7 @@
             this.dataGridViewStudentReport.AllowUserToDeleteRows = false;
             this.dataGridViewStudentReport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewStudentReport.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.StudentReportID,
             this.StudentReportFName,
             this.StudentReportSName,
             this.StudentReportYear,
@@ -952,51 +954,8 @@
             this.dataGridViewStudentReport.ReadOnly = true;
             this.dataGridViewStudentReport.Size = new System.Drawing.Size(564, 471);
             this.dataGridViewStudentReport.TabIndex = 2;
-            // 
-            // StudentReportFName
-            // 
-            this.StudentReportFName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.StudentReportFName.Frozen = true;
-            this.StudentReportFName.HeaderText = "First Name";
-            this.StudentReportFName.Name = "StudentReportFName";
-            this.StudentReportFName.ReadOnly = true;
-            this.StudentReportFName.Width = 82;
-            // 
-            // StudentReportSName
-            // 
-            this.StudentReportSName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.StudentReportSName.Frozen = true;
-            this.StudentReportSName.HeaderText = "Last Name";
-            this.StudentReportSName.Name = "StudentReportSName";
-            this.StudentReportSName.ReadOnly = true;
-            this.StudentReportSName.Width = 83;
-            // 
-            // StudentReportYear
-            // 
-            this.StudentReportYear.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.StudentReportYear.Frozen = true;
-            this.StudentReportYear.HeaderText = "Year";
-            this.StudentReportYear.Name = "StudentReportYear";
-            this.StudentReportYear.ReadOnly = true;
-            this.StudentReportYear.Width = 54;
-            // 
-            // StudentReportClass
-            // 
-            this.StudentReportClass.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.StudentReportClass.Frozen = true;
-            this.StudentReportClass.HeaderText = "Class";
-            this.StudentReportClass.Name = "StudentReportClass";
-            this.StudentReportClass.ReadOnly = true;
-            this.StudentReportClass.Width = 57;
-            // 
-            // StudentReportCondition
-            // 
-            this.StudentReportCondition.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.StudentReportCondition.DefaultCellStyle = dataGridViewCellStyle2;
-            this.StudentReportCondition.HeaderText = "Condition";
-            this.StudentReportCondition.Name = "StudentReportCondition";
-            this.StudentReportCondition.ReadOnly = true;
+            this.dataGridViewStudentReport.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStudentReport_CellClick);
+            this.dataGridViewStudentReport.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStudentReport_CellEnter);
             // 
             // labelReportSettings
             // 
@@ -1685,6 +1644,58 @@
             this.openFileDialogImportCSV.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogImportCSV_FileOk);
             this.openFileDialogImportCSV.HelpRequest += new System.EventHandler(this.openFileDialogImportCSV_HelpRequest);
             // 
+            // StudentReportID
+            // 
+            this.StudentReportID.Frozen = true;
+            this.StudentReportID.HeaderText = "ID";
+            this.StudentReportID.Name = "StudentReportID";
+            this.StudentReportID.ReadOnly = true;
+            // 
+            // StudentReportFName
+            // 
+            this.StudentReportFName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.StudentReportFName.Frozen = true;
+            this.StudentReportFName.HeaderText = "First Name";
+            this.StudentReportFName.Name = "StudentReportFName";
+            this.StudentReportFName.ReadOnly = true;
+            this.StudentReportFName.Width = 82;
+            // 
+            // StudentReportSName
+            // 
+            this.StudentReportSName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.StudentReportSName.Frozen = true;
+            this.StudentReportSName.HeaderText = "Last Name";
+            this.StudentReportSName.Name = "StudentReportSName";
+            this.StudentReportSName.ReadOnly = true;
+            this.StudentReportSName.Width = 83;
+            // 
+            // StudentReportYear
+            // 
+            this.StudentReportYear.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.StudentReportYear.Frozen = true;
+            this.StudentReportYear.HeaderText = "Year";
+            this.StudentReportYear.Name = "StudentReportYear";
+            this.StudentReportYear.ReadOnly = true;
+            this.StudentReportYear.Width = 54;
+            // 
+            // StudentReportClass
+            // 
+            this.StudentReportClass.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.StudentReportClass.Frozen = true;
+            this.StudentReportClass.HeaderText = "Class";
+            this.StudentReportClass.Name = "StudentReportClass";
+            this.StudentReportClass.ReadOnly = true;
+            this.StudentReportClass.Width = 57;
+            // 
+            // StudentReportCondition
+            // 
+            this.StudentReportCondition.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.StudentReportCondition.DefaultCellStyle = dataGridViewCellStyle2;
+            this.StudentReportCondition.HeaderText = "Condition";
+            this.StudentReportCondition.Name = "StudentReportCondition";
+            this.StudentReportCondition.ReadOnly = true;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1894,6 +1905,7 @@
         private System.Windows.Forms.ProgressBar progressBarStudentReport;
         private System.Windows.Forms.DataGridView dataGridViewStudentReport;
         private System.Windows.Forms.Label labelReportSettings;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StudentReportID;
         private System.Windows.Forms.DataGridViewTextBoxColumn StudentReportFName;
         private System.Windows.Forms.DataGridViewTextBoxColumn StudentReportSName;
         private System.Windows.Forms.DataGridViewTextBoxColumn StudentReportYear;

@@ -14,8 +14,28 @@ namespace PAG_Manager
         private string fileLocation;
         //group info: Dictionary(key = groupID, value = tuple(t1 = group text, t2 = list(pagsInGroup)))
         Dictionary<int, Tuple<string, List<int>>> groupInfo = new Dictionary<int, Tuple<string, List<int>>>();
+        List<int> studentOrder = new List<int>();
         string fileName = "PagGroup.csv";
         List<int> groupIdPosition = new List<int>();
+        public void ClearStudentOrder()
+        {
+            studentOrder.Clear();
+        }
+        public void AddToStudentOrder(int ID)
+        {
+            studentOrder.Add(ID);
+        }
+        public int getStudentOrder(int index)
+        {
+            try
+            {
+                return studentOrder[index];
+            }
+            catch (Exception)
+            {
+                return new int();
+            }
+        }
         public StudentReport(string inputFileLocation)
         {
             fileLocation = inputFileLocation;
@@ -324,6 +344,138 @@ namespace PAG_Manager
                 }
             }
             return missingSkills;
+        }
+        public HashSet<int> BuildUniverse(int studentID)
+        {
+            HashSet<int> universe = new HashSet<int>();
+            ArrayList missingSkills = new ArrayList();
+            missingSkills = GetMissingSkills(studentID);
+            for (int i = 0; i < missingSkills.Count; i++)
+            {
+                universe.Add(Convert.ToInt32(missingSkills[i]));
+            }
+            return universe;
+        }
+        public List<int> FindPagsToComplete(HashSet<int> universe, List<HashSet<int>> subsets)
+        {
+            //This is a greedy set cover algorithum, which calculates the smallest number of subsets that contain every element in the universe.
+            List<int> subsetIndex = new List<int>();
+            for (int i = 0; i < subsets.Count; i++)
+            {
+                subsetIndex.Add(i);
+            }
+            HashSet<int> listCombined = new HashSet<int>();
+            for (int i = 0; i < subsets.Count; i++)
+            {
+                listCombined.UnionWith(subsets.ElementAt(i));
+            }
+            if (universe.IsSubsetOf(listCombined) == false)
+            {
+                MessageBox.Show(Convert.ToString(false)); //check if actually possible
+            }
+            HashSet<int> covered = new HashSet<int>();
+            var remaining = new HashSet<int>(universe);
+            List<int> subListsToUse = new List<int>();
+            while (universe.IsSubsetOf(covered) == false)
+            {
+                SortedList<int, int> subsetEff = new SortedList<int, int>();
+                for (int set = 0; set < subsets.Count; set++)
+                {
+                    subsetEff.Add(set, new HashSet<int>(remaining.Except(subsets.ElementAt(set))).Count);
+                }
+                var ordered = subsetEff.OrderBy(x => x.Value);
+                int bestIndex = ordered.ElementAt(0).Key;
+                subListsToUse.Add(subsetIndex[bestIndex]);
+                subsetIndex.RemoveAt(bestIndex);
+                covered.UnionWith(subsets.ElementAt(bestIndex));
+                remaining.Except(subsets.ElementAt(bestIndex));
+                subsets.RemoveAt(bestIndex);
+            }
+            return subListsToUse;
+        }
+        Dictionary<int, HashSet<int>> pagSubset = new Dictionary<int, HashSet<int>>();
+        public void BuildPagSubsets()
+        {
+            pagSubset.Clear();
+            StreamReader relationReader = new StreamReader(fileLocation + "PagSkillRelation.csv");
+            string relationLineRead;
+            relationLineRead = relationReader.ReadLine();
+            string[] seperatedLine;
+            while (relationLineRead != null)
+            {
+                seperatedLine = relationLineRead.Split(new[] { "," }, StringSplitOptions.None);//decomposes the line into seperate variables
+                int pagID = Convert.ToInt32(seperatedLine[0]);
+                int skillID = Convert.ToInt32(seperatedLine[1]);
+                if (pagSubset.ContainsKey(pagID) == false)//creates new entry for pag if no exist
+                {
+                    pagSubset.Add(pagID, new HashSet<int>());
+                }
+                pagSubset[pagID].Add(skillID);
+                relationLineRead = relationReader.ReadLine();
+            }
+            relationReader.Close();
+        }
+        public List<HashSet<int>> GetSubsetList()
+        {
+            List<HashSet<int>> subsets = new List<HashSet<int>>();
+            for (int i = 0; i < pagSubset.Count; i++)
+            {
+                subsets.Add(pagSubset.ElementAt(i).Value);
+            }
+            return subsets;
+        }
+        public int GetPagID(int index)
+        {
+            return pagSubset.ElementAt(index).Key;
+        }
+        Dictionary<int, string> skillList = new Dictionary<int, string>();
+        Dictionary<int, string> pagList = new Dictionary<int, string>();
+        public void BuildLists()
+        {
+            skillList.Clear();
+            pagList.Clear();
+            string lineRead;
+            string[] SeperatedLine;
+            StreamReader sr = new StreamReader(fileLocation + "PagList.csv");
+            lineRead = sr.ReadLine();
+            while (lineRead != null)
+            {
+                SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                pagList.Add(Convert.ToInt32(SeperatedLine[0]), SeperatedLine[1]);
+                lineRead = sr.ReadLine();
+            }
+            sr.Close();
+            StreamReader skillReader = new StreamReader(fileLocation + "SkillList.csv");
+            lineRead = skillReader.ReadLine();
+            while (lineRead != null)
+            {
+                SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                skillList.Add(Convert.ToInt32(SeperatedLine[0]), SeperatedLine[1]);
+                lineRead = skillReader.ReadLine();
+            }
+            skillReader.Close();
+        }
+        public string GetSkillName(int ID)
+        {
+            try
+            {
+                return skillList[ID];
+            }
+            catch (Exception)
+            {
+                return "";
+            }
+        }
+        public string GetPagName(int ID)
+        {
+            try
+            {
+                return pagList[ID];
+            }
+            catch (Exception)
+            {
+                return "";
+            }
         }
     }
 }

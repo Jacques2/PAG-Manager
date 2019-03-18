@@ -240,6 +240,9 @@ namespace PAG_Manager
             {
                 treeViewYearSelect.Nodes[node].Expand();
             }
+            //student report
+            sr.BuildPagSubsets();
+            sr.BuildLists();
         }
 
         private void radioButtonAdmin_CheckedChanged(object sender, EventArgs e)//ADMIN: Allows advanced database editing
@@ -1419,6 +1422,7 @@ namespace PAG_Manager
         private void buttonGenerateReport_Click(object sender, EventArgs e)
         {
             dataGridViewStudentReport.Rows.Clear();
+            sr.ClearStudentOrder();
             int studentAmount = sr.GetNumberOfStudents();
             progressBarStudentReport.Maximum = studentAmount;
             //pre individual student processing
@@ -1426,9 +1430,12 @@ namespace PAG_Manager
             Dictionary<int, Tuple<string, string, string, string>> studentInfo = new Dictionary<int, Tuple<string, string, string, string>>();
             studentInfo = sr.GetAllStudentInformation();
             sr.BuildSkillInformation();
+            int index = -1;
             for (int student = 0; student < studentInfo.Count; student++)
             {
+                index++;
                 int currentStudentID = studentInfo.ElementAt(student).Key;
+                sr.AddToStudentOrder(currentStudentID);
                 string studentFName = studentInfo.ElementAt(student).Value.Item1;
                 string studentSName = studentInfo.ElementAt(student).Value.Item2;
                 string studentClass = studentInfo.ElementAt(student).Value.Item3;
@@ -1461,33 +1468,53 @@ namespace PAG_Manager
                 {
                     if (missingSkillString == "")
                     {
-                        dataGridViewStudentReport.Rows.Add(studentFName, studentSName, studentClass, studentYear, "Student has passed");
-                        dataGridViewStudentReport.Rows[dataGridViewStudentReport.Rows.Count - 1].Cells[4].Style.BackColor = Color.LawnGreen;
+                        dataGridViewStudentReport.Rows.Add(index, studentFName, studentSName, studentClass, studentYear, "Student has passed");
+                        dataGridViewStudentReport.Rows[dataGridViewStudentReport.Rows.Count - 1].Cells[5].Style.BackColor = Color.LawnGreen;
                     }
                     else
                     {
-                        dataGridViewStudentReport.Rows.Add(studentFName, studentSName, studentClass, studentYear, "Missing Skills: " + missingSkillString);
-                        dataGridViewStudentReport.Rows[dataGridViewStudentReport.Rows.Count - 1].Cells[4].Style.BackColor = Color.Yellow;
+                        dataGridViewStudentReport.Rows.Add(index, studentFName, studentSName, studentClass, studentYear, "Missing Skills: " + missingSkillString);
+                        dataGridViewStudentReport.Rows[dataGridViewStudentReport.Rows.Count - 1].Cells[5].Style.BackColor = Color.Yellow;
                     }
                 }
                 else
                 {
-                    if (missingSkillString == "")
-                    {
-                        dataGridViewStudentReport.Rows.Add(studentFName, studentSName, studentClass, studentYear, "Missing PAG's from: " + missingGroupString);
-                        dataGridViewStudentReport.Rows[dataGridViewStudentReport.Rows.Count - 1].Cells[4].Style.BackColor = Color.Yellow;
-                    }
-                    else
-                    {
-                        dataGridViewStudentReport.Rows.Add(studentFName, studentSName, studentClass, studentYear, "Missing PAG's from: " + missingGroupString + Environment.NewLine + "Missing Skills: " + missingSkillString);
-                        dataGridViewStudentReport.Rows[dataGridViewStudentReport.Rows.Count - 1].Cells[4].Style.BackColor = Color.Yellow;
-                    }
+                    dataGridViewStudentReport.Rows.Add(index, studentFName, studentSName, studentClass, studentYear, "Missing PAG's from: " + missingGroupString);
+                    dataGridViewStudentReport.Rows[dataGridViewStudentReport.Rows.Count - 1].Cells[5].Style.BackColor = Color.Yellow;
                 }
                 //increment progress bar
                 progressBarStudentReport.Value++;
             }
             //progressBarStudentReport.Value = 0;
             dataGridViewStudentReport.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+        }
+
+        private void dataGridViewStudentReport_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridViewStudentReport_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 5)
+            {
+                int studentIndex = Convert.ToInt32(dataGridViewStudentReport.Rows[e.RowIndex].Cells[0].Value);
+                int studentID = sr.getStudentOrder(studentIndex);
+                HashSet<int> universe = new HashSet<int>();
+                universe = sr.BuildUniverse(studentID);
+                List<HashSet<int>> subsets = new List<HashSet<int>>();
+                subsets = sr.GetSubsetList();
+                List<int> requiredSubsets = new List<int>();
+                requiredSubsets = sr.FindPagsToComplete(universe, subsets);
+                string pagString = "";
+                for (int i = 0; i < requiredSubsets.Count; i++)
+                {
+                    int pagID = sr.GetPagID(requiredSubsets[i]);
+                    string pagName = sr.GetPagName(pagID);
+                    pagString += pagName + Environment.NewLine;
+                }
+                MessageBox.Show(Convert.ToString(pagString));
+            }
         }
     }
 }
