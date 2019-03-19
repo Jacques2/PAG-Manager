@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabActivitySelection = new System.Windows.Forms.TabPage();
             this.tableLayoutPanelActivitySelection = new System.Windows.Forms.TableLayoutPanel();
@@ -93,7 +93,18 @@
             this.buttonGenerateReport = new System.Windows.Forms.Button();
             this.progressBarStudentReport = new System.Windows.Forms.ProgressBar();
             this.dataGridViewStudentReport = new System.Windows.Forms.DataGridView();
+            this.StudentReportID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StudentReportFName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StudentReportSName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StudentReportYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StudentReportClass = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StudentReportCondition = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelReportSettings = new System.Windows.Forms.Label();
+            this.flowLayoutPanelStudentReportSettings = new System.Windows.Forms.FlowLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.radioButtonReportComplete = new System.Windows.Forms.RadioButton();
+            this.radioButtonReportNotComplete = new System.Windows.Forms.RadioButton();
+            this.radioButtonReportAll = new System.Windows.Forms.RadioButton();
             this.tabAdmin = new System.Windows.Forms.TabPage();
             this.tabControlAdmin = new System.Windows.Forms.TabControl();
             this.tabGeneral = new System.Windows.Forms.TabPage();
@@ -161,12 +172,8 @@
             this.openManualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialogImportCSV = new System.Windows.Forms.OpenFileDialog();
-            this.StudentReportID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StudentReportFName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StudentReportSName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StudentReportYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StudentReportClass = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StudentReportCondition = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.heightDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sizeTypeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControlMain.SuspendLayout();
             this.tabActivitySelection.SuspendLayout();
             this.tableLayoutPanelActivitySelection.SuspendLayout();
@@ -191,6 +198,7 @@
             this.tabReport.SuspendLayout();
             this.tableLayoutPanelStudentReport.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudentReport)).BeginInit();
+            this.flowLayoutPanelStudentReportSettings.SuspendLayout();
             this.tabAdmin.SuspendLayout();
             this.tabControlAdmin.SuspendLayout();
             this.tabGeneral.SuspendLayout();
@@ -729,14 +737,14 @@
             this.dataGridViewStudentLookup.AllowUserToAddRows = false;
             this.dataGridViewStudentLookup.AllowUserToDeleteRows = false;
             this.dataGridViewStudentLookup.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewStudentLookup.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewStudentLookup.DefaultCellStyle = dataGridViewCellStyle9;
             this.dataGridViewStudentLookup.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewStudentLookup.Location = new System.Drawing.Point(183, 63);
             this.dataGridViewStudentLookup.Name = "dataGridViewStudentLookup";
@@ -907,12 +915,14 @@
             this.tableLayoutPanelStudentReport.Controls.Add(this.progressBarStudentReport, 1, 0);
             this.tableLayoutPanelStudentReport.Controls.Add(this.dataGridViewStudentReport, 0, 1);
             this.tableLayoutPanelStudentReport.Controls.Add(this.labelReportSettings, 2, 0);
+            this.tableLayoutPanelStudentReport.Controls.Add(this.flowLayoutPanelStudentReportSettings, 2, 1);
             this.tableLayoutPanelStudentReport.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelStudentReport.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanelStudentReport.Name = "tableLayoutPanelStudentReport";
             this.tableLayoutPanelStudentReport.RowCount = 2;
             this.tableLayoutPanelStudentReport.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanelStudentReport.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelStudentReport.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanelStudentReport.Size = new System.Drawing.Size(770, 505);
             this.tableLayoutPanelStudentReport.TabIndex = 0;
             // 
@@ -957,6 +967,58 @@
             this.dataGridViewStudentReport.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStudentReport_CellClick);
             this.dataGridViewStudentReport.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStudentReport_CellEnter);
             // 
+            // StudentReportID
+            // 
+            this.StudentReportID.Frozen = true;
+            this.StudentReportID.HeaderText = "ID";
+            this.StudentReportID.Name = "StudentReportID";
+            this.StudentReportID.ReadOnly = true;
+            // 
+            // StudentReportFName
+            // 
+            this.StudentReportFName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.StudentReportFName.Frozen = true;
+            this.StudentReportFName.HeaderText = "First Name";
+            this.StudentReportFName.Name = "StudentReportFName";
+            this.StudentReportFName.ReadOnly = true;
+            this.StudentReportFName.Width = 82;
+            // 
+            // StudentReportSName
+            // 
+            this.StudentReportSName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.StudentReportSName.Frozen = true;
+            this.StudentReportSName.HeaderText = "Last Name";
+            this.StudentReportSName.Name = "StudentReportSName";
+            this.StudentReportSName.ReadOnly = true;
+            this.StudentReportSName.Width = 83;
+            // 
+            // StudentReportYear
+            // 
+            this.StudentReportYear.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.StudentReportYear.Frozen = true;
+            this.StudentReportYear.HeaderText = "Year";
+            this.StudentReportYear.Name = "StudentReportYear";
+            this.StudentReportYear.ReadOnly = true;
+            this.StudentReportYear.Width = 54;
+            // 
+            // StudentReportClass
+            // 
+            this.StudentReportClass.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.StudentReportClass.Frozen = true;
+            this.StudentReportClass.HeaderText = "Class";
+            this.StudentReportClass.Name = "StudentReportClass";
+            this.StudentReportClass.ReadOnly = true;
+            this.StudentReportClass.Width = 57;
+            // 
+            // StudentReportCondition
+            // 
+            this.StudentReportCondition.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.StudentReportCondition.DefaultCellStyle = dataGridViewCellStyle10;
+            this.StudentReportCondition.HeaderText = "Condition";
+            this.StudentReportCondition.Name = "StudentReportCondition";
+            this.StudentReportCondition.ReadOnly = true;
+            // 
             // labelReportSettings
             // 
             this.labelReportSettings.AutoSize = true;
@@ -968,6 +1030,62 @@
             this.labelReportSettings.TabIndex = 3;
             this.labelReportSettings.Text = "Report Settings";
             this.labelReportSettings.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // flowLayoutPanelStudentReportSettings
+            // 
+            this.flowLayoutPanelStudentReportSettings.Controls.Add(this.label1);
+            this.flowLayoutPanelStudentReportSettings.Controls.Add(this.radioButtonReportComplete);
+            this.flowLayoutPanelStudentReportSettings.Controls.Add(this.radioButtonReportNotComplete);
+            this.flowLayoutPanelStudentReportSettings.Controls.Add(this.radioButtonReportAll);
+            this.flowLayoutPanelStudentReportSettings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanelStudentReportSettings.Location = new System.Drawing.Point(573, 31);
+            this.flowLayoutPanelStudentReportSettings.Name = "flowLayoutPanelStudentReportSettings";
+            this.flowLayoutPanelStudentReportSettings.Size = new System.Drawing.Size(194, 471);
+            this.flowLayoutPanelStudentReportSettings.TabIndex = 6;
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(189, 23);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Filter by:";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // radioButtonReportComplete
+            // 
+            this.radioButtonReportComplete.Enabled = false;
+            this.radioButtonReportComplete.Location = new System.Drawing.Point(3, 26);
+            this.radioButtonReportComplete.Name = "radioButtonReportComplete";
+            this.radioButtonReportComplete.Size = new System.Drawing.Size(191, 17);
+            this.radioButtonReportComplete.TabIndex = 5;
+            this.radioButtonReportComplete.Text = "Complete";
+            this.radioButtonReportComplete.UseVisualStyleBackColor = true;
+            this.radioButtonReportComplete.CheckedChanged += new System.EventHandler(this.radioButtonReportComplete_CheckedChanged);
+            // 
+            // radioButtonReportNotComplete
+            // 
+            this.radioButtonReportNotComplete.Enabled = false;
+            this.radioButtonReportNotComplete.Location = new System.Drawing.Point(3, 49);
+            this.radioButtonReportNotComplete.Name = "radioButtonReportNotComplete";
+            this.radioButtonReportNotComplete.Size = new System.Drawing.Size(189, 17);
+            this.radioButtonReportNotComplete.TabIndex = 5;
+            this.radioButtonReportNotComplete.Text = "Not Complete";
+            this.radioButtonReportNotComplete.UseVisualStyleBackColor = true;
+            this.radioButtonReportNotComplete.CheckedChanged += new System.EventHandler(this.radioButtonReportNotComplete_CheckedChanged);
+            // 
+            // radioButtonReportAll
+            // 
+            this.radioButtonReportAll.Checked = true;
+            this.radioButtonReportAll.Enabled = false;
+            this.radioButtonReportAll.Location = new System.Drawing.Point(3, 72);
+            this.radioButtonReportAll.Name = "radioButtonReportAll";
+            this.radioButtonReportAll.Size = new System.Drawing.Size(189, 19);
+            this.radioButtonReportAll.TabIndex = 5;
+            this.radioButtonReportAll.TabStop = true;
+            this.radioButtonReportAll.Text = "All";
+            this.radioButtonReportAll.UseVisualStyleBackColor = true;
+            this.radioButtonReportAll.CheckedChanged += new System.EventHandler(this.radioButtonReportAll_CheckedChanged);
             // 
             // tabAdmin
             // 
@@ -1644,57 +1762,17 @@
             this.openFileDialogImportCSV.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogImportCSV_FileOk);
             this.openFileDialogImportCSV.HelpRequest += new System.EventHandler(this.openFileDialogImportCSV_HelpRequest);
             // 
-            // StudentReportID
+            // heightDataGridViewTextBoxColumn1
             // 
-            this.StudentReportID.Frozen = true;
-            this.StudentReportID.HeaderText = "ID";
-            this.StudentReportID.Name = "StudentReportID";
-            this.StudentReportID.ReadOnly = true;
+            this.heightDataGridViewTextBoxColumn1.DataPropertyName = "Height";
+            this.heightDataGridViewTextBoxColumn1.HeaderText = "Height";
+            this.heightDataGridViewTextBoxColumn1.Name = "heightDataGridViewTextBoxColumn1";
             // 
-            // StudentReportFName
+            // sizeTypeDataGridViewTextBoxColumn1
             // 
-            this.StudentReportFName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.StudentReportFName.Frozen = true;
-            this.StudentReportFName.HeaderText = "First Name";
-            this.StudentReportFName.Name = "StudentReportFName";
-            this.StudentReportFName.ReadOnly = true;
-            this.StudentReportFName.Width = 82;
-            // 
-            // StudentReportSName
-            // 
-            this.StudentReportSName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.StudentReportSName.Frozen = true;
-            this.StudentReportSName.HeaderText = "Last Name";
-            this.StudentReportSName.Name = "StudentReportSName";
-            this.StudentReportSName.ReadOnly = true;
-            this.StudentReportSName.Width = 83;
-            // 
-            // StudentReportYear
-            // 
-            this.StudentReportYear.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.StudentReportYear.Frozen = true;
-            this.StudentReportYear.HeaderText = "Year";
-            this.StudentReportYear.Name = "StudentReportYear";
-            this.StudentReportYear.ReadOnly = true;
-            this.StudentReportYear.Width = 54;
-            // 
-            // StudentReportClass
-            // 
-            this.StudentReportClass.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.StudentReportClass.Frozen = true;
-            this.StudentReportClass.HeaderText = "Class";
-            this.StudentReportClass.Name = "StudentReportClass";
-            this.StudentReportClass.ReadOnly = true;
-            this.StudentReportClass.Width = 57;
-            // 
-            // StudentReportCondition
-            // 
-            this.StudentReportCondition.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.StudentReportCondition.DefaultCellStyle = dataGridViewCellStyle2;
-            this.StudentReportCondition.HeaderText = "Condition";
-            this.StudentReportCondition.Name = "StudentReportCondition";
-            this.StudentReportCondition.ReadOnly = true;
+            this.sizeTypeDataGridViewTextBoxColumn1.DataPropertyName = "SizeType";
+            this.sizeTypeDataGridViewTextBoxColumn1.HeaderText = "SizeType";
+            this.sizeTypeDataGridViewTextBoxColumn1.Name = "sizeTypeDataGridViewTextBoxColumn1";
             // 
             // FormMain
             // 
@@ -1740,6 +1818,7 @@
             this.tableLayoutPanelStudentReport.ResumeLayout(false);
             this.tableLayoutPanelStudentReport.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudentReport)).EndInit();
+            this.flowLayoutPanelStudentReportSettings.ResumeLayout(false);
             this.tabAdmin.ResumeLayout(false);
             this.tabControlAdmin.ResumeLayout(false);
             this.tabGeneral.ResumeLayout(false);
@@ -1911,6 +1990,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn StudentReportYear;
         private System.Windows.Forms.DataGridViewTextBoxColumn StudentReportClass;
         private System.Windows.Forms.DataGridViewTextBoxColumn StudentReportCondition;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelStudentReportSettings;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.RadioButton radioButtonReportComplete;
+        private System.Windows.Forms.RadioButton radioButtonReportNotComplete;
+        private System.Windows.Forms.RadioButton radioButtonReportAll;
+        private System.Windows.Forms.DataGridViewTextBoxColumn heightDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn sizeTypeDataGridViewTextBoxColumn1;
     }
 }
 

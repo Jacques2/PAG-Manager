@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
 using System.Collections;
+using System.Data;
 
 namespace PAG_Manager
 {
@@ -25,7 +26,7 @@ namespace PAG_Manager
         {
             studentOrder.Add(ID);
         }
-        public int getStudentOrder(int index)
+        public int GetStudentOrder(int index)
         {
             try
             {
@@ -476,6 +477,28 @@ namespace PAG_Manager
             {
                 return "";
             }
+        }
+        //----------------next section holds complete dataset for filtering-------------------
+        List<List<string>> report = new List<List<string>>();
+        public void SetReport(List<List<string>> inputReport)
+        {
+            report = inputReport;
+        }
+        public List<List<string>> GetReport()
+        {
+            return report;
+        }
+        public List<List<string>> GetFilteredReport(string filter)
+        {
+            List<List<string>> filteredReport = new List<List<string>>();
+            for (int entry = 0; entry < report.Count; entry++)
+            {
+                if (report[entry][5].Contains(filter))
+                {
+                    filteredReport.Add(report[entry]);
+                }
+            }
+            return filteredReport;
         }
     }
 }

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Collections;
 using System.IO;
 using System.Globalization;
+using System.Web;
 
 namespace PAG_Manager
 {
@@ -1487,6 +1488,19 @@ namespace PAG_Manager
             }
             //progressBarStudentReport.Value = 0;
             dataGridViewStudentReport.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            radioButtonReportAll.Enabled = true;
+            radioButtonReportComplete.Enabled = true;
+            radioButtonReportNotComplete.Enabled = true;
+            List<List<string>> table = new List<List<string>>();
+            for (int row = 0; row < dataGridViewStudentReport.RowCount; row++)
+            {
+                table.Add(new List<string>());
+                for (int column = 0; column < dataGridViewStudentReport.ColumnCount; column++)
+                {
+                    table[row].Add(Convert.ToString(dataGridViewStudentReport[column, row].Value));
+                }
+            }
+            sr.SetReport(table);
         }
 
         private void dataGridViewStudentReport_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -1499,7 +1513,7 @@ namespace PAG_Manager
             if (e.ColumnIndex == 5)
             {
                 int studentIndex = Convert.ToInt32(dataGridViewStudentReport.Rows[e.RowIndex].Cells[0].Value);
-                int studentID = sr.getStudentOrder(studentIndex);
+                int studentID = sr.GetStudentOrder(studentIndex);
                 HashSet<int> universe = new HashSet<int>();
                 universe = sr.BuildUniverse(studentID);
                 List<HashSet<int>> subsets = new List<HashSet<int>>();
@@ -1507,13 +1521,68 @@ namespace PAG_Manager
                 List<int> requiredSubsets = new List<int>();
                 requiredSubsets = sr.FindPagsToComplete(universe, subsets);
                 string pagString = "";
+                int index1 = 0;
                 for (int i = 0; i < requiredSubsets.Count; i++)
                 {
-                    int pagID = sr.GetPagID(requiredSubsets[i]);
+                    int pagID = sr.GetPagID(requiredSubsets.ElementAt(i));
                     string pagName = sr.GetPagName(pagID);
-                    pagString += pagName + Environment.NewLine;
+                    pagString += pagName;
+                    if (i+1 != requiredSubsets.Count)
+                    {
+                        pagString += Environment.NewLine;
+                    }
+                    index1++;
                 }
-                MessageBox.Show(Convert.ToString(pagString));
+                if (pagString != "")
+                {
+                    MessageBox.Show(Convert.ToString(pagString));
+                }
+            }
+        }
+
+        private void radioButtonReportComplete_CheckedChanged(object sender, EventArgs e)
+        {
+            List<List<string>> report = new List<List<string>>();
+            report = sr.GetFilteredReport("passed");
+            dataGridViewStudentReport.Rows.Clear();
+            for (int i = 0; i < report.Count; i++)
+            {
+                string[] data = report[i].ToArray();
+                dataGridViewStudentReport.Rows.Add(data);
+                dataGridViewStudentReport.Rows[i].Cells[5].Style.BackColor = Color.LawnGreen;
+            }
+        }
+
+        private void radioButtonReportNotComplete_CheckedChanged(object sender, EventArgs e)
+        {
+            List<List<string>> report = new List<List<string>>();
+            report = sr.GetFilteredReport("Missing");
+            dataGridViewStudentReport.Rows.Clear();
+            for (int i = 0; i < report.Count; i++)
+            {
+                string[] data = report[i].ToArray();
+                dataGridViewStudentReport.Rows.Add(data);
+                dataGridViewStudentReport.Rows[i].Cells[5].Style.BackColor = Color.Yellow;
+            }
+        }
+
+        private void radioButtonReportAll_CheckedChanged(object sender, EventArgs e)
+        {
+            List<List<string>> report = new List<List<string>>();
+            report = sr.GetReport();
+            dataGridViewStudentReport.Rows.Clear();
+            for (int i = 0; i < report.Count; i++)
+            {
+                string[] data = report[i].ToArray();
+                dataGridViewStudentReport.Rows.Add(data);
+                if (Convert.ToString(dataGridViewStudentReport.Rows[i].Cells[5].Value).Contains("passed"))
+                {
+                    dataGridViewStudentReport.Rows[i].Cells[5].Style.BackColor = Color.LawnGreen;
+                }
+                else
+                {
+                    dataGridViewStudentReport.Rows[i].Cells[5].Style.BackColor = Color.Yellow;
+                }
             }
         }
     }
