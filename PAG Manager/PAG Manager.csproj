@@ -107,6 +107,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icon.ico" />
+    <None Include="MyAssets\EPPlus.xml" />
+    <None Include="MyAssets\EPPlus.dll" />
     <None Include="Resources\SkillRequirement.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

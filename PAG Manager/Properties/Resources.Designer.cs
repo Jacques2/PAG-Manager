@@ -61,18 +61,49 @@ namespace PAG_Manager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 0,Chemistry Group 1,0,1,2
-        ///1,Chemistry Group 2,3,4,5
-        ///2,Chemistry Group 3,6,7,8
-        ///3,Chemistry Group 4,9,10,11
-        ///4,Chemistry Group 5,12,13,14
-        ///5,Chemistry Group 6,15,16,17
-        ///6,Chemistry Group 7,18,19,20
-        ///7,Chemistry Group 8,21,22,23
-        ///8,Chemistry Group 9,24,25,26
-        ///9,Chemistry Group 10,27,28,29
-        ///10,Chemistry Group 11,30,31,32
-        ///11,Chemistry Group 12,33,34,35
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] EPPlusDll {
+            get {
+                object obj = ResourceManager.GetObject("EPPlusDll", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot;?&gt;
+        ///&lt;doc&gt;
+        ///    &lt;assembly&gt;
+        ///        &lt;name&gt;EPPlus&lt;/name&gt;
+        ///    &lt;/assembly&gt;
+        ///    &lt;members&gt;
+        ///        &lt;member name=&quot;T:CellStore`1&quot;&gt;
+        ///            &lt;summary&gt;
+        ///            This is the store for all Rows, Columns and Cells.
+        ///            It is a Dictionary implementation that allows you to change the Key (the RowID, ColumnID or CellID )
+        ///            &lt;/summary&gt;
+        ///        &lt;/member&gt;
+        ///        &lt;member name=&quot;M:CellStore`1.SetRangeValueSpecial(System.Int32,System.Int32,System.Int32,System.Int32,CellStore{`0} [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string EPPlusXml {
+            get {
+                return ResourceManager.GetString("EPPlusXml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 0,Group 1,0,1,2
+        ///1,Group 2,3,4,5
+        ///2,Group 3,6,7,8
+        ///3,Group 4,9,10,11
+        ///4,Group 5,12,13,14
+        ///5,Group 6,15,16,17
+        ///6,Group 7,18,19,20
+        ///7,Group 8,21,22,23
+        ///8,Group 9,24,25,26
+        ///9,Group 10,27,28,29
+        ///10,Group 11,30,31,32
+        ///11,Group 12,33,34,35
         ///.
         /// </summary>
         internal static string PagGroup {

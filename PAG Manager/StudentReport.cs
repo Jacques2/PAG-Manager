@@ -582,7 +582,6 @@ namespace PAG_Manager
                 excelWorksheet.Cells[currentRow, 2].Value = data[groupID].Item1;
                 excelWorksheet.Cells[currentRow, 2].Style.Font.Bold = true;
                 excelWorksheet.Cells[currentRow, 2].Style.Font.Size = 12;
-                excelWorksheet.Cells[currentRow, 3].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                 excelWorksheet.Cells[currentRow, 3].Value = "Date:";
                 excelWorksheet.Cells[currentRow, 4].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                 excelWorksheet.Cells[currentRow, 4].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.FromArgb(193, 231, 255));

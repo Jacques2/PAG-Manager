@@ -1599,6 +1599,8 @@ namespace PAG_Manager
 
         private void buttonExportReport_Click(object sender, EventArgs e)
         {
+            File.WriteAllBytes(AppDomain.CurrentDomain.BaseDirectory + @"EPPlus.dll", (PAG_Manager.Properties.Resources.EPPlusDll));
+            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"EPPlus.xml", (PAG_Manager.Properties.Resources.EPPlusXml));
             saveFileDialogExportReport.FileName = "PAG Manager Student Report " +  DateTime.Today.ToString("dd-MM-yyyy");
             saveFileDialogExportReport.ShowDialog();
         }
