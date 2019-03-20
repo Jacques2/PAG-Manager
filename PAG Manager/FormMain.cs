@@ -32,6 +32,10 @@ namespace PAG_Manager
 
         private void FormMain_Load(object sender, EventArgs e)//All first time setup for non-admin features. Admin setup appears later
         {
+            if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\") == false)
+            {
+                DirectoryInfo di = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\");
+            }
             // CREATE FILES IF NOT EXSIST
             StreamWriter setupPag = File.AppendText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagList.csv");
             setupPag.Close();
@@ -47,6 +51,8 @@ namespace PAG_Manager
             setupSkillRequirement.Close();
             StreamWriter setupPagGroup = File.AppendText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagGroup.csv");
             setupPagGroup.Close();
+            StreamWriter setupSettings = File.AppendText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\settings.dat");
+            setupSettings.Close();
             // HIDING ADMIN TAB
             //tabControlMain.TabPages.Remove(tabAdmin); //This line may be disabled while testing admin features, do not delete!
             ReloadAllSettings();
@@ -60,12 +66,15 @@ namespace PAG_Manager
             string[] SeperatedLine;
             StreamReader sr = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\settings.dat");//opens the student record file to start reading names
             lineRead = sr.ReadLine();
-            SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-            if (SeperatedLine[1] == "true")
+            if (lineRead != "" && lineRead != null)
             {
-                this.WindowState = FormWindowState.Maximized;
+                SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                if (SeperatedLine[1] == "true")
+                {
+                    this.WindowState = FormWindowState.Maximized;
+                }
+                sr.Close();
             }
-            sr.Close();
         }
         private void ReloadAllData(bool admin)//Reloads all data into the program when big changes are made
         {//The parameter decides if the admin stuff will be reloaded. This saves processing power if the user does not need admin functions.
