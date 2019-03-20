@@ -7,6 +7,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Collections;
 using System.Data;
+using OfficeOpenXml;
 
 namespace PAG_Manager
 {
@@ -173,7 +174,7 @@ namespace PAG_Manager
             while (lineRead != null)
             {
                 SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-                if (SeperatedLine[3] != "Absent")//checks to see if pag actually was achived
+                if (SeperatedLine[2] != "Absent")//checks to see if pag actually was achived
                 {
                     int studentID = Convert.ToInt32(SeperatedLine[0]);
                     int pagID = Convert.ToInt32(SeperatedLine[1]);
@@ -187,7 +188,7 @@ namespace PAG_Manager
             }
             sr.Close();
         }
-        public ArrayList GetMissingGroups(int studentID)
+        public ArrayList GetMissingGroups(int studentID, bool returnAsNames)
         {
             ArrayList groupsFailed = new ArrayList();
             for (int group = 0; group < groupInfo.Count; group++)
@@ -207,13 +208,21 @@ namespace PAG_Manager
                 }
                 if (hasPassed == false)
                 {
-                    groupsFailed.Add(groupInfo.ElementAt(group).Value.Item1);
+                    if (returnAsNames)
+                    {
+                        groupsFailed.Add(groupInfo.ElementAt(group).Value.Item1);
+                    }
+                    else
+                    {
+                        groupsFailed.Add(groupInfo.ElementAt(group).Key);
+                    }
                 }
             }
             return groupsFailed;
         }
         public Dictionary<int, Tuple<string, string, string, string>> GetAllStudentInformation()
         {
+            //dictionary has key = studentID, value = tuple(FirstName,LastName,Year,Class)
             Dictionary<int, Tuple<string, string, string, string>> studentInfo = new Dictionary<int, Tuple<string, string, string, string>>();
             StreamReader studentReader = new StreamReader(fileLocation + "StudentRecord.csv");
             string studentRead = studentReader.ReadLine();
@@ -499,6 +508,149 @@ namespace PAG_Manager
                 }
             }
             return filteredReport;
+        }
+        //------------this section builds an excel spreadsheet---------------
+        public void ExcelExport(string inputLocation)
+        {
+            //firstly builds group data
+            /* This is the biggest data type in the program, below shows the layout of the data type
+            
+            group id
+	            group name
+	            year
+		            classes
+			            first name
+			            second name
+             
+             
+             */
+            SortedList<int, Tuple<string, Dictionary<string, Dictionary<string, List<Tuple<string, string>>>>>> data = new SortedList<int, Tuple<string, Dictionary<string, Dictionary<string, List<Tuple<string, string>>>>>>();
+            List<int> listOfGroups = new List<int>();
+            //step 1: add all groups to data
+            string lineRead;
+            string[] SeperatedLine;
+            StreamReader sr = new StreamReader(fileLocation + "PagGroup.csv");
+            lineRead = sr.ReadLine();
+            while (lineRead != null)
+            {
+                SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                int groupID = Convert.ToInt32(SeperatedLine[0]);
+                string groupName = SeperatedLine[1];
+                listOfGroups.Add(groupID);
+                data.Add(groupID, new Tuple<string, Dictionary<string, Dictionary<string, List<Tuple<string, string>>>>>(groupName, new Dictionary<string, Dictionary<string, List<Tuple<string, string>>>>()));
+                lineRead = sr.ReadLine();
+            }
+            sr.Close();
+            //step 2: add all students to data
+            Dictionary<int, Tuple<string, string, string, string>> studentInfo = new Dictionary<int, Tuple<string, string, string, string>>();
+            studentInfo = GetAllStudentInformation();
+            for (int student = 0; student < studentInfo.Count; student++)//loops through each student
+            {
+                int currentStudentID = studentInfo.ElementAt(student).Key;
+                string studentFName = studentInfo[currentStudentID].Item1;
+                string studentLName = studentInfo[currentStudentID].Item2;
+                string studentYear = studentInfo[currentStudentID].Item3;
+                string studentClass = studentInfo[currentStudentID].Item4;
+                ArrayList missingGroups = new ArrayList();
+                missingGroups = GetMissingGroups(currentStudentID, false);
+                for (int group = 0; group < missingGroups.Count; group++)//loops through each group student has not achieved
+                {
+                    int groupID = Convert.ToInt32(missingGroups[group]);
+                    if (data[groupID].Item2.ContainsKey(studentYear) == false)//check if year exists
+                    {
+                        data[groupID].Item2.Add(studentYear, new Dictionary<string, List<Tuple<string, string>>>());
+                    }
+                    if (data[groupID].Item2[studentYear].ContainsKey(studentClass) == false)//check if class exists
+                    {
+                        data[groupID].Item2[studentYear].Add(studentClass, new List<Tuple<string, string>>());
+                    }
+                    data[groupID].Item2[studentYear][studentClass].Add(new Tuple<string, string>(studentFName, studentLName));
+                }
+            }
+            //now writes data to excel file
+            FileInfo location = new FileInfo(inputLocation);
+            string title = "Student Report " + DateTime.Today.ToString("dd-MM-yyyy");
+            ExcelPackage excel = new ExcelPackage();
+            excel.Workbook.Worksheets.Add(title);
+            var excelWorksheet = excel.Workbook.Worksheets[title];
+            //modify cells
+            int currentRow = 2;
+            excelWorksheet.Cells[1, 1].Value = "You can fill the dates in the blue boxes, and copy and paste the tables into powerpoint or word";
+            for (int group = 0; group < data.Count; group++)//loops through every group
+            {
+                int groupID = data.ElementAt(group).Key;
+                excelWorksheet.Cells[currentRow, 2].Value = data[groupID].Item1;
+                excelWorksheet.Cells[currentRow, 2].Style.Font.Bold = true;
+                excelWorksheet.Cells[currentRow, 2].Style.Font.Size = 12;
+                excelWorksheet.Cells[currentRow, 3].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                excelWorksheet.Cells[currentRow, 3].Value = "Date:";
+                excelWorksheet.Cells[currentRow, 4].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                excelWorksheet.Cells[currentRow, 4].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.FromArgb(193, 231, 255));
+                excelWorksheet.Cells[currentRow, 4].Style.Numberformat.Format = "mm-dd-yy";
+                excelWorksheet.Cells[currentRow, 3].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Right;
+                excelWorksheet.Cells[currentRow, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                excelWorksheet.Cells[currentRow, 4].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                excelWorksheet.Cells[currentRow+1, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                excelWorksheet.Cells[currentRow+1, 4].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                excelWorksheet.Cells[currentRow+2, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                excelWorksheet.Cells[currentRow+2, 4].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                excelWorksheet.Cells[currentRow, 2].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                excelWorksheet.Cells[currentRow, 3].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                excelWorksheet.Cells[currentRow, 4].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                currentRow = currentRow + 2;
+                for (int year = 0; year < data[groupID].Item2.Count; year++)//loops through every year
+                {
+                    string currentYear = data[groupID].Item2.ElementAt(year).Key;
+                    if (year > 0)
+                    {
+                        excelWorksheet.Cells[currentRow-1, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                        excelWorksheet.Cells[currentRow-1, 4].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                    }
+                    for (int theClass = 0; theClass < data[groupID].Item2[currentYear].Count; theClass++)//loops through every 
+                    {
+                        if (theClass > 0)
+                        {
+                            excelWorksheet.Cells[currentRow - 1, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                            excelWorksheet.Cells[currentRow - 1, 4].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                        }
+                        string currentClass = data[groupID].Item2[currentYear].ElementAt(theClass).Key;
+                        excelWorksheet.Cells[currentRow, 2].Value = currentYear;
+                        excelWorksheet.Cells[currentRow, 3].Value = currentClass;
+                        excelWorksheet.Cells[currentRow, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                        excelWorksheet.Cells[currentRow, 4].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                        excelWorksheet.Cells[currentRow, 2].Style.Font.Bold = true;
+                        excelWorksheet.Cells[currentRow, 3].Style.Font.Bold = true;
+                        currentRow++;
+                        for (int student = 0; student < data[groupID].Item2[currentYear][currentClass].Count; student++)
+                        {
+                            string FName = data[groupID].Item2[currentYear][currentClass][student].Item1;
+                            string LName = data[groupID].Item2[currentYear][currentClass][student].Item2;
+                            excelWorksheet.Cells[currentRow, 3].Value = FName;
+                            excelWorksheet.Cells[currentRow, 4].Value = LName;
+                            excelWorksheet.Cells[currentRow, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                            excelWorksheet.Cells[currentRow, 4].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                            currentRow++;
+                        }
+                        currentRow++;
+                    }
+                }
+                excelWorksheet.Cells[currentRow-2, 2].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                excelWorksheet.Cells[currentRow-2, 3].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                excelWorksheet.Cells[currentRow-2, 4].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+            }
+            excelWorksheet.Column(2).AutoFit();
+            excelWorksheet.Column(3).AutoFit();
+            excelWorksheet.Column(4).AutoFit();
+            //---------------------------------------------
+            try
+            {
+                excel.SaveAs(new FileInfo(inputLocation));
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Unable to export to file, file may be open or read-only","Error Exporting File");
+            }
+            excel.Dispose();
         }
     }
 }

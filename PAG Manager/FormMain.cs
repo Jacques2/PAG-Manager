@@ -244,6 +244,8 @@ namespace PAG_Manager
             //student report
             sr.BuildPagSubsets();
             sr.BuildLists();
+            sr.BuildPagList();
+            sr.BuildSkillInformation();
         }
 
         private void radioButtonAdmin_CheckedChanged(object sender, EventArgs e)//ADMIN: Allows advanced database editing
@@ -1073,11 +1075,13 @@ namespace PAG_Manager
             {
                 dataGridViewPag.Columns[0].Visible = true;
                 dataGridViewSkills.Columns[0].Visible = true;
+                dataGridViewStudentReport.Columns[0].Visible = true;
             }
             else
             {
                 dataGridViewPag.Columns[0].Visible = false;
                 dataGridViewSkills.Columns[0].Visible = false;
+                dataGridViewStudentReport.Columns[0].Visible = false;
             }
         }
 
@@ -1427,10 +1431,8 @@ namespace PAG_Manager
             int studentAmount = sr.GetNumberOfStudents();
             progressBarStudentReport.Maximum = studentAmount;
             //pre individual student processing
-            sr.BuildPagList();
             Dictionary<int, Tuple<string, string, string, string>> studentInfo = new Dictionary<int, Tuple<string, string, string, string>>();
             studentInfo = sr.GetAllStudentInformation();
-            sr.BuildSkillInformation();
             int index = -1;
             for (int student = 0; student < studentInfo.Count; student++)
             {
@@ -1455,7 +1457,7 @@ namespace PAG_Manager
                 }
                 //get missing groups for student
                 ArrayList missingGroups = new ArrayList();
-                missingGroups = sr.GetMissingGroups(currentStudentID);
+                missingGroups = sr.GetMissingGroups(currentStudentID, true);
                 string missingGroupString = "";
                 for (int i = 0; i < missingGroups.Count; i++)
                 {
@@ -1584,6 +1586,18 @@ namespace PAG_Manager
                     dataGridViewStudentReport.Rows[i].Cells[5].Style.BackColor = Color.Yellow;
                 }
             }
+        }
+
+        private void buttonExportReport_Click(object sender, EventArgs e)
+        {
+            saveFileDialogExportReport.FileName = "PAG Manager Student Report " +  DateTime.Today.ToString("dd-MM-yyyy");
+            saveFileDialogExportReport.ShowDialog();
+        }
+
+        private void saveFileDialogExportReport_FileOk(object sender, CancelEventArgs e)
+        {
+            string location = saveFileDialogExportReport.FileName;
+            sr.ExcelExport(location);
         }
     }
 }

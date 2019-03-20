@@ -28,10 +28,63 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.tabControlMain = new System.Windows.Forms.TabControl();
+            this.tabAwardPag = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanelAwardPag = new System.Windows.Forms.TableLayoutPanel();
+            this.treeViewYearSelect = new System.Windows.Forms.TreeView();
+            this.treeViewPagSelect = new System.Windows.Forms.TreeView();
+            this.groupBoxAwardPag = new System.Windows.Forms.GroupBox();
+            this.labelAwardPagSelectedAbsent = new System.Windows.Forms.Label();
+            this.buttonAwardPagClearSelection = new System.Windows.Forms.Button();
+            this.labelAwardPagSelectedFailedSkills = new System.Windows.Forms.Label();
+            this.labelAwardPagSelectedPag = new System.Windows.Forms.Label();
+            this.labelAwardPagSelectedStudents = new System.Windows.Forms.Label();
+            this.buttonAwardPag = new System.Windows.Forms.Button();
+            this.labelPagAwardSettingsSelectDate = new System.Windows.Forms.Label();
+            this.dateTimePickerAwardPag = new System.Windows.Forms.DateTimePicker();
+            this.tabLookup = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanelLookup = new System.Windows.Forms.TableLayoutPanel();
+            this.groupBoxLookupSearch = new System.Windows.Forms.GroupBox();
+            this.buttonLookupSubmitModifications = new System.Windows.Forms.Button();
+            this.checkBoxArchives = new System.Windows.Forms.CheckBox();
+            this.textBoxLookupName = new System.Windows.Forms.TextBox();
+            this.labelLookupName = new System.Windows.Forms.Label();
+            this.listBoxStudentNames = new System.Windows.Forms.ListBox();
+            this.dataGridViewStudentLookup = new System.Windows.Forms.DataGridView();
+            this.tabPagDates = new System.Windows.Forms.TabPage();
+            this.dataGridViewPag = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabSkills = new System.Windows.Forms.TabPage();
+            this.dataGridViewSkills = new System.Windows.Forms.DataGridView();
+            this.StudentID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StudentFName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StudentLName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StudentYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StudentClass = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabReport = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanelStudentReport = new System.Windows.Forms.TableLayoutPanel();
+            this.buttonGenerateReport = new System.Windows.Forms.Button();
+            this.progressBarStudentReport = new System.Windows.Forms.ProgressBar();
+            this.dataGridViewStudentReport = new System.Windows.Forms.DataGridView();
+            this.StudentReportID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StudentReportFName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StudentReportSName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StudentReportYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StudentReportClass = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StudentReportCondition = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.labelReportSettings = new System.Windows.Forms.Label();
+            this.flowLayoutPanelStudentReportSettings = new System.Windows.Forms.FlowLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.radioButtonReportComplete = new System.Windows.Forms.RadioButton();
+            this.radioButtonReportNotComplete = new System.Windows.Forms.RadioButton();
+            this.radioButtonReportAll = new System.Windows.Forms.RadioButton();
             this.tabActivitySelection = new System.Windows.Forms.TabPage();
             this.tableLayoutPanelActivitySelection = new System.Windows.Forms.TableLayoutPanel();
             this.labelActivitySelectionSkill = new System.Windows.Forms.Label();
@@ -52,59 +105,6 @@
             this.tableLayoutPanelContentSelectionActivitySelection = new System.Windows.Forms.TableLayoutPanel();
             this.labelContentSelectionPag = new System.Windows.Forms.Label();
             this.listBoxContentSelectionInclusion = new System.Windows.Forms.ListBox();
-            this.tabSkills = new System.Windows.Forms.TabPage();
-            this.dataGridViewSkills = new System.Windows.Forms.DataGridView();
-            this.StudentID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StudentFName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StudentLName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StudentYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StudentClass = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabPagDates = new System.Windows.Forms.TabPage();
-            this.dataGridViewPag = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabLookup = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanelLookup = new System.Windows.Forms.TableLayoutPanel();
-            this.groupBoxLookupSearch = new System.Windows.Forms.GroupBox();
-            this.buttonLookupSubmitModifications = new System.Windows.Forms.Button();
-            this.checkBoxArchives = new System.Windows.Forms.CheckBox();
-            this.textBoxLookupName = new System.Windows.Forms.TextBox();
-            this.labelLookupName = new System.Windows.Forms.Label();
-            this.listBoxStudentNames = new System.Windows.Forms.ListBox();
-            this.dataGridViewStudentLookup = new System.Windows.Forms.DataGridView();
-            this.tabAwardPag = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanelAwardPag = new System.Windows.Forms.TableLayoutPanel();
-            this.treeViewYearSelect = new System.Windows.Forms.TreeView();
-            this.treeViewPagSelect = new System.Windows.Forms.TreeView();
-            this.groupBoxAwardPag = new System.Windows.Forms.GroupBox();
-            this.labelAwardPagSelectedAbsent = new System.Windows.Forms.Label();
-            this.buttonAwardPagClearSelection = new System.Windows.Forms.Button();
-            this.labelAwardPagSelectedFailedSkills = new System.Windows.Forms.Label();
-            this.labelAwardPagSelectedPag = new System.Windows.Forms.Label();
-            this.labelAwardPagSelectedStudents = new System.Windows.Forms.Label();
-            this.buttonAwardPag = new System.Windows.Forms.Button();
-            this.labelPagAwardSettingsSelectDate = new System.Windows.Forms.Label();
-            this.dateTimePickerAwardPag = new System.Windows.Forms.DateTimePicker();
-            this.tabReport = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanelStudentReport = new System.Windows.Forms.TableLayoutPanel();
-            this.buttonGenerateReport = new System.Windows.Forms.Button();
-            this.progressBarStudentReport = new System.Windows.Forms.ProgressBar();
-            this.dataGridViewStudentReport = new System.Windows.Forms.DataGridView();
-            this.StudentReportID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StudentReportFName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StudentReportSName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StudentReportYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StudentReportClass = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StudentReportCondition = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.labelReportSettings = new System.Windows.Forms.Label();
-            this.flowLayoutPanelStudentReportSettings = new System.Windows.Forms.FlowLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.radioButtonReportComplete = new System.Windows.Forms.RadioButton();
-            this.radioButtonReportNotComplete = new System.Windows.Forms.RadioButton();
-            this.radioButtonReportAll = new System.Windows.Forms.RadioButton();
             this.tabAdmin = new System.Windows.Forms.TabPage();
             this.tabControlAdmin = new System.Windows.Forms.TabControl();
             this.tabGeneral = new System.Windows.Forms.TabPage();
@@ -160,6 +160,8 @@
             this.buttonAddStudentRecord = new System.Windows.Forms.Button();
             this.labelImportStudents = new System.Windows.Forms.Label();
             this.dataGridViewStudentImport = new System.Windows.Forms.DataGridView();
+            this.tabStudentManagement = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -174,7 +176,24 @@
             this.openFileDialogImportCSV = new System.Windows.Forms.OpenFileDialog();
             this.heightDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sizeTypeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonExportReport = new System.Windows.Forms.Button();
+            this.saveFileDialogExportReport = new System.Windows.Forms.SaveFileDialog();
             this.tabControlMain.SuspendLayout();
+            this.tabAwardPag.SuspendLayout();
+            this.tableLayoutPanelAwardPag.SuspendLayout();
+            this.groupBoxAwardPag.SuspendLayout();
+            this.tabLookup.SuspendLayout();
+            this.tableLayoutPanelLookup.SuspendLayout();
+            this.groupBoxLookupSearch.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudentLookup)).BeginInit();
+            this.tabPagDates.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPag)).BeginInit();
+            this.tabSkills.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSkills)).BeginInit();
+            this.tabReport.SuspendLayout();
+            this.tableLayoutPanelStudentReport.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudentReport)).BeginInit();
+            this.flowLayoutPanelStudentReportSettings.SuspendLayout();
             this.tabActivitySelection.SuspendLayout();
             this.tableLayoutPanelActivitySelection.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewActivitySelectionSkills)).BeginInit();
@@ -184,21 +203,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewContentSelectionPag)).BeginInit();
             this.tableLayoutContentSelectionSkill.SuspendLayout();
             this.tableLayoutPanelContentSelectionActivitySelection.SuspendLayout();
-            this.tabSkills.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSkills)).BeginInit();
-            this.tabPagDates.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPag)).BeginInit();
-            this.tabLookup.SuspendLayout();
-            this.tableLayoutPanelLookup.SuspendLayout();
-            this.groupBoxLookupSearch.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudentLookup)).BeginInit();
-            this.tabAwardPag.SuspendLayout();
-            this.tableLayoutPanelAwardPag.SuspendLayout();
-            this.groupBoxAwardPag.SuspendLayout();
-            this.tabReport.SuspendLayout();
-            this.tableLayoutPanelStudentReport.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudentReport)).BeginInit();
-            this.flowLayoutPanelStudentReportSettings.SuspendLayout();
             this.tabAdmin.SuspendLayout();
             this.tabControlAdmin.SuspendLayout();
             this.tabGeneral.SuspendLayout();
@@ -218,18 +222,19 @@
             this.tableLayoutPanelImportStudents.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudentImport)).BeginInit();
+            this.tabStudentManagement.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlMain
             // 
+            this.tabControlMain.Controls.Add(this.tabAwardPag);
+            this.tabControlMain.Controls.Add(this.tabLookup);
+            this.tabControlMain.Controls.Add(this.tabPagDates);
+            this.tabControlMain.Controls.Add(this.tabSkills);
+            this.tabControlMain.Controls.Add(this.tabReport);
             this.tabControlMain.Controls.Add(this.tabActivitySelection);
             this.tabControlMain.Controls.Add(this.tabContentSelection);
-            this.tabControlMain.Controls.Add(this.tabSkills);
-            this.tabControlMain.Controls.Add(this.tabPagDates);
-            this.tabControlMain.Controls.Add(this.tabLookup);
-            this.tabControlMain.Controls.Add(this.tabAwardPag);
-            this.tabControlMain.Controls.Add(this.tabReport);
             this.tabControlMain.Controls.Add(this.tabAdmin);
             this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlMain.Location = new System.Drawing.Point(0, 24);
@@ -238,6 +243,581 @@
             this.tabControlMain.Size = new System.Drawing.Size(784, 537);
             this.tabControlMain.TabIndex = 0;
             this.tabControlMain.SelectedIndexChanged += new System.EventHandler(this.tabControlMain_SelectedIndexChanged);
+            // 
+            // tabAwardPag
+            // 
+            this.tabAwardPag.Controls.Add(this.tableLayoutPanelAwardPag);
+            this.tabAwardPag.Location = new System.Drawing.Point(4, 22);
+            this.tabAwardPag.Name = "tabAwardPag";
+            this.tabAwardPag.Padding = new System.Windows.Forms.Padding(3);
+            this.tabAwardPag.Size = new System.Drawing.Size(776, 511);
+            this.tabAwardPag.TabIndex = 6;
+            this.tabAwardPag.Text = "Award PAG";
+            this.tabAwardPag.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanelAwardPag
+            // 
+            this.tableLayoutPanelAwardPag.ColumnCount = 3;
+            this.tableLayoutPanelAwardPag.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelAwardPag.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelAwardPag.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 182F));
+            this.tableLayoutPanelAwardPag.Controls.Add(this.treeViewYearSelect, 0, 0);
+            this.tableLayoutPanelAwardPag.Controls.Add(this.treeViewPagSelect, 1, 0);
+            this.tableLayoutPanelAwardPag.Controls.Add(this.groupBoxAwardPag, 2, 0);
+            this.tableLayoutPanelAwardPag.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelAwardPag.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanelAwardPag.Name = "tableLayoutPanelAwardPag";
+            this.tableLayoutPanelAwardPag.RowCount = 1;
+            this.tableLayoutPanelAwardPag.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelAwardPag.Size = new System.Drawing.Size(770, 505);
+            this.tableLayoutPanelAwardPag.TabIndex = 0;
+            // 
+            // treeViewYearSelect
+            // 
+            this.treeViewYearSelect.CheckBoxes = true;
+            this.treeViewYearSelect.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewYearSelect.Location = new System.Drawing.Point(3, 3);
+            this.treeViewYearSelect.Name = "treeViewYearSelect";
+            this.treeViewYearSelect.Size = new System.Drawing.Size(288, 499);
+            this.treeViewYearSelect.TabIndex = 0;
+            this.treeViewYearSelect.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeViewYearSelect_AfterCheck);
+            // 
+            // treeViewPagSelect
+            // 
+            this.treeViewPagSelect.CheckBoxes = true;
+            this.treeViewPagSelect.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewPagSelect.Location = new System.Drawing.Point(297, 3);
+            this.treeViewPagSelect.Name = "treeViewPagSelect";
+            this.treeViewPagSelect.Size = new System.Drawing.Size(288, 499);
+            this.treeViewPagSelect.TabIndex = 1;
+            this.treeViewPagSelect.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeViewPagSelect_AfterCheck);
+            // 
+            // groupBoxAwardPag
+            // 
+            this.groupBoxAwardPag.Controls.Add(this.labelAwardPagSelectedAbsent);
+            this.groupBoxAwardPag.Controls.Add(this.buttonAwardPagClearSelection);
+            this.groupBoxAwardPag.Controls.Add(this.labelAwardPagSelectedFailedSkills);
+            this.groupBoxAwardPag.Controls.Add(this.labelAwardPagSelectedPag);
+            this.groupBoxAwardPag.Controls.Add(this.labelAwardPagSelectedStudents);
+            this.groupBoxAwardPag.Controls.Add(this.buttonAwardPag);
+            this.groupBoxAwardPag.Controls.Add(this.labelPagAwardSettingsSelectDate);
+            this.groupBoxAwardPag.Controls.Add(this.dateTimePickerAwardPag);
+            this.groupBoxAwardPag.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBoxAwardPag.Location = new System.Drawing.Point(591, 3);
+            this.groupBoxAwardPag.Name = "groupBoxAwardPag";
+            this.groupBoxAwardPag.Size = new System.Drawing.Size(176, 499);
+            this.groupBoxAwardPag.TabIndex = 2;
+            this.groupBoxAwardPag.TabStop = false;
+            this.groupBoxAwardPag.Text = "PAG Award Settings";
+            // 
+            // labelAwardPagSelectedAbsent
+            // 
+            this.labelAwardPagSelectedAbsent.Location = new System.Drawing.Point(6, 114);
+            this.labelAwardPagSelectedAbsent.Name = "labelAwardPagSelectedAbsent";
+            this.labelAwardPagSelectedAbsent.Size = new System.Drawing.Size(164, 31);
+            this.labelAwardPagSelectedAbsent.TabIndex = 11;
+            this.labelAwardPagSelectedAbsent.Text = "0 students within the selected class will be marked as absent";
+            // 
+            // buttonAwardPagClearSelection
+            // 
+            this.buttonAwardPagClearSelection.Location = new System.Drawing.Point(6, 19);
+            this.buttonAwardPagClearSelection.Name = "buttonAwardPagClearSelection";
+            this.buttonAwardPagClearSelection.Size = new System.Drawing.Size(164, 23);
+            this.buttonAwardPagClearSelection.TabIndex = 10;
+            this.buttonAwardPagClearSelection.Text = "Clear Selection";
+            this.buttonAwardPagClearSelection.UseVisualStyleBackColor = true;
+            this.buttonAwardPagClearSelection.Click += new System.EventHandler(this.buttonAwardPagClearSelection_Click);
+            // 
+            // labelAwardPagSelectedFailedSkills
+            // 
+            this.labelAwardPagSelectedFailedSkills.Location = new System.Drawing.Point(6, 173);
+            this.labelAwardPagSelectedFailedSkills.Name = "labelAwardPagSelectedFailedSkills";
+            this.labelAwardPagSelectedFailedSkills.Size = new System.Drawing.Size(164, 31);
+            this.labelAwardPagSelectedFailedSkills.TabIndex = 9;
+            this.labelAwardPagSelectedFailedSkills.Text = "0 skills within the selected PAG\'s will be marked as failed";
+            // 
+            // labelAwardPagSelectedPag
+            // 
+            this.labelAwardPagSelectedPag.AutoSize = true;
+            this.labelAwardPagSelectedPag.Location = new System.Drawing.Point(6, 148);
+            this.labelAwardPagSelectedPag.Name = "labelAwardPagSelectedPag";
+            this.labelAwardPagSelectedPag.Size = new System.Drawing.Size(131, 13);
+            this.labelAwardPagSelectedPag.TabIndex = 8;
+            this.labelAwardPagSelectedPag.Text = "You are awarding 0 PAG\'s";
+            // 
+            // labelAwardPagSelectedStudents
+            // 
+            this.labelAwardPagSelectedStudents.AutoSize = true;
+            this.labelAwardPagSelectedStudents.Location = new System.Drawing.Point(6, 94);
+            this.labelAwardPagSelectedStudents.Name = "labelAwardPagSelectedStudents";
+            this.labelAwardPagSelectedStudents.Size = new System.Drawing.Size(148, 13);
+            this.labelAwardPagSelectedStudents.TabIndex = 7;
+            this.labelAwardPagSelectedStudents.Text = "You have selected 0 students";
+            // 
+            // buttonAwardPag
+            // 
+            this.buttonAwardPag.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.buttonAwardPag.Location = new System.Drawing.Point(3, 473);
+            this.buttonAwardPag.Name = "buttonAwardPag";
+            this.buttonAwardPag.Size = new System.Drawing.Size(170, 23);
+            this.buttonAwardPag.TabIndex = 6;
+            this.buttonAwardPag.Text = "Award PAG";
+            this.buttonAwardPag.UseVisualStyleBackColor = true;
+            this.buttonAwardPag.Click += new System.EventHandler(this.buttonAwardPag_Click);
+            // 
+            // labelPagAwardSettingsSelectDate
+            // 
+            this.labelPagAwardSettingsSelectDate.AutoSize = true;
+            this.labelPagAwardSettingsSelectDate.Location = new System.Drawing.Point(1, 46);
+            this.labelPagAwardSettingsSelectDate.Name = "labelPagAwardSettingsSelectDate";
+            this.labelPagAwardSettingsSelectDate.Size = new System.Drawing.Size(161, 13);
+            this.labelPagAwardSettingsSelectDate.TabIndex = 4;
+            this.labelPagAwardSettingsSelectDate.Text = "Select the PAG completion date:";
+            // 
+            // dateTimePickerAwardPag
+            // 
+            this.dateTimePickerAwardPag.CustomFormat = "d/M/yyyy";
+            this.dateTimePickerAwardPag.Location = new System.Drawing.Point(3, 62);
+            this.dateTimePickerAwardPag.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
+            this.dateTimePickerAwardPag.Name = "dateTimePickerAwardPag";
+            this.dateTimePickerAwardPag.Size = new System.Drawing.Size(170, 20);
+            this.dateTimePickerAwardPag.TabIndex = 3;
+            this.dateTimePickerAwardPag.ValueChanged += new System.EventHandler(this.dateTimePickerAwardPag_ValueChanged);
+            // 
+            // tabLookup
+            // 
+            this.tabLookup.Controls.Add(this.tableLayoutPanelLookup);
+            this.tabLookup.Location = new System.Drawing.Point(4, 22);
+            this.tabLookup.Name = "tabLookup";
+            this.tabLookup.Padding = new System.Windows.Forms.Padding(3);
+            this.tabLookup.Size = new System.Drawing.Size(776, 511);
+            this.tabLookup.TabIndex = 3;
+            this.tabLookup.Text = "Student Lookup";
+            this.tabLookup.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanelLookup
+            // 
+            this.tableLayoutPanelLookup.ColumnCount = 2;
+            this.tableLayoutPanelLookup.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180F));
+            this.tableLayoutPanelLookup.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanelLookup.Controls.Add(this.groupBoxLookupSearch, 0, 0);
+            this.tableLayoutPanelLookup.Controls.Add(this.listBoxStudentNames, 0, 1);
+            this.tableLayoutPanelLookup.Controls.Add(this.dataGridViewStudentLookup, 1, 1);
+            this.tableLayoutPanelLookup.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelLookup.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanelLookup.Name = "tableLayoutPanelLookup";
+            this.tableLayoutPanelLookup.RowCount = 2;
+            this.tableLayoutPanelLookup.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tableLayoutPanelLookup.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanelLookup.Size = new System.Drawing.Size(770, 505);
+            this.tableLayoutPanelLookup.TabIndex = 0;
+            // 
+            // groupBoxLookupSearch
+            // 
+            this.tableLayoutPanelLookup.SetColumnSpan(this.groupBoxLookupSearch, 2);
+            this.groupBoxLookupSearch.Controls.Add(this.buttonLookupSubmitModifications);
+            this.groupBoxLookupSearch.Controls.Add(this.checkBoxArchives);
+            this.groupBoxLookupSearch.Controls.Add(this.textBoxLookupName);
+            this.groupBoxLookupSearch.Controls.Add(this.labelLookupName);
+            this.groupBoxLookupSearch.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBoxLookupSearch.Location = new System.Drawing.Point(3, 3);
+            this.groupBoxLookupSearch.Name = "groupBoxLookupSearch";
+            this.groupBoxLookupSearch.Size = new System.Drawing.Size(764, 54);
+            this.groupBoxLookupSearch.TabIndex = 0;
+            this.groupBoxLookupSearch.TabStop = false;
+            this.groupBoxLookupSearch.Text = "Student Lookup";
+            // 
+            // buttonLookupSubmitModifications
+            // 
+            this.buttonLookupSubmitModifications.Location = new System.Drawing.Point(567, 19);
+            this.buttonLookupSubmitModifications.Name = "buttonLookupSubmitModifications";
+            this.buttonLookupSubmitModifications.Size = new System.Drawing.Size(92, 23);
+            this.buttonLookupSubmitModifications.TabIndex = 6;
+            this.buttonLookupSubmitModifications.Text = "Save Changes";
+            this.buttonLookupSubmitModifications.UseVisualStyleBackColor = true;
+            this.buttonLookupSubmitModifications.Click += new System.EventHandler(this.buttonLookupSubmitModifications_Click);
+            // 
+            // checkBoxArchives
+            // 
+            this.checkBoxArchives.AutoSize = true;
+            this.checkBoxArchives.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.checkBoxArchives.Location = new System.Drawing.Point(321, 23);
+            this.checkBoxArchives.Name = "checkBoxArchives";
+            this.checkBoxArchives.Size = new System.Drawing.Size(104, 17);
+            this.checkBoxArchives.TabIndex = 4;
+            this.checkBoxArchives.Text = "Search Archives";
+            this.checkBoxArchives.UseVisualStyleBackColor = true;
+            this.checkBoxArchives.CheckedChanged += new System.EventHandler(this.checkBoxArchives_CheckedChanged);
+            // 
+            // textBoxLookupName
+            // 
+            this.textBoxLookupName.Location = new System.Drawing.Point(124, 21);
+            this.textBoxLookupName.Name = "textBoxLookupName";
+            this.textBoxLookupName.Size = new System.Drawing.Size(191, 20);
+            this.textBoxLookupName.TabIndex = 1;
+            this.textBoxLookupName.TextChanged += new System.EventHandler(this.textBoxLookupName_TextChanged);
+            // 
+            // labelLookupName
+            // 
+            this.labelLookupName.AutoSize = true;
+            this.labelLookupName.Location = new System.Drawing.Point(6, 24);
+            this.labelLookupName.Name = "labelLookupName";
+            this.labelLookupName.Size = new System.Drawing.Size(112, 13);
+            this.labelLookupName.TabIndex = 0;
+            this.labelLookupName.Text = "Search name or class:";
+            // 
+            // listBoxStudentNames
+            // 
+            this.listBoxStudentNames.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBoxStudentNames.FormattingEnabled = true;
+            this.listBoxStudentNames.Location = new System.Drawing.Point(3, 63);
+            this.listBoxStudentNames.Name = "listBoxStudentNames";
+            this.listBoxStudentNames.Size = new System.Drawing.Size(174, 463);
+            this.listBoxStudentNames.TabIndex = 1;
+            this.listBoxStudentNames.SelectedIndexChanged += new System.EventHandler(this.listBoxStudentNames_SelectedIndexChanged);
+            // 
+            // dataGridViewStudentLookup
+            // 
+            this.dataGridViewStudentLookup.AllowUserToAddRows = false;
+            this.dataGridViewStudentLookup.AllowUserToDeleteRows = false;
+            this.dataGridViewStudentLookup.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewStudentLookup.DefaultCellStyle = dataGridViewCellStyle5;
+            this.dataGridViewStudentLookup.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewStudentLookup.Location = new System.Drawing.Point(183, 63);
+            this.dataGridViewStudentLookup.Name = "dataGridViewStudentLookup";
+            this.dataGridViewStudentLookup.Size = new System.Drawing.Size(584, 463);
+            this.dataGridViewStudentLookup.TabIndex = 2;
+            this.dataGridViewStudentLookup.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewStudentLookup_CellEndEdit);
+            this.dataGridViewStudentLookup.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStudentLookup_CellValueChanged);
+            this.dataGridViewStudentLookup.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridViewStudentLookup_KeyDown);
+            // 
+            // tabPagDates
+            // 
+            this.tabPagDates.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.tabPagDates.Controls.Add(this.dataGridViewPag);
+            this.tabPagDates.Location = new System.Drawing.Point(4, 22);
+            this.tabPagDates.Margin = new System.Windows.Forms.Padding(2);
+            this.tabPagDates.Name = "tabPagDates";
+            this.tabPagDates.Padding = new System.Windows.Forms.Padding(2);
+            this.tabPagDates.Size = new System.Drawing.Size(776, 511);
+            this.tabPagDates.TabIndex = 2;
+            this.tabPagDates.Text = "PAG View";
+            // 
+            // dataGridViewPag
+            // 
+            this.dataGridViewPag.AllowUserToAddRows = false;
+            this.dataGridViewPag.AllowUserToDeleteRows = false;
+            this.dataGridViewPag.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridViewPag.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewPag.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4,
+            this.dataGridViewTextBoxColumn5});
+            this.dataGridViewPag.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewPag.Location = new System.Drawing.Point(2, 2);
+            this.dataGridViewPag.Name = "dataGridViewPag";
+            this.dataGridViewPag.ReadOnly = true;
+            this.dataGridViewPag.Size = new System.Drawing.Size(772, 507);
+            this.dataGridViewPag.TabIndex = 1;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.Frozen = true;
+            this.dataGridViewTextBoxColumn1.HeaderText = "StudentID";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.Frozen = true;
+            this.dataGridViewTextBoxColumn2.HeaderText = "First Name";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.Frozen = true;
+            this.dataGridViewTextBoxColumn3.HeaderText = "Last Name";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.Frozen = true;
+            this.dataGridViewTextBoxColumn4.HeaderText = "Year";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.Frozen = true;
+            this.dataGridViewTextBoxColumn5.HeaderText = "Class";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            // 
+            // tabSkills
+            // 
+            this.tabSkills.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.tabSkills.Controls.Add(this.dataGridViewSkills);
+            this.tabSkills.Location = new System.Drawing.Point(4, 22);
+            this.tabSkills.Name = "tabSkills";
+            this.tabSkills.Padding = new System.Windows.Forms.Padding(3);
+            this.tabSkills.Size = new System.Drawing.Size(776, 511);
+            this.tabSkills.TabIndex = 0;
+            this.tabSkills.Text = "Skills View";
+            // 
+            // dataGridViewSkills
+            // 
+            this.dataGridViewSkills.AllowUserToAddRows = false;
+            this.dataGridViewSkills.AllowUserToDeleteRows = false;
+            this.dataGridViewSkills.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridViewSkills.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewSkills.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.StudentID,
+            this.StudentFName,
+            this.StudentLName,
+            this.StudentYear,
+            this.StudentClass});
+            this.dataGridViewSkills.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewSkills.Location = new System.Drawing.Point(3, 3);
+            this.dataGridViewSkills.Name = "dataGridViewSkills";
+            this.dataGridViewSkills.ReadOnly = true;
+            this.dataGridViewSkills.Size = new System.Drawing.Size(770, 505);
+            this.dataGridViewSkills.TabIndex = 0;
+            // 
+            // StudentID
+            // 
+            this.StudentID.Frozen = true;
+            this.StudentID.HeaderText = "StudentID";
+            this.StudentID.Name = "StudentID";
+            this.StudentID.ReadOnly = true;
+            // 
+            // StudentFName
+            // 
+            this.StudentFName.Frozen = true;
+            this.StudentFName.HeaderText = "First Name";
+            this.StudentFName.Name = "StudentFName";
+            this.StudentFName.ReadOnly = true;
+            // 
+            // StudentLName
+            // 
+            this.StudentLName.Frozen = true;
+            this.StudentLName.HeaderText = "Last Name";
+            this.StudentLName.Name = "StudentLName";
+            this.StudentLName.ReadOnly = true;
+            // 
+            // StudentYear
+            // 
+            this.StudentYear.Frozen = true;
+            this.StudentYear.HeaderText = "Year";
+            this.StudentYear.Name = "StudentYear";
+            this.StudentYear.ReadOnly = true;
+            // 
+            // StudentClass
+            // 
+            this.StudentClass.Frozen = true;
+            this.StudentClass.HeaderText = "Class";
+            this.StudentClass.Name = "StudentClass";
+            this.StudentClass.ReadOnly = true;
+            // 
+            // tabReport
+            // 
+            this.tabReport.Controls.Add(this.tableLayoutPanelStudentReport);
+            this.tabReport.Location = new System.Drawing.Point(4, 22);
+            this.tabReport.Name = "tabReport";
+            this.tabReport.Padding = new System.Windows.Forms.Padding(3);
+            this.tabReport.Size = new System.Drawing.Size(776, 511);
+            this.tabReport.TabIndex = 7;
+            this.tabReport.Text = "Student Report";
+            this.tabReport.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanelStudentReport
+            // 
+            this.tableLayoutPanelStudentReport.ColumnCount = 3;
+            this.tableLayoutPanelStudentReport.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanelStudentReport.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelStudentReport.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tableLayoutPanelStudentReport.Controls.Add(this.buttonGenerateReport, 0, 0);
+            this.tableLayoutPanelStudentReport.Controls.Add(this.progressBarStudentReport, 1, 0);
+            this.tableLayoutPanelStudentReport.Controls.Add(this.dataGridViewStudentReport, 0, 1);
+            this.tableLayoutPanelStudentReport.Controls.Add(this.labelReportSettings, 2, 0);
+            this.tableLayoutPanelStudentReport.Controls.Add(this.flowLayoutPanelStudentReportSettings, 2, 1);
+            this.tableLayoutPanelStudentReport.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelStudentReport.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanelStudentReport.Name = "tableLayoutPanelStudentReport";
+            this.tableLayoutPanelStudentReport.RowCount = 2;
+            this.tableLayoutPanelStudentReport.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tableLayoutPanelStudentReport.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelStudentReport.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanelStudentReport.Size = new System.Drawing.Size(770, 505);
+            this.tableLayoutPanelStudentReport.TabIndex = 0;
+            // 
+            // buttonGenerateReport
+            // 
+            this.buttonGenerateReport.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonGenerateReport.Location = new System.Drawing.Point(3, 3);
+            this.buttonGenerateReport.Name = "buttonGenerateReport";
+            this.buttonGenerateReport.Size = new System.Drawing.Size(94, 22);
+            this.buttonGenerateReport.TabIndex = 0;
+            this.buttonGenerateReport.Text = "Generate Report";
+            this.buttonGenerateReport.UseVisualStyleBackColor = true;
+            this.buttonGenerateReport.Click += new System.EventHandler(this.buttonGenerateReport_Click);
+            // 
+            // progressBarStudentReport
+            // 
+            this.progressBarStudentReport.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.progressBarStudentReport.Location = new System.Drawing.Point(103, 3);
+            this.progressBarStudentReport.Name = "progressBarStudentReport";
+            this.progressBarStudentReport.Size = new System.Drawing.Size(464, 22);
+            this.progressBarStudentReport.TabIndex = 1;
+            // 
+            // dataGridViewStudentReport
+            // 
+            this.dataGridViewStudentReport.AllowUserToAddRows = false;
+            this.dataGridViewStudentReport.AllowUserToDeleteRows = false;
+            this.dataGridViewStudentReport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewStudentReport.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.StudentReportID,
+            this.StudentReportFName,
+            this.StudentReportSName,
+            this.StudentReportYear,
+            this.StudentReportClass,
+            this.StudentReportCondition});
+            this.tableLayoutPanelStudentReport.SetColumnSpan(this.dataGridViewStudentReport, 2);
+            this.dataGridViewStudentReport.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewStudentReport.Location = new System.Drawing.Point(3, 31);
+            this.dataGridViewStudentReport.Name = "dataGridViewStudentReport";
+            this.dataGridViewStudentReport.ReadOnly = true;
+            this.dataGridViewStudentReport.Size = new System.Drawing.Size(564, 471);
+            this.dataGridViewStudentReport.TabIndex = 2;
+            this.dataGridViewStudentReport.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStudentReport_CellClick);
+            this.dataGridViewStudentReport.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStudentReport_CellEnter);
+            // 
+            // StudentReportID
+            // 
+            this.StudentReportID.HeaderText = "ID";
+            this.StudentReportID.Name = "StudentReportID";
+            this.StudentReportID.ReadOnly = true;
+            this.StudentReportID.Visible = false;
+            // 
+            // StudentReportFName
+            // 
+            this.StudentReportFName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.StudentReportFName.HeaderText = "First Name";
+            this.StudentReportFName.Name = "StudentReportFName";
+            this.StudentReportFName.ReadOnly = true;
+            this.StudentReportFName.Width = 82;
+            // 
+            // StudentReportSName
+            // 
+            this.StudentReportSName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.StudentReportSName.HeaderText = "Last Name";
+            this.StudentReportSName.Name = "StudentReportSName";
+            this.StudentReportSName.ReadOnly = true;
+            this.StudentReportSName.Width = 83;
+            // 
+            // StudentReportYear
+            // 
+            this.StudentReportYear.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.StudentReportYear.HeaderText = "Year";
+            this.StudentReportYear.Name = "StudentReportYear";
+            this.StudentReportYear.ReadOnly = true;
+            this.StudentReportYear.Width = 54;
+            // 
+            // StudentReportClass
+            // 
+            this.StudentReportClass.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.StudentReportClass.HeaderText = "Class";
+            this.StudentReportClass.Name = "StudentReportClass";
+            this.StudentReportClass.ReadOnly = true;
+            this.StudentReportClass.Width = 57;
+            // 
+            // StudentReportCondition
+            // 
+            this.StudentReportCondition.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.StudentReportCondition.DefaultCellStyle = dataGridViewCellStyle6;
+            this.StudentReportCondition.HeaderText = "Condition";
+            this.StudentReportCondition.Name = "StudentReportCondition";
+            this.StudentReportCondition.ReadOnly = true;
+            // 
+            // labelReportSettings
+            // 
+            this.labelReportSettings.AutoSize = true;
+            this.labelReportSettings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelReportSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelReportSettings.Location = new System.Drawing.Point(573, 0);
+            this.labelReportSettings.Name = "labelReportSettings";
+            this.labelReportSettings.Size = new System.Drawing.Size(194, 28);
+            this.labelReportSettings.TabIndex = 3;
+            this.labelReportSettings.Text = "Report Settings";
+            this.labelReportSettings.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // flowLayoutPanelStudentReportSettings
+            // 
+            this.flowLayoutPanelStudentReportSettings.Controls.Add(this.label1);
+            this.flowLayoutPanelStudentReportSettings.Controls.Add(this.radioButtonReportComplete);
+            this.flowLayoutPanelStudentReportSettings.Controls.Add(this.radioButtonReportNotComplete);
+            this.flowLayoutPanelStudentReportSettings.Controls.Add(this.radioButtonReportAll);
+            this.flowLayoutPanelStudentReportSettings.Controls.Add(this.buttonExportReport);
+            this.flowLayoutPanelStudentReportSettings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanelStudentReportSettings.Location = new System.Drawing.Point(573, 31);
+            this.flowLayoutPanelStudentReportSettings.Name = "flowLayoutPanelStudentReportSettings";
+            this.flowLayoutPanelStudentReportSettings.Size = new System.Drawing.Size(194, 471);
+            this.flowLayoutPanelStudentReportSettings.TabIndex = 6;
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(189, 23);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Filter by:";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // radioButtonReportComplete
+            // 
+            this.radioButtonReportComplete.Enabled = false;
+            this.radioButtonReportComplete.Location = new System.Drawing.Point(3, 26);
+            this.radioButtonReportComplete.Name = "radioButtonReportComplete";
+            this.radioButtonReportComplete.Size = new System.Drawing.Size(191, 17);
+            this.radioButtonReportComplete.TabIndex = 5;
+            this.radioButtonReportComplete.Text = "Complete";
+            this.radioButtonReportComplete.UseVisualStyleBackColor = true;
+            this.radioButtonReportComplete.CheckedChanged += new System.EventHandler(this.radioButtonReportComplete_CheckedChanged);
+            // 
+            // radioButtonReportNotComplete
+            // 
+            this.radioButtonReportNotComplete.Enabled = false;
+            this.radioButtonReportNotComplete.Location = new System.Drawing.Point(3, 49);
+            this.radioButtonReportNotComplete.Name = "radioButtonReportNotComplete";
+            this.radioButtonReportNotComplete.Size = new System.Drawing.Size(189, 17);
+            this.radioButtonReportNotComplete.TabIndex = 5;
+            this.radioButtonReportNotComplete.Text = "Not Complete";
+            this.radioButtonReportNotComplete.UseVisualStyleBackColor = true;
+            this.radioButtonReportNotComplete.CheckedChanged += new System.EventHandler(this.radioButtonReportNotComplete_CheckedChanged);
+            // 
+            // radioButtonReportAll
+            // 
+            this.radioButtonReportAll.Checked = true;
+            this.radioButtonReportAll.Enabled = false;
+            this.radioButtonReportAll.Location = new System.Drawing.Point(3, 72);
+            this.radioButtonReportAll.Name = "radioButtonReportAll";
+            this.radioButtonReportAll.Size = new System.Drawing.Size(189, 19);
+            this.radioButtonReportAll.TabIndex = 5;
+            this.radioButtonReportAll.TabStop = true;
+            this.radioButtonReportAll.Text = "All";
+            this.radioButtonReportAll.UseVisualStyleBackColor = true;
+            this.radioButtonReportAll.CheckedChanged += new System.EventHandler(this.radioButtonReportAll_CheckedChanged);
             // 
             // tabActivitySelection
             // 
@@ -509,584 +1089,6 @@
             this.listBoxContentSelectionInclusion.TabIndex = 5;
             this.listBoxContentSelectionInclusion.SelectedIndexChanged += new System.EventHandler(this.listBoxContentSelectionInclusion_SelectedIndexChanged);
             // 
-            // tabSkills
-            // 
-            this.tabSkills.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.tabSkills.Controls.Add(this.dataGridViewSkills);
-            this.tabSkills.Location = new System.Drawing.Point(4, 22);
-            this.tabSkills.Name = "tabSkills";
-            this.tabSkills.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSkills.Size = new System.Drawing.Size(776, 511);
-            this.tabSkills.TabIndex = 0;
-            this.tabSkills.Text = "Skills View";
-            // 
-            // dataGridViewSkills
-            // 
-            this.dataGridViewSkills.AllowUserToAddRows = false;
-            this.dataGridViewSkills.AllowUserToDeleteRows = false;
-            this.dataGridViewSkills.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridViewSkills.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewSkills.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.StudentID,
-            this.StudentFName,
-            this.StudentLName,
-            this.StudentYear,
-            this.StudentClass});
-            this.dataGridViewSkills.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewSkills.Location = new System.Drawing.Point(3, 3);
-            this.dataGridViewSkills.Name = "dataGridViewSkills";
-            this.dataGridViewSkills.ReadOnly = true;
-            this.dataGridViewSkills.Size = new System.Drawing.Size(770, 505);
-            this.dataGridViewSkills.TabIndex = 0;
-            // 
-            // StudentID
-            // 
-            this.StudentID.Frozen = true;
-            this.StudentID.HeaderText = "StudentID";
-            this.StudentID.Name = "StudentID";
-            this.StudentID.ReadOnly = true;
-            // 
-            // StudentFName
-            // 
-            this.StudentFName.Frozen = true;
-            this.StudentFName.HeaderText = "First Name";
-            this.StudentFName.Name = "StudentFName";
-            this.StudentFName.ReadOnly = true;
-            // 
-            // StudentLName
-            // 
-            this.StudentLName.Frozen = true;
-            this.StudentLName.HeaderText = "Last Name";
-            this.StudentLName.Name = "StudentLName";
-            this.StudentLName.ReadOnly = true;
-            // 
-            // StudentYear
-            // 
-            this.StudentYear.Frozen = true;
-            this.StudentYear.HeaderText = "Year";
-            this.StudentYear.Name = "StudentYear";
-            this.StudentYear.ReadOnly = true;
-            // 
-            // StudentClass
-            // 
-            this.StudentClass.Frozen = true;
-            this.StudentClass.HeaderText = "Class";
-            this.StudentClass.Name = "StudentClass";
-            this.StudentClass.ReadOnly = true;
-            // 
-            // tabPagDates
-            // 
-            this.tabPagDates.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.tabPagDates.Controls.Add(this.dataGridViewPag);
-            this.tabPagDates.Location = new System.Drawing.Point(4, 22);
-            this.tabPagDates.Margin = new System.Windows.Forms.Padding(2);
-            this.tabPagDates.Name = "tabPagDates";
-            this.tabPagDates.Padding = new System.Windows.Forms.Padding(2);
-            this.tabPagDates.Size = new System.Drawing.Size(776, 511);
-            this.tabPagDates.TabIndex = 2;
-            this.tabPagDates.Text = "PAG View";
-            // 
-            // dataGridViewPag
-            // 
-            this.dataGridViewPag.AllowUserToAddRows = false;
-            this.dataGridViewPag.AllowUserToDeleteRows = false;
-            this.dataGridViewPag.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridViewPag.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewPag.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4,
-            this.dataGridViewTextBoxColumn5});
-            this.dataGridViewPag.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewPag.Location = new System.Drawing.Point(2, 2);
-            this.dataGridViewPag.Name = "dataGridViewPag";
-            this.dataGridViewPag.ReadOnly = true;
-            this.dataGridViewPag.Size = new System.Drawing.Size(772, 507);
-            this.dataGridViewPag.TabIndex = 1;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.Frozen = true;
-            this.dataGridViewTextBoxColumn1.HeaderText = "StudentID";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.Frozen = true;
-            this.dataGridViewTextBoxColumn2.HeaderText = "First Name";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.Frozen = true;
-            this.dataGridViewTextBoxColumn3.HeaderText = "Last Name";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.Frozen = true;
-            this.dataGridViewTextBoxColumn4.HeaderText = "Year";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.Frozen = true;
-            this.dataGridViewTextBoxColumn5.HeaderText = "Class";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            // 
-            // tabLookup
-            // 
-            this.tabLookup.Controls.Add(this.tableLayoutPanelLookup);
-            this.tabLookup.Location = new System.Drawing.Point(4, 22);
-            this.tabLookup.Name = "tabLookup";
-            this.tabLookup.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLookup.Size = new System.Drawing.Size(776, 511);
-            this.tabLookup.TabIndex = 3;
-            this.tabLookup.Text = "Student Lookup";
-            this.tabLookup.UseVisualStyleBackColor = true;
-            // 
-            // tableLayoutPanelLookup
-            // 
-            this.tableLayoutPanelLookup.ColumnCount = 2;
-            this.tableLayoutPanelLookup.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180F));
-            this.tableLayoutPanelLookup.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanelLookup.Controls.Add(this.groupBoxLookupSearch, 0, 0);
-            this.tableLayoutPanelLookup.Controls.Add(this.listBoxStudentNames, 0, 1);
-            this.tableLayoutPanelLookup.Controls.Add(this.dataGridViewStudentLookup, 1, 1);
-            this.tableLayoutPanelLookup.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelLookup.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanelLookup.Name = "tableLayoutPanelLookup";
-            this.tableLayoutPanelLookup.RowCount = 2;
-            this.tableLayoutPanelLookup.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayoutPanelLookup.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanelLookup.Size = new System.Drawing.Size(770, 505);
-            this.tableLayoutPanelLookup.TabIndex = 0;
-            // 
-            // groupBoxLookupSearch
-            // 
-            this.tableLayoutPanelLookup.SetColumnSpan(this.groupBoxLookupSearch, 2);
-            this.groupBoxLookupSearch.Controls.Add(this.buttonLookupSubmitModifications);
-            this.groupBoxLookupSearch.Controls.Add(this.checkBoxArchives);
-            this.groupBoxLookupSearch.Controls.Add(this.textBoxLookupName);
-            this.groupBoxLookupSearch.Controls.Add(this.labelLookupName);
-            this.groupBoxLookupSearch.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBoxLookupSearch.Location = new System.Drawing.Point(3, 3);
-            this.groupBoxLookupSearch.Name = "groupBoxLookupSearch";
-            this.groupBoxLookupSearch.Size = new System.Drawing.Size(764, 54);
-            this.groupBoxLookupSearch.TabIndex = 0;
-            this.groupBoxLookupSearch.TabStop = false;
-            this.groupBoxLookupSearch.Text = "Student Lookup";
-            // 
-            // buttonLookupSubmitModifications
-            // 
-            this.buttonLookupSubmitModifications.Location = new System.Drawing.Point(567, 19);
-            this.buttonLookupSubmitModifications.Name = "buttonLookupSubmitModifications";
-            this.buttonLookupSubmitModifications.Size = new System.Drawing.Size(92, 23);
-            this.buttonLookupSubmitModifications.TabIndex = 6;
-            this.buttonLookupSubmitModifications.Text = "Save Changes";
-            this.buttonLookupSubmitModifications.UseVisualStyleBackColor = true;
-            this.buttonLookupSubmitModifications.Click += new System.EventHandler(this.buttonLookupSubmitModifications_Click);
-            // 
-            // checkBoxArchives
-            // 
-            this.checkBoxArchives.AutoSize = true;
-            this.checkBoxArchives.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkBoxArchives.Location = new System.Drawing.Point(321, 23);
-            this.checkBoxArchives.Name = "checkBoxArchives";
-            this.checkBoxArchives.Size = new System.Drawing.Size(104, 17);
-            this.checkBoxArchives.TabIndex = 4;
-            this.checkBoxArchives.Text = "Search Archives";
-            this.checkBoxArchives.UseVisualStyleBackColor = true;
-            this.checkBoxArchives.CheckedChanged += new System.EventHandler(this.checkBoxArchives_CheckedChanged);
-            // 
-            // textBoxLookupName
-            // 
-            this.textBoxLookupName.Location = new System.Drawing.Point(124, 21);
-            this.textBoxLookupName.Name = "textBoxLookupName";
-            this.textBoxLookupName.Size = new System.Drawing.Size(191, 20);
-            this.textBoxLookupName.TabIndex = 1;
-            this.textBoxLookupName.TextChanged += new System.EventHandler(this.textBoxLookupName_TextChanged);
-            // 
-            // labelLookupName
-            // 
-            this.labelLookupName.AutoSize = true;
-            this.labelLookupName.Location = new System.Drawing.Point(6, 24);
-            this.labelLookupName.Name = "labelLookupName";
-            this.labelLookupName.Size = new System.Drawing.Size(112, 13);
-            this.labelLookupName.TabIndex = 0;
-            this.labelLookupName.Text = "Search name or class:";
-            // 
-            // listBoxStudentNames
-            // 
-            this.listBoxStudentNames.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBoxStudentNames.FormattingEnabled = true;
-            this.listBoxStudentNames.Location = new System.Drawing.Point(3, 63);
-            this.listBoxStudentNames.Name = "listBoxStudentNames";
-            this.listBoxStudentNames.Size = new System.Drawing.Size(174, 463);
-            this.listBoxStudentNames.TabIndex = 1;
-            this.listBoxStudentNames.SelectedIndexChanged += new System.EventHandler(this.listBoxStudentNames_SelectedIndexChanged);
-            // 
-            // dataGridViewStudentLookup
-            // 
-            this.dataGridViewStudentLookup.AllowUserToAddRows = false;
-            this.dataGridViewStudentLookup.AllowUserToDeleteRows = false;
-            this.dataGridViewStudentLookup.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewStudentLookup.DefaultCellStyle = dataGridViewCellStyle9;
-            this.dataGridViewStudentLookup.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewStudentLookup.Location = new System.Drawing.Point(183, 63);
-            this.dataGridViewStudentLookup.Name = "dataGridViewStudentLookup";
-            this.dataGridViewStudentLookup.Size = new System.Drawing.Size(584, 463);
-            this.dataGridViewStudentLookup.TabIndex = 2;
-            this.dataGridViewStudentLookup.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridViewStudentLookup_CellEndEdit);
-            this.dataGridViewStudentLookup.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStudentLookup_CellValueChanged);
-            this.dataGridViewStudentLookup.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridViewStudentLookup_KeyDown);
-            // 
-            // tabAwardPag
-            // 
-            this.tabAwardPag.Controls.Add(this.tableLayoutPanelAwardPag);
-            this.tabAwardPag.Location = new System.Drawing.Point(4, 22);
-            this.tabAwardPag.Name = "tabAwardPag";
-            this.tabAwardPag.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAwardPag.Size = new System.Drawing.Size(776, 511);
-            this.tabAwardPag.TabIndex = 6;
-            this.tabAwardPag.Text = "Award PAG";
-            this.tabAwardPag.UseVisualStyleBackColor = true;
-            // 
-            // tableLayoutPanelAwardPag
-            // 
-            this.tableLayoutPanelAwardPag.ColumnCount = 3;
-            this.tableLayoutPanelAwardPag.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelAwardPag.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanelAwardPag.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 182F));
-            this.tableLayoutPanelAwardPag.Controls.Add(this.treeViewYearSelect, 0, 0);
-            this.tableLayoutPanelAwardPag.Controls.Add(this.treeViewPagSelect, 1, 0);
-            this.tableLayoutPanelAwardPag.Controls.Add(this.groupBoxAwardPag, 2, 0);
-            this.tableLayoutPanelAwardPag.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelAwardPag.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanelAwardPag.Name = "tableLayoutPanelAwardPag";
-            this.tableLayoutPanelAwardPag.RowCount = 1;
-            this.tableLayoutPanelAwardPag.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelAwardPag.Size = new System.Drawing.Size(770, 505);
-            this.tableLayoutPanelAwardPag.TabIndex = 0;
-            // 
-            // treeViewYearSelect
-            // 
-            this.treeViewYearSelect.CheckBoxes = true;
-            this.treeViewYearSelect.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeViewYearSelect.Location = new System.Drawing.Point(3, 3);
-            this.treeViewYearSelect.Name = "treeViewYearSelect";
-            this.treeViewYearSelect.Size = new System.Drawing.Size(288, 499);
-            this.treeViewYearSelect.TabIndex = 0;
-            this.treeViewYearSelect.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeViewYearSelect_AfterCheck);
-            // 
-            // treeViewPagSelect
-            // 
-            this.treeViewPagSelect.CheckBoxes = true;
-            this.treeViewPagSelect.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeViewPagSelect.Location = new System.Drawing.Point(297, 3);
-            this.treeViewPagSelect.Name = "treeViewPagSelect";
-            this.treeViewPagSelect.Size = new System.Drawing.Size(288, 499);
-            this.treeViewPagSelect.TabIndex = 1;
-            this.treeViewPagSelect.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeViewPagSelect_AfterCheck);
-            // 
-            // groupBoxAwardPag
-            // 
-            this.groupBoxAwardPag.Controls.Add(this.labelAwardPagSelectedAbsent);
-            this.groupBoxAwardPag.Controls.Add(this.buttonAwardPagClearSelection);
-            this.groupBoxAwardPag.Controls.Add(this.labelAwardPagSelectedFailedSkills);
-            this.groupBoxAwardPag.Controls.Add(this.labelAwardPagSelectedPag);
-            this.groupBoxAwardPag.Controls.Add(this.labelAwardPagSelectedStudents);
-            this.groupBoxAwardPag.Controls.Add(this.buttonAwardPag);
-            this.groupBoxAwardPag.Controls.Add(this.labelPagAwardSettingsSelectDate);
-            this.groupBoxAwardPag.Controls.Add(this.dateTimePickerAwardPag);
-            this.groupBoxAwardPag.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBoxAwardPag.Location = new System.Drawing.Point(591, 3);
-            this.groupBoxAwardPag.Name = "groupBoxAwardPag";
-            this.groupBoxAwardPag.Size = new System.Drawing.Size(176, 499);
-            this.groupBoxAwardPag.TabIndex = 2;
-            this.groupBoxAwardPag.TabStop = false;
-            this.groupBoxAwardPag.Text = "PAG Award Settings";
-            // 
-            // labelAwardPagSelectedAbsent
-            // 
-            this.labelAwardPagSelectedAbsent.Location = new System.Drawing.Point(6, 114);
-            this.labelAwardPagSelectedAbsent.Name = "labelAwardPagSelectedAbsent";
-            this.labelAwardPagSelectedAbsent.Size = new System.Drawing.Size(164, 31);
-            this.labelAwardPagSelectedAbsent.TabIndex = 11;
-            this.labelAwardPagSelectedAbsent.Text = "0 students within the selected class will be marked as absent";
-            // 
-            // buttonAwardPagClearSelection
-            // 
-            this.buttonAwardPagClearSelection.Location = new System.Drawing.Point(6, 19);
-            this.buttonAwardPagClearSelection.Name = "buttonAwardPagClearSelection";
-            this.buttonAwardPagClearSelection.Size = new System.Drawing.Size(164, 23);
-            this.buttonAwardPagClearSelection.TabIndex = 10;
-            this.buttonAwardPagClearSelection.Text = "Clear Selection";
-            this.buttonAwardPagClearSelection.UseVisualStyleBackColor = true;
-            this.buttonAwardPagClearSelection.Click += new System.EventHandler(this.buttonAwardPagClearSelection_Click);
-            // 
-            // labelAwardPagSelectedFailedSkills
-            // 
-            this.labelAwardPagSelectedFailedSkills.Location = new System.Drawing.Point(6, 173);
-            this.labelAwardPagSelectedFailedSkills.Name = "labelAwardPagSelectedFailedSkills";
-            this.labelAwardPagSelectedFailedSkills.Size = new System.Drawing.Size(164, 31);
-            this.labelAwardPagSelectedFailedSkills.TabIndex = 9;
-            this.labelAwardPagSelectedFailedSkills.Text = "0 skills within the selected PAG\'s will be marked as failed";
-            // 
-            // labelAwardPagSelectedPag
-            // 
-            this.labelAwardPagSelectedPag.AutoSize = true;
-            this.labelAwardPagSelectedPag.Location = new System.Drawing.Point(6, 148);
-            this.labelAwardPagSelectedPag.Name = "labelAwardPagSelectedPag";
-            this.labelAwardPagSelectedPag.Size = new System.Drawing.Size(131, 13);
-            this.labelAwardPagSelectedPag.TabIndex = 8;
-            this.labelAwardPagSelectedPag.Text = "You are awarding 0 PAG\'s";
-            // 
-            // labelAwardPagSelectedStudents
-            // 
-            this.labelAwardPagSelectedStudents.AutoSize = true;
-            this.labelAwardPagSelectedStudents.Location = new System.Drawing.Point(6, 94);
-            this.labelAwardPagSelectedStudents.Name = "labelAwardPagSelectedStudents";
-            this.labelAwardPagSelectedStudents.Size = new System.Drawing.Size(148, 13);
-            this.labelAwardPagSelectedStudents.TabIndex = 7;
-            this.labelAwardPagSelectedStudents.Text = "You have selected 0 students";
-            // 
-            // buttonAwardPag
-            // 
-            this.buttonAwardPag.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.buttonAwardPag.Location = new System.Drawing.Point(3, 473);
-            this.buttonAwardPag.Name = "buttonAwardPag";
-            this.buttonAwardPag.Size = new System.Drawing.Size(170, 23);
-            this.buttonAwardPag.TabIndex = 6;
-            this.buttonAwardPag.Text = "Award PAG";
-            this.buttonAwardPag.UseVisualStyleBackColor = true;
-            this.buttonAwardPag.Click += new System.EventHandler(this.buttonAwardPag_Click);
-            // 
-            // labelPagAwardSettingsSelectDate
-            // 
-            this.labelPagAwardSettingsSelectDate.AutoSize = true;
-            this.labelPagAwardSettingsSelectDate.Location = new System.Drawing.Point(1, 46);
-            this.labelPagAwardSettingsSelectDate.Name = "labelPagAwardSettingsSelectDate";
-            this.labelPagAwardSettingsSelectDate.Size = new System.Drawing.Size(161, 13);
-            this.labelPagAwardSettingsSelectDate.TabIndex = 4;
-            this.labelPagAwardSettingsSelectDate.Text = "Select the PAG completion date:";
-            // 
-            // dateTimePickerAwardPag
-            // 
-            this.dateTimePickerAwardPag.CustomFormat = "d/M/yyyy";
-            this.dateTimePickerAwardPag.Location = new System.Drawing.Point(3, 62);
-            this.dateTimePickerAwardPag.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
-            this.dateTimePickerAwardPag.Name = "dateTimePickerAwardPag";
-            this.dateTimePickerAwardPag.Size = new System.Drawing.Size(170, 20);
-            this.dateTimePickerAwardPag.TabIndex = 3;
-            this.dateTimePickerAwardPag.ValueChanged += new System.EventHandler(this.dateTimePickerAwardPag_ValueChanged);
-            // 
-            // tabReport
-            // 
-            this.tabReport.Controls.Add(this.tableLayoutPanelStudentReport);
-            this.tabReport.Location = new System.Drawing.Point(4, 22);
-            this.tabReport.Name = "tabReport";
-            this.tabReport.Padding = new System.Windows.Forms.Padding(3);
-            this.tabReport.Size = new System.Drawing.Size(776, 511);
-            this.tabReport.TabIndex = 7;
-            this.tabReport.Text = "Student Report";
-            this.tabReport.UseVisualStyleBackColor = true;
-            // 
-            // tableLayoutPanelStudentReport
-            // 
-            this.tableLayoutPanelStudentReport.ColumnCount = 3;
-            this.tableLayoutPanelStudentReport.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tableLayoutPanelStudentReport.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelStudentReport.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
-            this.tableLayoutPanelStudentReport.Controls.Add(this.buttonGenerateReport, 0, 0);
-            this.tableLayoutPanelStudentReport.Controls.Add(this.progressBarStudentReport, 1, 0);
-            this.tableLayoutPanelStudentReport.Controls.Add(this.dataGridViewStudentReport, 0, 1);
-            this.tableLayoutPanelStudentReport.Controls.Add(this.labelReportSettings, 2, 0);
-            this.tableLayoutPanelStudentReport.Controls.Add(this.flowLayoutPanelStudentReportSettings, 2, 1);
-            this.tableLayoutPanelStudentReport.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelStudentReport.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanelStudentReport.Name = "tableLayoutPanelStudentReport";
-            this.tableLayoutPanelStudentReport.RowCount = 2;
-            this.tableLayoutPanelStudentReport.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.tableLayoutPanelStudentReport.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelStudentReport.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanelStudentReport.Size = new System.Drawing.Size(770, 505);
-            this.tableLayoutPanelStudentReport.TabIndex = 0;
-            // 
-            // buttonGenerateReport
-            // 
-            this.buttonGenerateReport.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonGenerateReport.Location = new System.Drawing.Point(3, 3);
-            this.buttonGenerateReport.Name = "buttonGenerateReport";
-            this.buttonGenerateReport.Size = new System.Drawing.Size(94, 22);
-            this.buttonGenerateReport.TabIndex = 0;
-            this.buttonGenerateReport.Text = "Generate Report";
-            this.buttonGenerateReport.UseVisualStyleBackColor = true;
-            this.buttonGenerateReport.Click += new System.EventHandler(this.buttonGenerateReport_Click);
-            // 
-            // progressBarStudentReport
-            // 
-            this.progressBarStudentReport.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.progressBarStudentReport.Location = new System.Drawing.Point(103, 3);
-            this.progressBarStudentReport.Name = "progressBarStudentReport";
-            this.progressBarStudentReport.Size = new System.Drawing.Size(464, 22);
-            this.progressBarStudentReport.TabIndex = 1;
-            // 
-            // dataGridViewStudentReport
-            // 
-            this.dataGridViewStudentReport.AllowUserToAddRows = false;
-            this.dataGridViewStudentReport.AllowUserToDeleteRows = false;
-            this.dataGridViewStudentReport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewStudentReport.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.StudentReportID,
-            this.StudentReportFName,
-            this.StudentReportSName,
-            this.StudentReportYear,
-            this.StudentReportClass,
-            this.StudentReportCondition});
-            this.tableLayoutPanelStudentReport.SetColumnSpan(this.dataGridViewStudentReport, 2);
-            this.dataGridViewStudentReport.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewStudentReport.Location = new System.Drawing.Point(3, 31);
-            this.dataGridViewStudentReport.Name = "dataGridViewStudentReport";
-            this.dataGridViewStudentReport.ReadOnly = true;
-            this.dataGridViewStudentReport.Size = new System.Drawing.Size(564, 471);
-            this.dataGridViewStudentReport.TabIndex = 2;
-            this.dataGridViewStudentReport.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStudentReport_CellClick);
-            this.dataGridViewStudentReport.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStudentReport_CellEnter);
-            // 
-            // StudentReportID
-            // 
-            this.StudentReportID.Frozen = true;
-            this.StudentReportID.HeaderText = "ID";
-            this.StudentReportID.Name = "StudentReportID";
-            this.StudentReportID.ReadOnly = true;
-            // 
-            // StudentReportFName
-            // 
-            this.StudentReportFName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.StudentReportFName.Frozen = true;
-            this.StudentReportFName.HeaderText = "First Name";
-            this.StudentReportFName.Name = "StudentReportFName";
-            this.StudentReportFName.ReadOnly = true;
-            this.StudentReportFName.Width = 82;
-            // 
-            // StudentReportSName
-            // 
-            this.StudentReportSName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.StudentReportSName.Frozen = true;
-            this.StudentReportSName.HeaderText = "Last Name";
-            this.StudentReportSName.Name = "StudentReportSName";
-            this.StudentReportSName.ReadOnly = true;
-            this.StudentReportSName.Width = 83;
-            // 
-            // StudentReportYear
-            // 
-            this.StudentReportYear.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.StudentReportYear.Frozen = true;
-            this.StudentReportYear.HeaderText = "Year";
-            this.StudentReportYear.Name = "StudentReportYear";
-            this.StudentReportYear.ReadOnly = true;
-            this.StudentReportYear.Width = 54;
-            // 
-            // StudentReportClass
-            // 
-            this.StudentReportClass.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.StudentReportClass.Frozen = true;
-            this.StudentReportClass.HeaderText = "Class";
-            this.StudentReportClass.Name = "StudentReportClass";
-            this.StudentReportClass.ReadOnly = true;
-            this.StudentReportClass.Width = 57;
-            // 
-            // StudentReportCondition
-            // 
-            this.StudentReportCondition.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.StudentReportCondition.DefaultCellStyle = dataGridViewCellStyle10;
-            this.StudentReportCondition.HeaderText = "Condition";
-            this.StudentReportCondition.Name = "StudentReportCondition";
-            this.StudentReportCondition.ReadOnly = true;
-            // 
-            // labelReportSettings
-            // 
-            this.labelReportSettings.AutoSize = true;
-            this.labelReportSettings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelReportSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelReportSettings.Location = new System.Drawing.Point(573, 0);
-            this.labelReportSettings.Name = "labelReportSettings";
-            this.labelReportSettings.Size = new System.Drawing.Size(194, 28);
-            this.labelReportSettings.TabIndex = 3;
-            this.labelReportSettings.Text = "Report Settings";
-            this.labelReportSettings.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // flowLayoutPanelStudentReportSettings
-            // 
-            this.flowLayoutPanelStudentReportSettings.Controls.Add(this.label1);
-            this.flowLayoutPanelStudentReportSettings.Controls.Add(this.radioButtonReportComplete);
-            this.flowLayoutPanelStudentReportSettings.Controls.Add(this.radioButtonReportNotComplete);
-            this.flowLayoutPanelStudentReportSettings.Controls.Add(this.radioButtonReportAll);
-            this.flowLayoutPanelStudentReportSettings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanelStudentReportSettings.Location = new System.Drawing.Point(573, 31);
-            this.flowLayoutPanelStudentReportSettings.Name = "flowLayoutPanelStudentReportSettings";
-            this.flowLayoutPanelStudentReportSettings.Size = new System.Drawing.Size(194, 471);
-            this.flowLayoutPanelStudentReportSettings.TabIndex = 6;
-            // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(189, 23);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Filter by:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // radioButtonReportComplete
-            // 
-            this.radioButtonReportComplete.Enabled = false;
-            this.radioButtonReportComplete.Location = new System.Drawing.Point(3, 26);
-            this.radioButtonReportComplete.Name = "radioButtonReportComplete";
-            this.radioButtonReportComplete.Size = new System.Drawing.Size(191, 17);
-            this.radioButtonReportComplete.TabIndex = 5;
-            this.radioButtonReportComplete.Text = "Complete";
-            this.radioButtonReportComplete.UseVisualStyleBackColor = true;
-            this.radioButtonReportComplete.CheckedChanged += new System.EventHandler(this.radioButtonReportComplete_CheckedChanged);
-            // 
-            // radioButtonReportNotComplete
-            // 
-            this.radioButtonReportNotComplete.Enabled = false;
-            this.radioButtonReportNotComplete.Location = new System.Drawing.Point(3, 49);
-            this.radioButtonReportNotComplete.Name = "radioButtonReportNotComplete";
-            this.radioButtonReportNotComplete.Size = new System.Drawing.Size(189, 17);
-            this.radioButtonReportNotComplete.TabIndex = 5;
-            this.radioButtonReportNotComplete.Text = "Not Complete";
-            this.radioButtonReportNotComplete.UseVisualStyleBackColor = true;
-            this.radioButtonReportNotComplete.CheckedChanged += new System.EventHandler(this.radioButtonReportNotComplete_CheckedChanged);
-            // 
-            // radioButtonReportAll
-            // 
-            this.radioButtonReportAll.Checked = true;
-            this.radioButtonReportAll.Enabled = false;
-            this.radioButtonReportAll.Location = new System.Drawing.Point(3, 72);
-            this.radioButtonReportAll.Name = "radioButtonReportAll";
-            this.radioButtonReportAll.Size = new System.Drawing.Size(189, 19);
-            this.radioButtonReportAll.TabIndex = 5;
-            this.radioButtonReportAll.TabStop = true;
-            this.radioButtonReportAll.Text = "All";
-            this.radioButtonReportAll.UseVisualStyleBackColor = true;
-            this.radioButtonReportAll.CheckedChanged += new System.EventHandler(this.radioButtonReportAll_CheckedChanged);
-            // 
             // tabAdmin
             // 
             this.tabAdmin.Controls.Add(this.tabControlAdmin);
@@ -1106,6 +1108,7 @@
             this.tabControlAdmin.Controls.Add(this.tabSkillRequirements);
             this.tabControlAdmin.Controls.Add(this.tabGroup);
             this.tabControlAdmin.Controls.Add(this.tabStudentImport);
+            this.tabControlAdmin.Controls.Add(this.tabStudentManagement);
             this.tabControlAdmin.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlAdmin.Location = new System.Drawing.Point(3, 3);
             this.tabControlAdmin.Name = "tabControlAdmin";
@@ -1668,6 +1671,30 @@
             this.dataGridViewStudentImport.Size = new System.Drawing.Size(750, 437);
             this.dataGridViewStudentImport.TabIndex = 0;
             // 
+            // tabStudentManagement
+            // 
+            this.tabStudentManagement.Controls.Add(this.tableLayoutPanel1);
+            this.tabStudentManagement.Location = new System.Drawing.Point(4, 22);
+            this.tabStudentManagement.Name = "tabStudentManagement";
+            this.tabStudentManagement.Size = new System.Drawing.Size(762, 479);
+            this.tabStudentManagement.TabIndex = 6;
+            this.tabStudentManagement.Text = "Student Management";
+            this.tabStudentManagement.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(762, 479);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
             // menuStripMain
             // 
             this.menuStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1774,6 +1801,22 @@
             this.sizeTypeDataGridViewTextBoxColumn1.HeaderText = "SizeType";
             this.sizeTypeDataGridViewTextBoxColumn1.Name = "sizeTypeDataGridViewTextBoxColumn1";
             // 
+            // buttonExportReport
+            // 
+            this.buttonExportReport.Location = new System.Drawing.Point(3, 97);
+            this.buttonExportReport.Name = "buttonExportReport";
+            this.buttonExportReport.Size = new System.Drawing.Size(113, 23);
+            this.buttonExportReport.TabIndex = 9;
+            this.buttonExportReport.Text = "Export to Excel";
+            this.buttonExportReport.UseVisualStyleBackColor = true;
+            this.buttonExportReport.Click += new System.EventHandler(this.buttonExportReport_Click);
+            // 
+            // saveFileDialogExportReport
+            // 
+            this.saveFileDialogExportReport.Filter = "Excel Spreadsheet (*.xlsx)|*.xlsx";
+            this.saveFileDialogExportReport.Title = "Export Report";
+            this.saveFileDialogExportReport.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialogExportReport_FileOk);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1785,9 +1828,27 @@
             this.MainMenuStrip = this.menuStripMain;
             this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "FormMain";
-            this.Text = "PAG Manager";
+            this.Text = "PAG Manager Alpha 2";
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.tabControlMain.ResumeLayout(false);
+            this.tabAwardPag.ResumeLayout(false);
+            this.tableLayoutPanelAwardPag.ResumeLayout(false);
+            this.groupBoxAwardPag.ResumeLayout(false);
+            this.groupBoxAwardPag.PerformLayout();
+            this.tabLookup.ResumeLayout(false);
+            this.tableLayoutPanelLookup.ResumeLayout(false);
+            this.groupBoxLookupSearch.ResumeLayout(false);
+            this.groupBoxLookupSearch.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudentLookup)).EndInit();
+            this.tabPagDates.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPag)).EndInit();
+            this.tabSkills.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSkills)).EndInit();
+            this.tabReport.ResumeLayout(false);
+            this.tableLayoutPanelStudentReport.ResumeLayout(false);
+            this.tableLayoutPanelStudentReport.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudentReport)).EndInit();
+            this.flowLayoutPanelStudentReportSettings.ResumeLayout(false);
             this.tabActivitySelection.ResumeLayout(false);
             this.tableLayoutPanelActivitySelection.ResumeLayout(false);
             this.tableLayoutPanelActivitySelection.PerformLayout();
@@ -1801,24 +1862,6 @@
             this.tableLayoutContentSelectionSkill.PerformLayout();
             this.tableLayoutPanelContentSelectionActivitySelection.ResumeLayout(false);
             this.tableLayoutPanelContentSelectionActivitySelection.PerformLayout();
-            this.tabSkills.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSkills)).EndInit();
-            this.tabPagDates.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPag)).EndInit();
-            this.tabLookup.ResumeLayout(false);
-            this.tableLayoutPanelLookup.ResumeLayout(false);
-            this.groupBoxLookupSearch.ResumeLayout(false);
-            this.groupBoxLookupSearch.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudentLookup)).EndInit();
-            this.tabAwardPag.ResumeLayout(false);
-            this.tableLayoutPanelAwardPag.ResumeLayout(false);
-            this.groupBoxAwardPag.ResumeLayout(false);
-            this.groupBoxAwardPag.PerformLayout();
-            this.tabReport.ResumeLayout(false);
-            this.tableLayoutPanelStudentReport.ResumeLayout(false);
-            this.tableLayoutPanelStudentReport.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudentReport)).EndInit();
-            this.flowLayoutPanelStudentReportSettings.ResumeLayout(false);
             this.tabAdmin.ResumeLayout(false);
             this.tabControlAdmin.ResumeLayout(false);
             this.tabGeneral.ResumeLayout(false);
@@ -1845,6 +1888,7 @@
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudentImport)).EndInit();
+            this.tabStudentManagement.ResumeLayout(false);
             this.menuStripMain.ResumeLayout(false);
             this.menuStripMain.PerformLayout();
             this.ResumeLayout(false);
@@ -1984,12 +2028,6 @@
         private System.Windows.Forms.ProgressBar progressBarStudentReport;
         private System.Windows.Forms.DataGridView dataGridViewStudentReport;
         private System.Windows.Forms.Label labelReportSettings;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StudentReportID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StudentReportFName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StudentReportSName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StudentReportYear;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StudentReportClass;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StudentReportCondition;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelStudentReportSettings;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.RadioButton radioButtonReportComplete;
@@ -1997,6 +2035,16 @@
         private System.Windows.Forms.RadioButton radioButtonReportAll;
         private System.Windows.Forms.DataGridViewTextBoxColumn heightDataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn sizeTypeDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StudentReportID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StudentReportFName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StudentReportSName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StudentReportYear;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StudentReportClass;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StudentReportCondition;
+        private System.Windows.Forms.TabPage tabStudentManagement;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Button buttonExportReport;
+        private System.Windows.Forms.SaveFileDialog saveFileDialogExportReport;
     }
 }
 
