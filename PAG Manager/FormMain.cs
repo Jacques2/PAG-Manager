@@ -307,6 +307,7 @@ namespace PAG_Manager
 
         private void textBoxLookupName_TextChanged(object sender, EventArgs e)//Student lookup search
         {
+            ReplaceCommas(sender, e);
             LookupUpdate();
         }
 
@@ -548,13 +549,7 @@ namespace PAG_Manager
 
         private void pagListToolStripTextBox_TextChanged(object sender, EventArgs e)//ADMIN: Changes the list box selected value to the user modified value in the text box
         {
-            int location;
-            if (pagListToolStripTextBox.Text.Contains(","))//filters out all commas and replaces them with semi-colons to avoid messing with the CSV files
-            {
-                location = pagListToolStripTextBox.SelectionStart;
-                pagListToolStripTextBox.Text = pagListToolStripTextBox.Text.Replace(",", ";");
-                pagListToolStripTextBox.SelectionStart = location;
-            }
+            ReplaceCommas(sender, e);
             if (listBoxPagList.SelectedIndex != -1)
             {
                 listBoxPagList.Items[listBoxPagList.SelectedIndex] = pagListToolStripTextBox.Text;
@@ -571,13 +566,7 @@ namespace PAG_Manager
 
         private void skillListToolStripTextBox_TextChanged(object sender, EventArgs e)//ADMIN: Changes the list box selected value to the user modified value in the text box
         {
-            int location;
-            if (skillListToolStripTextBox.Text.Contains(","))//filters out all commas and replaces them with semi-colons to avoid messing with the CSV files
-            {
-                location = skillListToolStripTextBox.SelectionStart;
-                skillListToolStripTextBox.Text = skillListToolStripTextBox.Text.Replace(",", ";");
-                skillListToolStripTextBox.SelectionStart = location;
-            }
+            ReplaceCommas(sender, e);
             if (listBoxSkillList.SelectedIndex != -1)
             {
                 listBoxSkillList.Items[listBoxSkillList.SelectedIndex] = skillListToolStripTextBox.Text;
@@ -1392,13 +1381,7 @@ namespace PAG_Manager
 
         private void pagGroupToolStripTextBox_TextChanged(object sender, EventArgs e)
         {
-            int location;
-            if (pagGroupToolStripTextBox.Text.Contains(","))//filters out all commas and replaces them with semi-colons to avoid messing with the CSV files
-            {
-                location = pagGroupToolStripTextBox.SelectionStart;
-                pagGroupToolStripTextBox.Text = pagGroupToolStripTextBox.Text.Replace(",", ";");
-                pagGroupToolStripTextBox.SelectionStart = location;
-            }
+            ReplaceCommas(sender, e);
             if (listBoxGroupList.SelectedIndex != -1)
             {
                 listBoxGroupList.Items[listBoxGroupList.SelectedIndex] = pagGroupToolStripTextBox.Text;
@@ -1656,22 +1639,38 @@ namespace PAG_Manager
 
         private void textBoxStudentFName_TextChanged(object sender, EventArgs e)
         {
+            ReplaceCommas(sender, e);
             StudentDataModified();
         }
 
         private void textBoxStudentLName_TextChanged(object sender, EventArgs e)
         {
+            ReplaceCommas(sender, e);
             StudentDataModified();
         }
 
         private void textBoxStudentYear_TextChanged(object sender, EventArgs e)
         {
+            ReplaceCommas(sender, e);
             StudentDataModified();
         }
 
         private void textBoxStudentClass_TextChanged(object sender, EventArgs e)
         {
+            ReplaceCommas(sender, e);
             StudentDataModified();
+        }
+
+        private void ReplaceCommas(object sender, EventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+            int location;
+            if (tb.Text.Contains(","))//filters out all commas and replaces them with semi-colons to avoid messing with the CSV files
+            {
+                location = tb.SelectionStart;
+                tb.Text = tb.Text.Replace(",", ";");
+                tb.SelectionStart = location;
+            }
         }
 
         private void buttonStudentManagementDeleteStudent_Click(object sender, EventArgs e)
