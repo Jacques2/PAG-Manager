@@ -343,9 +343,15 @@ namespace PAG_Manager
                 //stops user interaction whilst data loads
                 dataGridViewStudentLookup.Enabled = false;
                 sl.LoadState = true;//stops auto colouring of cells
-                //Shows student id of person clicked
-                //MessageBox.Show(Convert.ToString(sl.GetStudentPosition(listBoxStudentNames.SelectedIndex)));
-                dataGridViewStudentLookup.Columns[0].HeaderText = Convert.ToString(listBoxStudentNames.SelectedItem + "\n X/12 Pags Required \n X/Y Skills Required");
+                //gets student report for current student
+                int currentStudentID = sl.GetStudentPosition(listBoxStudentNames.SelectedIndex);
+                ArrayList missingGroups = sr.GetMissingGroups(currentStudentID, false);
+                int numMissingGroups = missingGroups.Count;
+                int totalGroups = sr.GetNumberOfGroups();
+                int totalSkills = dataGridViewStudentLookup.RowCount - 1;
+                ArrayList missingSkills = sr.GetMissingSkills(currentStudentID);
+                int numMissingSkills = missingSkills.Count;
+                dataGridViewStudentLookup.Columns[0].HeaderText = Convert.ToString(listBoxStudentNames.SelectedItem + "\n " + Convert.ToString(totalGroups - numMissingGroups) + "/" + Convert.ToString(totalGroups) +" Groups Completed \n " + Convert.ToString(totalSkills - numMissingSkills) + "/" + Convert.ToString(totalSkills) + " Skills Completed");
                 //clears every cell
                 for (int column = 1; column < dataGridViewStudentLookup.ColumnCount; column++)
                 {
@@ -1556,7 +1562,7 @@ namespace PAG_Manager
                 }
                 if (pagString != "")
                 {
-                    MessageBox.Show(Convert.ToString(pagString));
+                    MessageBox.Show("PAG's Required to complete all skills: " + Environment.NewLine + Environment.NewLine + Convert.ToString(pagString),"PAG Report for " + dataGridViewStudentReport[1,e.RowIndex].Value + " " + dataGridViewStudentReport[2, e.RowIndex].Value);
                 }
             }
         }

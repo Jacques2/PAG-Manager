@@ -38,6 +38,10 @@ namespace PAG_Manager
                 return new int();
             }
         }
+        public int GetNumberOfGroups()
+        {
+            return groupInfo.Count;
+        }
         public StudentReport(string inputFileLocation)
         {
             fileLocation = inputFileLocation;
