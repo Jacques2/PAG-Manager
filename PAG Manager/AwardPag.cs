@@ -229,16 +229,31 @@ namespace PAG_Manager
             }
             //writing (appending) every record to file
             StreamWriter pagAwardFile = new StreamWriter(fileLocation + "PagAchievement.csv", append: true);
+            int alreadyExist = 0;
             for (int student = 0; student < studentIDs.Count; student++)//loops through every student, adding every selected pag to the student
             {
                 for (int pag = 0; pag < pagsCompleted.Count; pag++)
                 {
-                    pagAwardFile.WriteLine(studentIDs[student] + "," + pagsCompleted[pag] + "," + dateCompleted.Day + "/" + dateCompleted.Month + "/" + dateCompleted.Year + "," + skillsCompleted[pag]);
+                    if (DoesStudentHavePag(Convert.ToInt32(studentIDs[student]),Convert.ToInt32(pagsCompleted[pag])) == false)
+                    {
+                        pagAwardFile.WriteLine(studentIDs[student] + "," + pagsCompleted[pag] + "," + dateCompleted.Day + "/" + dateCompleted.Month + "/" + dateCompleted.Year + "," + skillsCompleted[pag]);
+                    }
+                    else
+                    {
+                        alreadyExist++;
+                    }
                 }
             }
             pagAwardFile.Close();
             //Message box to show it completed sucessesfully
-            MessageBox.Show("PAG Awarded.","PAG Manager");
+            if (alreadyExist > 0)
+            {
+                MessageBox.Show("PAG Awarded.\n\n" + Convert.ToString(alreadyExist) + " students already have this PAG, their records have not been modified", "PAG Manager");
+            }
+            else
+            {
+                MessageBox.Show("PAG Awarded.", "PAG Manager");
+            }
         }
         public void AddPagAbsence(ArrayList studentIDs, ArrayList pagAbsent)
         {
@@ -265,6 +280,44 @@ namespace PAG_Manager
                 }
             }
             pagAwardFile.Close();
+        }
+        //dictionary has key = pagID, value = list(studentID)
+        Dictionary<int, List<int>> pagAwardList = new Dictionary<int, List<int>>();
+        public void BuildPagAwardList()
+        {
+            pagAwardList.Clear();
+            string lineRead;
+            string[] SeperatedLine;
+            StreamReader sr = new StreamReader(fileLocation + "PagAchievement.csv");
+            lineRead = sr.ReadLine();
+            while (lineRead != null)
+            {
+                SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                int studentID = Convert.ToInt32(SeperatedLine[0]);
+                int pagID = Convert.ToInt32(SeperatedLine[1]);
+                if (pagAwardList.ContainsKey(pagID) == false)
+                {
+                    pagAwardList.Add(pagID, new List<int>());
+                }
+                if (pagAwardList[pagID].Contains(studentID) == false)
+                {
+                    pagAwardList[pagID].Add(studentID);
+                }
+                lineRead = sr.ReadLine();
+            }
+            sr.Close();
+        }
+        public bool DoesStudentHavePag(int studentID, int pagID)
+        {
+            bool containsPag = false;
+            if (pagAwardList.ContainsKey(pagID))
+            {
+                if (pagAwardList[pagID].Contains(studentID))
+                {
+                    containsPag = true;
+                }
+            }
+            return containsPag;
         }
     }
 }

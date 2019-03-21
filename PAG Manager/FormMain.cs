@@ -261,6 +261,7 @@ namespace PAG_Manager
             {
                 treeViewYearSelect.Nodes[node].Expand();
             }
+            ap.BuildPagAwardList();
             //student report
             sr.BuildPagSubsets();
             sr.BuildLists();
