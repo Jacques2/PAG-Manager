@@ -119,6 +119,7 @@ namespace PAG_Manager
                 }
                 //student information tab 
                 ad.BuildStudentInformation();
+                listBoxStudentManagementList.Items.Clear();
                 SortedList<int, Tuple<string, string, string, string>> studentInfo = new SortedList<int, Tuple<string, string, string, string>>(ad.GetStudentInformation());
                 for (int i = 0; i < studentInfo.Count; i++)
                 {
@@ -1698,6 +1699,82 @@ namespace PAG_Manager
         {
             ad.SaveStudentData();
             ReloadAllData(true);
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxInputType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            HashSet<string> selectableObjects = new HashSet<string>();
+            comboBoxInputName.Items.Clear();
+            comboBoxOutputName.Items.Clear();
+            if (comboBoxInputType.SelectedIndex == 0)//user selected year
+            {
+                selectableObjects = ad.GetAllEntries("year");
+                comboBoxOutputName.Items.Add("New Year");
+            }
+            else if (comboBoxInputType.SelectedIndex == 1)
+            {//user selected class
+                selectableObjects = ad.GetAllEntries("class");
+                comboBoxOutputName.Items.Add("New Class");
+            }
+            comboBoxOutputName.Items.Add("Archive");
+            for (int i = 0; i < selectableObjects.Count; i++)
+            {
+                comboBoxInputName.Items.Add(selectableObjects.ElementAt(i));
+                comboBoxOutputName.Items.Add(selectableObjects.ElementAt(i));
+            }
+        }
+
+        private void comboBoxOutputName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxOutputName.SelectedIndex == 0)//user has selected the new... option
+            {
+                string inputName = Microsoft.VisualBasic.Interaction.InputBox("Enter the Name of the new " + comboBoxInputType.SelectedItem + " to add.");
+                labelNewItem.Text = inputName;
+            }
+            else
+            {
+                labelNewItem.Text = "";
+            }
+        }
+
+        private void buttonMoveStudents_Click(object sender, EventArgs e)
+        {
+            string inputType = Convert.ToString(comboBoxInputType.SelectedItem);
+            string inputItem = Convert.ToString(comboBoxInputName.SelectedItem);
+            string outputItem = Convert.ToString(comboBoxOutputName.SelectedItem);
+            if (inputType != "" && inputItem != "" && outputItem != "")//checks if any values are blank
+            {
+                if (comboBoxOutputName.SelectedIndex == 0)//checks if new.. option has been selected
+                {
+                    outputItem = labelNewItem.Text;
+                }
+                ad.FindAndReplace(inputType, inputItem, outputItem);
+                //rebuilds the listbox with new information
+                listBoxStudentManagementList.Items.Clear();
+                SortedList<int, Tuple<string, string, string, string>> studentInfo = new SortedList<int, Tuple<string, string, string, string>>(ad.GetStudentInformation());
+                for (int i = 0; i < studentInfo.Count; i++)
+                {
+                    string fName = studentInfo.ElementAt(i).Value.Item1;
+                    string lName = studentInfo.ElementAt(i).Value.Item2;
+                    string theClass = studentInfo.ElementAt(i).Value.Item4;
+                    listBoxStudentManagementList.Items.Add(fName + " " + lName + " - " + theClass);
+                }
+                textBoxStudentFName.Text = "";
+                textBoxStudentLName.Text = "";
+                textBoxStudentYear.Text = "";
+                textBoxStudentClass.Text = "";
+                comboBoxInputType.SelectedIndex = -1;
+                labelNewItem.Text = "";
+            }
+            else
+            {
+                MessageBox.Show("Please fill in all the options","Alert");
+            }
         }
     }
 }

@@ -143,5 +143,56 @@ namespace PAG_Manager
             }
             sw.Close();
         }
+        public HashSet<string> GetAllEntries(string type)
+        {
+            //type accepts "class" or "year"
+            HashSet<string> entries = new HashSet<string>();
+            for (int entry = 0; entry < studentInfo.Count; entry++)
+            {
+                if (type == "class")
+                {
+                    entries.Add(studentInfo.ElementAt(entry).Value.Item4);
+                }
+                else
+                {
+                    entries.Add(studentInfo.ElementAt(entry).Value.Item3);
+                }
+            }
+            return entries;
+        }
+        public void FindAndReplace(string inputType, string inputItem, string outputItem)
+        {
+            if (inputType == "Year")//checks if years or classes need to be moved
+            {
+                for (int student = 0; student < studentInfo.Count; student++)//loops through each student
+                {
+                    int key = studentInfo.ElementAt(student).Key;
+                    if (studentInfo[key].Item3 == inputItem)//checks if student is part of input year
+                    {
+                        string fName = studentInfo[key].Item1;
+                        string lName = studentInfo[key].Item2;
+                        string theClass = studentInfo[key].Item4;
+                        studentInfo.Remove(key);
+                        studentInfo.Add(key, new Tuple<string, string, string, string>(fName, lName, outputItem, theClass));
+                    }
+                }
+            }
+            else
+            {
+                for (int student = 0; student < studentInfo.Count; student++)//loops through each student
+                {
+                    int key = studentInfo.ElementAt(student).Key;
+                    if (studentInfo[key].Item4 == inputItem)//checks if student is part of input class
+                    {
+                        string fName = studentInfo[key].Item1;
+                        string lName = studentInfo[key].Item2;
+                        string year = studentInfo[key].Item3;
+                        studentInfo.Remove(key);
+                        studentInfo.Add(key, new Tuple<string, string, string, string>(fName, lName, year, outputItem));
+                        MessageBox.Show(Convert.ToString(1));
+                    }
+                }
+            }
+        }
     }
 }
