@@ -605,7 +605,7 @@ namespace PAG_Manager
                         excelWorksheet.Cells[currentRow-1, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
                         excelWorksheet.Cells[currentRow-1, 4].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
                     }
-                    for (int theClass = 0; theClass < data[groupID].Item2[currentYear].Count; theClass++)//loops through every 
+                    for (int theClass = 0; theClass < data[groupID].Item2[currentYear].Count; theClass++)//loops through every class
                     {
                         if (theClass > 0)
                         {

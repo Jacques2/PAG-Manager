@@ -117,6 +117,16 @@ namespace PAG_Manager
                 {
                     listBoxGroupList.Items.Add(groupInfo.ElementAt(group).Value.Item1);
                 }
+                //student information tab 
+                ad.BuildStudentInformation();
+                SortedList<int, Tuple<string, string, string, string>> studentInfo = new SortedList<int, Tuple<string, string, string, string>>(ad.GetStudentInformation());
+                for (int i = 0; i < studentInfo.Count; i++)
+                {
+                    string fName = studentInfo.ElementAt(i).Value.Item1;
+                    string lName = studentInfo.ElementAt(i).Value.Item2;
+                    string theClass = studentInfo.ElementAt(i).Value.Item4;
+                    listBoxStudentManagementList.Items.Add(fName + " " + lName + " - " + theClass);
+                }
             }
             psr.ClearRelations();
             psr.LoadRelationFromFile();
@@ -1609,6 +1619,80 @@ namespace PAG_Manager
         {
             string location = saveFileDialogExportReport.FileName;
             sr.ExcelExport(location);
+        }
+
+        private void listBoxStudentManagementList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBoxStudentManagementList.SelectedIndex != -1)
+            {
+                string fName = ad.GetInformation(listBoxStudentManagementList.SelectedIndex).Item1;
+                string lName = ad.GetInformation(listBoxStudentManagementList.SelectedIndex).Item2;
+                string year = ad.GetInformation(listBoxStudentManagementList.SelectedIndex).Item3;
+                string theClass = ad.GetInformation(listBoxStudentManagementList.SelectedIndex).Item4;
+                textBoxStudentFName.Text = fName;
+                textBoxStudentLName.Text = lName;
+                textBoxStudentYear.Text = year;
+                textBoxStudentClass.Text = theClass;
+            }
+        }
+
+        private void StudentDataModified()
+        {
+            if (listBoxStudentManagementList.SelectedIndex != -1)
+            {
+                ad.ModifyStudent(listBoxStudentManagementList.SelectedIndex, textBoxStudentFName.Text, textBoxStudentLName.Text, textBoxStudentYear.Text, textBoxStudentClass.Text);
+                string fName = textBoxStudentFName.Text;
+                string lName = textBoxStudentLName.Text;
+                string theClass = textBoxStudentClass.Text;
+                listBoxStudentManagementList.Items[listBoxStudentManagementList.SelectedIndex] = fName + " " + lName + " - " + theClass ;
+            }
+        }
+
+        private void textBoxStudentFName_TextChanged(object sender, EventArgs e)
+        {
+            StudentDataModified();
+        }
+
+        private void textBoxStudentLName_TextChanged(object sender, EventArgs e)
+        {
+            StudentDataModified();
+        }
+
+        private void textBoxStudentYear_TextChanged(object sender, EventArgs e)
+        {
+            StudentDataModified();
+        }
+
+        private void textBoxStudentClass_TextChanged(object sender, EventArgs e)
+        {
+            StudentDataModified();
+        }
+
+        private void buttonStudentManagementDeleteStudent_Click(object sender, EventArgs e)
+        {
+            if (listBoxStudentManagementList.SelectedIndex != -1)
+            {
+                ad.DeleteStudent(listBoxStudentManagementList.SelectedIndex);
+                listBoxStudentManagementList.Items.RemoveAt(listBoxStudentManagementList.SelectedIndex);
+                textBoxStudentFName.Text = "";
+                textBoxStudentLName.Text = "";
+                textBoxStudentYear.Text = "";
+                textBoxStudentClass.Text = "";
+            }
+        }
+
+        private void buttonStudentManagementAddStudent_Click(object sender, EventArgs e)
+        {
+            ad.AddStudent();
+            listBoxStudentManagementList.Items.Add("New Student - Class");
+            listBoxStudentManagementList.SelectedIndex = listBoxStudentManagementList.Items.Count - 1;
+            textBoxStudentFName.Focus();
+        }
+
+        private void buttonStudentManagementSaveChanges_Click(object sender, EventArgs e)
+        {
+            ad.SaveStudentData();
+            ReloadAllData(true);
         }
     }
 }

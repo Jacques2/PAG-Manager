@@ -12,6 +12,8 @@ namespace PAG_Manager
     class Admin
     {
         private string fileLocation { get; set; }
+        //sorted list has key = studentID, value = tuple<FName, LName, Year, Class>
+        SortedList<int, Tuple<string, string, string, string>> studentInfo = new SortedList<int, Tuple<string, string, string, string>>();
         public Admin(string FileLocation)
         {
             fileLocation = FileLocation;
@@ -88,6 +90,58 @@ namespace PAG_Manager
                 lineRead = csvReader.ReadLine();
             }
             return csvLines;
+        }
+        public void BuildStudentInformation()
+        {
+            //dictionary has key = studentID, value = tuple(FirstName,LastName,Year,Class)
+            studentInfo.Clear();
+            StreamReader studentReader = new StreamReader(fileLocation + "StudentRecord.csv");
+            string studentRead = studentReader.ReadLine();
+            string[] SeperatedLine;
+            while (studentRead != null)
+            {
+                SeperatedLine = studentRead.Split(new[] { "," }, StringSplitOptions.None);
+                studentInfo.Add(Convert.ToInt32(SeperatedLine[0]), Tuple.Create(SeperatedLine[1], SeperatedLine[2], SeperatedLine[3], SeperatedLine[4]));
+                studentRead = studentReader.ReadLine();
+            }
+            studentReader.Close();
+        }
+        public SortedList<int, Tuple<string, string, string, string>> GetStudentInformation()
+        {
+            return studentInfo;
+        }
+        public Tuple<string, string, string, string> GetInformation(int position)
+        {
+            return studentInfo.ElementAt(position).Value;
+        }
+        public void DeleteStudent(int position)
+        {
+            studentInfo.RemoveAt(position);
+        }
+        public void ModifyStudent(int position, string fName, string lName, string year, string theClass)
+        {
+            int key = studentInfo.ElementAt(position).Key;
+            studentInfo.Remove(key);
+            studentInfo.Add(key, new Tuple<string, string, string, string>(fName, lName, year, theClass));
+        }
+        public void AddStudent()
+        {
+            int lastKey = studentInfo.ElementAt(studentInfo.Count-1).Key;
+            studentInfo.Add(lastKey + 1, new Tuple<string, string, string, string>("New", "Student", "Year", "Class"));
+        }
+        public void SaveStudentData()
+        {
+            StreamWriter sw = new StreamWriter(fileLocation + "StudentRecord.csv");
+            for (int i = 0; i < studentInfo.Count; i++)
+            {
+                string id = Convert.ToString(studentInfo.ElementAt(i).Key);
+                string fName = studentInfo.ElementAt(i).Value.Item1;
+                string lName = studentInfo.ElementAt(i).Value.Item2;
+                string year = studentInfo.ElementAt(i).Value.Item3;
+                string theClass = studentInfo.ElementAt(i).Value.Item4;
+                sw.WriteLine(id + "," + fName + "," + lName + "," + year + "," + theClass);
+            }
+            sw.Close();
         }
     }
 }
