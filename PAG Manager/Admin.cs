@@ -194,5 +194,9 @@ namespace PAG_Manager
                 }
             }
         }
+        public void GetPagSkillLists()
+        {
+
+        }
     }
 }
