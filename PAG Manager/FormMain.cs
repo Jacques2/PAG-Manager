@@ -20,7 +20,6 @@ namespace PAG_Manager
         //Setting up all class instances to be used throughout the program
         StudentLookup sl = new StudentLookup(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\");
         Admin ad = new Admin(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\");
-        Admin contentSelection = new Admin(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\");
         PagSkillRelation psr = new PagSkillRelation(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\");
         AwardPag ap = new AwardPag(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\");
         StudentReport sr = new StudentReport(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\");
@@ -78,7 +77,12 @@ namespace PAG_Manager
         }
         private void ReloadAllData(bool admin)//Reloads all data into the program when big changes are made
         {//The parameter decides if the admin stuff will be reloaded. This saves processing power if the user does not need admin functions.
-            ArrayList pagList = ad.LoadData("PagList.csv");//Admin stuff and pag relations
+            ad.LoadData();
+            SortedList<int, string> pagList = new SortedList<int, string>();
+            pagList = ad.GetPagList();
+            SortedList<int, string> skillList = new SortedList<int, string>();
+            skillList = ad.GetSkillList();
+            //Admin stuff and pag relations
             //Load group information for student reports
             sr.LoadGroupInformation();
             if (admin)
@@ -92,16 +96,15 @@ namespace PAG_Manager
                 checkedListBoxPagList.Items.Clear();
                 for (int i = 0; i < pagList.Count; i++)//giving each entry a number
                 {
-                    listBoxPagList.Items.Add(pagList[i]);
-                    listBoxPagRelation.Items.Add(pagList[i]);
-                    checkedListBoxPagList.Items.Add(pagList[i]);
+                    listBoxPagList.Items.Add(pagList.ElementAt(i).Value);
+                    listBoxPagRelation.Items.Add(pagList.ElementAt(i).Value);
+                    checkedListBoxPagList.Items.Add(pagList.ElementAt(i).Value);
                 }
-                ArrayList skillList = ad.LoadData("SkillList.csv");
                 for (int i = 0; i < skillList.Count; i++)//giving each entry a number
                 {
-                    listBoxSkillList.Items.Add(skillList[i]);
-                    checkedListBoxSkillRelation.Items.Add(skillList[i]);
-                    dataGridViewSkillRequirement.Rows.Add(skillList[i]);
+                    listBoxSkillList.Items.Add(skillList.ElementAt(i).Value);
+                    checkedListBoxSkillRelation.Items.Add(skillList.ElementAt(i).Value);
+                    dataGridViewSkillRequirement.Rows.Add(skillList.ElementAt(i).Value);
                 }
                 ad.BuildSkillRequirementIfEmpty();//build skill requirement table
                 ArrayList skillRequirement = new ArrayList();
@@ -128,6 +131,9 @@ namespace PAG_Manager
                     string theClass = studentInfo.ElementAt(i).Value.Item4;
                     listBoxStudentManagementList.Items.Add(fName + " " + lName + " - " + theClass);
                 }
+                //referential integrity 
+                ad.BuildPagsInUse();
+                ad.BuildSkillsInUse();
             }
             psr.ClearRelations();
             psr.LoadRelationFromFile();
@@ -144,18 +150,15 @@ namespace PAG_Manager
             dataGridViewContentSelectionPag.Rows.Clear();
             dataGridViewActivitySelectionSkills.Rows.Clear();
             checkedListBoxContentSelectionSkill.Items.Clear();
-
-            ArrayList pagNames = contentSelection.LoadData("PagList.csv");
-            for (int i = 0; i < pagNames.Count; i++)
+            for (int i = 0; i < pagList.Count; i++)
             {
-                checkedListBoxActivitySelectionPag.Items.Add(pagNames[i]);
-                dataGridViewContentSelectionPag.Rows.Add(pagNames[i]);
+                checkedListBoxActivitySelectionPag.Items.Add(pagList.ElementAt(i).Value);
+                dataGridViewContentSelectionPag.Rows.Add(pagList.ElementAt(i).Value);
             }
-            ArrayList skillNames = contentSelection.LoadData("SkillList.csv");
-            for (int i = 0; i < skillNames.Count; i++)
+            for (int i = 0; i < skillList.Count; i++)
             {
-                dataGridViewActivitySelectionSkills.Rows.Add(skillNames[i]);
-                checkedListBoxContentSelectionSkill.Items.Add(skillNames[i]);
+                dataGridViewActivitySelectionSkills.Rows.Add(skillList.ElementAt(i).Value);
+                checkedListBoxContentSelectionSkill.Items.Add(skillList.ElementAt(i).Value);
             }
             dataGridViewActivitySelectionSkills.AutoResizeColumns();
 
@@ -248,10 +251,10 @@ namespace PAG_Manager
             treeViewPagSelect.Nodes.Clear();
             ap.BuildPagTreeDictionary();
             List<List<string>> pagTreeID = ap.GetPagTreeName();
-            pagList = ap.GetPagList();
+            ArrayList awardPagList = ap.GetPagList();
             for (int i = 0; i < pagTreeID.Count; i++)//adding class nodes
             {
-                treeViewPagSelect.Nodes.Add(Convert.ToString(pagList[i]));
+                treeViewPagSelect.Nodes.Add(Convert.ToString(awardPagList[i]));
                 for (int j = 0; j < pagTreeID[i].Count; j++)
                 {
                     treeViewPagSelect.Nodes[i].Nodes.Add(Convert.ToString(pagTreeID[i][j]));
@@ -554,6 +557,7 @@ namespace PAG_Manager
             ReplaceCommas(sender);
             if (listBoxPagList.SelectedIndex != -1)
             {
+                ad.RenamePag(listBoxPagList.SelectedIndex, pagListToolStripTextBox.Text);
                 listBoxPagList.Items[listBoxPagList.SelectedIndex] = pagListToolStripTextBox.Text;
             }
         }
@@ -571,12 +575,14 @@ namespace PAG_Manager
             ReplaceCommas(sender);
             if (listBoxSkillList.SelectedIndex != -1)
             {
+                ad.RenameSkill(listBoxSkillList.SelectedIndex, skillListToolStripTextBox.Text);
                 listBoxSkillList.Items[listBoxSkillList.SelectedIndex] = skillListToolStripTextBox.Text;
             }
         }
 
         private void pagListToolStripButtonAddRecord_Click(object sender, EventArgs e)//ADMIN: creates a new pag and selects the text for instant renaming
         {
+            ad.AddPag();
             listBoxPagList.Items.Add("New PAG");
             listBoxPagList.SelectedIndex = listBoxPagList.Items.Count-1;
             pagListToolStripTextBox.Focus();
@@ -585,6 +591,7 @@ namespace PAG_Manager
 
         private void skillListToolStripButtonAddRecord_Click(object sender, EventArgs e)//ADMIN: creates a new skill and selects the text for instant renaming
         {
+            ad.AddSkill();
             listBoxSkillList.Items.Add("New Skill");
             listBoxSkillList.SelectedIndex = listBoxSkillList.Items.Count - 1;
             skillListToolStripTextBox.Focus();
@@ -595,7 +602,17 @@ namespace PAG_Manager
         {
             if (listBoxPagList.SelectedIndex != -1)
             {
-                listBoxPagList.Items.RemoveAt(listBoxPagList.SelectedIndex);
+                int pagID = ad.GetPagId(listBoxPagList.SelectedIndex);
+                bool inUse = ad.IsPagInUse(pagID);
+                if (inUse == false)
+                {
+                    ad.RemovePagFromPosition(listBoxPagList.SelectedIndex);
+                    listBoxPagList.Items.RemoveAt(listBoxPagList.SelectedIndex);
+                }
+                else
+                {
+                    MessageBox.Show("This PAG has been awarded to at least one student and cannot be removed", "PAG Manager");
+                }
             }
         }
 
@@ -603,7 +620,17 @@ namespace PAG_Manager
         {
             if (listBoxSkillList.SelectedIndex != -1)
             {
-                listBoxSkillList.Items.RemoveAt(listBoxSkillList.SelectedIndex);
+                int skillID = ad.GetSkillId(listBoxSkillList.SelectedIndex);
+                bool inUse = ad.IsSkillInUse(skillID);
+                if (inUse == false)
+                {
+                    ad.RemoveSkillFromPosition(listBoxSkillList.SelectedIndex);
+                    listBoxSkillList.Items.RemoveAt(listBoxSkillList.SelectedIndex);
+                }
+                else
+                {
+                    MessageBox.Show("This skill has been awarded to at least one student and cannot be removed", "PAG Manager");
+                }
             }
         }
 
@@ -620,24 +647,14 @@ namespace PAG_Manager
 
         private void pagListToolStripButtonSave_Click(object sender, EventArgs e)//ADMIN: Saves all PAG Data
         {
-            ArrayList pagList = new ArrayList();
-            for(int i = 0; i < listBoxPagList.Items.Count; i++)
-            {
-                pagList.Add(listBoxPagList.Items[i]);
-            }
-            ad.SaveData(pagList, "PagList.csv");
+            ad.SavePagData();
             ReloadAllData(true);
             MessageBox.Show("PAG names saved", "PAG Manager");
         }
 
         private void skillListToolStripButtonSave_Click(object sender, EventArgs e)//ADMIN: Saves all Skill Data
         {
-            ArrayList skillList = new ArrayList();
-            for (int i = 0; i < listBoxSkillList.Items.Count; i++)
-            {
-                skillList.Add(listBoxSkillList.Items[i]);
-            }
-            ad.SaveData(skillList, "SkillList.csv");
+            ad.SaveSkillData();
             ReloadAllData(true);
             MessageBox.Show("Skill names saved", "PAG Manager");
         }

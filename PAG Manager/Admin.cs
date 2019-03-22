@@ -18,30 +18,168 @@ namespace PAG_Manager
         {
             fileLocation = FileLocation;
         }
-        public ArrayList LoadData(string fileName)
+        SortedList<int, string> pagList = new SortedList<int, string>();
+        SortedList<int, string> skillList = new SortedList<int, string>();
+        public void LoadData()
         {
             string lineRead;
             string[] SeperatedLine;
-            ArrayList names = new ArrayList();
-            StreamReader sr = new StreamReader(fileLocation + fileName);//opens the student record file to start reading names
-            lineRead = sr.ReadLine();
+            pagList.Clear();
+            skillList.Clear();
+            //reading pags
+            StreamReader pagReader = new StreamReader(fileLocation + "PagList.csv");//opens the student record file to start reading names
+            lineRead = pagReader.ReadLine();
             while (lineRead != null)//loops through every record, adding names to an arraylist
             {
                 SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-                names.Add(SeperatedLine[1]);
+                pagList.Add(Convert.ToInt32(SeperatedLine[0]),SeperatedLine[1]);
+                lineRead = pagReader.ReadLine();
+            }
+            pagReader.Close();
+            //reading skills
+            StreamReader skillReader = new StreamReader(fileLocation + "SkillList.csv");//opens the student record file to start reading names
+            lineRead = skillReader.ReadLine();
+            while (lineRead != null)//loops through every record, adding names to an arraylist
+            {
+                SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                skillList.Add(Convert.ToInt32(SeperatedLine[0]), SeperatedLine[1]);
+                lineRead = skillReader.ReadLine();
+            }
+            skillReader.Close();
+        }
+        public SortedList<int, string> GetPagList()
+        {
+            return pagList;
+        }
+        public SortedList<int, string> GetSkillList()
+        {
+            return skillList;
+        }
+        public void RemovePagFromPosition(int position)
+        {
+            try
+            {
+                pagList.RemoveAt(position);
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+        public void RemoveSkillFromPosition(int position)
+        {
+            try
+            {
+                skillList.RemoveAt(position);
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+        public void AddPag()
+        {
+            pagList.Add(pagList.ElementAt(pagList.Count - 1).Key + 1, "New PAG");
+        }
+        public void AddSkill()
+        {
+            skillList.Add(skillList.ElementAt(skillList.Count - 1).Key + 1, "New Skill");
+        }
+        public void RenamePag(int position, string newName)
+        {
+            int ID = pagList.ElementAt(position).Key;
+            pagList[ID] = newName;
+        }
+        public void RenameSkill(int position, string newName)
+        {
+            int ID = skillList.ElementAt(position).Key;
+            skillList[ID] = newName;
+        }
+        public void SavePagData()
+        {
+            StreamWriter sw = new StreamWriter(fileLocation + "PagList.csv");
+            for (int i = 0; i < pagList.Count; i++)
+            {
+                sw.WriteLine(pagList.ElementAt(i).Key + "," + pagList.ElementAt(i).Value);
+            }
+            sw.Close();
+        }
+        public void SaveSkillData()
+        {
+            StreamWriter sw = new StreamWriter(fileLocation + "SkillList.csv");
+            for (int i = 0; i < skillList.Count; i++)
+            {
+                sw.WriteLine(skillList.ElementAt(i).Key + "," + skillList.ElementAt(i).Value);
+            }
+            sw.Close();
+        }
+        HashSet<int> pagsInUse = new HashSet<int>();
+        public void BuildPagsInUse()
+        {
+            pagsInUse.Clear();
+            string lineRead;
+            string[] SeperatedLine;
+            StreamReader sr = new StreamReader(fileLocation + "PagAchievement.csv");
+            lineRead = sr.ReadLine();
+            while (lineRead != null)
+            {
+                SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                pagsInUse.Add(Convert.ToInt32(SeperatedLine[1]));
                 lineRead = sr.ReadLine();
             }
             sr.Close();
-            return names;
         }
-        public void SaveData(ArrayList data, string fileName)
+        HashSet<int> skillsInUse = new HashSet<int>();
+        public void BuildSkillsInUse()
         {
-            StreamWriter sw = new StreamWriter(fileLocation + fileName);
-            for (int i = 0; i < data.Count; i++)
+            skillsInUse.Clear();
+            for (int pag = 0; pag < pagsInUse.Count; pag++)
             {
-                sw.WriteLine(i + "," + data[i]);
+                string lineRead;
+                string[] SeperatedLine;
+                StreamReader sr = new StreamReader(fileLocation + "PagSkillRelation.csv");
+                lineRead = sr.ReadLine();
+                while (lineRead != null)
+                {
+                    SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                    if (pagsInUse.Contains(Convert.ToInt32(SeperatedLine[0])))
+                    {
+                        skillsInUse.Add(Convert.ToInt32(SeperatedLine[1]));
+                    }
+                    lineRead = sr.ReadLine();
+                }
+                sr.Close();
             }
-            sw.Close();
+        }
+        public bool IsPagInUse(int pagID)
+        {
+            if (pagsInUse.Contains(pagID))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public bool IsSkillInUse(int skillID)
+        {
+            if (skillsInUse.Contains(skillID))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public int GetPagId(int position)
+        {
+            return pagList.ElementAt(position).Key;
+        }
+        public int GetSkillId(int position)
+        {
+            return skillList.ElementAt(position).Key;
         }
         public void BuildSkillRequirementIfEmpty()
         {
@@ -193,10 +331,6 @@ namespace PAG_Manager
                     }
                 }
             }
-        }
-        public void GetPagSkillLists()
-        {
-
         }
     }
 }
