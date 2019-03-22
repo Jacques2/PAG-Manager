@@ -1813,5 +1813,35 @@ namespace PAG_Manager
                 MessageBox.Show("Please fill in all the options","Alert");
             }
         }
+
+        private void backupRestoreToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            toolStripTextBoxBackupName.Text = System.DateTime.Today.ToString("dd-MM-yyyy");
+        }
+
+        private void toolStripTextBoxBackupName_TextChanged(object sender, EventArgs e)
+        {
+            backupWithNameToolStripMenuItem.Text = "Backup With Name: " + toolStripTextBoxBackupName.Text;
+        }
+
+        private void backupDataToolStripMenuItem_DropDownOpened(object sender, EventArgs e)
+        {
+            toolStripTextBoxBackupName.Focus();
+        }
+
+        private void backupWithNameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string fileName = toolStripTextBoxBackupName.Text;
+            if (!string.IsNullOrEmpty(fileName) && fileName.IndexOfAny(Path.GetInvalidFileNameChars()) < 0)
+            {
+                string newDir = AppDomain.CurrentDomain.BaseDirectory + @"SaveData\" + fileName + @"\";
+                string oldDir = AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\";
+                ad.DirectoryCopy(oldDir, newDir);
+            }
+            else
+            {
+                MessageBox.Show(Convert.ToString("Please enter a valid backup name"), "PAG Manager");
+            }
+        }
     }
 }
