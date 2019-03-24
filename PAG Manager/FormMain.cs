@@ -1817,6 +1817,16 @@ namespace PAG_Manager
         private void backupRestoreToolStripMenuItem_Click(object sender, EventArgs e)
         {
             toolStripTextBoxBackupName.Text = System.DateTime.Today.ToString("dd-MM-yyyy");
+            restoreDataToolStripMenuItem.DropDownItems.Clear();
+            List<string> directories = new List<string>(Directory.GetDirectories(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\"));
+            for (int i = 0; i < directories.Count; i++)
+            {
+                string backupName = directories[i].Replace(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\", "");
+                if (backupName != "Current")
+                {
+                    restoreDataToolStripMenuItem.DropDownItems.Add(backupName);
+                }
+            }
         }
 
         private void toolStripTextBoxBackupName_TextChanged(object sender, EventArgs e)
@@ -1832,16 +1842,27 @@ namespace PAG_Manager
         private void backupWithNameToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string fileName = toolStripTextBoxBackupName.Text;
-            if (!string.IsNullOrEmpty(fileName) && fileName.IndexOfAny(Path.GetInvalidFileNameChars()) < 0)
+            if (!string.IsNullOrEmpty(fileName) && fileName.IndexOfAny(Path.GetInvalidFileNameChars()) < 0 && fileName != "Current")
             {
                 string newDir = AppDomain.CurrentDomain.BaseDirectory + @"SaveData\" + fileName + @"\";
                 string oldDir = AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\";
                 ad.DirectoryCopy(oldDir, newDir);
+                MessageBox.Show(Convert.ToString("Backup \"" + toolStripTextBoxBackupName.Text + "\" Created"), "PAG Manager");
             }
             else
             {
                 MessageBox.Show(Convert.ToString("Please enter a valid backup name"), "PAG Manager");
             }
+        }
+
+        private void restoreDataToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            string fileName = Convert.ToString(e.ClickedItem);
+            string oldDir = AppDomain.CurrentDomain.BaseDirectory + @"SaveData\" + fileName + @"\";
+            string newDir = AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\";
+            ad.DirectoryCopy(oldDir, newDir);
+            MessageBox.Show(Convert.ToString("Restored data from backup \"" + toolStripTextBoxBackupName.Text + "\""), "PAG Manager");
+            ReloadAllData(true);
         }
     }
 }

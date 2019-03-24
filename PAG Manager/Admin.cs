@@ -338,7 +338,14 @@ namespace PAG_Manager
             List<string> files = new List<string>() { "PagAchievement.csv", "PagGroup.csv", "PagList.csv", "PagSkillRelation.csv", "SkillList.csv", "SkillRequirement.csv", "StudentRecord.csv" };
             for (int file = 0; file < files.Count; file++)
             {
-                File.Copy(oldDir + files[file], newDir + files[file]);
+                try
+                {
+                    File.Copy(oldDir + files[file], newDir + files[file], true);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error copying file." + Environment.NewLine + Environment.NewLine + ex.Message);
+                }
             }
         }
     }
