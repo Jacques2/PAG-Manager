@@ -334,6 +334,8 @@ namespace PAG_Manager
 
         private void listBoxStudentNames_SelectedIndexChanged(object sender, EventArgs e)//Student Lookup get student
         {
+            dataGridViewStudentLookup.RowHeadersVisible = false;
+            dataGridViewStudentLookup.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             List<string> times = new List<string>();
             Stopwatch t = new Stopwatch();
             t.Start();
@@ -442,9 +444,9 @@ namespace PAG_Manager
             t.Stop();
             for (int i = 0; i < times.Count; i++)
             {
-
-                //MessageBox.Show(Convert.ToString(times[i]));
+                MessageBox.Show(Convert.ToString(times[i]));
             }
+            dataGridViewStudentLookup.RowHeadersVisible = true;
         }
 
         private void adminToolStripMenuItem_Click(object sender, EventArgs e)//Enables and disables the admin tab; does NOT initiate first time admin load
