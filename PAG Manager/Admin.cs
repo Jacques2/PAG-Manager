@@ -27,7 +27,7 @@ namespace PAG_Manager
             pagList.Clear();
             skillList.Clear();
             //reading pags
-            StreamReader pagReader = new StreamReader(fileLocation + "PagList.csv");//opens the student record file to start reading names
+            StreamReader pagReader = new StreamReader(fileLocation + "PagList.csv");//opens the pag record file to start reading names
             lineRead = pagReader.ReadLine();
             while (lineRead != null)//loops through every record, adding names to an arraylist
             {
@@ -37,7 +37,7 @@ namespace PAG_Manager
             }
             pagReader.Close();
             //reading skills
-            StreamReader skillReader = new StreamReader(fileLocation + "SkillList.csv");//opens the student record file to start reading names
+            StreamReader skillReader = new StreamReader(fileLocation + "SkillList.csv");//opens the skill record file to start reading names
             lineRead = skillReader.ReadLine();
             while (lineRead != null)//loops through every record, adding names to an arraylist
             {
@@ -180,6 +180,17 @@ namespace PAG_Manager
         public int GetSkillId(int position)
         {
             return skillList.ElementAt(position).Key;
+        }
+        public string GetPagName(int PagID)
+        {
+            if (pagList.ContainsKey(PagID))
+            {
+                return pagList[PagID];
+            }
+            else
+            {
+                return "";
+            }
         }
         public void BuildSkillRequirementIfEmpty()
         {
@@ -346,6 +357,37 @@ namespace PAG_Manager
                 {
                     MessageBox.Show("Error copying file." + Environment.NewLine + Environment.NewLine + ex.Message);
                 }
+            }
+        }
+        Dictionary<int, HashSet<int>> skillRelation = new Dictionary<int, HashSet<int>>();
+        public void BuildSkillRelationList()//this builds a list of skills and the pags that contain them for validation when deleting them
+        {
+            skillRelation.Clear();
+            string lineRead;
+            string[] SeperatedLine;
+            StreamReader sr = new StreamReader(fileLocation + "PagSkillRelation.csv");
+            lineRead = sr.ReadLine();
+            while (lineRead != null)
+            {
+                SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                if (skillRelation.ContainsKey(Convert.ToInt32(SeperatedLine[1])) == false)
+                {
+                    skillRelation.Add(Convert.ToInt32(SeperatedLine[1]), new HashSet<int>());
+                }
+                skillRelation[Convert.ToInt32(SeperatedLine[1])].Add(Convert.ToInt32(SeperatedLine[0]));
+                lineRead = sr.ReadLine();
+            }
+            sr.Close();
+        }
+        public HashSet<int> GetAllPagsForSkill(int ID)
+        {
+            if (skillRelation.ContainsKey(ID))
+            {
+                return skillRelation[ID];
+            }
+            else
+            {
+                return new HashSet<int>();
             }
         }
     }

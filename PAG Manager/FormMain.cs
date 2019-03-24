@@ -134,6 +134,7 @@ namespace PAG_Manager
                 //referential integrity 
                 ad.BuildPagsInUse();
                 ad.BuildSkillsInUse();
+                ad.BuildSkillRelationList();
             }
             psr.ClearRelations();
             psr.LoadRelationFromFile();
@@ -622,10 +623,26 @@ namespace PAG_Manager
             {
                 int skillID = ad.GetSkillId(listBoxSkillList.SelectedIndex);
                 bool inUse = ad.IsSkillInUse(skillID);
-                if (inUse == false)
+                if (inUse == false)//checks if skill has been awarded to a student
                 {
-                    ad.RemoveSkillFromPosition(listBoxSkillList.SelectedIndex);
-                    listBoxSkillList.Items.RemoveAt(listBoxSkillList.SelectedIndex);
+                    HashSet<int> pagsRequired = new HashSet<int>();
+                    pagsRequired = ad.GetAllPagsForSkill(skillID);
+                    if (pagsRequired.Count == 0)
+                    {
+                        ad.RemoveSkillFromPosition(listBoxSkillList.SelectedIndex);
+                        listBoxSkillList.Items.RemoveAt(listBoxSkillList.SelectedIndex);
+                    }
+                    else
+                    {
+                        string errorMessage = "This skill is assigned to the following PAG's and cannot be removed. Remove the relations to delete this skill: " + Environment.NewLine + Environment.NewLine;
+                        for (int i = 0; i < pagsRequired.Count; i++)
+                        {
+                            string pagName = ad.GetPagName(pagsRequired.ElementAt(i));
+                            errorMessage += pagName + Environment.NewLine;
+                        }
+
+                        MessageBox.Show(Convert.ToString(errorMessage), "PAG Manager");
+                    }
                 }
                 else
                 {
