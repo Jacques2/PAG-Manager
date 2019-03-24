@@ -5,12 +5,15 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 using System.Collections;
 using System.IO;
 using System.Globalization;
 using System.Web;
+
+//temp
+using System.Diagnostics;
 
 namespace PAG_Manager
 {
@@ -131,6 +134,8 @@ namespace PAG_Manager
                     string theClass = studentInfo.ElementAt(i).Value.Item4;
                     listBoxStudentManagementList.Items.Add(fName + " " + lName + " - " + theClass);
                 }
+                //disabling things that should not be edited straight away
+                checkedListBoxPagList.Enabled = false;
                 //referential integrity 
                 ad.BuildPagsInUse();
                 ad.BuildSkillsInUse();
@@ -329,6 +334,9 @@ namespace PAG_Manager
 
         private void listBoxStudentNames_SelectedIndexChanged(object sender, EventArgs e)//Student Lookup get student
         {
+            List<string> times = new List<string>();
+            Stopwatch t = new Stopwatch();
+            t.Start();
             bool unsavedChanges = false;
             if (sl.GetUnsavedChanges() && listBoxStudentNames.SelectedIndex != -1)
             {
@@ -352,6 +360,8 @@ namespace PAG_Manager
                 sl.LoadState = true;//stops auto colouring of cells
                 //gets student report for current student
                 int currentStudentID = sl.GetStudentPosition(listBoxStudentNames.SelectedIndex);
+
+                t.Stop(); times.Add(Convert.ToString(t.ElapsedMilliseconds)); t.Restart();//WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
                 ArrayList missingGroups = sr.GetMissingGroups(currentStudentID, false);
                 int numMissingGroups = missingGroups.Count;
                 int totalGroups = sr.GetNumberOfGroups();
@@ -360,6 +370,8 @@ namespace PAG_Manager
                 int numMissingSkills = missingSkills.Count;
                 dataGridViewStudentLookup.Columns[0].HeaderText = Convert.ToString(listBoxStudentNames.SelectedItem + "\n " + Convert.ToString(totalGroups - numMissingGroups) + "/" + Convert.ToString(totalGroups) +" Groups Completed \n " + Convert.ToString(totalSkills - numMissingSkills) + "/" + Convert.ToString(totalSkills) + " Skills Completed");
                 //clears every cell
+
+                t.Stop(); times.Add(Convert.ToString(t.ElapsedMilliseconds)); t.Restart();//WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
                 for (int column = 1; column < dataGridViewStudentLookup.ColumnCount; column++)
                 {
                     dataGridViewStudentLookup.Rows[0].Cells[column].Value = null;
@@ -374,6 +386,8 @@ namespace PAG_Manager
                         }
                     }
                 }
+
+                t.Stop(); times.Add(Convert.ToString(t.ElapsedMilliseconds)); t.Restart();//WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
                 //gets every record and adds to table
                 List<Tuple<int, int, string>> lookupData = new List<Tuple<int, int, string>>();
                 lookupData = sl.LookupStudent(sl.GetStudentPosition(listBoxStudentNames.SelectedIndex));
@@ -384,6 +398,8 @@ namespace PAG_Manager
                     sl.AddPagWithData(lookupData[record].Item2);
                 }
             }
+
+            t.Stop(); times.Add(Convert.ToString(t.ElapsedMilliseconds)); t.Restart();//WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
             //colouring cells
             for (int row = 1; row < dataGridViewStudentLookup.RowCount; row++)
             {
@@ -423,6 +439,12 @@ namespace PAG_Manager
             }
             dataGridViewStudentLookup.Enabled = true;
             sl.LoadState = false;//allows auto colouring of cells
+            t.Stop();
+            for (int i = 0; i < times.Count; i++)
+            {
+
+                //MessageBox.Show(Convert.ToString(times[i]));
+            }
         }
 
         private void adminToolStripMenuItem_Click(object sender, EventArgs e)//Enables and disables the admin tab; does NOT initiate first time admin load
@@ -1342,57 +1364,66 @@ namespace PAG_Manager
             int studentID = sl.GetCurrentStudentID();
             for (int change = 0; change < changes.Count; change++)
             {
-                int pagID = sl.ReversePagLookup(Convert.ToInt32(changes[change]));
+                string dateCompleted = Convert.ToString(dataGridViewStudentLookup[Convert.ToInt32(changes[change]), 0].Value);
                 int column = Convert.ToInt32(changes[change]);
-                dataString = studentID.ToString();
-                dataString += ",";
-                dataString += Convert.ToString(pagID);
-                dataString += ",";
-                dataString += dataGridViewStudentLookup[sl.LookupPag(Convert.ToInt32(changes[change]))-1,0].Value;
-                dataString += ",";
-                skills = psr.GetRelations(sl.ReversePagLookup(Convert.ToInt32(changes[change])));
-                ArrayList skillOrder = new ArrayList(sl.GetSkillOrder(pagID));
-                for (int skill = 0; skill < skillOrder.Count; skill++)
+                int pagID = sl.ReversePagLookup(Convert.ToInt32(changes[change]));
+                if (dateCompleted != null && dateCompleted != "")//check if there is any pag data to write by looking if there is a date
                 {
-                    //loops through every skill, setting cellContents to the contents of the skill, then translating that to skill
-                    int skillValue;
-                    string cellContents = "Not Achieved";
-                    try
+                    dataString = studentID.ToString();
+                    dataString += ",";
+                    dataString += Convert.ToString(pagID);
+                    dataString += ",";
+                    dataString += dateCompleted;
+                    dataString += ",";
+                    skills = psr.GetRelations(sl.ReversePagLookup(Convert.ToInt32(changes[change])));
+                    ArrayList skillOrder = new ArrayList(sl.GetSkillOrder(pagID));
+                    for (int skill = 0; skill < skillOrder.Count; skill++)
                     {
-                        cellContents = dataGridViewStudentLookup[Convert.ToInt32(changes[change]), sl.ReverseSkillLookup(Convert.ToInt32(skillOrder[skill])) + 1].Value.ToString();
+                        //loops through every skill, setting cellContents to the contents of the skill, then translating that to skill
+                        int skillValue;
+                        string cellContents = "Not Achieved";
+                        try
+                        {
+                            cellContents = dataGridViewStudentLookup[Convert.ToInt32(changes[change]), sl.ReverseSkillLookup(Convert.ToInt32(skillOrder[skill])) + 1].Value.ToString();
+                        }
+                        catch
+                        {
+                            cellContents = "Not Achieved";
+                            dataGridViewStudentLookup[Convert.ToInt32(changes[change]), sl.ReverseSkillLookup(Convert.ToInt32(skillOrder[skill])) + 1].Value = "Not Achieved";
+                        }
+                        switch (cellContents)
+                        {
+                            case "Achieved":
+                                skillValue = 0;
+                                break;
+                            case "Not Achieved":
+                                skillValue = 1;
+                                break;
+                            case "Absent":
+                                skillValue = 2;
+                                break;
+                            default:
+                                //invalid contents so writing 9 which will get picked up later by the student lookup modify record
+                                skillValue = 9;
+                                break;
+                        }
+                        dataString += skillValue.ToString();
                     }
-                    catch
-                    {
-                        cellContents = "Not Achieved";
-                        dataGridViewStudentLookup[Convert.ToInt32(changes[change]), sl.ReverseSkillLookup(Convert.ToInt32(skillOrder[skill])) + 1].Value = "Not Achieved";
-                    }
-                    switch (cellContents)
-                    {
-                        case "Achieved":
-                            skillValue = 0;
-                            break;
-                        case "Not Achieved":
-                            skillValue = 1;
-                            break;
-                        case "Absent":
-                            skillValue = 2;
-                            break;
-                        default:
-                            //invalid contents so writing 9 which will get picked up later by the student lookup modify record
-                            skillValue = 9;
-                            break;
-                    }
-                    dataString += skillValue.ToString();
+                    newData.Add(column, dataString);
                 }
-                newData.Add(column,dataString);
+                else//record needs to be deleted
+                {
+                    newData.Add(column, Convert.ToString(studentID) + "," + Convert.ToString(pagID) +",D");
+                }
             }
             bool isSuccess = sl.UpdateStudentData(newData);//updates the student data and returns wether it succeded or not
             sl.ResetChanges();
             sl.SetUnsavedChanges(false);
             //changes tab if update fails so that fresh copy can be reloaded
-            if (isSuccess == false)
+            tabControlMain.SelectedIndex = 0;
+            if (isSuccess == true)
             {
-                tabControlMain.SelectedIndex = 0;
+                tabControlMain.SelectedIndex = 1;
             }
             ReloadAllData(false);
         }
@@ -1434,6 +1465,7 @@ namespace PAG_Manager
         {
             if (listBoxGroupList.SelectedIndex != -1)
             {
+                checkedListBoxPagList.Enabled = true;
                 //uncheck every box
                 for (int item = 0; item < checkedListBoxPagList.Items.Count; item++)
                 {
@@ -1445,8 +1477,12 @@ namespace PAG_Manager
                 pagsInGroup = sr.GetGroupPagList(sr.GetGroupId(listBoxGroupList.SelectedIndex));
                 for (int i = 0; i < pagsInGroup.Count; i++)
                 {
-                    checkedListBoxPagList.SetItemCheckState(sl.LookupPag(pagsInGroup[i])-1,CheckState.Checked);
+                    checkedListBoxPagList.SetItemCheckState(sl.LookupPagPosition(pagsInGroup[i])-1,CheckState.Checked);
                 }
+            }
+            else
+            {
+                checkedListBoxPagList.Enabled = false;
             }
         }
 

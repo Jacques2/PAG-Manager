@@ -39,7 +39,7 @@ namespace PAG_Manager
         {
             return skillLookup[id];
         }
-        public int LookupPag(int id)
+        public int LookupPagPosition(int id)
         {
             return pagLookup[id];
         }
@@ -306,11 +306,33 @@ namespace PAG_Manager
                     int studentID = Convert.ToInt32(seperatedLine[0]);
                     int pagID = Convert.ToInt32(seperatedLine[1]);
                     int lineToReplace = studentInfo[studentID][pagID].Item2;
-                    arrLine[lineToReplace - 1] = dataLine;
+                    if (seperatedLine[2] == "D")//this means the record needs to be deleted
+                    {
+                        arrLine[lineToReplace - 1] = "D";
+                    }
+                    else
+                    {
+                        arrLine[lineToReplace - 1] = dataLine;
+                    }
                 }
                 else//data does not exist in database
                 {
-                    arrLine.Add(dataLine);
+                    if (dataLine.Contains("D") == false)
+                    {
+                        arrLine.Add(dataLine);
+                    }
+                }
+            }
+            bool containsD = true;
+            while (containsD)
+            {
+                if (arrLine.Contains("D"))
+                {
+                    arrLine.Remove("D");
+                }
+                else
+                {
+                    containsD = false;
                 }
             }
             //writing the new pag achievement to file
