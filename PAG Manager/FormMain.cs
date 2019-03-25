@@ -786,12 +786,13 @@ namespace PAG_Manager
             {
                 if ((checkedListBoxActivitySelectionPag.GetItemChecked(i)&& checkedListBoxActivitySelectionPag.SelectedIndex != i) || (checkedListBoxActivitySelectionPag.SelectedIndex == i && checkedListBoxActivitySelectionPag.GetItemChecked(checkedListBoxActivitySelectionPag.SelectedIndex)==false))//checks if the box is ticked
                 {
-                    List<int> skillsToHighlight = psr.GetRelations(i);//gets all related skills
+                    int pagID = ad.GetPagId(i);
+                    List<int> skillsToHighlight = psr.GetRelations(pagID);//gets all related skills
                     if (skillsToHighlight != null)//checks if skills have been returned
                     {
                         for (int j = 0; j < skillsToHighlight.Count; j++)//loops colouring in all skills
                         {
-                            dataGridViewActivitySelectionSkills.Rows[skillsToHighlight[j]].Cells[0].Style.BackColor = Color.Yellow;
+                            dataGridViewActivitySelectionSkills.Rows[ad.GetSkillPositionFromID(skillsToHighlight[j])].Cells[0].Style.BackColor = Color.Yellow;
                         }
                     }
                 }
@@ -853,7 +854,8 @@ namespace PAG_Manager
             {//Below if statement evals (A & B) | (¬A & c)
                 if ((checkedListBoxContentSelectionSkill.SelectedIndex == i && checkedListBoxContentSelectionSkill.GetItemChecked(checkedListBoxContentSelectionSkill.SelectedIndex) == false) || (checkedListBoxContentSelectionSkill.SelectedIndex != i && checkedListBoxContentSelectionSkill.GetItemChecked(i)))
                 {
-                    list.Add(i);
+                    int skillId = ad.GetSkillId(i);
+                    list.Add(skillId);
                 }
             }
             for (int i = 0; i < dataGridViewContentSelectionPag.RowCount; i++)//Step 2: Clear all excisiting colours 
@@ -865,7 +867,11 @@ namespace PAG_Manager
                 ArrayList matchingPag = psr.ReverseRelationLookup(list);//Step 3: calculate and recolour required cells
                 for (int i = 0; i < matchingPag.Count; i++)
                 {
-                    dataGridViewContentSelectionPag.Rows[Convert.ToInt32(matchingPag[i])].Cells[0].Style.BackColor = Color.Yellow;
+                    int pagPosition = ad.GetPagPositionFromID(Convert.ToInt32(matchingPag[i]));
+                    if (pagPosition != -1)
+                    {
+                        dataGridViewContentSelectionPag.Rows[pagPosition].Cells[0].Style.BackColor = Color.Yellow;
+                    }
                 }
             }
         }
@@ -1017,20 +1023,21 @@ namespace PAG_Manager
             }
             //Part 4 Preperation - Getting pag id tree list
             Dictionary<int, List<int>> pagTreeID = ap.GetPagTreeID();
-            List<List<int>> skillsFailed = new List<List<int>>();
+            Dictionary<int, List<int>> skillsFailed = new Dictionary<int, List<int>>();
             //Part 2: ArrayList pagsCompleted
             ArrayList pagsCompletedByStudents = new ArrayList();
             for (int pag = 0; pag < treeViewPagSelect.Nodes.Count; pag++)//searches each pag to check if its ticked
             {
-                skillsFailed.Add(new List<int> { });//Part 4 preperation, creating new blank entrys to be modified
                 if(treeViewPagSelect.Nodes[pag].Checked)
                 {
-                    pagsCompletedByStudents.Add(pag);
+                    int pagID = ap.GetPagTreeIDFromPosition(pag);
+                    skillsFailed.Add(pagID, new List<int>());//Part 4 preperation, creating new blank entrys to be modified
+                    pagsCompletedByStudents.Add(pagID);
                     for (int skill = 0; skill < treeViewPagSelect.Nodes[pag].Nodes.Count; skill++)//Part 4: searches through each skill within each checked pag to see if its not checked
                     {
                         if (treeViewPagSelect.Nodes[pag].Nodes[skill].Checked == false)
                         {
-                            skillsFailed[pag].Add(pagTreeID[pag][skill]);
+                            skillsFailed[pagID].Add(pagTreeID[pagID][skill]);
                         }
                     }
                 }

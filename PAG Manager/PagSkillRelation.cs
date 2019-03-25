@@ -160,7 +160,7 @@ namespace PAG_Manager
                         {
                             if (matchingPag.Contains(i) == false)//Check if matchingPag does not already contain the value
                             {
-                                matchingPag.Add(i);
+                                matchingPag.Add(relation.ElementAt(i).Key);
                             }
                         }
                     }
@@ -170,7 +170,7 @@ namespace PAG_Manager
             {
                 for (int i = 0; i < relation.Count; i++)
                 {
-                    matchingPag.Add(i);
+                    matchingPag.Add(relation.ElementAt(i).Key);
                 }
                 for (int i = 0; i < relation.Count; i++)//Loops through every PAG
                 {
@@ -178,9 +178,9 @@ namespace PAG_Manager
                     {
                         if (relation.ElementAt(i).Value.Contains(Convert.ToInt32(skillIDs[j])) == false)//checks if the pag does not contain the skill
                         {
-                            if (matchingPag.Contains(i) == true)//Check if matchingPag does not already contain the value
+                            if (matchingPag.Contains(relation.ElementAt(i).Key) == true)//Check if matchingPag does not already contain the value
                             {
-                                matchingPag.Remove(i);
+                                matchingPag.Remove(relation.ElementAt(i).Key);
                             }
                         }
                     }
@@ -197,6 +197,5 @@ namespace PAG_Manager
         {
             modifiedPAGs.Clear();
         }
-
     }
 }

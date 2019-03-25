@@ -172,6 +172,10 @@ namespace PAG_Manager
         {
             return pagTreeID;
         }
+        public int GetPagTreeIDFromPosition(int position)
+        {
+            return pagTreeID.ElementAt(position).Key;
+        }
         public Dictionary<int, string> GetPagList()
         {
             return pagList;
@@ -188,27 +192,30 @@ namespace PAG_Manager
         {
             ArrayList skillPositions = new ArrayList();
             //Creating blank array list
-            for (int i = 0; i < relation[pagID].Count(); i++)
+            if (relation.ContainsKey(pagID))
             {
-                skillPositions.Add("");
-            }
-            string lineRead;
-            string[] SeperatedLine;
-            StreamReader sr = new StreamReader(fileLocation + "PagSkillRelation.csv");
-            lineRead = sr.ReadLine();
-            while (lineRead != null)
-            {
-                SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-                if (Convert.ToInt32(SeperatedLine[0]) == pagID)
+                for (int i = 0; i < relation[pagID].Count(); i++)
                 {
-                    skillPositions[Convert.ToInt32(SeperatedLine[2])] = Convert.ToInt32(SeperatedLine[1]);
+                    skillPositions.Add("");
                 }
+                string lineRead;
+                string[] SeperatedLine;
+                StreamReader sr = new StreamReader(fileLocation + "PagSkillRelation.csv");
                 lineRead = sr.ReadLine();
+                while (lineRead != null)
+                {
+                    SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                    if (Convert.ToInt32(SeperatedLine[0]) == pagID)
+                    {
+                        skillPositions[Convert.ToInt32(SeperatedLine[2])] = Convert.ToInt32(SeperatedLine[1]);
+                    }
+                    lineRead = sr.ReadLine();
+                }
+                sr.Close();
             }
-            sr.Close();
             return skillPositions;
         }
-        public void AddPagAwards(ArrayList studentIDs, ArrayList pagsCompleted, DateTime dateCompleted, List<List<int>> skillsFailed)
+        public void AddPagAwards(ArrayList studentIDs, ArrayList pagsCompleted, DateTime dateCompleted, Dictionary<int, List<int>> skillsFailed)
         {
             //Building the skill completion colnums first so they can be easily obtained later
             ArrayList skillsCompleted = new ArrayList();

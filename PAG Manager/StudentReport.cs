@@ -383,27 +383,32 @@ namespace PAG_Manager
             {
                 listCombined.UnionWith(subsets.ElementAt(i));
             }
+            bool possible = true;
             if (universe.IsSubsetOf(listCombined) == false)
             {
-                MessageBox.Show(Convert.ToString(false)); //check if actually possible
+                MessageBox.Show("It is not possible to achieve all skills", "PAG Manager"); //check if actually possible
+                possible = false;
             }
-            HashSet<int> covered = new HashSet<int>();
-            var remaining = new HashSet<int>(universe);
             List<int> subListsToUse = new List<int>();
-            while (universe.IsSubsetOf(covered) == false)
+            if (possible)
             {
-                SortedList<int, int> subsetEff = new SortedList<int, int>();
-                for (int set = 0; set < subsets.Count; set++)
+                HashSet<int> covered = new HashSet<int>();
+                var remaining = new HashSet<int>(universe);
+                while (universe.IsSubsetOf(covered) == false)
                 {
-                    subsetEff.Add(set, new HashSet<int>(remaining.Except(subsets.ElementAt(set))).Count);
+                    SortedList<int, int> subsetEff = new SortedList<int, int>();
+                    for (int set = 0; set < subsets.Count; set++)
+                    {
+                        subsetEff.Add(set, new HashSet<int>(remaining.Except(subsets.ElementAt(set))).Count);
+                    }
+                    var ordered = subsetEff.OrderBy(x => x.Value);
+                    int bestIndex = ordered.ElementAt(0).Key;
+                    subListsToUse.Add(subsetIndex[bestIndex]);
+                    subsetIndex.RemoveAt(bestIndex);
+                    covered.UnionWith(subsets.ElementAt(bestIndex));
+                    remaining.Except(subsets.ElementAt(bestIndex));
+                    subsets.RemoveAt(bestIndex);
                 }
-                var ordered = subsetEff.OrderBy(x => x.Value);
-                int bestIndex = ordered.ElementAt(0).Key;
-                subListsToUse.Add(subsetIndex[bestIndex]);
-                subsetIndex.RemoveAt(bestIndex);
-                covered.UnionWith(subsets.ElementAt(bestIndex));
-                remaining.Except(subsets.ElementAt(bestIndex));
-                subsets.RemoveAt(bestIndex);
             }
             return subListsToUse;
         }
