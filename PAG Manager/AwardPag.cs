@@ -19,9 +19,9 @@ namespace PAG_Manager
         List<List<string>> classListSorted = new List<List<string>>();
         List<List<string>> studentListSorted = new List<List<string>>();
 
-        List<List<int>> pagTreeID = new List<List<int>>();//These store the order for how the PAGs are built
-        List<List<string>> pagTreeName = new List<List<string>>();
-        ArrayList pagList = new ArrayList();
+        Dictionary<int, List<int>> pagTreeID = new Dictionary<int, List<int>>();//These store the order for how the PAGs are built
+        Dictionary<int, string> pagList = new Dictionary<int, string>();//This will contain every pag/skill name
+        Dictionary<int, string> skillList = new Dictionary<int, string>();
 
         List<List<List<int>>> studentIDList = new List<List<List<int>>>();//The student ID list is stored here to avoid using global variables on the main class.
 
@@ -33,6 +33,14 @@ namespace PAG_Manager
         {
             relation = inputRelation;
             relationImported = true;
+        }
+        public string PagLookup(int ID)
+        {
+            return pagList[ID];
+        }
+        public string SkillLookup(int ID)
+        {
+            return skillList[ID];
         }
         public void BuildClassTreeDictionary()
         {
@@ -113,7 +121,6 @@ namespace PAG_Manager
         }
         public void BuildPagTreeDictionary()
         {
-            ArrayList skillList = new ArrayList();//This will contain every pag/skill name
             pagList.Clear();
             skillList.Clear();
 
@@ -125,7 +132,7 @@ namespace PAG_Manager
             while (lineRead != null)
             {
                 SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-                pagList.Add(SeperatedLine[1]);
+                pagList.Add(Convert.ToInt32(SeperatedLine[0]), SeperatedLine[1]);
                 lineRead = sr1.ReadLine();
             }
             sr1.Close();
@@ -137,37 +144,35 @@ namespace PAG_Manager
             while (lineRead != null)
             {
                 SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-                skillList.Add(SeperatedLine[1]);
+                skillList.Add(Convert.ToInt32(SeperatedLine[0]), SeperatedLine[1]);
                 lineRead = sr2.ReadLine();
             }
             sr2.Close();
             //creates blank PagID List
             pagTreeID.Clear();
-            pagTreeName.Clear();
-            for (int i = 0; i < pagList.Count; i++)
+            //loops through every PAG, adding it as a key to the dictionary
+            for (int pag = 0; pag < pagList.Count; pag++)
             {
-                pagTreeID.Add(new List<int> { });
-                pagTreeName.Add(new List<string> { });
+                if (pagTreeID.ContainsKey(pagList.ElementAt(pag).Key) == false)
+                {
+                    pagTreeID.Add(pagList.ElementAt(pag).Key, new List<int>());
+                }
             }
-            //loops through every relation adding it to the pag tree
+            //loops through every relation adding it to the pag tree            
             for (int i = 0; i < relation.Count; i++)//i = current pag id
             {
+                int pagID = relation.ElementAt(i).Key;
                 for (int j = 0; j < relation.ElementAt(i).Value.Count; j++)//j = skill within a pag
                 {
-                    pagTreeID[i].Add(relation.ElementAt(i).Value[j]);//adds the id to the ID list
-                    pagTreeName[i].Add(Convert.ToString(skillList[relation.ElementAt(i).Value[j]]));//adds the value to the name list
+                    pagTreeID[pagID].Add(relation[pagID][j]);//adds the id to the ID list
                 }
             }
         }
-        public List<List<int>> GetPagTreeID()
+        public Dictionary<int, List<int>> GetPagTreeID()
         {
             return pagTreeID;
         }
-        public List<List<string>> GetPagTreeName()
-        {
-            return pagTreeName;
-        }
-        public ArrayList GetPagList()
+        public Dictionary<int, string> GetPagList()
         {
             return pagList;
         }

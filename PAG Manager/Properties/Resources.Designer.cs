@@ -92,6 +92,16 @@ namespace PAG_Manager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] PAG_Manager_Help {
+            get {
+                object obj = ResourceManager.GetObject("PAG_Manager_Help", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 0,Group 1,0,1,2
         ///1,Group 2,3,4,5
         ///2,Group 3,6,7,8
