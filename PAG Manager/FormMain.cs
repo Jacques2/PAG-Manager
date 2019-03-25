@@ -1090,7 +1090,6 @@ namespace PAG_Manager
 
         private void openFileDialogImportCSV_HelpRequest(object sender, EventArgs e)
         {//The help button within the dialog
-            MessageBox.Show(Convert.ToString("Help Coming soon"));
         }
 
         private void Button1_Click_1(object sender, EventArgs e)
