@@ -1919,5 +1919,11 @@ namespace PAG_Manager
             MessageBox.Show(Convert.ToString("Restored data from backup \"" + toolStripTextBoxBackupName.Text + "\""), "PAG Manager");
             ReloadAllData(true);
         }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutBox a = new AboutBox();
+            a.Show();
+        }
     }
 }
