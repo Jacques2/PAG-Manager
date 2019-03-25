@@ -136,6 +136,7 @@ namespace PAG_Manager
                 }
                 //disabling things that should not be edited straight away
                 checkedListBoxPagList.Enabled = false;
+                checkedListBoxSkillRelation.Enabled = false;
                 //referential integrity 
                 ad.BuildPagsInUse();
                 ad.BuildSkillsInUse();
@@ -444,7 +445,7 @@ namespace PAG_Manager
             t.Stop();
             for (int i = 0; i < times.Count; i++)
             {
-                MessageBox.Show(Convert.ToString(times[i]));
+                //MessageBox.Show(Convert.ToString(times[i]));
             }
             dataGridViewStudentLookup.RowHeadersVisible = true;
         }
@@ -710,17 +711,30 @@ namespace PAG_Manager
 
         private void listBoxPagRelation_SelectedIndexChanged(object sender, EventArgs e)//ADMIN: Clears all check boxes and reticks new boxes for the selected PAG
         {
-            checkedListBoxSkillRelation.SelectedIndex = -1;
             ClearTickBoxes();
-            List<int> boxesToTick = psr.GetRelations(listBoxPagRelation.SelectedIndex);
-            if (boxesToTick != null)
+            if (listBoxPagRelation.SelectedIndex != -1)//checks if anything is selected
             {
-                for (int i = 0; i < boxesToTick.Count; i++)
+                int pagID = ad.GetPagId(listBoxPagRelation.SelectedIndex);
+                bool inUse = ad.IsPagInUse(pagID);//checks if the pag has been awarded to anyone
+                if (inUse == false)
                 {
-                    if (boxesToTick[i] != -1)
+                    checkedListBoxSkillRelation.Enabled = true; // enableing editing as input is valid
+                    checkedListBoxSkillRelation.SelectedIndex = -1;
+                    List<int> boxesToTick = psr.GetRelations(pagID);
+                    if (boxesToTick != null)
                     {
-                        checkedListBoxSkillRelation.SetItemCheckState(boxesToTick[i], CheckState.Checked);
+                        for (int i = 0; i < boxesToTick.Count; i++)
+                        {
+                            int position = ad.GetSkillPositionFromID(boxesToTick[i]);
+                            checkedListBoxSkillRelation.SetItemCheckState(position, CheckState.Checked);
+                        }
                     }
+                }
+                else//pag has been awarded to a student
+                {
+                    checkedListBoxSkillRelation.Enabled = false;
+                    listBoxPagRelation.SelectedIndex = -1;
+                    MessageBox.Show("This PAG has been awarded to at least one student and cannot be modified", "PAG Manager");
                 }
             }
         }
@@ -1923,6 +1937,11 @@ namespace PAG_Manager
         {
             AboutBox a = new AboutBox();
             a.Show();
+        }
+
+        private void treeViewYearSelect_AfterSelect_1(object sender, TreeViewEventArgs e)
+        {
+
         }
     }
 }

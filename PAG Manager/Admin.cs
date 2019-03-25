@@ -55,6 +55,11 @@ namespace PAG_Manager
         {
             return skillList;
         }
+        public int GetSkillPositionFromID(int ID)
+        {
+            int position = skillList.IndexOfKey(ID);
+            return position;
+        }
         public void RemovePagFromPosition(int position)
         {
             try

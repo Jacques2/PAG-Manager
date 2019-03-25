@@ -46,7 +46,7 @@ namespace PAG_Manager
             {
                 return relation[PagID];
             }
-            catch (System.ArgumentOutOfRangeException)
+            catch (Exception)
             {
                 return new List<int>();
             }
