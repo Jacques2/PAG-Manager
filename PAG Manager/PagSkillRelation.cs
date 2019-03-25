@@ -70,6 +70,62 @@ namespace PAG_Manager
             }
             sw.Close();
         }
+        public bool SaveRelations()
+        {
+            bool success = true; //if the update fails, the program needs to switch tabs
+            //replaces or adds new data into the pag achievement data file
+            string[] array = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagSkillRelation.csv");
+            List<string> arrLine = new List<string>(array);
+            //copies the file in case the editing goes wrong
+            File.Copy(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagSkillRelation.csv", AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagSkillRelation.temp", true);
+            //loops through every record, erasing psr data for modified pags
+            for (int record = 0; record < arrLine.Count; record++)
+            {
+                string[] seperatedLine = arrLine[record].Split(new[] { "," }, StringSplitOptions.None);
+                if (modifiedPAGs.Contains(Convert.ToInt32(seperatedLine[0])))//checks if pags need to be deleted and marks with a "D" if so
+                {
+                    arrLine[record] = "D";
+                }
+            }
+            bool containsD = true;
+            while (containsD)//loops deleting all records to be deleted
+            {
+                if (arrLine.Contains("D"))
+                {
+                    arrLine.Remove("D");
+                }
+                else
+                {
+                    containsD = false;
+                }
+            }
+            //adds new psr data to the end of the array
+            for (int pag = 0; pag < modifiedPAGs.Count; pag++)
+            {
+                int index = -1;
+                int pagID = modifiedPAGs.ElementAt(pag);
+                List<int> skillsInPag = new List<int>();
+                skillsInPag = GetRelations(pagID);
+                for (int skill = 0; skill < skillsInPag.Count; skill++)
+                {
+                    index++;
+                    string skillID = Convert.ToString(skillsInPag[skill]);
+                    arrLine.Add(pagID + "," + skillID + "," + Convert.ToString(index));
+                }
+            }
+            //writing the new psr data to file
+            File.WriteAllLines(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagSkillRelation.csv", arrLine);
+            //checking if edit failed and reverting if so
+            string pagData = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagSkillRelation.csv");
+            if (pagData == "")
+            {
+                File.Copy(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagSkillRelation.temp", AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagSkillRelation.csv", true);
+                MessageBox.Show("Student edit failed. Reverting to previous student data", "Alert");
+                success = false;
+            }
+            File.Delete(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagSkillRelation.temp");
+            return success;
+        }
         public void LoadRelationFromFile()
         {
             StreamReader sr = new StreamReader(fileLocation + "PagSkillRelation.csv");
@@ -132,5 +188,15 @@ namespace PAG_Manager
             }
             return matchingPag;
         }
+        HashSet<int> modifiedPAGs = new HashSet<int>();
+        public void AddModifiedPag(int pagID)
+        {
+            modifiedPAGs.Add(pagID);
+        }
+        public void ClearModifiedPags()
+        {
+            modifiedPAGs.Clear();
+        }
+
     }
 }

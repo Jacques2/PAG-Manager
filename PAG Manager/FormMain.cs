@@ -12,7 +12,7 @@ using System.IO;
 using System.Globalization;
 using System.Web;
 
-//temp
+//temp for testing student lookup load times
 using System.Diagnostics;
 
 namespace PAG_Manager
@@ -97,6 +97,7 @@ namespace PAG_Manager
                 dataGridViewSkillRequirement.Rows.Clear();
                 checkedListBoxSkillRelation.Items.Clear();
                 checkedListBoxPagList.Items.Clear();
+                psr.ClearModifiedPags();
                 for (int i = 0; i < pagList.Count; i++)//giving each entry a number
                 {
                     listBoxPagList.Items.Add(pagList.ElementAt(i).Value);
@@ -257,14 +258,18 @@ namespace PAG_Manager
             //Tree view- Pags and skills
             treeViewPagSelect.Nodes.Clear();
             ap.BuildPagTreeDictionary();
-            List<List<string>> pagTreeID = ap.GetPagTreeName();
-            ArrayList awardPagList = ap.GetPagList();
+            Dictionary<int, List<int>> pagTreeID = ap.GetPagTreeID();
+            Dictionary<int, string> awardPagList = ap.GetPagList();
             for (int i = 0; i < pagTreeID.Count; i++)//adding class nodes
             {
-                treeViewPagSelect.Nodes.Add(Convert.ToString(awardPagList[i]));
-                for (int j = 0; j < pagTreeID[i].Count; j++)
+                int pagID = pagTreeID.ElementAt(i).Key;
+                string pagName = ap.PagLookup(pagID);
+                treeViewPagSelect.Nodes.Add(Convert.ToString(pagName));
+                for (int j = 0; j < pagTreeID[pagID].Count; j++)
                 {
-                    treeViewPagSelect.Nodes[i].Nodes.Add(Convert.ToString(pagTreeID[i][j]));
+                    int skillID = pagTreeID[pagID][j];
+                    string skillName = ap.SkillLookup(skillID);
+                    treeViewPagSelect.Nodes[i].Nodes.Add(skillName);
                 }
             }
             for (int node = 0; node < treeViewYearSelect.Nodes.Count; node++)//expands all the year nodes for ease of use
@@ -745,13 +750,16 @@ namespace PAG_Manager
             {
                 if (checkedListBoxSkillRelation.SelectedIndex != -1)
                 {
+                    int skillID = ad.GetSkillId(checkedListBoxSkillRelation.SelectedIndex);
+                    int pagID = ad.GetPagId(listBoxPagRelation.SelectedIndex);
+                    psr.AddModifiedPag(pagID);
                     if (checkedListBoxSkillRelation.GetItemChecked(checkedListBoxSkillRelation.SelectedIndex) == false) //Checking if the checked box is checked or unchecked
-                    {
-                        psr.SetRelation(listBoxPagRelation.SelectedIndex, checkedListBoxSkillRelation.SelectedIndex);
+                    {//checked
+                        psr.SetRelation(pagID, skillID);
                     }
-                    else
+                    else//unchecked
                     {
-                        psr.RemoveRelation(listBoxPagRelation.SelectedIndex, checkedListBoxSkillRelation.SelectedIndex);
+                        psr.RemoveRelation(pagID, skillID);
                     }
                 }
             }
@@ -759,7 +767,8 @@ namespace PAG_Manager
 
         private void buttonBuildPagSkillRelation_Click(object sender, EventArgs e)//ADMIN: rewrites all relations to file
         {
-            psr.BuildFromScratch();
+            psr.SaveRelations();
+            ReloadAllData(true);
         }
 
         private void dataGridViewActivitySelectionSkills_SelectionChanged(object sender, EventArgs e)//Stops selection of the activity selection skills list
@@ -1007,7 +1016,7 @@ namespace PAG_Manager
                 }
             }
             //Part 4 Preperation - Getting pag id tree list
-            List<List<int>> pagTreeID = ap.GetPagTreeID();
+            Dictionary<int, List<int>> pagTreeID = ap.GetPagTreeID();
             List<List<int>> skillsFailed = new List<List<int>>();
             //Part 2: ArrayList pagsCompleted
             ArrayList pagsCompletedByStudents = new ArrayList();
