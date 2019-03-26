@@ -185,12 +185,12 @@
             this.buttonMoveStudents = new System.Windows.Forms.Button();
             this.labelNewItem = new System.Windows.Forms.Label();
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backupRestoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backupDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripTextBoxBackupName = new System.Windows.Forms.ToolStripTextBox();
             this.backupWithNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restoreDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteBackupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hidePagViewColumnsWithoutPAGDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -203,7 +203,6 @@
             this.heightDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sizeTypeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.saveFileDialogExportReport = new System.Windows.Forms.SaveFileDialog();
-            this.deleteBackupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControlMain.SuspendLayout();
             this.tabAwardPag.SuspendLayout();
             this.tableLayoutPanelAwardPag.SuspendLayout();
@@ -2000,7 +1999,6 @@
             // menuStripMain
             // 
             this.menuStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
             this.backupRestoreToolStripMenuItem,
             this.viewToolStripMenuItem,
             this.settingsToolStripMenuItem,
@@ -2011,12 +2009,6 @@
             this.menuStripMain.Size = new System.Drawing.Size(784, 24);
             this.menuStripMain.TabIndex = 1;
             this.menuStripMain.Text = "menuStrip1";
-            // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "File";
             // 
             // backupRestoreToolStripMenuItem
             // 
@@ -2035,7 +2027,7 @@
             this.toolStripTextBoxBackupName,
             this.backupWithNameToolStripMenuItem});
             this.backupDataToolStripMenuItem.Name = "backupDataToolStripMenuItem";
-            this.backupDataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.backupDataToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.backupDataToolStripMenuItem.Text = "Backup Data";
             this.backupDataToolStripMenuItem.DropDownOpened += new System.EventHandler(this.backupDataToolStripMenuItem_DropDownOpened);
             // 
@@ -2056,9 +2048,16 @@
             // restoreDataToolStripMenuItem
             // 
             this.restoreDataToolStripMenuItem.Name = "restoreDataToolStripMenuItem";
-            this.restoreDataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.restoreDataToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.restoreDataToolStripMenuItem.Text = "Restore Data";
             this.restoreDataToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.restoreDataToolStripMenuItem_DropDownItemClicked);
+            // 
+            // deleteBackupToolStripMenuItem
+            // 
+            this.deleteBackupToolStripMenuItem.Name = "deleteBackupToolStripMenuItem";
+            this.deleteBackupToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.deleteBackupToolStripMenuItem.Text = "Delete Backup";
+            this.deleteBackupToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.deleteBackupToolStripMenuItem_DropDownItemClicked);
             // 
             // viewToolStripMenuItem
             // 
@@ -2111,13 +2110,13 @@
             // openManualToolStripMenuItem
             // 
             this.openManualToolStripMenuItem.Name = "openManualToolStripMenuItem";
-            this.openManualToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.openManualToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openManualToolStripMenuItem.Text = "Open Manual";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -2146,13 +2145,6 @@
             this.saveFileDialogExportReport.Title = "Export Report";
             this.saveFileDialogExportReport.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialogExportReport_FileOk);
             // 
-            // deleteBackupToolStripMenuItem
-            // 
-            this.deleteBackupToolStripMenuItem.Name = "deleteBackupToolStripMenuItem";
-            this.deleteBackupToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.deleteBackupToolStripMenuItem.Text = "Delete Backup";
-            this.deleteBackupToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.deleteBackupToolStripMenuItem_DropDownItemClicked);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2164,7 +2156,7 @@
             this.MainMenuStrip = this.menuStripMain;
             this.MinimumSize = new System.Drawing.Size(800, 600);
             this.Name = "FormMain";
-            this.Text = "PAG Manager Alpha 3";
+            this.Text = "PAG Manager";
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.tabControlMain.ResumeLayout(false);
             this.tabAwardPag.ResumeLayout(false);
@@ -2261,7 +2253,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelPagSkillList;
         private System.Windows.Forms.TabPage tabPagSkillRelation;
         private System.Windows.Forms.MenuStrip menuStripMain;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem adminToolStripMenuItem;
         private System.Windows.Forms.ToolStrip toolStripPagList;

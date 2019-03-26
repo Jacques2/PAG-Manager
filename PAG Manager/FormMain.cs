@@ -56,7 +56,7 @@ namespace PAG_Manager
             StreamWriter setupSettings = File.AppendText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\settings.dat");
             setupSettings.Close();
             // HIDING ADMIN TAB
-            //tabControlMain.TabPages.Remove(tabAdmin); //This line may be disabled while testing admin features, do not delete!
+            tabControlMain.TabPages.Remove(tabAdmin); //This line may be disabled while testing admin features, do not delete!
             ReloadAllSettings();
             // ACTIVITY/CONTENT SELECTION
             // LOAD ALL DATA
@@ -269,7 +269,10 @@ namespace PAG_Manager
                 {
                     int skillID = pagTreeID[pagID][j];
                     string skillName = ap.SkillLookup(skillID);
-                    treeViewPagSelect.Nodes[i].Nodes.Add(skillName);
+                    if (skillName != null)//checks if the skill is valid
+                    {
+                        treeViewPagSelect.Nodes[i].Nodes.Add(skillName);
+                    }
                 }
             }
             for (int node = 0; node < treeViewYearSelect.Nodes.Count; node++)//expands all the year nodes for ease of use
@@ -581,13 +584,7 @@ namespace PAG_Manager
         {
             if (listBoxPagList.SelectedIndex != -1)
             {
-                int pagID = ad.GetPagId(listBoxPagList.SelectedIndex);
-                List<int> relations = new List<int>();
-                relations = psr.GetRelations(pagID);
-                if (relations.Count == 0)
-                {
-                    pagListToolStripTextBox.Text = (Convert.ToString(listBoxPagList.SelectedItem));
-                }
+                pagListToolStripTextBox.Text = (Convert.ToString(listBoxPagList.SelectedItem));
             }
         }
 
@@ -639,18 +636,27 @@ namespace PAG_Manager
 
         private void pagListToolStripButtonRemovePag_Click(object sender, EventArgs e)//ADMIN: removes the selected list box index
         {
-            if (listBoxPagList.SelectedIndex != -1)
+            if (listBoxPagList.SelectedIndex != -1)//checks if an object is selected
             {
                 int pagID = ad.GetPagId(listBoxPagList.SelectedIndex);
                 bool inUse = ad.IsPagInUse(pagID);
-                if (inUse == false)
+                if (inUse == false)//checks if the pag has been awarded to a student
                 {
-                    ad.RemovePagFromPosition(listBoxPagList.SelectedIndex);
-                    listBoxPagList.Items.RemoveAt(listBoxPagList.SelectedIndex);
+                    List<int> relations = new List<int>();
+                    relations = psr.GetRelations(pagID);
+                    if (relations.Count == 0)//checks if there are any relations for this pag
+                    {
+                        ad.RemovePagFromPosition(listBoxPagList.SelectedIndex);
+                        listBoxPagList.Items.RemoveAt(listBoxPagList.SelectedIndex);
+                    }
+                    else
+                    {
+                        MessageBox.Show("This PAG has 1 or more skills assigned to it and cannot be deleted. Unassign these skills before deleting");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("This PAG has been awarded to at least one student and cannot be removed", "PAG Manager");
+                    MessageBox.Show("This PAG has been awarded to at least one student and cannot be removed. Remove this PAG from all students with it to be able to delete it", "PAG Manager");
                 }
             }
         }

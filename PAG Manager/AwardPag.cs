@@ -40,7 +40,15 @@ namespace PAG_Manager
         }
         public string SkillLookup(int ID)
         {
-            return skillList[ID];
+            try
+            {
+                return skillList[ID];
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Program found a reference to skill with ID " + Convert.ToString(ID) + " which does not exist.", "PAG Manager");
+                return null;
+            }
         }
         public void BuildClassTreeDictionary()
         {
@@ -164,7 +172,10 @@ namespace PAG_Manager
                 int pagID = relation.ElementAt(i).Key;
                 for (int j = 0; j < relation.ElementAt(i).Value.Count; j++)//j = skill within a pag
                 {
-                    pagTreeID[pagID].Add(relation[pagID][j]);//adds the id to the ID list
+                    if (pagTreeID.ContainsKey(pagID))
+                    {
+                        pagTreeID[pagID].Add(relation[pagID][j]);//adds the id to the ID list
+                    }
                 }
             }
         }
@@ -260,7 +271,7 @@ namespace PAG_Manager
             //Message box to show it completed sucessesfully
             if (alreadyExist > 0)
             {
-                MessageBox.Show("PAG Awarded.\n\n" + Convert.ToString(alreadyExist) + " students already have this PAG, their records have not been modified", "PAG Manager");
+                MessageBox.Show("PAG Awarded.\n\n" + Convert.ToString(alreadyExist) + " PAG records have already been awarded, their records have not been modified", "PAG Manager");
             }
             else
             {
