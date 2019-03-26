@@ -277,6 +277,8 @@ namespace PAG_Manager
                 treeViewYearSelect.Nodes[node].Expand();
             }
             ap.BuildPagAwardList();
+            UpdateSelectedPagLabel();
+            UpdateSelectedStudentLabel();
             //student report
             sr.BuildPagSubsets();
             sr.BuildLists();
@@ -579,7 +581,13 @@ namespace PAG_Manager
         {
             if (listBoxPagList.SelectedIndex != -1)
             {
-                pagListToolStripTextBox.Text = (Convert.ToString(listBoxPagList.SelectedItem));
+                int pagID = ad.GetPagId(listBoxPagList.SelectedIndex);
+                List<int> relations = new List<int>();
+                relations = psr.GetRelations(pagID);
+                if (relations.Count == 0)
+                {
+                    pagListToolStripTextBox.Text = (Convert.ToString(listBoxPagList.SelectedItem));
+                }
             }
         }
 
