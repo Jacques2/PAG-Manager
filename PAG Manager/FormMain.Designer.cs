@@ -191,6 +191,9 @@
             this.backupWithNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restoreDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteBackupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.PAGPresetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createPAGPresetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadPAGPresetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hidePagViewColumnsWithoutPAGDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -203,9 +206,6 @@
             this.heightDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sizeTypeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.saveFileDialogExportReport = new System.Windows.Forms.SaveFileDialog();
-            this.PAGPresetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadPAGPresetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.createPAGPresetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControlMain.SuspendLayout();
             this.tabAwardPag.SuspendLayout();
             this.tableLayoutPanelAwardPag.SuspendLayout();
@@ -2031,7 +2031,7 @@
             this.toolStripTextBoxBackupName,
             this.backupWithNameToolStripMenuItem});
             this.backupDataToolStripMenuItem.Name = "backupDataToolStripMenuItem";
-            this.backupDataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.backupDataToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.backupDataToolStripMenuItem.Text = "Backup Data";
             this.backupDataToolStripMenuItem.DropDownOpened += new System.EventHandler(this.backupDataToolStripMenuItem_DropDownOpened);
             // 
@@ -2052,16 +2052,38 @@
             // restoreDataToolStripMenuItem
             // 
             this.restoreDataToolStripMenuItem.Name = "restoreDataToolStripMenuItem";
-            this.restoreDataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.restoreDataToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.restoreDataToolStripMenuItem.Text = "Restore Data";
             this.restoreDataToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.restoreDataToolStripMenuItem_DropDownItemClicked);
             // 
             // deleteBackupToolStripMenuItem
             // 
             this.deleteBackupToolStripMenuItem.Name = "deleteBackupToolStripMenuItem";
-            this.deleteBackupToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteBackupToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.deleteBackupToolStripMenuItem.Text = "Delete Backup";
             this.deleteBackupToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.deleteBackupToolStripMenuItem_DropDownItemClicked);
+            // 
+            // PAGPresetToolStripMenuItem
+            // 
+            this.PAGPresetToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.createPAGPresetToolStripMenuItem,
+            this.loadPAGPresetToolStripMenuItem});
+            this.PAGPresetToolStripMenuItem.Name = "PAGPresetToolStripMenuItem";
+            this.PAGPresetToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
+            this.PAGPresetToolStripMenuItem.Text = "PAG Presets";
+            this.PAGPresetToolStripMenuItem.Click += new System.EventHandler(this.loadPAGPresetToolStripMenuItem_Click);
+            // 
+            // createPAGPresetToolStripMenuItem
+            // 
+            this.createPAGPresetToolStripMenuItem.Name = "createPAGPresetToolStripMenuItem";
+            this.createPAGPresetToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.createPAGPresetToolStripMenuItem.Text = "Create PAG Preset";
+            // 
+            // loadPAGPresetToolStripMenuItem
+            // 
+            this.loadPAGPresetToolStripMenuItem.Name = "loadPAGPresetToolStripMenuItem";
+            this.loadPAGPresetToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.loadPAGPresetToolStripMenuItem.Text = "Load PAG Preset";
             // 
             // viewToolStripMenuItem
             // 
@@ -2148,28 +2170,6 @@
             this.saveFileDialogExportReport.Filter = "Excel Spreadsheet (*.xlsx)|*.xlsx";
             this.saveFileDialogExportReport.Title = "Export Report";
             this.saveFileDialogExportReport.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialogExportReport_FileOk);
-            // 
-            // PAGPresetToolStripMenuItem
-            // 
-            this.PAGPresetToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.createPAGPresetToolStripMenuItem,
-            this.loadPAGPresetToolStripMenuItem});
-            this.PAGPresetToolStripMenuItem.Name = "PAGPresetToolStripMenuItem";
-            this.PAGPresetToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
-            this.PAGPresetToolStripMenuItem.Text = "PAG Presets";
-            this.PAGPresetToolStripMenuItem.Click += new System.EventHandler(this.loadPAGPresetToolStripMenuItem_Click);
-            // 
-            // loadPAGPresetToolStripMenuItem
-            // 
-            this.loadPAGPresetToolStripMenuItem.Name = "loadPAGPresetToolStripMenuItem";
-            this.loadPAGPresetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.loadPAGPresetToolStripMenuItem.Text = "Load PAG Preset";
-            // 
-            // createPAGPresetToolStripMenuItem
-            // 
-            this.createPAGPresetToolStripMenuItem.Name = "createPAGPresetToolStripMenuItem";
-            this.createPAGPresetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.createPAGPresetToolStripMenuItem.Text = "Create PAG Preset";
             // 
             // FormMain
             // 

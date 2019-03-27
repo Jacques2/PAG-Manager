@@ -511,6 +511,7 @@ namespace PAG_Manager
             List<List<string>> filteredReport = new List<List<string>>();
             for (int entry = 0; entry < report.Count; entry++)
             {
+                string sentence = report[entry][5];
                 if (report[entry][5].Contains(filter))
                 {
                     filteredReport.Add(report[entry]);

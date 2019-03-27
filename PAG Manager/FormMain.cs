@@ -143,6 +143,7 @@ namespace PAG_Manager
                 ad.BuildSkillsInUse();
                 ad.BuildSkillRelationList();
             }
+            //pag skill relations
             psr.ClearRelations();
             psr.LoadRelationFromFile();
             // STUDENT LOOKUP NAMES LIST
@@ -1618,7 +1619,7 @@ namespace PAG_Manager
                 //increment progress bar
                 progressBarStudentReport.Value++;
             }
-            //progressBarStudentReport.Value = 0;
+            progressBarStudentReport.Value = 0;
             dataGridViewStudentReport.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             radioButtonReportAll.Enabled = true;
             radioButtonReportComplete.Enabled = true;
