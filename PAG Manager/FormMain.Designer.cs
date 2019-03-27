@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabAwardPag = new System.Windows.Forms.TabPage();
@@ -203,6 +203,9 @@
             this.heightDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sizeTypeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.saveFileDialogExportReport = new System.Windows.Forms.SaveFileDialog();
+            this.PAGPresetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadPAGPresetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createPAGPresetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControlMain.SuspendLayout();
             this.tabAwardPag.SuspendLayout();
             this.tableLayoutPanelAwardPag.SuspendLayout();
@@ -510,14 +513,14 @@
             this.dataGridViewStudentLookup.AllowUserToAddRows = false;
             this.dataGridViewStudentLookup.AllowUserToDeleteRows = false;
             this.dataGridViewStudentLookup.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewStudentLookup.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewStudentLookup.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewStudentLookup.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewStudentLookup.Location = new System.Drawing.Point(183, 63);
             this.dataGridViewStudentLookup.Name = "dataGridViewStudentLookup";
@@ -774,8 +777,8 @@
             // StudentReportCondition
             // 
             this.StudentReportCondition.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.StudentReportCondition.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.StudentReportCondition.DefaultCellStyle = dataGridViewCellStyle2;
             this.StudentReportCondition.HeaderText = "Condition";
             this.StudentReportCondition.Name = "StudentReportCondition";
             this.StudentReportCondition.ReadOnly = true;
@@ -2000,6 +2003,7 @@
             // 
             this.menuStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.backupRestoreToolStripMenuItem,
+            this.PAGPresetToolStripMenuItem,
             this.viewToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.adminToolStripMenuItem,
@@ -2027,7 +2031,7 @@
             this.toolStripTextBoxBackupName,
             this.backupWithNameToolStripMenuItem});
             this.backupDataToolStripMenuItem.Name = "backupDataToolStripMenuItem";
-            this.backupDataToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.backupDataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.backupDataToolStripMenuItem.Text = "Backup Data";
             this.backupDataToolStripMenuItem.DropDownOpened += new System.EventHandler(this.backupDataToolStripMenuItem_DropDownOpened);
             // 
@@ -2048,14 +2052,14 @@
             // restoreDataToolStripMenuItem
             // 
             this.restoreDataToolStripMenuItem.Name = "restoreDataToolStripMenuItem";
-            this.restoreDataToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.restoreDataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.restoreDataToolStripMenuItem.Text = "Restore Data";
             this.restoreDataToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.restoreDataToolStripMenuItem_DropDownItemClicked);
             // 
             // deleteBackupToolStripMenuItem
             // 
             this.deleteBackupToolStripMenuItem.Name = "deleteBackupToolStripMenuItem";
-            this.deleteBackupToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.deleteBackupToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.deleteBackupToolStripMenuItem.Text = "Delete Backup";
             this.deleteBackupToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.deleteBackupToolStripMenuItem_DropDownItemClicked);
             // 
@@ -2110,13 +2114,13 @@
             // openManualToolStripMenuItem
             // 
             this.openManualToolStripMenuItem.Name = "openManualToolStripMenuItem";
-            this.openManualToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openManualToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.openManualToolStripMenuItem.Text = "Open Manual";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -2144,6 +2148,28 @@
             this.saveFileDialogExportReport.Filter = "Excel Spreadsheet (*.xlsx)|*.xlsx";
             this.saveFileDialogExportReport.Title = "Export Report";
             this.saveFileDialogExportReport.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialogExportReport_FileOk);
+            // 
+            // PAGPresetToolStripMenuItem
+            // 
+            this.PAGPresetToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.createPAGPresetToolStripMenuItem,
+            this.loadPAGPresetToolStripMenuItem});
+            this.PAGPresetToolStripMenuItem.Name = "PAGPresetToolStripMenuItem";
+            this.PAGPresetToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
+            this.PAGPresetToolStripMenuItem.Text = "PAG Presets";
+            this.PAGPresetToolStripMenuItem.Click += new System.EventHandler(this.loadPAGPresetToolStripMenuItem_Click);
+            // 
+            // loadPAGPresetToolStripMenuItem
+            // 
+            this.loadPAGPresetToolStripMenuItem.Name = "loadPAGPresetToolStripMenuItem";
+            this.loadPAGPresetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadPAGPresetToolStripMenuItem.Text = "Load PAG Preset";
+            // 
+            // createPAGPresetToolStripMenuItem
+            // 
+            this.createPAGPresetToolStripMenuItem.Name = "createPAGPresetToolStripMenuItem";
+            this.createPAGPresetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.createPAGPresetToolStripMenuItem.Text = "Create PAG Preset";
             // 
             // FormMain
             // 
@@ -2403,6 +2429,9 @@
         private System.Windows.Forms.ToolStripMenuItem backupWithNameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem restoreDataToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteBackupToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem PAGPresetToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem createPAGPresetToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadPAGPresetToolStripMenuItem;
     }
 }
 

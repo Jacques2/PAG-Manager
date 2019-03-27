@@ -61,6 +61,69 @@ namespace PAG_Manager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream _1 {
+            get {
+                return ResourceManager.GetStream("_1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream _2 {
+            get {
+                return ResourceManager.GetStream("_2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream _3 {
+            get {
+                return ResourceManager.GetStream("_3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream _4 {
+            get {
+                return ResourceManager.GetStream("_4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream _5 {
+            get {
+                return ResourceManager.GetStream("_5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream _6 {
+            get {
+                return ResourceManager.GetStream("_6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.IO.UnmanagedMemoryStream similar to System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream _7 {
+            get {
+                return ResourceManager.GetStream("_7", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] EPPlusDll {
@@ -83,7 +146,7 @@ namespace PAG_Manager.Properties {
         ///            It is a Dictionary implementation that allows you to change the Key (the RowID, ColumnID or CellID )
         ///            &lt;/summary&gt;
         ///        &lt;/member&gt;
-        ///        &lt;member name=&quot;M:CellStore`1.SetRangeValueSpecial(System.Int32,System.Int32,System.Int32,System.Int32,CellStore{`0} [rest of string was truncated]&quot;;.
+        ///        &lt;member name=&quot;M:CellStore`1.SetRangeValueSpecial(System.Int32,System.Int32,System.Int32,System.Int32,CellStore{`0}.SetRangeVal [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string EPPlusXml {
             get {
@@ -102,18 +165,18 @@ namespace PAG_Manager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 0,Group 1,0,1,2
-        ///1,Group 2,3,4,5
-        ///2,Group 3,6,7,8
-        ///3,Group 4,9,10,11
-        ///4,Group 5,12,13,14
-        ///5,Group 6,15,16,17
-        ///6,Group 7,18,19,20
-        ///7,Group 8,21,22,23
-        ///8,Group 9,24,25,26
-        ///9,Group 10,27,28,29
-        ///10,Group 11,30,31,32
-        ///11,Group 12,33,34,35
+        ///   Looks up a localized string similar to 0,PAG 1,0,1,2
+        ///1,PAG 2,3,4,5
+        ///2,PAG 3,6,7,8
+        ///3,PAG 4,9,10,11
+        ///4,PAG 5,12,13,14
+        ///5,PAG 6,15,16,17
+        ///6,PAG 7,18,19,20
+        ///7,PAG 8,21,22,23
+        ///8,PAG 9,24,25,26
+        ///9,PAG 10,27,28,29
+        ///10,PAG 11,30,31,32
+        ///11,PAG 12,33,34,35
         ///.
         /// </summary>
         internal static string PagGroup {
@@ -128,7 +191,7 @@ namespace PAG_Manager.Properties {
         ///002,1.3 Moles determination Activity 3 - Determination of the formula for magnesium oxide
         ///003,2.1 Acid-base titration Activity 1 - Determination of concentration of hydrochloric acid
         ///004,2.2 Acid-base titration Activity 2 - Determination of the molar mass of an acid
-        ///005,2.3 Acid-base titration Activity 3 - Ide [rest of string was truncated]&quot;;.
+        ///005,2.3 Acid-base titration Activity 3 - Identifi [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string PagList {
             get {
@@ -204,7 +267,17 @@ namespace PAG_Manager.Properties {
         ///5,9,5
         ///5,10,6
         ///5,13,7
-        ///5,1 [rest of string was truncated]&quot;;.
+        ///5,19,8
+        ///5,20,9
+        ///5,26,10
+        ///5,29,11
+        ///5,31,12
+        ///5,32,13
+        ///6,1,0
+        ///6,2,1
+        ///6,3,2
+        ///6,4,3
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string PagSkillRelation {
             get {
@@ -220,7 +293,7 @@ namespace PAG_Manager.Properties {
         ///004,Keep appropriate records of experimental activities
         ///005,Present information and data in a scientific way
         ///006,Use appropriate software and tools to process data; carry out research and report findings
-        ///007,Use online and offline research skills including websites; textbooks and other p [rest of string was truncated]&quot;;.
+        ///007,Use online and offline research skills including websites; textbooks and other printed  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string SkillList {
             get {

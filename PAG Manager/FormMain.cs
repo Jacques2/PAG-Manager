@@ -1982,5 +1982,20 @@ namespace PAG_Manager
             string dir = AppDomain.CurrentDomain.BaseDirectory + @"SaveData\" + fileName + @"\";
             Directory.Delete(dir, true);
         }
+
+        private void loadPAGPresetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            loadPAGPresetToolStripMenuItem.DropDownItems.Clear();
+            if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Presets\") == false)
+            {
+                DirectoryInfo di = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + @"Presets");
+            }
+            List<string> directories = new List<string>(Directory.GetDirectories(AppDomain.CurrentDomain.BaseDirectory + @"Presets\"));
+            for (int i = 0; i < directories.Count; i++)
+            {
+                string backupName = directories[i].Replace(AppDomain.CurrentDomain.BaseDirectory + @"Presets\", "");
+                loadPAGPresetToolStripMenuItem.DropDownItems.Add(backupName);
+            }
+        }
     }
 }

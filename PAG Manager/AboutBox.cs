@@ -106,5 +106,50 @@ namespace PAG_Manager
         {
             this.Close();
         }
+        int a = 0;
+        private void logoPictureBox_Click(object sender, EventArgs e)
+        {
+            a++;
+            if (a == 1)
+            {
+                System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources._1);
+                player.Play();
+            }
+            else if (a == 2)
+            {
+                System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources._2);
+                player.Play();
+            }
+            else if (a == 3)
+            {
+                System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources._3);
+                player.Play();
+            }
+            else if (a == 4)
+            {
+                System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources._4);
+                player.Play();
+            }
+            else if (a == 5)
+            {
+                System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources._5);
+                player.Play();
+            }
+            else if (a == 6)
+            {
+                System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources._6);
+                player.Play();
+            }
+            else if (a == 7)
+            {
+                System.Media.SoundPlayer player = new System.Media.SoundPlayer(Properties.Resources._7);
+                player.Play();
+                a = 0;
+            }
+            else
+            {
+                a = 0;
+            }
+        }
     }
 }
