@@ -176,6 +176,7 @@ namespace PAG_Manager
             string[] SeperatedLine;
             StreamReader sr = new StreamReader(fileLocation + "PagAchievement.csv");
             lineRead = sr.ReadLine();
+            studentPagData.Clear();
             while (lineRead != null)
             {
                 SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
@@ -600,10 +601,13 @@ namespace PAG_Manager
                 excelWorksheet.Cells[currentRow, 3].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Right;
                 excelWorksheet.Cells[currentRow, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
                 excelWorksheet.Cells[currentRow, 4].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
-                excelWorksheet.Cells[currentRow+1, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
-                excelWorksheet.Cells[currentRow+1, 4].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
-                excelWorksheet.Cells[currentRow+2, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
-                excelWorksheet.Cells[currentRow+2, 4].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                if (data[groupID].Item2.Count > 0)
+                {
+                    excelWorksheet.Cells[currentRow + 1, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                    excelWorksheet.Cells[currentRow + 1, 4].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                    excelWorksheet.Cells[currentRow + 2, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                    excelWorksheet.Cells[currentRow + 2, 4].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                }
                 excelWorksheet.Cells[currentRow, 2].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
                 excelWorksheet.Cells[currentRow, 3].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
                 excelWorksheet.Cells[currentRow, 4].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
