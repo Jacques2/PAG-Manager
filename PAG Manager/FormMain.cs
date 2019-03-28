@@ -1722,16 +1722,24 @@ namespace PAG_Manager
 
         private void buttonExportReport_Click(object sender, EventArgs e)
         {
-            File.WriteAllBytes(AppDomain.CurrentDomain.BaseDirectory + @"EPPlus.dll", (PAG_Manager.Properties.Resources.EPPlusDll));
-            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"EPPlus.xml", (PAG_Manager.Properties.Resources.EPPlusXml));
-            saveFileDialogExportReport.FileName = "PAG Manager Student Report " +  DateTime.Today.ToString("dd-MM-yyyy");
-            saveFileDialogExportReport.ShowDialog();
+            try
+            {
+                File.WriteAllBytes(AppDomain.CurrentDomain.BaseDirectory + @"EPPlus.dll", (PAG_Manager.Properties.Resources.EPPlusDll));
+                File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"EPPlus.xml", (PAG_Manager.Properties.Resources.EPPlusXml));
+                saveFileDialogExportReport.FileName = "PAG Manager Student Report " + DateTime.Today.ToString("dd-MM-yyyy");
+                saveFileDialogExportReport.ShowDialog();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("The program does not have the permission to write the required libraries to the directory of the program.", "PAG Manager");
+            }
         }
 
         private void saveFileDialogExportReport_FileOk(object sender, CancelEventArgs e)
         {
             string location = saveFileDialogExportReport.FileName;
             sr.ExcelExport(location);
+            System.Diagnostics.Process.Start(location);
         }
 
         private void listBoxStudentManagementList_SelectedIndexChanged(object sender, EventArgs e)
