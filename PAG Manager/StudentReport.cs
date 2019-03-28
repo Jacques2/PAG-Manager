@@ -169,6 +169,7 @@ namespace PAG_Manager
         Dictionary<int, SortedList<int, int>> pagRecord = new Dictionary<int, SortedList<int, int>>();
         //dictionary with key = pagID, value = time required to achieve
         Dictionary<int, int> skillRequirement = new Dictionary<int, int>();
+
         public void BuildPagList()
         {
             string lineRead;

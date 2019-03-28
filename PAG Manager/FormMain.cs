@@ -1580,7 +1580,8 @@ namespace PAG_Manager
                 string missingSkillString = "";
                 for (int i = 0; i < missingSkills.Count; i++)
                 {
-                    missingSkillString += missingSkills[i];
+                    string skillName = sr.GetSkillName(Convert.ToInt32(missingSkills[i]));
+                    missingSkillString += skillName;
                     if (i + 1 != missingSkills.Count)
                     {
                         missingSkillString += ", ";
