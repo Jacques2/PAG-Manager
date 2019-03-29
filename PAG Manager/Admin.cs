@@ -353,10 +353,20 @@ namespace PAG_Manager
                 }
             }
         }
-        public void DirectoryCopy(string oldDir, string newDir)
+        public void DirectoryCopy(string oldDir, string newDir, bool isPreset)
         {
             Directory.CreateDirectory(newDir);
-            List<string> files = new List<string>() { "PagAchievement.csv", "PagGroup.csv", "PagList.csv", "PagSkillRelation.csv", "SkillList.csv", "SkillRequirement.csv", "StudentRecord.csv" };
+            List<string> files = new List<string>();
+            if (isPreset)
+            {
+                List<string> filesToCopy = new List<string>() { "PagGroup.csv", "PagList.csv", "PagSkillRelation.csv", "SkillList.csv", "SkillRequirement.csv" };
+                files = filesToCopy;
+            }
+            else
+            {
+                List<string> filesToCopy = new List<string>() { "PagAchievement.csv", "PagGroup.csv", "PagList.csv", "PagSkillRelation.csv", "SkillList.csv", "SkillRequirement.csv", "StudentRecord.csv" };
+                files = filesToCopy;
+            }
             for (int file = 0; file < files.Count; file++)
             {
                 try

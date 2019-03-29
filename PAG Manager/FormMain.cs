@@ -1729,9 +1729,11 @@ namespace PAG_Manager
                 saveFileDialogExportReport.FileName = "PAG Manager Student Report " + DateTime.Today.ToString("dd-MM-yyyy");
                 saveFileDialogExportReport.ShowDialog();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 MessageBox.Show("The program does not have the permission to write the required libraries to the directory of the program.", "PAG Manager");
+
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -1956,7 +1958,7 @@ namespace PAG_Manager
             {
                 string newDir = AppDomain.CurrentDomain.BaseDirectory + @"SaveData\" + fileName + @"\";
                 string oldDir = AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\";
-                ad.DirectoryCopy(oldDir, newDir);
+                ad.DirectoryCopy(oldDir, newDir, false);
                 MessageBox.Show(Convert.ToString("Backup \"" + toolStripTextBoxBackupName.Text + "\" Created"), "PAG Manager");
             }
             else
@@ -1967,12 +1969,16 @@ namespace PAG_Manager
 
         private void restoreDataToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            string fileName = Convert.ToString(e.ClickedItem);
-            string oldDir = AppDomain.CurrentDomain.BaseDirectory + @"SaveData\" + fileName + @"\";
-            string newDir = AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\";
-            ad.DirectoryCopy(oldDir, newDir);
-            MessageBox.Show(Convert.ToString("Restored data from backup \"" + toolStripTextBoxBackupName.Text + "\""), "PAG Manager");
-            ReloadAllData(true);
+            DialogResult result = MessageBox.Show("Are you sure you want to restore this backup?\n\n" + e.ClickedItem, "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
+            if (result == DialogResult.Yes)
+            {
+                string fileName = Convert.ToString(e.ClickedItem);
+                string oldDir = AppDomain.CurrentDomain.BaseDirectory + @"SaveData\" + fileName + @"\";
+                string newDir = AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\";
+                ad.DirectoryCopy(oldDir, newDir, false);
+                MessageBox.Show(Convert.ToString("Restored data from backup \"" + toolStripTextBoxBackupName.Text + "\""), "PAG Manager");
+                ReloadAllData(true);
+            }
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1988,13 +1994,18 @@ namespace PAG_Manager
 
         private void deleteBackupToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            string fileName = Convert.ToString(e.ClickedItem);
-            string dir = AppDomain.CurrentDomain.BaseDirectory + @"SaveData\" + fileName + @"\";
-            Directory.Delete(dir, true);
+            DialogResult result = MessageBox.Show("Are you sure you want to delete this backup?\n\n" + e.ClickedItem, "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
+            if (result == DialogResult.Yes)
+            {
+                string fileName = Convert.ToString(e.ClickedItem);
+                string dir = AppDomain.CurrentDomain.BaseDirectory + @"SaveData\" + fileName + @"\";
+                Directory.Delete(dir, true);
+            }
         }
 
         private void loadPAGPresetToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            toolStripTextBoxCreatePreset.Text = System.DateTime.Today.ToString("dd-MM-yyyy");
             loadPAGPresetToolStripMenuItem.DropDownItems.Clear();
             if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Presets\") == false)
             {
@@ -2005,6 +2016,54 @@ namespace PAG_Manager
             {
                 string backupName = directories[i].Replace(AppDomain.CurrentDomain.BaseDirectory + @"Presets\", "");
                 loadPAGPresetToolStripMenuItem.DropDownItems.Add(backupName);
+                deletePAGPresetToolStripMenuItem.DropDownItems.Add(backupName);
+            }
+        }
+
+        private void createPresetWithNameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string fileName = toolStripTextBoxCreatePreset.Text;
+            if (!string.IsNullOrEmpty(fileName) && fileName.IndexOfAny(Path.GetInvalidFileNameChars()) < 0)
+            {
+                string newDir = AppDomain.CurrentDomain.BaseDirectory + @"Presets\" + fileName + @"\";
+                string oldDir = AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\";
+                ad.DirectoryCopy(oldDir, newDir, true);
+                MessageBox.Show(Convert.ToString("Preset \"" + toolStripTextBoxCreatePreset.Text + "\" Created"), "PAG Manager");
+            }
+            else
+            {
+                MessageBox.Show(Convert.ToString("Please enter a valid preset name"), "PAG Manager");
+            }
+        }
+
+        private void toolStripTextBoxCreatePreset_TextChanged(object sender, EventArgs e)
+        {
+            createPresetWithNameToolStripMenuItem.Text = "Create Preset With Name: " + toolStripTextBoxCreatePreset.Text;
+        }
+
+        private void loadPAGPresetToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            DialogResult result = MessageBox.Show("By loading a preset, any PAG's awarded to students will be removed. Do you want to proceed", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
+            if (result == DialogResult.Yes)
+            {
+                File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagAchievement.csv","");
+                string fileName = Convert.ToString(e.ClickedItem);
+                string oldDir = AppDomain.CurrentDomain.BaseDirectory + @"Presets\" + fileName + @"\";
+                string newDir = AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\";
+                ad.DirectoryCopy(oldDir, newDir, true);
+                MessageBox.Show(Convert.ToString("Load preset \"" + e.ToString() + "\""), "PAG Manager");
+                ReloadAllData(true);
+            }
+        }
+
+        private void deletePAGPresetToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure you want to delete this preset?\n\n" + e.ClickedItem, "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
+            if (result == DialogResult.Yes)
+            {
+                string fileName = Convert.ToString(e.ClickedItem);
+                string dir = AppDomain.CurrentDomain.BaseDirectory + @"Presets\" + fileName + @"\";
+                Directory.Delete(dir, true);
             }
         }
     }

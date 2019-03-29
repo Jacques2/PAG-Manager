@@ -591,66 +591,69 @@ namespace PAG_Manager
             for (int group = 0; group < data.Count; group++)//loops through every group
             {
                 int groupID = data.ElementAt(group).Key;
-                excelWorksheet.Cells[currentRow, 2].Value = data[groupID].Item1;
-                excelWorksheet.Cells[currentRow, 2].Style.Font.Bold = true;
-                excelWorksheet.Cells[currentRow, 2].Style.Font.Size = 12;
-                excelWorksheet.Cells[currentRow, 3].Value = "Date:";
-                excelWorksheet.Cells[currentRow, 4].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                excelWorksheet.Cells[currentRow, 4].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.FromArgb(193, 231, 255));
-                excelWorksheet.Cells[currentRow, 4].Style.Numberformat.Format = "mm-dd-yy";
-                excelWorksheet.Cells[currentRow, 3].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Right;
-                excelWorksheet.Cells[currentRow, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
-                excelWorksheet.Cells[currentRow, 4].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
-                if (data[groupID].Item2.Count > 0)
+                if (data[group].Item2.Count > 0)
                 {
-                    excelWorksheet.Cells[currentRow + 1, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
-                    excelWorksheet.Cells[currentRow + 1, 4].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
-                    excelWorksheet.Cells[currentRow + 2, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
-                    excelWorksheet.Cells[currentRow + 2, 4].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
-                }
-                excelWorksheet.Cells[currentRow, 2].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
-                excelWorksheet.Cells[currentRow, 3].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
-                excelWorksheet.Cells[currentRow, 4].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
-                currentRow = currentRow + 2;
-                for (int year = 0; year < data[groupID].Item2.Count; year++)//loops through every year
-                {
-                    string currentYear = data[groupID].Item2.ElementAt(year).Key;
-                    if (year > 0)
+                    excelWorksheet.Cells[currentRow, 2].Value = data[groupID].Item1;
+                    excelWorksheet.Cells[currentRow, 2].Style.Font.Bold = true;
+                    excelWorksheet.Cells[currentRow, 2].Style.Font.Size = 12;
+                    excelWorksheet.Cells[currentRow, 3].Value = "Date:";
+                    excelWorksheet.Cells[currentRow, 4].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                    excelWorksheet.Cells[currentRow, 4].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.FromArgb(193, 231, 255));
+                    excelWorksheet.Cells[currentRow, 4].Style.Numberformat.Format = "mm-dd-yy";
+                    excelWorksheet.Cells[currentRow, 3].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Right;
+                    excelWorksheet.Cells[currentRow, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                    excelWorksheet.Cells[currentRow, 4].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                    if (data[groupID].Item2.Count > 0)
                     {
-                        excelWorksheet.Cells[currentRow-1, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
-                        excelWorksheet.Cells[currentRow-1, 4].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                        excelWorksheet.Cells[currentRow + 1, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                        excelWorksheet.Cells[currentRow + 1, 4].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                        excelWorksheet.Cells[currentRow + 2, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                        excelWorksheet.Cells[currentRow + 2, 4].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
                     }
-                    for (int theClass = 0; theClass < data[groupID].Item2[currentYear].Count; theClass++)//loops through every class
+                    excelWorksheet.Cells[currentRow, 2].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                    excelWorksheet.Cells[currentRow, 3].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                    excelWorksheet.Cells[currentRow, 4].Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                    currentRow = currentRow + 2;
+                    for (int year = 0; year < data[groupID].Item2.Count; year++)//loops through every year
                     {
-                        if (theClass > 0)
+                        string currentYear = data[groupID].Item2.ElementAt(year).Key;
+                        if (year > 0)
                         {
                             excelWorksheet.Cells[currentRow - 1, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
                             excelWorksheet.Cells[currentRow - 1, 4].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
                         }
-                        string currentClass = data[groupID].Item2[currentYear].ElementAt(theClass).Key;
-                        excelWorksheet.Cells[currentRow, 2].Value = currentYear;
-                        excelWorksheet.Cells[currentRow, 3].Value = currentClass;
-                        excelWorksheet.Cells[currentRow, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
-                        excelWorksheet.Cells[currentRow, 4].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
-                        excelWorksheet.Cells[currentRow, 2].Style.Font.Bold = true;
-                        excelWorksheet.Cells[currentRow, 3].Style.Font.Bold = true;
-                        currentRow++;
-                        for (int student = 0; student < data[groupID].Item2[currentYear][currentClass].Count; student++)
+                        for (int theClass = 0; theClass < data[groupID].Item2[currentYear].Count; theClass++)//loops through every class
                         {
-                            string FName = data[groupID].Item2[currentYear][currentClass][student].Item1;
-                            string LName = data[groupID].Item2[currentYear][currentClass][student].Item2;
-                            excelWorksheet.Cells[currentRow, 3].Value = FName;
-                            excelWorksheet.Cells[currentRow, 4].Value = LName;
+                            if (theClass > 0)
+                            {
+                                excelWorksheet.Cells[currentRow - 1, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                                excelWorksheet.Cells[currentRow - 1, 4].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                            }
+                            string currentClass = data[groupID].Item2[currentYear].ElementAt(theClass).Key;
+                            excelWorksheet.Cells[currentRow, 2].Value = currentYear;
+                            excelWorksheet.Cells[currentRow, 3].Value = currentClass;
                             excelWorksheet.Cells[currentRow, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
                             excelWorksheet.Cells[currentRow, 4].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                            excelWorksheet.Cells[currentRow, 2].Style.Font.Bold = true;
+                            excelWorksheet.Cells[currentRow, 3].Style.Font.Bold = true;
+                            currentRow++;
+                            for (int student = 0; student < data[groupID].Item2[currentYear][currentClass].Count; student++)
+                            {
+                                string FName = data[groupID].Item2[currentYear][currentClass][student].Item1;
+                                string LName = data[groupID].Item2[currentYear][currentClass][student].Item2;
+                                excelWorksheet.Cells[currentRow, 3].Value = FName;
+                                excelWorksheet.Cells[currentRow, 4].Value = LName;
+                                excelWorksheet.Cells[currentRow, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                                excelWorksheet.Cells[currentRow, 4].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                                currentRow++;
+                            }
                             currentRow++;
                         }
-                        currentRow++;
                     }
+                    excelWorksheet.Cells[currentRow - 2, 2].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                    excelWorksheet.Cells[currentRow - 2, 3].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                    excelWorksheet.Cells[currentRow - 2, 4].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
                 }
-                excelWorksheet.Cells[currentRow-2, 2].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
-                excelWorksheet.Cells[currentRow-2, 3].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
-                excelWorksheet.Cells[currentRow-2, 4].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
             }
             excelWorksheet.Column(2).AutoFit();
             excelWorksheet.Column(3).AutoFit();
