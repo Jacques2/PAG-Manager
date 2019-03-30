@@ -47,25 +47,25 @@ namespace PAG_Manager
             }
             skillReader.Close();
         }
-        public SortedList<int, string> GetPagList()
+        public SortedList<int, string> GetPagList()//gets a list of all pags
         {
             return pagList;
         }
-        public SortedList<int, string> GetSkillList()
+        public SortedList<int, string> GetSkillList()//gets a list of all skills
         {
             return skillList;
         }
-        public int GetSkillPositionFromID(int ID)
+        public int GetSkillPositionFromID(int ID)//gets the position of a skill from its id
         {
             int position = skillList.IndexOfKey(ID);
             return position;
         }
-        public int GetPagPositionFromID(int ID)
+        public int GetPagPositionFromID(int ID)//gets the position of a pag from its id
         {
             int position = pagList.IndexOfKey(ID);
             return position;
         }
-        public void RemovePagFromPosition(int position)
+        public void RemovePagFromPosition(int position)//removes the pag from the specified position
         {
             try
             {
@@ -76,7 +76,7 @@ namespace PAG_Manager
 
             }
         }
-        public void RemoveSkillFromPosition(int position)
+        public void RemoveSkillFromPosition(int position)//removes the skill from the specified position
         {
             try
             {
@@ -87,25 +87,25 @@ namespace PAG_Manager
 
             }
         }
-        public void AddPag()
+        public void AddPag()//adds a pag to the list
         {
             pagList.Add(pagList.ElementAt(pagList.Count - 1).Key + 1, "New PAG");
         }
-        public void AddSkill()
+        public void AddSkill()//adds a skill to the list
         {
             skillList.Add(skillList.ElementAt(skillList.Count - 1).Key + 1, "New Skill");
         }
-        public void RenamePag(int position, string newName)
+        public void RenamePag(int position, string newName)//renames a pag
         {
             int ID = pagList.ElementAt(position).Key;
             pagList[ID] = newName;
         }
-        public void RenameSkill(int position, string newName)
+        public void RenameSkill(int position, string newName)//renames a skill
         {
             int ID = skillList.ElementAt(position).Key;
             skillList[ID] = newName;
         }
-        public void SavePagData()
+        public void SavePagData()//saves updated pag data
         {
             StreamWriter sw = new StreamWriter(fileLocation + "PagList.csv");
             for (int i = 0; i < pagList.Count; i++)
@@ -114,7 +114,7 @@ namespace PAG_Manager
             }
             sw.Close();
         }
-        public void SaveSkillData()
+        public void SaveSkillData()//saves updated skill data
         {
             StreamWriter sw = new StreamWriter(fileLocation + "SkillList.csv");
             for (int i = 0; i < skillList.Count; i++)
@@ -124,7 +124,7 @@ namespace PAG_Manager
             sw.Close();
         }
         HashSet<int> pagsInUse = new HashSet<int>();
-        public void BuildPagsInUse()
+        public void BuildPagsInUse()//builds a list of pags that are awarded to students
         {
             pagsInUse.Clear();
             string lineRead;
@@ -134,13 +134,13 @@ namespace PAG_Manager
             while (lineRead != null)
             {
                 SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-                pagsInUse.Add(Convert.ToInt32(SeperatedLine[1]));
+                pagsInUse.Add(Convert.ToInt32(SeperatedLine[1]));//adds the pag id to the set
                 lineRead = sr.ReadLine();
             }
             sr.Close();
         }
         HashSet<int> skillsInUse = new HashSet<int>();
-        public void BuildSkillsInUse()
+        public void BuildSkillsInUse()//builds a list of skills that have been awarded to students
         {
             skillsInUse.Clear();
             for (int pag = 0; pag < pagsInUse.Count; pag++)
@@ -152,16 +152,16 @@ namespace PAG_Manager
                 while (lineRead != null)
                 {
                     SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-                    if (pagsInUse.Contains(Convert.ToInt32(SeperatedLine[0])))
+                    if (pagsInUse.Contains(Convert.ToInt32(SeperatedLine[0])))//check if the pag is in use
                     {
-                        skillsInUse.Add(Convert.ToInt32(SeperatedLine[1]));
+                        skillsInUse.Add(Convert.ToInt32(SeperatedLine[1]));//if so, then add the skill to the set
                     }
                     lineRead = sr.ReadLine();
                 }
                 sr.Close();
             }
         }
-        public bool IsPagInUse(int pagID)
+        public bool IsPagInUse(int pagID)//checks the pag set for the input id
         {
             if (pagsInUse.Contains(pagID))
             {
@@ -172,7 +172,7 @@ namespace PAG_Manager
                 return false;
             }
         }
-        public bool IsSkillInUse(int skillID)
+        public bool IsSkillInUse(int skillID)//checks the skill set for the input id
         {
             if (skillsInUse.Contains(skillID))
             {
@@ -183,15 +183,15 @@ namespace PAG_Manager
                 return false;
             }
         }
-        public int GetPagId(int position)
+        public int GetPagId(int position)//gets the id of a pag from is position
         {
             return pagList.ElementAt(position).Key;
         }
-        public int GetSkillId(int position)
+        public int GetSkillId(int position)//gets the id of a skill from is position
         {
             return skillList.ElementAt(position).Key;
         }
-        public string GetPagName(int PagID)
+        public string GetPagName(int PagID)//gets the name of a pag from is id
         {
             if (pagList.ContainsKey(PagID))
             {
@@ -250,7 +250,7 @@ namespace PAG_Manager
             }
             return csvLines;
         }
-        public void BuildStudentInformation()
+        public void BuildStudentInformation()//builds all student data
         {
             //dictionary has key = studentID, value = tuple(FirstName,LastName,Year,Class)
             studentInfo.Clear();
@@ -265,30 +265,30 @@ namespace PAG_Manager
             }
             studentReader.Close();
         }
-        public SortedList<int, Tuple<string, string, string, string>> GetStudentInformation()
+        public SortedList<int, Tuple<string, string, string, string>> GetStudentInformation()//gets all student data
         {
             return studentInfo;
         }
-        public Tuple<string, string, string, string> GetInformation(int position)
+        public Tuple<string, string, string, string> GetInformation(int position)//gets information about a student from its position
         {
             return studentInfo.ElementAt(position).Value;
         }
-        public void DeleteStudent(int position)
+        public void DeleteStudent(int position)//deletes a student
         {
             studentInfo.RemoveAt(position);
         }
-        public void ModifyStudent(int position, string fName, string lName, string year, string theClass)
+        public void ModifyStudent(int position, string fName, string lName, string year, string theClass)//modifys the student record
         {
             int key = studentInfo.ElementAt(position).Key;
             studentInfo.Remove(key);
             studentInfo.Add(key, new Tuple<string, string, string, string>(fName, lName, year, theClass));
         }
-        public void AddStudent()
+        public void AddStudent()//adds a new student
         {
             int lastKey = studentInfo.ElementAt(studentInfo.Count-1).Key;
             studentInfo.Add(lastKey + 1, new Tuple<string, string, string, string>("New", "Student", "Year", "Class"));
         }
-        public void SaveStudentData()
+        public void SaveStudentData()//saves all student information
         {
             StreamWriter sw = new StreamWriter(fileLocation + "StudentRecord.csv");
             for (int i = 0; i < studentInfo.Count; i++)
@@ -353,11 +353,11 @@ namespace PAG_Manager
                 }
             }
         }
-        public void DirectoryCopy(string oldDir, string newDir, bool isPreset)
+        public void DirectoryCopy(string oldDir, string newDir, bool isPreset)//copys files from one directory to another
         {
             Directory.CreateDirectory(newDir);
             List<string> files = new List<string>();
-            if (isPreset)
+            if (isPreset)//if managing presets, 2 files are not copied
             {
                 List<string> filesToCopy = new List<string>() { "PagGroup.csv", "PagList.csv", "PagSkillRelation.csv", "SkillList.csv", "SkillRequirement.csv" };
                 files = filesToCopy;
@@ -367,11 +367,11 @@ namespace PAG_Manager
                 List<string> filesToCopy = new List<string>() { "PagAchievement.csv", "PagGroup.csv", "PagList.csv", "PagSkillRelation.csv", "SkillList.csv", "SkillRequirement.csv", "StudentRecord.csv" };
                 files = filesToCopy;
             }
-            for (int file = 0; file < files.Count; file++)
+            for (int file = 0; file < files.Count; file++)//loops through files to copy
             {
                 try
                 {
-                    File.Copy(oldDir + files[file], newDir + files[file], true);
+                    File.Copy(oldDir + files[file], newDir + files[file], true);//copy file, and overwrite
                 }
                 catch (Exception ex)
                 {
@@ -399,7 +399,7 @@ namespace PAG_Manager
             }
             sr.Close();
         }
-        public HashSet<int> GetAllPagsForSkill(int ID)
+        public HashSet<int> GetAllPagsForSkill(int ID)//gets all the pags for a skill
         {
             if (skillRelation.ContainsKey(ID))
             {

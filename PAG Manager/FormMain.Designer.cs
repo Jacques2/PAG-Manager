@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabAwardPag = new System.Windows.Forms.TabPage();
@@ -81,7 +81,7 @@
             this.StudentReportCondition = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelReportSettings = new System.Windows.Forms.Label();
             this.flowLayoutPanelStudentReportSettings = new System.Windows.Forms.FlowLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelFilterBy = new System.Windows.Forms.Label();
             this.radioButtonReportComplete = new System.Windows.Forms.RadioButton();
             this.radioButtonReportNotComplete = new System.Windows.Forms.RadioButton();
             this.radioButtonReportAll = new System.Windows.Forms.RadioButton();
@@ -111,7 +111,6 @@
             this.tabGeneral = new System.Windows.Forms.TabPage();
             this.checkBoxShowStudentID = new System.Windows.Forms.CheckBox();
             this.buttonLoadDefaults = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.radioButtonAdmin = new System.Windows.Forms.RadioButton();
             this.buttonGetDirectory = new System.Windows.Forms.Button();
             this.tabSkillPagList = new System.Windows.Forms.TabPage();
@@ -156,7 +155,7 @@
             this.checkedListBoxPagList = new System.Windows.Forms.CheckedListBox();
             this.tabStudentImport = new System.Windows.Forms.TabPage();
             this.tableLayoutPanelImportStudents = new System.Windows.Forms.TableLayoutPanel();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanelImportStudents = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonImportCSV = new System.Windows.Forms.Button();
             this.buttonAddStudentRecord = new System.Windows.Forms.Button();
             this.labelImportStudents = new System.Windows.Forms.Label();
@@ -164,7 +163,7 @@
             this.tabStudentManagement = new System.Windows.Forms.TabPage();
             this.tableLayoutPanelStudentManagement = new System.Windows.Forms.TableLayoutPanel();
             this.listBoxStudentManagementList = new System.Windows.Forms.ListBox();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanelStudentInfo = new System.Windows.Forms.TableLayoutPanel();
             this.buttonStudentManagementDeleteStudent = new System.Windows.Forms.Button();
             this.textBoxStudentLName = new System.Windows.Forms.TextBox();
             this.textBoxStudentFName = new System.Windows.Forms.TextBox();
@@ -176,7 +175,7 @@
             this.textBoxStudentClass = new System.Windows.Forms.TextBox();
             this.buttonStudentManagementSaveChanges = new System.Windows.Forms.Button();
             this.buttonStudentManagementAddStudent = new System.Windows.Forms.Button();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanelStudentMassMove = new System.Windows.Forms.TableLayoutPanel();
             this.labelStudentManagement1 = new System.Windows.Forms.Label();
             this.labelStudentManagement2 = new System.Windows.Forms.Label();
             this.comboBoxInputType = new System.Windows.Forms.ComboBox();
@@ -251,12 +250,12 @@
             this.pagGroupToolStrip.SuspendLayout();
             this.tabStudentImport.SuspendLayout();
             this.tableLayoutPanelImportStudents.SuspendLayout();
-            this.flowLayoutPanel1.SuspendLayout();
+            this.flowLayoutPanelImportStudents.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudentImport)).BeginInit();
             this.tabStudentManagement.SuspendLayout();
             this.tableLayoutPanelStudentManagement.SuspendLayout();
-            this.tableLayoutPanel2.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanelStudentInfo.SuspendLayout();
+            this.tableLayoutPanelStudentMassMove.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -315,7 +314,6 @@
             this.treeViewYearSelect.Size = new System.Drawing.Size(288, 499);
             this.treeViewYearSelect.TabIndex = 0;
             this.treeViewYearSelect.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.treeViewYearSelect_AfterCheck);
-            this.treeViewYearSelect.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewYearSelect_AfterSelect_1);
             // 
             // treeViewPagSelect
             // 
@@ -516,14 +514,14 @@
             this.dataGridViewStudentLookup.AllowUserToAddRows = false;
             this.dataGridViewStudentLookup.AllowUserToDeleteRows = false;
             this.dataGridViewStudentLookup.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewStudentLookup.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewStudentLookup.DefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridViewStudentLookup.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewStudentLookup.Location = new System.Drawing.Point(183, 63);
             this.dataGridViewStudentLookup.Name = "dataGridViewStudentLookup";
@@ -735,7 +733,6 @@
             this.dataGridViewStudentReport.ReadOnly = true;
             this.dataGridViewStudentReport.Size = new System.Drawing.Size(564, 471);
             this.dataGridViewStudentReport.TabIndex = 2;
-            this.dataGridViewStudentReport.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStudentReport_CellClick);
             this.dataGridViewStudentReport.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStudentReport_CellEnter);
             // 
             // StudentReportID
@@ -780,8 +777,8 @@
             // StudentReportCondition
             // 
             this.StudentReportCondition.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.StudentReportCondition.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.StudentReportCondition.DefaultCellStyle = dataGridViewCellStyle3;
             this.StudentReportCondition.HeaderText = "Condition";
             this.StudentReportCondition.Name = "StudentReportCondition";
             this.StudentReportCondition.ReadOnly = true;
@@ -800,7 +797,7 @@
             // 
             // flowLayoutPanelStudentReportSettings
             // 
-            this.flowLayoutPanelStudentReportSettings.Controls.Add(this.label1);
+            this.flowLayoutPanelStudentReportSettings.Controls.Add(this.labelFilterBy);
             this.flowLayoutPanelStudentReportSettings.Controls.Add(this.radioButtonReportComplete);
             this.flowLayoutPanelStudentReportSettings.Controls.Add(this.radioButtonReportNotComplete);
             this.flowLayoutPanelStudentReportSettings.Controls.Add(this.radioButtonReportAll);
@@ -811,14 +808,14 @@
             this.flowLayoutPanelStudentReportSettings.Size = new System.Drawing.Size(194, 471);
             this.flowLayoutPanelStudentReportSettings.TabIndex = 6;
             // 
-            // label1
+            // labelFilterBy
             // 
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(189, 23);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Filter by:";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelFilterBy.Location = new System.Drawing.Point(3, 0);
+            this.labelFilterBy.Name = "labelFilterBy";
+            this.labelFilterBy.Size = new System.Drawing.Size(189, 23);
+            this.labelFilterBy.TabIndex = 8;
+            this.labelFilterBy.Text = "Filter by:";
+            this.labelFilterBy.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // radioButtonReportComplete
             // 
@@ -1167,7 +1164,6 @@
             // 
             this.tabGeneral.Controls.Add(this.checkBoxShowStudentID);
             this.tabGeneral.Controls.Add(this.buttonLoadDefaults);
-            this.tabGeneral.Controls.Add(this.button2);
             this.tabGeneral.Controls.Add(this.radioButtonAdmin);
             this.tabGeneral.Controls.Add(this.buttonGetDirectory);
             this.tabGeneral.Location = new System.Drawing.Point(4, 22);
@@ -1198,16 +1194,6 @@
             this.buttonLoadDefaults.Text = "Load Default Settings";
             this.buttonLoadDefaults.UseVisualStyleBackColor = true;
             this.buttonLoadDefaults.Click += new System.EventHandler(this.buttonLoadDefaults_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(53, 115);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // radioButtonAdmin
             // 
@@ -1653,7 +1639,7 @@
             // 
             this.tableLayoutPanelImportStudents.ColumnCount = 1;
             this.tableLayoutPanelImportStudents.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelImportStudents.Controls.Add(this.flowLayoutPanel1, 0, 0);
+            this.tableLayoutPanelImportStudents.Controls.Add(this.flowLayoutPanelImportStudents, 0, 0);
             this.tableLayoutPanelImportStudents.Controls.Add(this.dataGridViewStudentImport, 0, 1);
             this.tableLayoutPanelImportStudents.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelImportStudents.Location = new System.Drawing.Point(3, 3);
@@ -1664,16 +1650,16 @@
             this.tableLayoutPanelImportStudents.Size = new System.Drawing.Size(756, 473);
             this.tableLayoutPanelImportStudents.TabIndex = 1;
             // 
-            // flowLayoutPanel1
+            // flowLayoutPanelImportStudents
             // 
-            this.flowLayoutPanel1.Controls.Add(this.buttonImportCSV);
-            this.flowLayoutPanel1.Controls.Add(this.buttonAddStudentRecord);
-            this.flowLayoutPanel1.Controls.Add(this.labelImportStudents);
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(750, 24);
-            this.flowLayoutPanel1.TabIndex = 2;
+            this.flowLayoutPanelImportStudents.Controls.Add(this.buttonImportCSV);
+            this.flowLayoutPanelImportStudents.Controls.Add(this.buttonAddStudentRecord);
+            this.flowLayoutPanelImportStudents.Controls.Add(this.labelImportStudents);
+            this.flowLayoutPanelImportStudents.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanelImportStudents.Location = new System.Drawing.Point(3, 3);
+            this.flowLayoutPanelImportStudents.Name = "flowLayoutPanelImportStudents";
+            this.flowLayoutPanelImportStudents.Size = new System.Drawing.Size(750, 24);
+            this.flowLayoutPanelImportStudents.TabIndex = 2;
             // 
             // buttonImportCSV
             // 
@@ -1734,8 +1720,8 @@
             this.tableLayoutPanelStudentManagement.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180F));
             this.tableLayoutPanelStudentManagement.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelStudentManagement.Controls.Add(this.listBoxStudentManagementList, 0, 0);
-            this.tableLayoutPanelStudentManagement.Controls.Add(this.tableLayoutPanel2, 1, 0);
-            this.tableLayoutPanelStudentManagement.Controls.Add(this.tableLayoutPanel1, 1, 1);
+            this.tableLayoutPanelStudentManagement.Controls.Add(this.tableLayoutPanelStudentInfo, 1, 0);
+            this.tableLayoutPanelStudentManagement.Controls.Add(this.tableLayoutPanelStudentMassMove, 1, 1);
             this.tableLayoutPanelStudentManagement.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelStudentManagement.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelStudentManagement.Name = "tableLayoutPanelStudentManagement";
@@ -1756,33 +1742,33 @@
             this.listBoxStudentManagementList.TabIndex = 0;
             this.listBoxStudentManagementList.SelectedIndexChanged += new System.EventHandler(this.listBoxStudentManagementList_SelectedIndexChanged);
             // 
-            // tableLayoutPanel2
+            // tableLayoutPanelStudentInfo
             // 
-            this.tableLayoutPanel2.ColumnCount = 3;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 140F));
-            this.tableLayoutPanel2.Controls.Add(this.buttonStudentManagementDeleteStudent, 2, 1);
-            this.tableLayoutPanel2.Controls.Add(this.textBoxStudentLName, 1, 1);
-            this.tableLayoutPanel2.Controls.Add(this.textBoxStudentFName, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.labelStudentManagementFName, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.labelStudentManagementLName, 0, 1);
-            this.tableLayoutPanel2.Controls.Add(this.labelStudentManagementYear, 0, 2);
-            this.tableLayoutPanel2.Controls.Add(this.labelStudentManagementClass, 0, 3);
-            this.tableLayoutPanel2.Controls.Add(this.textBoxStudentYear, 1, 2);
-            this.tableLayoutPanel2.Controls.Add(this.textBoxStudentClass, 1, 3);
-            this.tableLayoutPanel2.Controls.Add(this.buttonStudentManagementSaveChanges, 2, 2);
-            this.tableLayoutPanel2.Controls.Add(this.buttonStudentManagementAddStudent, 2, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(183, 3);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 4;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(576, 119);
-            this.tableLayoutPanel2.TabIndex = 2;
+            this.tableLayoutPanelStudentInfo.ColumnCount = 3;
+            this.tableLayoutPanelStudentInfo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tableLayoutPanelStudentInfo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelStudentInfo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 140F));
+            this.tableLayoutPanelStudentInfo.Controls.Add(this.buttonStudentManagementDeleteStudent, 2, 1);
+            this.tableLayoutPanelStudentInfo.Controls.Add(this.textBoxStudentLName, 1, 1);
+            this.tableLayoutPanelStudentInfo.Controls.Add(this.textBoxStudentFName, 1, 0);
+            this.tableLayoutPanelStudentInfo.Controls.Add(this.labelStudentManagementFName, 0, 0);
+            this.tableLayoutPanelStudentInfo.Controls.Add(this.labelStudentManagementLName, 0, 1);
+            this.tableLayoutPanelStudentInfo.Controls.Add(this.labelStudentManagementYear, 0, 2);
+            this.tableLayoutPanelStudentInfo.Controls.Add(this.labelStudentManagementClass, 0, 3);
+            this.tableLayoutPanelStudentInfo.Controls.Add(this.textBoxStudentYear, 1, 2);
+            this.tableLayoutPanelStudentInfo.Controls.Add(this.textBoxStudentClass, 1, 3);
+            this.tableLayoutPanelStudentInfo.Controls.Add(this.buttonStudentManagementSaveChanges, 2, 2);
+            this.tableLayoutPanelStudentInfo.Controls.Add(this.buttonStudentManagementAddStudent, 2, 0);
+            this.tableLayoutPanelStudentInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelStudentInfo.Location = new System.Drawing.Point(183, 3);
+            this.tableLayoutPanelStudentInfo.Name = "tableLayoutPanelStudentInfo";
+            this.tableLayoutPanelStudentInfo.RowCount = 4;
+            this.tableLayoutPanelStudentInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanelStudentInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanelStudentInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanelStudentInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanelStudentInfo.Size = new System.Drawing.Size(576, 119);
+            this.tableLayoutPanelStudentInfo.TabIndex = 2;
             // 
             // buttonStudentManagementDeleteStudent
             // 
@@ -1889,31 +1875,31 @@
             this.buttonStudentManagementAddStudent.UseVisualStyleBackColor = true;
             this.buttonStudentManagementAddStudent.Click += new System.EventHandler(this.buttonStudentManagementAddStudent_Click);
             // 
-            // tableLayoutPanel1
+            // tableLayoutPanelStudentMassMove
             // 
-            this.tableLayoutPanel1.ColumnCount = 6;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 23F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel1.Controls.Add(this.labelStudentManagement1, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.labelStudentManagement2, 3, 1);
-            this.tableLayoutPanel1.Controls.Add(this.comboBoxInputType, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.comboBoxInputName, 2, 1);
-            this.tableLayoutPanel1.Controls.Add(this.comboBoxOutputName, 4, 1);
-            this.tableLayoutPanel1.Controls.Add(this.buttonMoveStudents, 5, 1);
-            this.tableLayoutPanel1.Controls.Add(this.labelNewItem, 4, 2);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(183, 128);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(576, 348);
-            this.tableLayoutPanel1.TabIndex = 3;
+            this.tableLayoutPanelStudentMassMove.ColumnCount = 6;
+            this.tableLayoutPanelStudentMassMove.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 120F));
+            this.tableLayoutPanelStudentMassMove.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanelStudentMassMove.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanelStudentMassMove.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 23F));
+            this.tableLayoutPanelStudentMassMove.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanelStudentMassMove.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanelStudentMassMove.Controls.Add(this.labelStudentManagement1, 0, 1);
+            this.tableLayoutPanelStudentMassMove.Controls.Add(this.labelStudentManagement2, 3, 1);
+            this.tableLayoutPanelStudentMassMove.Controls.Add(this.comboBoxInputType, 1, 1);
+            this.tableLayoutPanelStudentMassMove.Controls.Add(this.comboBoxInputName, 2, 1);
+            this.tableLayoutPanelStudentMassMove.Controls.Add(this.comboBoxOutputName, 4, 1);
+            this.tableLayoutPanelStudentMassMove.Controls.Add(this.buttonMoveStudents, 5, 1);
+            this.tableLayoutPanelStudentMassMove.Controls.Add(this.labelNewItem, 4, 2);
+            this.tableLayoutPanelStudentMassMove.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelStudentMassMove.Location = new System.Drawing.Point(183, 128);
+            this.tableLayoutPanelStudentMassMove.Name = "tableLayoutPanelStudentMassMove";
+            this.tableLayoutPanelStudentMassMove.RowCount = 3;
+            this.tableLayoutPanelStudentMassMove.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelStudentMassMove.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+            this.tableLayoutPanelStudentMassMove.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanelStudentMassMove.Size = new System.Drawing.Size(576, 348);
+            this.tableLayoutPanelStudentMassMove.TabIndex = 3;
             // 
             // labelStudentManagement1
             // 
@@ -2034,7 +2020,7 @@
             this.toolStripTextBoxBackupName,
             this.backupWithNameToolStripMenuItem});
             this.backupDataToolStripMenuItem.Name = "backupDataToolStripMenuItem";
-            this.backupDataToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.backupDataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.backupDataToolStripMenuItem.Text = "Backup Data";
             this.backupDataToolStripMenuItem.DropDownOpened += new System.EventHandler(this.backupDataToolStripMenuItem_DropDownOpened);
             // 
@@ -2055,14 +2041,14 @@
             // restoreDataToolStripMenuItem
             // 
             this.restoreDataToolStripMenuItem.Name = "restoreDataToolStripMenuItem";
-            this.restoreDataToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.restoreDataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.restoreDataToolStripMenuItem.Text = "Restore Data";
             this.restoreDataToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.restoreDataToolStripMenuItem_DropDownItemClicked);
             // 
             // deleteBackupToolStripMenuItem
             // 
             this.deleteBackupToolStripMenuItem.Name = "deleteBackupToolStripMenuItem";
-            this.deleteBackupToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            this.deleteBackupToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.deleteBackupToolStripMenuItem.Text = "Delete Backup";
             this.deleteBackupToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.deleteBackupToolStripMenuItem_DropDownItemClicked);
             // 
@@ -2083,8 +2069,9 @@
             this.toolStripTextBoxCreatePreset,
             this.createPresetWithNameToolStripMenuItem});
             this.createPAGPresetToolStripMenuItem.Name = "createPAGPresetToolStripMenuItem";
-            this.createPAGPresetToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.createPAGPresetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.createPAGPresetToolStripMenuItem.Text = "Create PAG Preset";
+            this.createPAGPresetToolStripMenuItem.DropDownOpened += new System.EventHandler(this.createPAGPresetToolStripMenuItem_DropDownOpened);
             // 
             // toolStripTextBoxCreatePreset
             // 
@@ -2102,14 +2089,14 @@
             // loadPAGPresetToolStripMenuItem
             // 
             this.loadPAGPresetToolStripMenuItem.Name = "loadPAGPresetToolStripMenuItem";
-            this.loadPAGPresetToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.loadPAGPresetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.loadPAGPresetToolStripMenuItem.Text = "Load PAG Preset";
             this.loadPAGPresetToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.loadPAGPresetToolStripMenuItem_DropDownItemClicked);
             // 
             // deletePAGPresetToolStripMenuItem
             // 
             this.deletePAGPresetToolStripMenuItem.Name = "deletePAGPresetToolStripMenuItem";
-            this.deletePAGPresetToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.deletePAGPresetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.deletePAGPresetToolStripMenuItem.Text = "Delete PAG Preset";
             this.deletePAGPresetToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.deletePAGPresetToolStripMenuItem_DropDownItemClicked);
             // 
@@ -2267,15 +2254,15 @@
             this.pagGroupToolStrip.PerformLayout();
             this.tabStudentImport.ResumeLayout(false);
             this.tableLayoutPanelImportStudents.ResumeLayout(false);
-            this.flowLayoutPanel1.ResumeLayout(false);
-            this.flowLayoutPanel1.PerformLayout();
+            this.flowLayoutPanelImportStudents.ResumeLayout(false);
+            this.flowLayoutPanelImportStudents.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudentImport)).EndInit();
             this.tabStudentManagement.ResumeLayout(false);
             this.tableLayoutPanelStudentManagement.ResumeLayout(false);
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanelStudentInfo.ResumeLayout(false);
+            this.tableLayoutPanelStudentInfo.PerformLayout();
+            this.tableLayoutPanelStudentMassMove.ResumeLayout(false);
+            this.tableLayoutPanelStudentMassMove.PerformLayout();
             this.menuStripMain.ResumeLayout(false);
             this.menuStripMain.PerformLayout();
             this.ResumeLayout(false);
@@ -2291,7 +2278,6 @@
         private System.Windows.Forms.RadioButton radioButtonAdmin;
         public System.Windows.Forms.DataGridView dataGridViewSkills;
         private System.Windows.Forms.Button buttonGetDirectory;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TabPage tabPagDates;
         public System.Windows.Forms.DataGridView dataGridViewPag;
         private System.Windows.Forms.TabPage tabLookup;
@@ -2376,7 +2362,7 @@
         private System.Windows.Forms.DataGridView dataGridViewStudentImport;
         private System.Windows.Forms.Button buttonImportCSV;
         private System.Windows.Forms.OpenFileDialog openFileDialogImportCSV;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelImportStudents;
         private System.Windows.Forms.Button buttonAddStudentRecord;
         private System.Windows.Forms.Label labelImportStudents;
         private System.Windows.Forms.Label labelAwardPagSelectedAbsent;
@@ -2414,7 +2400,7 @@
         private System.Windows.Forms.DataGridView dataGridViewStudentReport;
         private System.Windows.Forms.Label labelReportSettings;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelStudentReportSettings;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelFilterBy;
         private System.Windows.Forms.RadioButton radioButtonReportComplete;
         private System.Windows.Forms.RadioButton radioButtonReportNotComplete;
         private System.Windows.Forms.RadioButton radioButtonReportAll;
@@ -2431,7 +2417,7 @@
         private System.Windows.Forms.Button buttonExportReport;
         private System.Windows.Forms.SaveFileDialog saveFileDialogExportReport;
         private System.Windows.Forms.ListBox listBoxStudentManagementList;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelStudentInfo;
         private System.Windows.Forms.TextBox textBoxStudentFName;
         private System.Windows.Forms.Label labelStudentManagementFName;
         private System.Windows.Forms.TextBox textBoxStudentLName;
@@ -2443,7 +2429,7 @@
         private System.Windows.Forms.Button buttonStudentManagementSaveChanges;
         private System.Windows.Forms.Button buttonStudentManagementDeleteStudent;
         private System.Windows.Forms.Button buttonStudentManagementAddStudent;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelStudentMassMove;
         private System.Windows.Forms.Label labelStudentManagement1;
         private System.Windows.Forms.Label labelStudentManagement2;
         private System.Windows.Forms.ComboBox comboBoxInputType;
