@@ -893,9 +893,16 @@ namespace PAG_Manager
 
         private void listBoxContentSelectionInclusion_SelectedIndexChanged(object sender, EventArgs e)
         {
-            psr.SetInclusion(listBoxContentSelectionInclusion.SelectedIndex);
-            checkedListBoxContentSelectionSkill.SelectedIndex = -1;
-            RecolourContentSelection();
+            if (listBoxContentSelectionInclusion.SelectedIndex != 0 && listBoxContentSelectionInclusion.SelectedIndex != 1)
+            {
+                listBoxContentSelectionInclusion.SelectedIndex = 0;
+            }
+            else
+            {
+                psr.SetInclusion(listBoxContentSelectionInclusion.SelectedIndex);
+                checkedListBoxContentSelectionSkill.SelectedIndex = -1;
+                RecolourContentSelection();
+            }
         }
 
         // Updates all child tree nodes recursively
