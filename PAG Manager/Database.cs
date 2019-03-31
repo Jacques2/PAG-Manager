@@ -27,14 +27,14 @@ namespace PAG_Manager
         public ArrayList LoadHeaders()
         {
             string lineRead;
-            string[] SeperatedLine;
+            string[] seperatedLine;
             headers.Clear();
             StreamReader sr = new StreamReader(fileLocation + fileName);
             lineRead = sr.ReadLine();
             while (lineRead != null)
             {
-                SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-                headers.Add(SeperatedLine[1]);
+                seperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                headers.Add(seperatedLine[1]);
                 lineRead = sr.ReadLine();
             }
             sr.Close();
@@ -60,7 +60,7 @@ namespace PAG_Manager
             ArrayList tableData = new ArrayList();
             //Load every skill into a dictionary with key = skill id value = position in table
             string lineRead;
-            string[] SeperatedLine;
+            string[] seperatedLine;
             Dictionary<int, int> skillID = new Dictionary<int, int>();
             StreamReader sr = new StreamReader(fileLocation + fileName);
             int currentIndex = 0;//position of the column within the table
@@ -68,8 +68,8 @@ namespace PAG_Manager
             while (lineRead != null)
             {
                 currentIndex++;
-                SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-                skillID.Add(Convert.ToInt32(SeperatedLine[0]), currentIndex);
+                seperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                skillID.Add(Convert.ToInt32(seperatedLine[0]), currentIndex);
                 lineRead = sr.ReadLine();
             }
             sr.Close();
@@ -79,8 +79,8 @@ namespace PAG_Manager
             string studentRead = studentReader.ReadLine();
             while (studentRead != null)
             {
-                SeperatedLine = studentRead.Split(new[] { "," }, StringSplitOptions.None);
-                studentInfo.Add(Convert.ToInt32(SeperatedLine[0]), Tuple.Create(SeperatedLine[1], SeperatedLine[2], SeperatedLine[3], SeperatedLine[4]));
+                seperatedLine = studentRead.Split(new[] { "," }, StringSplitOptions.None);
+                studentInfo.Add(Convert.ToInt32(seperatedLine[0]), Tuple.Create(seperatedLine[1], seperatedLine[2], seperatedLine[3], seperatedLine[4]));
                 studentRead = studentReader.ReadLine();
             }
             studentReader.Close();
@@ -91,13 +91,13 @@ namespace PAG_Manager
             int pagID;
             while (psrRead != null)
             {
-                SeperatedLine = psrRead.Split(new[] { "," }, StringSplitOptions.None);
-                pagID = Convert.ToInt32(SeperatedLine[0]);
+                seperatedLine = psrRead.Split(new[] { "," }, StringSplitOptions.None);
+                pagID = Convert.ToInt32(seperatedLine[0]);
                 if (psrData.ContainsKey(pagID) == false)//Does relation already contain pag data
                 {
                     psrData.Add(pagID, new SortedList<int, int>());
                 }
-                psrData[pagID].Add(Convert.ToInt32(SeperatedLine[2]), Convert.ToInt32(SeperatedLine[1]));
+                psrData[pagID].Add(Convert.ToInt32(seperatedLine[2]), Convert.ToInt32(seperatedLine[1]));
                 psrRead = psrReader.ReadLine();
             }
             psrReader.Close();
@@ -108,10 +108,10 @@ namespace PAG_Manager
             recordRead = recordReader.ReadLine();
             while (recordRead != null)
             {
-                SeperatedLine = recordRead.Split(new[] { "," }, StringSplitOptions.None);
-                int currentStudentID = Convert.ToInt32(SeperatedLine[0]);
-                int currentPagID = Convert.ToInt32(SeperatedLine[1]);
-                string currentSkillID = SeperatedLine[3];
+                seperatedLine = recordRead.Split(new[] { "," }, StringSplitOptions.None);
+                int currentStudentID = Convert.ToInt32(seperatedLine[0]);
+                int currentPagID = Convert.ToInt32(seperatedLine[1]);
+                string currentSkillID = seperatedLine[3];
                 if (pagRecord.ContainsKey(currentStudentID) == false)//creating student record if not exsist
                 {
                     pagRecord.Add(currentStudentID, new SortedList<int, int>());
@@ -209,7 +209,6 @@ namespace PAG_Manager
             pagReader.Close();
             //STEP 3: Reading pag IDs from list and adding them to a dictionary, with their column position within the table
             string lineRead;
-            string[] SeperatedLine;
             Dictionary<int, int> pagID = new Dictionary<int, int>();
             StreamReader sr = new StreamReader(fileLocation + fileName);
             int currentIndex = 0;//position of the column within the table
@@ -217,8 +216,8 @@ namespace PAG_Manager
             while (lineRead != null)
             {
                 currentIndex++;
-                SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-                pagID.Add(Convert.ToInt32(SeperatedLine[0]),currentIndex);
+                seperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                pagID.Add(Convert.ToInt32(seperatedLine[0]),currentIndex);
                 lineRead = sr.ReadLine();
             }
             sr.Close();

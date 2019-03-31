@@ -51,21 +51,21 @@ namespace PAG_Manager
             groupInfo.Clear();
             groupIdPosition.Clear();
             string lineRead;
-            string[] SeperatedLine;
+            string[] seperatedLine;
             StreamReader sr = new StreamReader(fileLocation + fileName);
             lineRead = sr.ReadLine();
             while (lineRead != null)
             {
-                SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-                int groupID = Convert.ToInt32(SeperatedLine[0]);
+                seperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                int groupID = Convert.ToInt32(seperatedLine[0]);
                 groupIdPosition.Add(groupID);
-                string groupName = SeperatedLine[1];
+                string groupName = seperatedLine[1];
                 List<int> listOfPags = new List<int>();
-                for (int i = 2; i < SeperatedLine.Count(); i++)
+                for (int i = 2; i < seperatedLine.Count(); i++)
                 {
                     try//try and add value to list, catches if there is no value
                     {
-                        listOfPags.Add(Convert.ToInt32(SeperatedLine[i]));
+                        listOfPags.Add(Convert.ToInt32(seperatedLine[i]));
                     }
                     catch (Exception)
                     {
@@ -173,17 +173,17 @@ namespace PAG_Manager
         public void BuildPagList()
         {
             string lineRead;
-            string[] SeperatedLine;
+            string[] seperatedLine;
             StreamReader sr = new StreamReader(fileLocation + "PagAchievement.csv");
             lineRead = sr.ReadLine();
             studentPagData.Clear();
             while (lineRead != null)
             {
-                SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-                if (SeperatedLine[2] != "Absent")//checks to see if pag actually was achived
+                seperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                if (seperatedLine[2] != "Absent")//checks to see if pag actually was achived
                 {
-                    int studentID = Convert.ToInt32(SeperatedLine[0]);
-                    int pagID = Convert.ToInt32(SeperatedLine[1]);
+                    int studentID = Convert.ToInt32(seperatedLine[0]);
+                    int pagID = Convert.ToInt32(seperatedLine[1]);
                     if (studentPagData.ContainsKey(studentID) == false)//checks if student has been added so far
                     {
                         studentPagData.Add(studentID, new List<int>());
@@ -232,11 +232,11 @@ namespace PAG_Manager
             Dictionary<int, Tuple<string, string, string, string>> studentInfo = new Dictionary<int, Tuple<string, string, string, string>>();
             StreamReader studentReader = new StreamReader(fileLocation + "StudentRecord.csv");
             string studentRead = studentReader.ReadLine();
-            string[] SeperatedLine;
+            string[] seperatedLine;
             while (studentRead != null)
             {
-                SeperatedLine = studentRead.Split(new[] { "," }, StringSplitOptions.None);
-                studentInfo.Add(Convert.ToInt32(SeperatedLine[0]), Tuple.Create(SeperatedLine[1], SeperatedLine[2], SeperatedLine[3], SeperatedLine[4]));
+                seperatedLine = studentRead.Split(new[] { "," }, StringSplitOptions.None);
+                studentInfo.Add(Convert.ToInt32(seperatedLine[0]), Tuple.Create(seperatedLine[1], seperatedLine[2], seperatedLine[3], seperatedLine[4]));
                 studentRead = studentReader.ReadLine();
             }
             studentReader.Close();
@@ -247,14 +247,14 @@ namespace PAG_Manager
             //before building skill information, skill requirement data is obtained
             skillRequirement.Clear();
             string lineRead;
-            string[] SeperatedLine;
+            string[] seperatedLine;
             StreamReader requirementReader = new StreamReader(fileLocation + "SkillRequirement.csv");
             lineRead = requirementReader.ReadLine();
             while (lineRead != null)
             {
-                SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-                int readSkillID = Convert.ToInt32(SeperatedLine[0]);
-                int requirement = Convert.ToInt32(SeperatedLine[1]);
+                seperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                int readSkillID = Convert.ToInt32(seperatedLine[0]);
+                int requirement = Convert.ToInt32(seperatedLine[1]);
                 skillRequirement[readSkillID] = requirement;
                 lineRead = requirementReader.ReadLine();
             }
@@ -270,8 +270,8 @@ namespace PAG_Manager
             while (lineRead != null)
             {
                 currentIndex++;
-                SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-                skillID.Add(Convert.ToInt32(SeperatedLine[0]), currentIndex);
+                seperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                skillID.Add(Convert.ToInt32(seperatedLine[0]), currentIndex);
                 lineRead = sr.ReadLine();
             }
             sr.Close();
@@ -281,8 +281,8 @@ namespace PAG_Manager
             string studentRead = studentReader.ReadLine();
             while (studentRead != null)
             {
-                SeperatedLine = studentRead.Split(new[] { "," }, StringSplitOptions.None);
-                studentInfo.Add(Convert.ToInt32(SeperatedLine[0]), Tuple.Create(SeperatedLine[1], SeperatedLine[2], SeperatedLine[3], SeperatedLine[4]));
+                seperatedLine = studentRead.Split(new[] { "," }, StringSplitOptions.None);
+                studentInfo.Add(Convert.ToInt32(seperatedLine[0]), Tuple.Create(seperatedLine[1], seperatedLine[2], seperatedLine[3], seperatedLine[4]));
                 studentRead = studentReader.ReadLine();
             }
             studentReader.Close();
@@ -293,13 +293,13 @@ namespace PAG_Manager
             int pagID;
             while (psrRead != null)
             {
-                SeperatedLine = psrRead.Split(new[] { "," }, StringSplitOptions.None);
-                pagID = Convert.ToInt32(SeperatedLine[0]);
+                seperatedLine = psrRead.Split(new[] { "," }, StringSplitOptions.None);
+                pagID = Convert.ToInt32(seperatedLine[0]);
                 if (psrData.ContainsKey(pagID) == false)//Does relation already contain pag data
                 {
                     psrData.Add(pagID, new SortedList<int, int>());
                 }
-                psrData[pagID].Add(Convert.ToInt32(SeperatedLine[2]), Convert.ToInt32(SeperatedLine[1]));
+                psrData[pagID].Add(Convert.ToInt32(seperatedLine[2]), Convert.ToInt32(seperatedLine[1]));
                 psrRead = psrReader.ReadLine();
             }
             psrReader.Close();
@@ -309,10 +309,10 @@ namespace PAG_Manager
             recordRead = recordReader.ReadLine();
             while (recordRead != null)
             {
-                SeperatedLine = recordRead.Split(new[] { "," }, StringSplitOptions.None);
-                int currentStudentID = Convert.ToInt32(SeperatedLine[0]);
-                int currentPagID = Convert.ToInt32(SeperatedLine[1]);
-                string currentSkillID = SeperatedLine[3];
+                seperatedLine = recordRead.Split(new[] { "," }, StringSplitOptions.None);
+                int currentStudentID = Convert.ToInt32(seperatedLine[0]);
+                int currentPagID = Convert.ToInt32(seperatedLine[1]);
+                string currentSkillID = seperatedLine[3];
                 if (pagRecord.ContainsKey(currentStudentID) == false)//creating student record if not exsist
                 {
                     pagRecord.Add(currentStudentID, new SortedList<int, int>());
@@ -456,13 +456,13 @@ namespace PAG_Manager
             skillList.Clear();
             pagList.Clear();
             string lineRead;
-            string[] SeperatedLine;
+            string[] seperatedLine;
             StreamReader sr = new StreamReader(fileLocation + "PagList.csv");
             lineRead = sr.ReadLine();
             while (lineRead != null)
             {
-                SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-                pagList.Add(Convert.ToInt32(SeperatedLine[0]), SeperatedLine[1]);
+                seperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                pagList.Add(Convert.ToInt32(seperatedLine[0]), seperatedLine[1]);
                 lineRead = sr.ReadLine();
             }
             sr.Close();
@@ -470,8 +470,8 @@ namespace PAG_Manager
             lineRead = skillReader.ReadLine();
             while (lineRead != null)
             {
-                SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-                skillList.Add(Convert.ToInt32(SeperatedLine[0]), SeperatedLine[1]);
+                seperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                skillList.Add(Convert.ToInt32(seperatedLine[0]), seperatedLine[1]);
                 lineRead = skillReader.ReadLine();
             }
             skillReader.Close();
@@ -540,14 +540,14 @@ namespace PAG_Manager
             List<int> listOfGroups = new List<int>();
             //step 1: add all groups to data
             string lineRead;
-            string[] SeperatedLine;
+            string[] seperatedLine;
             StreamReader sr = new StreamReader(fileLocation + "PagGroup.csv");
             lineRead = sr.ReadLine();
             while (lineRead != null)
             {
-                SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-                int groupID = Convert.ToInt32(SeperatedLine[0]);
-                string groupName = SeperatedLine[1];
+                seperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                int groupID = Convert.ToInt32(seperatedLine[0]);
+                string groupName = seperatedLine[1];
                 listOfGroups.Add(groupID);
                 data.Add(groupID, new Tuple<string, Dictionary<string, Dictionary<string, List<Tuple<string, string>>>>>(groupName, new Dictionary<string, Dictionary<string, List<Tuple<string, string>>>>()));
                 lineRead = sr.ReadLine();

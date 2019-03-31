@@ -12,8 +12,8 @@ namespace PAG_Manager
     class StudentLookup
     {
         private string fileLocation { get; set; }
-        private ArrayList studentNames;
-        private ArrayList namePosition;
+        ArrayList studentNames = new ArrayList();
+        ArrayList namePosition = new ArrayList();
         public bool LoadState { get; set; } = false;//This is used to stop auto colouring of cells when the table loads
         ArrayList fullNamePositions = new ArrayList();
         Dictionary<int, Dictionary<int, Tuple<Dictionary<int, string>,int>>> studentInfo = new Dictionary<int, Dictionary<int, Tuple<Dictionary<int, string>, int>>>();
@@ -58,15 +58,17 @@ namespace PAG_Manager
         public ArrayList LoadNames()//This happens when all data is reloaded
         {
             string lineRead;
-            string[] SeperatedLine;
+            string[] seperatedLine;
+            fullNamePositions.Clear();
+            namePosition.Clear();
             ArrayList names = new ArrayList();
             StreamReader sr = new StreamReader(fileLocation + "StudentRecord.csv");//opens the student record file to start reading names
             lineRead = sr.ReadLine();
             while (lineRead != null)//loops through every record, adding names to an arraylist
             {
-                SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-                names.Add(SeperatedLine[1] + " " + SeperatedLine[2] + " - " +  SeperatedLine[4]);
-                fullNamePositions.Add(SeperatedLine[0]);
+                seperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                names.Add(seperatedLine[1] + " " + seperatedLine[2] + " - " +  seperatedLine[4]);
+                fullNamePositions.Add(seperatedLine[0]);
                 lineRead = sr.ReadLine();
             }
             studentNames = names;

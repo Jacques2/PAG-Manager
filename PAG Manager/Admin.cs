@@ -23,7 +23,7 @@ namespace PAG_Manager
         public void LoadData()
         {
             string lineRead;
-            string[] SeperatedLine;
+            string[] seperatedLine;
             pagList.Clear();
             skillList.Clear();
             //reading pags
@@ -31,8 +31,8 @@ namespace PAG_Manager
             lineRead = pagReader.ReadLine();
             while (lineRead != null)//loops through every record, adding names to an arraylist
             {
-                SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-                pagList.Add(Convert.ToInt32(SeperatedLine[0]),SeperatedLine[1]);
+                seperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                pagList.Add(Convert.ToInt32(seperatedLine[0]),seperatedLine[1]);
                 lineRead = pagReader.ReadLine();
             }
             pagReader.Close();
@@ -41,8 +41,8 @@ namespace PAG_Manager
             lineRead = skillReader.ReadLine();
             while (lineRead != null)//loops through every record, adding names to an arraylist
             {
-                SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-                skillList.Add(Convert.ToInt32(SeperatedLine[0]), SeperatedLine[1]);
+                seperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                skillList.Add(Convert.ToInt32(seperatedLine[0]), seperatedLine[1]);
                 lineRead = skillReader.ReadLine();
             }
             skillReader.Close();
@@ -128,13 +128,13 @@ namespace PAG_Manager
         {
             pagsInUse.Clear();
             string lineRead;
-            string[] SeperatedLine;
+            string[] seperatedLine;
             StreamReader sr = new StreamReader(fileLocation + "PagAchievement.csv");
             lineRead = sr.ReadLine();
             while (lineRead != null)
             {
-                SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-                pagsInUse.Add(Convert.ToInt32(SeperatedLine[1]));//adds the pag id to the set
+                seperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                pagsInUse.Add(Convert.ToInt32(seperatedLine[1]));//adds the pag id to the set
                 lineRead = sr.ReadLine();
             }
             sr.Close();
@@ -146,15 +146,15 @@ namespace PAG_Manager
             for (int pag = 0; pag < pagsInUse.Count; pag++)
             {
                 string lineRead;
-                string[] SeperatedLine;
+                string[] seperatedLine;
                 StreamReader sr = new StreamReader(fileLocation + "PagSkillRelation.csv");
                 lineRead = sr.ReadLine();
                 while (lineRead != null)
                 {
-                    SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-                    if (pagsInUse.Contains(Convert.ToInt32(SeperatedLine[0])))//check if the pag is in use
+                    seperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                    if (pagsInUse.Contains(Convert.ToInt32(seperatedLine[0])))//check if the pag is in use
                     {
-                        skillsInUse.Add(Convert.ToInt32(SeperatedLine[1]));//if so, then add the skill to the set
+                        skillsInUse.Add(Convert.ToInt32(seperatedLine[1]));//if so, then add the skill to the set
                     }
                     lineRead = sr.ReadLine();
                 }
@@ -227,12 +227,12 @@ namespace PAG_Manager
         {
             ArrayList requirementNumbers = new ArrayList();
             StreamReader requirementReader = new StreamReader(fileLocation + "SkillRequirement.csv");//reads the first line from file to check if its empty
-            String[] SeperatedLine;
+            String[] seperatedLine;
             string lineRead = requirementReader.ReadLine();
             while (lineRead != null)//loops through every record, adding numbers to an arraylist
             {
-                SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-                requirementNumbers.Add(SeperatedLine[1]);
+                seperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                requirementNumbers.Add(seperatedLine[1]);
                 lineRead = requirementReader.ReadLine();
             }
             requirementReader.Close();
@@ -256,11 +256,11 @@ namespace PAG_Manager
             studentInfo.Clear();
             StreamReader studentReader = new StreamReader(fileLocation + "StudentRecord.csv");
             string studentRead = studentReader.ReadLine();
-            string[] SeperatedLine;
+            string[] seperatedLine;
             while (studentRead != null)
             {
-                SeperatedLine = studentRead.Split(new[] { "," }, StringSplitOptions.None);
-                studentInfo.Add(Convert.ToInt32(SeperatedLine[0]), Tuple.Create(SeperatedLine[1], SeperatedLine[2], SeperatedLine[3], SeperatedLine[4]));
+                seperatedLine = studentRead.Split(new[] { "," }, StringSplitOptions.None);
+                studentInfo.Add(Convert.ToInt32(seperatedLine[0]), Tuple.Create(seperatedLine[1], seperatedLine[2], seperatedLine[3], seperatedLine[4]));
                 studentRead = studentReader.ReadLine();
             }
             studentReader.Close();
@@ -384,17 +384,17 @@ namespace PAG_Manager
         {
             skillRelation.Clear();
             string lineRead;
-            string[] SeperatedLine;
+            string[] seperatedLine;
             StreamReader sr = new StreamReader(fileLocation + "PagSkillRelation.csv");
             lineRead = sr.ReadLine();
             while (lineRead != null)
             {
-                SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-                if (skillRelation.ContainsKey(Convert.ToInt32(SeperatedLine[1])) == false)
+                seperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                if (skillRelation.ContainsKey(Convert.ToInt32(seperatedLine[1])) == false)
                 {
-                    skillRelation.Add(Convert.ToInt32(SeperatedLine[1]), new HashSet<int>());
+                    skillRelation.Add(Convert.ToInt32(seperatedLine[1]), new HashSet<int>());
                 }
-                skillRelation[Convert.ToInt32(SeperatedLine[1])].Add(Convert.ToInt32(SeperatedLine[0]));
+                skillRelation[Convert.ToInt32(seperatedLine[1])].Add(Convert.ToInt32(seperatedLine[0]));
                 lineRead = sr.ReadLine();
             }
             sr.Close();

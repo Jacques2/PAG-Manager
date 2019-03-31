@@ -130,12 +130,12 @@ namespace PAG_Manager
         {
             StreamReader sr = new StreamReader(fileLocation + "PagSkillRelation.csv");
             string lineRead;
-            string[] SeperatedLine;
+            string[] seperatedLine;
             lineRead = sr.ReadLine();
             while (lineRead != null)//loops through every record, adding relations to the 2d list
             {
-                SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-                SetRelation(Convert.ToInt32(SeperatedLine[0]), Convert.ToInt32(SeperatedLine[1]));
+                seperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                SetRelation(Convert.ToInt32(seperatedLine[0]), Convert.ToInt32(seperatedLine[1]));
                 lineRead = sr.ReadLine();
             }
             sr.Close();

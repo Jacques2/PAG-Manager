@@ -58,13 +58,13 @@ namespace PAG_Manager
         private void ReloadAllSettings()
         {
             string lineRead;
-            string[] SeperatedLine;
+            string[] seperatedLine;
             StreamReader sr = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\settings.dat");//opens the student record file to start reading names
             lineRead = sr.ReadLine();
             if (lineRead != "" && lineRead != null)
             {
-                SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-                if (SeperatedLine[1] == "true")
+                seperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                if (seperatedLine[1] == "true")
                 {
                     this.WindowState = FormWindowState.Maximized;
                 }
@@ -141,6 +141,7 @@ namespace PAG_Manager
             psr.ClearRelations();
             psr.LoadRelationFromFile();
             // STUDENT LOOKUP NAMES LIST
+            textBoxLookupName.Text = "";
             listBoxStudentNames.Items.Clear();
             ArrayList studentNames = sl.LoadNames();
             for (int i = 0; i < studentNames.Count; i++)
@@ -298,14 +299,14 @@ namespace PAG_Manager
         public int FindNextIndex(string fileName)//finds the next available student index
         {
             string lineRead;
-            string[] SeperatedLine;
+            string[] seperatedLine;
             int highestNumber = 0;
             StreamReader sr = new StreamReader(fileName);
             lineRead = sr.ReadLine();
             while (lineRead != null)
             {
-                SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);//goes through each line, to find the highest index
-                int newNumber = Convert.ToInt32(SeperatedLine[0]) + 1;
+                seperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);//goes through each line, to find the highest index
+                int newNumber = Convert.ToInt32(seperatedLine[0]) + 1;
                 if (newNumber > highestNumber)
                 {
                     highestNumber = newNumber;
@@ -368,6 +369,7 @@ namespace PAG_Manager
                 //gets student report for current student
                 int currentStudentID = sl.GetStudentPosition(listBoxStudentNames.SelectedIndex);
 
+                MessageBox.Show(Convert.ToString(currentStudentID));
                 t.Stop(); times.Add(Convert.ToString(t.ElapsedMilliseconds)); t.Restart();//WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
                 ArrayList missingGroups = sr.GetMissingGroups(currentStudentID, false);
                 int numMissingGroups = missingGroups.Count;
@@ -1134,28 +1136,35 @@ namespace PAG_Manager
 
         private void Button1_Click_1(object sender, EventArgs e)//add records to list
         {
-            ArrayList columnOrder = new ArrayList();
-            ArrayList orderedCSV = new ArrayList();
-            int index = FindNextIndex(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\StudentRecord.csv");
-            for (int column = 0; column < dataGridViewStudentImport.Columns.Count; column++)
+            if (dataGridViewStudentImport.ColumnCount >= 4)
             {
-                columnOrder.Add(dataGridViewStudentImport.Columns[column].DisplayIndex);//goes though every column getting the user sorted index
+                ArrayList columnOrder = new ArrayList();
+                ArrayList orderedCSV = new ArrayList();
+                int index = FindNextIndex(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\StudentRecord.csv");
+                for (int column = 0; column < dataGridViewStudentImport.Columns.Count; column++)
+                {
+                    columnOrder.Add(dataGridViewStudentImport.Columns[column].DisplayIndex);//goes though every column getting the user sorted index
+                }
+                for (int rows = 0; rows < dataGridViewStudentImport.Rows.Count; rows++)
+                {//adds every cell in order they have been arranged to a csv
+                    orderedCSV.Add(Convert.ToString(dataGridViewStudentImport.Rows[rows].Cells[columnOrder.IndexOf(0)].Value) + "," + Convert.ToString(dataGridViewStudentImport.Rows[rows].Cells[columnOrder.IndexOf(1)].Value) + "," + Convert.ToString(dataGridViewStudentImport.Rows[rows].Cells[columnOrder.IndexOf(2)].Value) + "," + Convert.ToString(dataGridViewStudentImport.Rows[rows].Cells[columnOrder.IndexOf(3)].Value));
+                }
+                StreamWriter sw = File.AppendText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\StudentRecord.csv");
+                string csvQuoteRemoved;
+                for (int line = 0; line < orderedCSV.Count - 1; line++)//writes every line to file
+                {
+                    csvQuoteRemoved = Convert.ToString(orderedCSV[line]).Replace("\"", "");//removes " if they exsist
+                    sw.WriteLine(Convert.ToString(index) + "," + csvQuoteRemoved);
+                    index++;
+                }
+                sw.Close();
+                ReloadAllData(true);
+                MessageBox.Show("Records added", "PAG Manager");
             }
-            for (int rows = 0; rows < dataGridViewStudentImport.Rows.Count; rows++)
-            {//adds every cell in order they have been arranged to a csv
-                orderedCSV.Add(Convert.ToString(dataGridViewStudentImport.Rows[rows].Cells[columnOrder.IndexOf(0)].Value) + "," + Convert.ToString(dataGridViewStudentImport.Rows[rows].Cells[columnOrder.IndexOf(1)].Value) + "," + Convert.ToString(dataGridViewStudentImport.Rows[rows].Cells[columnOrder.IndexOf(2)].Value) + "," + Convert.ToString(dataGridViewStudentImport.Rows[rows].Cells[columnOrder.IndexOf(3)].Value));
-            }
-            StreamWriter sw = File.AppendText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\StudentRecord.csv");
-            string csvQuoteRemoved;
-            for (int line = 0; line < orderedCSV.Count-1; line++)//writes every line to file
+            else
             {
-                csvQuoteRemoved = Convert.ToString(orderedCSV[line]).Replace("\"","");//removes " if they exsist
-                sw.WriteLine(Convert.ToString(index) + "," + csvQuoteRemoved);
-                index++;
+                MessageBox.Show("There must be at least 4 columns to add data to the list", "Alert");
             }
-            sw.Close();
-            ReloadAllData(true);
-            MessageBox.Show("Records added", "PAG Manager");
         }
 
         private void hidePagViewColumnsWithoutPAGDataToolStripMenuItem_CheckStateChanged(object sender, EventArgs e)//shrinks pag columns with no data
@@ -1970,8 +1979,9 @@ namespace PAG_Manager
                 string oldDir = AppDomain.CurrentDomain.BaseDirectory + @"SaveData\" + fileName + @"\";
                 string newDir = AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\";
                 ad.DirectoryCopy(oldDir, newDir, false);//copies the directories
-                MessageBox.Show(Convert.ToString("Restored data from backup \"" + toolStripTextBoxBackupName.Text + "\""), "PAG Manager");
+                MessageBox.Show(Convert.ToString("Restored data from backup \"" + e.ClickedItem + "\""), "PAG Manager");
                 ReloadAllData(true);//reloads all data
+                tabControlMain.SelectedIndex = 0;
             }
         }
 
@@ -2032,7 +2042,7 @@ namespace PAG_Manager
 
         private void loadPAGPresetToolStripMenuItem_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)//loads a selected pag preset
         {
-            DialogResult result = MessageBox.Show("By loading a preset, any PAG's awarded to students will be removed. Do you want to proceed", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
+            DialogResult result = MessageBox.Show("By loading a preset, any PAG's awarded to students will be removed. Do you want to proceed?\n\n" + e.ClickedItem, "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
             if (result == DialogResult.Yes)//asks the user if they are sure that they want to load a preset
             {
                 File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagAchievement.csv","");//clears the pag achievement file
@@ -2040,8 +2050,9 @@ namespace PAG_Manager
                 string oldDir = AppDomain.CurrentDomain.BaseDirectory + @"Presets\" + fileName + @"\";
                 string newDir = AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\";
                 ad.DirectoryCopy(oldDir, newDir, true);//copys preset files across to main savedata
-                MessageBox.Show(Convert.ToString("Load preset \"" + e.ToString() + "\""), "PAG Manager");
+                MessageBox.Show(Convert.ToString("Load preset \"" + e.ClickedItem + "\""), "PAG Manager");
                 ReloadAllData(true);
+                tabControlMain.SelectedIndex = 0;
             }
         }
 
