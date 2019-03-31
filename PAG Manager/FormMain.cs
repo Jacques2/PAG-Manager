@@ -73,6 +73,7 @@ namespace PAG_Manager
         }
         private void ReloadAllData(bool admin)//Reloads all data into the program when big changes are made
         {//The parameter decides if the admin stuff will be reloaded. This saves processing power if the user does not need admin functions.
+            ad.RemoveDuplicatePagAwards();//removes duplicate pag awards, as this causes issues throughout the program
             ad.LoadData();
             SortedList<int, string> pagList = new SortedList<int, string>();
             pagList = ad.GetPagList();

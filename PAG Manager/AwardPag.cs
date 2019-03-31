@@ -25,20 +25,20 @@ namespace PAG_Manager
 
         List<List<List<int>>> studentIDList = new List<List<List<int>>>();//The student ID list is stored here to avoid using global variables on the main class.
 
-        public AwardPag(string inputFileLocation)
+        public AwardPag(string inputFileLocation)//class initiation
         {
             fileLocation = inputFileLocation;
         }
-        public void ImportRelation(Dictionary<int, List<int>> inputRelation)
+        public void ImportRelation(Dictionary<int, List<int>> inputRelation)//import relations from psr class
         {
             relation = inputRelation;
             relationImported = true;
         }
-        public string PagLookup(int ID)
+        public string PagLookup(int ID)//looks up the name of the pag when given its id
         {
             return pagList[ID];
         }
-        public string SkillLookup(int ID)
+        public string SkillLookup(int ID)//looks up the name of the skill when given its id
         {
             try
             {
@@ -50,7 +50,7 @@ namespace PAG_Manager
                 return null;
             }
         }
-        public void BuildClassTreeDictionary()
+        public void BuildClassTreeDictionary()//build the dictionary to hold the tree of years, classes and students
         {
             if (relationImported)
             {
@@ -115,19 +115,19 @@ namespace PAG_Manager
                 }
             }
         }
-        public Dictionary<int, string> GetYearDictionary()
+        public Dictionary<int, string> GetYearDictionary()//gets the year dictionary
         {
             return yearDictionary;
         }
-        public List<List<string>> GetClassList()
+        public List<List<string>> GetClassList()//gets a list of classes, sorted
         {
             return classListSorted;
         }
-        public List<List<string>> GetStudentList()
+        public List<List<string>> GetStudentList()//gets a list of students
         {
             return studentListSorted;
         }
-        public void BuildPagTreeDictionary()
+        public void BuildPagTreeDictionary()//builds a tree for pags, and skills within the pags
         {
             pagList.Clear();
             skillList.Clear();
@@ -179,7 +179,7 @@ namespace PAG_Manager
                 }
             }
         }
-        public Dictionary<int, List<int>> GetPagTreeID()
+        public Dictionary<int, List<int>> GetPagTreeID()//gets the pag tree data type of ids
         {
             return pagTreeID;
         }
@@ -187,19 +187,19 @@ namespace PAG_Manager
         {
             return pagTreeID.ElementAt(position).Key;
         }
-        public Dictionary<int, string> GetPagList()
+        public Dictionary<int, string> GetPagList()//gets the list of pags
         {
             return pagList;
         }
-        public void SetStudentID(List<List<List<int>>> ImportedList)
+        public void SetStudentID(List<List<List<int>>> ImportedList)//imports a list into the class
         {
             studentIDList = ImportedList;
         }
-        public List<List<List<int>>> GetStudentID()
+        public List<List<List<int>>> GetStudentID()//returns the whole studentID list
         {
             return studentIDList;
         }
-        public ArrayList GetSkillPositions(int pagID)
+        public ArrayList GetSkillPositions(int pagID)//gets skills and their positions for the specified pag
         {
             ArrayList skillPositions = new ArrayList();
             //Creating blank array list
@@ -213,7 +213,7 @@ namespace PAG_Manager
                 string[] SeperatedLine;
                 StreamReader sr = new StreamReader(fileLocation + "PagSkillRelation.csv");
                 lineRead = sr.ReadLine();
-                while (lineRead != null)
+                while (lineRead != null)//loops through every relation
                 {
                     SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
                     if (Convert.ToInt32(SeperatedLine[0]) == pagID)
@@ -318,11 +318,11 @@ namespace PAG_Manager
                 SeperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
                 int studentID = Convert.ToInt32(SeperatedLine[0]);
                 int pagID = Convert.ToInt32(SeperatedLine[1]);
-                if (pagAwardList.ContainsKey(pagID) == false)
+                if (pagAwardList.ContainsKey(pagID) == false)//checks if the pag id is in the dictionary
                 {
                     pagAwardList.Add(pagID, new List<int>());
                 }
-                if (pagAwardList[pagID].Contains(studentID) == false)
+                if (pagAwardList[pagID].Contains(studentID) == false)//checks if the student is in the dictionary
                 {
                     pagAwardList[pagID].Add(studentID);
                 }
@@ -330,7 +330,7 @@ namespace PAG_Manager
             }
             sr.Close();
         }
-        public bool DoesStudentHavePag(int studentID, int pagID)
+        public bool DoesStudentHavePag(int studentID, int pagID)//checks if a student has a pag, to avoid it being awarded twice and crashing the program
         {
             bool containsPag = false;
             if (pagAwardList.ContainsKey(pagID))

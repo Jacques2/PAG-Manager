@@ -25,37 +25,37 @@ namespace PAG_Manager
         ArrayList changes = new ArrayList();
         List<int> pagsWithData = new List<int>();
         int currentStudentID;
-        public int ReversePagLookup(int position)
+        public StudentLookup(string FileLocation)//class inititalisation
+        {
+            fileLocation = FileLocation;
+        }
+        public int ReversePagLookup(int position)//gets the id of a pag when given the position within the list
         {
             int pagID = pagLookup.FirstOrDefault(x => x.Value == position).Key;
             return pagID;
         }
-        public int ReverseSkillLookup(int position)
+        public int ReverseSkillLookup(int position)//gets the id of a skill when given the position within the list
         {
             int skillID = skillLookup.FirstOrDefault(x => x.Value == position).Key;
             return skillID;
         }
-        public int LookupSkill(int id)
+        public int LookupSkill(int id)//gets the position of the skill when given the id
         {
             return skillLookup[id];
         }
-        public int LookupPagPosition(int id)
+        public int LookupPagPosition(int id)//gets the position of the pag when given the id
         {
             return pagLookup[id];
         }
-        public void SetUnsavedChanges(bool change)
+        public void SetUnsavedChanges(bool change)//sets wether there are saved changes or not
         {
             unsavedChanges = change;
         }
-        public bool GetUnsavedChanges()
+        public bool GetUnsavedChanges()//gets wether there are saved changes or not 
         {
             return unsavedChanges;
         }
-        public StudentLookup(string FileLocation)
-        {
-            fileLocation = FileLocation;
-        }
-        public ArrayList LoadNames()//This happens once at the start of the program
+        public ArrayList LoadNames()//This happens when all data is reloaded
         {
             string lineRead;
             string[] SeperatedLine;
@@ -74,7 +74,7 @@ namespace PAG_Manager
             sr.Close();
             return names;
         }
-        public ArrayList FilterNames(string filter)
+        public ArrayList FilterNames(string filter)//filter the list of names and return them as an arraylist
         {
             ArrayList filteredNames = new ArrayList();
             ArrayList namePositions = new ArrayList();
@@ -89,7 +89,7 @@ namespace PAG_Manager
             namePosition = namePositions;
             return filteredNames;
         }
-        public int GetStudentPosition(int posInList)
+        public int GetStudentPosition(int posInList)//gets the student id when given the position in the list
         {
             return Convert.ToInt32(namePosition[posInList]);
         }
@@ -183,14 +183,20 @@ namespace PAG_Manager
                             skillStatus = "";
                             break;
                     }
-                    studentInfo[studentID][pagID].Item1.Add(relations[pagID][skill],skillStatus);
+                    if (studentInfo[studentID][pagID].Item1.ContainsKey(relations[pagID][skill]) == false)
+                    {
+                        studentInfo[studentID][pagID].Item1.Add(relations[pagID][skill], skillStatus);
+                    }
                 }
-                studentInfo[studentID][pagID].Item1.Add(-999, date);
+                if (studentInfo[studentID][pagID].Item1.ContainsKey(-999) == false)
+                {
+                    studentInfo[studentID][pagID].Item1.Add(-999, date);
+                }
                 studentLineRead = studentReader.ReadLine();
             }
             studentReader.Close();
         }
-        public List<Tuple<int, int, string>> LookupStudent(int studentID)
+        public List<Tuple<int, int, string>> LookupStudent(int studentID)//getsall the data for a specified student
         {
             List<Tuple<int, int, string>> lookupData = new List<Tuple<int, int, string>>();
             if (studentInfo.ContainsKey(studentID))
@@ -234,33 +240,33 @@ namespace PAG_Manager
             }
             return d[n, m];
         }
-        public void ResetChanges()
+        public void ResetChanges()//resets all the list columns that have been modified
         {
             changes.Clear();
         }
-        public void AddChange(int column)
+        public void AddChange(int column)//adds a column that has been modified
         {
             if (changes.Contains(column) == false)
             {
                 changes.Add(column);
             }
         }
-        public ArrayList GetChanges()
+        public ArrayList GetChanges()//get a list of all modified columns
         {
             return changes;
         }
-        public void ClearPagsWithData()
+        public void ClearPagsWithData()//clear the list of pags with existing data
         {
             pagsWithData.Clear();
         }
-        public void AddPagWithData(int position)
+        public void AddPagWithData(int position)//adds a pag to the list of pags with exsiting data
         {
             if (pagsWithData.Contains(position) == false)
             {
                 pagsWithData.Add(position);
             }
         }
-        public bool DoesPagWithDataContain(int position)
+        public bool DoesPagWithDataContain(int position)//check if a item is in the list of pags with exisiting data
         {
             if (pagsWithData.Contains(position))
             {
@@ -271,15 +277,15 @@ namespace PAG_Manager
                 return false;
             }
         }
-        public void SetCurrentStudentID(int id)
+        public void SetCurrentStudentID(int id)//sets the current student id
         {
             currentStudentID = id;
         }
-        public int GetCurrentStudentID()
+        public int GetCurrentStudentID()//gets the current student id
         {
             return currentStudentID;
         }
-        public ArrayList GetSkillOrder(int pagId)
+        public ArrayList GetSkillOrder(int pagId)//gets the order of skills for a specified pag
         {
             ArrayList skillOrder = new ArrayList();
             for (int position = 0; position < relations[pagId].Count; position++)
@@ -288,7 +294,7 @@ namespace PAG_Manager
             }
             return skillOrder;
         }
-        public bool UpdateStudentData(Dictionary<int,string> newData)
+        public bool UpdateStudentData(Dictionary<int,string> newData)//updates data for a modified student
         {
             bool success = true; //if the update fails, the program needs to switch tabs
             //replaces or adds new data into the pag achievement data file
@@ -308,7 +314,7 @@ namespace PAG_Manager
                     int lineToReplace = studentInfo[studentID][pagID].Item2;
                     if (seperatedLine[2] == "D")//this means the record needs to be deleted
                     {
-                        arrLine[lineToReplace - 1] = "D";
+                        arrLine[lineToReplace - 1] = "D";//marks record for deletion
                     }
                     else
                     {
@@ -324,11 +330,11 @@ namespace PAG_Manager
                 }
             }
             bool containsD = true;
-            while (containsD)
+            while (containsD)//loops through every record marked for deletion
             {
                 if (arrLine.Contains("D"))
                 {
-                    arrLine.Remove("D");
+                    arrLine.Remove("D");//deletes records that are marked for deletion
                 }
                 else
                 {
@@ -339,13 +345,13 @@ namespace PAG_Manager
             File.WriteAllLines(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagAchievement.csv", arrLine);
             //checking if edit failed and reverting if so
             string pagData = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagAchievement.csv");
-            if (pagData == "")
+            if (pagData == "")//checks if file was unsuccessfully modified
             {
                 File.Copy(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagAchievement.temp", AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagAchievement.csv", true);
-                MessageBox.Show("Student edit failed. Reverting to previous student data", "Alert");
+                MessageBox.Show("Student edit failed. Reverting to previous student data", "Alert");//reverts to previous file
                 success = false;
             }
-            File.Delete(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagAchievement.temp");
+            File.Delete(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagAchievement.temp");//deletes temporary file
             return success;
         }
     }

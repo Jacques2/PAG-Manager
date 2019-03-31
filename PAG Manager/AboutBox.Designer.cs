@@ -76,7 +76,7 @@
             this.logoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.logoPictureBox.TabIndex = 12;
             this.logoPictureBox.TabStop = false;
-            this.logoPictureBox.Click += new System.EventHandler(this.logoPictureBox_Click);
+            this.logoPictureBox.Click += new System.EventHandler(this.ErrorSoundTesting_DO_NOT_USE);
             // 
             // labelProductName
             // 
