@@ -377,8 +377,7 @@ namespace PAG_Manager
                 sl.LoadState = true;//stops auto colouring of cells
                 //gets student report for current student
                 int currentStudentID = sl.GetStudentPosition(listBoxStudentNames.SelectedIndex);
-
-                MessageBox.Show(Convert.ToString(currentStudentID));
+                //MessageBox.Show(Convert.ToString(currentStudentID));//shows student id to user - used for debugging
                 t.Stop(); times.Add(Convert.ToString(t.ElapsedMilliseconds)); t.Restart();//WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
                 ArrayList missingGroups = sr.GetMissingGroups(currentStudentID, false);
                 int numMissingGroups = missingGroups.Count;
