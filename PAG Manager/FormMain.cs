@@ -192,7 +192,10 @@ namespace PAG_Manager
             for (int row = 0; row < skillData.Count; row++)
             {
                 string[] seperatedLine = Convert.ToString(skillData[row]).Split(new[] { "," }, StringSplitOptions.None);
-                dataGridViewSkills.Rows.Add(seperatedLine);
+                if (seperatedLine[3] != "Archive")
+                {
+                    dataGridViewSkills.Rows.Add(seperatedLine);
+                }
             }
             dataGridViewSkills.Columns[0].Visible = false;
             // PAG DATES TABLE
@@ -207,7 +210,10 @@ namespace PAG_Manager
             for (int row = 0; row < tableData.Count; row++)
             {
                 string[] seperatedLine = Convert.ToString(tableData[row]).Split(new[] { "," }, StringSplitOptions.None);
-                dataGridViewPag.Rows.Add(seperatedLine);
+                if (seperatedLine[3] != "Archive")
+                {
+                    dataGridViewPag.Rows.Add(seperatedLine);
+                }
             }
             dataGridViewPag.Columns[0].Visible = false;
             //Tree view - Years, classes and students

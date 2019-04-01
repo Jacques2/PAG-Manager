@@ -106,8 +106,8 @@ namespace PAG_Manager
         {
             this.Close();
         }
-        int a = 0;
 
+        int a = 0;
         private void ErrorSoundTesting_DO_NOT_USE(object sender, EventArgs e)
         {
             a++;
