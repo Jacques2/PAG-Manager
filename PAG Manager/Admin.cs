@@ -423,13 +423,11 @@ namespace PAG_Manager
             List<string> noDupePagList = new List<string>();
             //dictionary has key = studentID, value = hashset(pagsCompleted)
             Dictionary<int, HashSet<int>> pagAwards = new Dictionary<int, HashSet<int>>();
-            string lineRead;
             string[] seperatedLine;
-            StreamReader sr = new StreamReader(fileLocation + "PagAchievement.csv");
-            lineRead = sr.ReadLine();
-            while (lineRead != null)
+            string[] linesRead = File.ReadAllLines(fileLocation + "PagAchievement.csv");
+            for (int item = linesRead.Count()-1; item > 0; item--)//loops from the end backward
             {
-                seperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                seperatedLine = linesRead[item].Split(new[] { "," }, StringSplitOptions.None);
                 int studentID = Convert.ToInt32(seperatedLine[0]);
                 int pagID = Convert.ToInt32(seperatedLine[1]);
                 if (!pagAwards.ContainsKey(studentID))//loops through every record, adding data to a list
@@ -443,16 +441,14 @@ namespace PAG_Manager
                 else
                 {
                     pagAwards[studentID].Add(pagID);
-                    noDupePagList.Add(lineRead);
+                    noDupePagList.Add(linesRead[item]);
                 }
-                lineRead = sr.ReadLine();
             }
-            sr.Close();
             if (corrections == true)//check if corrections have been made
             {
-                MessageBox.Show("Duplicate PAG records found, deleting most recent duplicates", "PAG Manager");
+                MessageBox.Show("Duplicate PAG records found, overwriting older records with new ones", "PAG Manager");
                 StreamWriter sw = new StreamWriter(fileLocation + "PagAchievement.csv");
-                for (int line = 0; line < noDupePagList.Count; line++)
+                for (int line = noDupePagList.Count-1; line > 0; line--)
                 {
                     sw.WriteLine(noDupePagList[line]);
                 }

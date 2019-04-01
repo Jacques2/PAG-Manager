@@ -2130,5 +2130,38 @@ namespace PAG_Manager
                 Application.Exit();
             }
         }
+
+        private void button1_Click_2(object sender, EventArgs e)//-----------------------------THIS NEEDS TO BE DELETED AFTER USED
+        {
+            string lineRead;
+            string[] seperatedLine;
+            List<string> lines = new List<string>();
+            StreamReader sr = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagAchievement.csv");
+            lineRead = sr.ReadLine();
+            while (lineRead != null)
+            {
+                seperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                if (seperatedLine[2] != "Absent")
+                {
+                    DateTime date = new DateTime();
+                    DateTime.TryParse(seperatedLine[2], out date);
+                    lines.Add(seperatedLine[0] + "," + seperatedLine[1] + "," + date.ToString("dd/MM/yyyy") + "," + seperatedLine[3]);
+                }
+                else
+                {
+                    lines.Add(lineRead);
+                }
+                lineRead = sr.ReadLine();
+            }
+            sr.Close();
+            StreamWriter sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagAchievement.csv");
+            for (int line = 0; line < lines.Count; line++)
+            {
+                sw.WriteLine(lines[line]);
+            }
+            sw.Close();
+
+            MessageBox.Show(Convert.ToString("done"));
+        }
     }
 }

@@ -85,6 +85,7 @@
             this.radioButtonReportComplete = new System.Windows.Forms.RadioButton();
             this.radioButtonReportNotComplete = new System.Windows.Forms.RadioButton();
             this.radioButtonReportAll = new System.Windows.Forms.RadioButton();
+            this.checkBox = new System.Windows.Forms.CheckBox();
             this.buttonExportReport = new System.Windows.Forms.Button();
             this.tabActivitySelection = new System.Windows.Forms.TabPage();
             this.tableLayoutPanelActivitySelection = new System.Windows.Forms.TableLayoutPanel();
@@ -109,6 +110,7 @@
             this.tabAdmin = new System.Windows.Forms.TabPage();
             this.tabControlAdmin = new System.Windows.Forms.TabControl();
             this.tabGeneral = new System.Windows.Forms.TabPage();
+            this.buttonResetToDefault = new System.Windows.Forms.Button();
             this.checkBoxShowStudentID = new System.Windows.Forms.CheckBox();
             this.buttonLoadDefaults = new System.Windows.Forms.Button();
             this.radioButtonAdmin = new System.Windows.Forms.RadioButton();
@@ -208,7 +210,7 @@
             this.heightDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sizeTypeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.saveFileDialogExportReport = new System.Windows.Forms.SaveFileDialog();
-            this.buttonResetToDefault = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.tabControlMain.SuspendLayout();
             this.tabAwardPag.SuspendLayout();
             this.tableLayoutPanelAwardPag.SuspendLayout();
@@ -802,6 +804,7 @@
             this.flowLayoutPanelStudentReportSettings.Controls.Add(this.radioButtonReportComplete);
             this.flowLayoutPanelStudentReportSettings.Controls.Add(this.radioButtonReportNotComplete);
             this.flowLayoutPanelStudentReportSettings.Controls.Add(this.radioButtonReportAll);
+            this.flowLayoutPanelStudentReportSettings.Controls.Add(this.checkBox);
             this.flowLayoutPanelStudentReportSettings.Controls.Add(this.buttonExportReport);
             this.flowLayoutPanelStudentReportSettings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanelStudentReportSettings.Location = new System.Drawing.Point(573, 31);
@@ -853,9 +856,19 @@
             this.radioButtonReportAll.UseVisualStyleBackColor = true;
             this.radioButtonReportAll.CheckedChanged += new System.EventHandler(this.radioButtonReportAll_CheckedChanged);
             // 
+            // checkBox
+            // 
+            this.checkBox.AutoSize = true;
+            this.checkBox.Location = new System.Drawing.Point(3, 97);
+            this.checkBox.Name = "checkBox";
+            this.checkBox.Size = new System.Drawing.Size(80, 17);
+            this.checkBox.TabIndex = 10;
+            this.checkBox.Text = "checkBox1";
+            this.checkBox.UseVisualStyleBackColor = true;
+            // 
             // buttonExportReport
             // 
-            this.buttonExportReport.Location = new System.Drawing.Point(3, 97);
+            this.buttonExportReport.Location = new System.Drawing.Point(3, 120);
             this.buttonExportReport.Name = "buttonExportReport";
             this.buttonExportReport.Size = new System.Drawing.Size(113, 23);
             this.buttonExportReport.TabIndex = 9;
@@ -1163,6 +1176,7 @@
             // 
             // tabGeneral
             // 
+            this.tabGeneral.Controls.Add(this.button1);
             this.tabGeneral.Controls.Add(this.buttonResetToDefault);
             this.tabGeneral.Controls.Add(this.checkBoxShowStudentID);
             this.tabGeneral.Controls.Add(this.buttonLoadDefaults);
@@ -1175,6 +1189,16 @@
             this.tabGeneral.TabIndex = 0;
             this.tabGeneral.Text = "General";
             this.tabGeneral.UseVisualStyleBackColor = true;
+            // 
+            // buttonResetToDefault
+            // 
+            this.buttonResetToDefault.Location = new System.Drawing.Point(53, 86);
+            this.buttonResetToDefault.Name = "buttonResetToDefault";
+            this.buttonResetToDefault.Size = new System.Drawing.Size(110, 23);
+            this.buttonResetToDefault.TabIndex = 5;
+            this.buttonResetToDefault.Text = "Delete All Data";
+            this.buttonResetToDefault.UseVisualStyleBackColor = true;
+            this.buttonResetToDefault.Click += new System.EventHandler(this.buttonResetToDefault_Click);
             // 
             // checkBoxShowStudentID
             // 
@@ -2188,15 +2212,15 @@
             this.saveFileDialogExportReport.Title = "Export Report";
             this.saveFileDialogExportReport.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialogExportReport_FileOk);
             // 
-            // buttonResetToDefault
+            // button1
             // 
-            this.buttonResetToDefault.Location = new System.Drawing.Point(53, 86);
-            this.buttonResetToDefault.Name = "buttonResetToDefault";
-            this.buttonResetToDefault.Size = new System.Drawing.Size(110, 23);
-            this.buttonResetToDefault.TabIndex = 5;
-            this.buttonResetToDefault.Text = "Delete All Data";
-            this.buttonResetToDefault.UseVisualStyleBackColor = true;
-            this.buttonResetToDefault.Click += new System.EventHandler(this.buttonResetToDefault_Click);
+            this.button1.Location = new System.Drawing.Point(271, 202);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(190, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Convert Old Dates to New Dates";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_2);
             // 
             // FormMain
             // 
@@ -2230,6 +2254,7 @@
             this.tableLayoutPanelStudentReport.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudentReport)).EndInit();
             this.flowLayoutPanelStudentReportSettings.ResumeLayout(false);
+            this.flowLayoutPanelStudentReportSettings.PerformLayout();
             this.tabActivitySelection.ResumeLayout(false);
             this.tableLayoutPanelActivitySelection.ResumeLayout(false);
             this.tableLayoutPanelActivitySelection.PerformLayout();
@@ -2462,6 +2487,8 @@
         private System.Windows.Forms.ToolStripMenuItem createPresetWithNameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deletePAGPresetToolStripMenuItem;
         private System.Windows.Forms.Button buttonResetToDefault;
+        private System.Windows.Forms.CheckBox checkBox;
+        private System.Windows.Forms.Button button1;
     }
 }
 

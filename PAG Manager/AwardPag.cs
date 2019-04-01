@@ -252,31 +252,16 @@ namespace PAG_Manager
             }
             //writing (appending) every record to file
             StreamWriter pagAwardFile = new StreamWriter(fileLocation + "PagAchievement.csv", append: true);
-            int alreadyExist = 0;
             for (int student = 0; student < studentIDs.Count; student++)//loops through every student, adding every selected pag to the student
             {
                 for (int pag = 0; pag < pagsCompleted.Count; pag++)
                 {
-                    if (DoesStudentHavePag(Convert.ToInt32(studentIDs[student]),Convert.ToInt32(pagsCompleted[pag])) == false)
-                    {
-                        pagAwardFile.WriteLine(studentIDs[student] + "," + pagsCompleted[pag] + "," + dateCompleted.Day + "/" + dateCompleted.Month + "/" + dateCompleted.Year + "," + skillsCompleted[pag]);
-                    }
-                    else
-                    {
-                        alreadyExist++;
-                    }
+                    pagAwardFile.WriteLine(studentIDs[student] + "," + pagsCompleted[pag] + "," + dateCompleted.ToString("dd/MM/yyyy") + "," + skillsCompleted[pag]);
                 }
             }
             pagAwardFile.Close();
             //Message box to show it completed sucessesfully
-            if (alreadyExist > 0)
-            {
-                MessageBox.Show("PAG Awarded.\n\n" + Convert.ToString(alreadyExist) + " PAG records have already been awarded, their records have not been modified", "PAG Manager");
-            }
-            else
-            {
-                MessageBox.Show("PAG Awarded.", "PAG Manager");
-            }
+            MessageBox.Show("PAG Awarded.", "PAG Manager");
         }
         public void AddPagAbsence(ArrayList studentIDs, ArrayList pagAbsent)
         {
@@ -329,18 +314,6 @@ namespace PAG_Manager
                 lineRead = sr.ReadLine();
             }
             sr.Close();
-        }
-        public bool DoesStudentHavePag(int studentID, int pagID)//checks if a student has a pag, to avoid it being awarded twice and crashing the program
-        {
-            bool containsPag = false;
-            if (pagAwardList.ContainsKey(pagID))
-            {
-                if (pagAwardList[pagID].Contains(studentID))
-                {
-                    containsPag = true;
-                }
-            }
-            return containsPag;
         }
     }
 }
