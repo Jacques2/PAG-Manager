@@ -331,6 +331,10 @@ namespace PAG_Manager
                         string fName = studentInfo[key].Item1;
                         string lName = studentInfo[key].Item2;
                         string theClass = studentInfo[key].Item4;
+                        if (outputItem == "Archive")//if destination is archive, then students need to have year and class changed to archive
+                        {
+                            theClass = "Archive";
+                        }
                         studentInfo.Remove(key);
                         studentInfo.Add(key, new Tuple<string, string, string, string>(fName, lName, outputItem, theClass));
                     }
@@ -346,9 +350,12 @@ namespace PAG_Manager
                         string fName = studentInfo[key].Item1;
                         string lName = studentInfo[key].Item2;
                         string year = studentInfo[key].Item3;
+                        if (outputItem == "Archive")//if destination is archive, then students need to have year and class changed to archive
+                        {
+                            year = "Archive";
+                        }
                         studentInfo.Remove(key);
                         studentInfo.Add(key, new Tuple<string, string, string, string>(fName, lName, year, outputItem));
-                        MessageBox.Show(Convert.ToString(1));
                     }
                 }
             }

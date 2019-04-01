@@ -55,7 +55,7 @@ namespace PAG_Manager
         {
             return unsavedChanges;
         }
-        public ArrayList LoadNames()//This happens when all data is reloaded
+        public ArrayList LoadNames(bool getArchives)//This happens when all data is reloaded
         {
             string lineRead;
             string[] seperatedLine;
@@ -67,8 +67,19 @@ namespace PAG_Manager
             while (lineRead != null)//loops through every record, adding names to an arraylist
             {
                 seperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-                names.Add(seperatedLine[1] + " " + seperatedLine[2] + " - " +  seperatedLine[4]);
-                fullNamePositions.Add(seperatedLine[0]);
+                if (getArchives)//if the program is not getting every record, additional checks have to be done
+                {
+                    names.Add(seperatedLine[1] + " " + seperatedLine[2] + " - " + seperatedLine[4]);
+                    fullNamePositions.Add(seperatedLine[0]);
+                }
+                else
+                {
+                    if (seperatedLine[4] != "Archive")//check that there is no archive file
+                    {
+                        names.Add(seperatedLine[1] + " " + seperatedLine[2] + " - " + seperatedLine[4]);
+                        fullNamePositions.Add(seperatedLine[0]);
+                    }
+                }
                 lineRead = sr.ReadLine();
             }
             studentNames = names;

@@ -141,9 +141,10 @@ namespace PAG_Manager
             psr.ClearRelations();
             psr.LoadRelationFromFile();
             // STUDENT LOOKUP NAMES LIST
+            checkBoxArchives.CheckState = CheckState.Unchecked;
             textBoxLookupName.Text = "";
             listBoxStudentNames.Items.Clear();
-            ArrayList studentNames = sl.LoadNames();
+            ArrayList studentNames = sl.LoadNames(false);
             for (int i = 0; i < studentNames.Count; i++)
             {
                 listBoxStudentNames.Items.Add(studentNames[i]);
@@ -340,6 +341,14 @@ namespace PAG_Manager
 
         private void listBoxStudentNames_SelectedIndexChanged(object sender, EventArgs e)//Student Lookup get student
         {
+            if (listBoxStudentNames.SelectedIndex != -1)
+            {
+                buttonLookupSubmitModifications.Enabled = true;
+            }
+            else
+            {
+                buttonLookupSubmitModifications.Enabled = false;
+            }
             dataGridViewStudentLookup.RowHeadersVisible = false;
             dataGridViewStudentLookup.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             List<string> times = new List<string>();
@@ -1481,6 +1490,22 @@ namespace PAG_Manager
         private void checkBoxArchives_CheckedChanged(object sender, EventArgs e)
         {
             //check archives button clicked in student lookup
+            bool isChecked;
+            if (checkBoxArchives.CheckState == CheckState.Checked)//sets the value isChecked, depending on if the value is checked or not
+            {
+                isChecked = true;
+            }
+            else
+            {
+                isChecked = false;
+            }
+            listBoxStudentNames.Items.Clear();
+            ArrayList studentNames = sl.LoadNames(isChecked);
+            for (int i = 0; i < studentNames.Count; i++)
+            {
+                listBoxStudentNames.Items.Add(studentNames[i]);
+            }
+            LookupUpdate();//refilters the list
         }
 
         private void pagGroupToolStripButtonAdd_Click(object sender, EventArgs e)
@@ -1792,12 +1817,28 @@ namespace PAG_Manager
         private void textBoxStudentYear_TextChanged(object sender, EventArgs e)//text box modified
         {
             ReplaceCommas(sender);//replaces commas with semi colons
+            if (textBoxStudentYear.Text.ToLower() == "archive" && textBoxStudentYear.Text != "Archive")//checks if any form of archive has been incorrectly spelt
+            {
+                textBoxStudentYear.Text = "Archive";
+            }
+            if (textBoxStudentYear.Text == "Archive")//updates class value with archive
+            {
+                textBoxStudentClass.Text = "Archive";
+            }
             StudentDataModified();//updates records within the class
         }
 
         private void textBoxStudentClass_TextChanged(object sender, EventArgs e)//text box modified
         {
             ReplaceCommas(sender);//replaces commas with semi colons
+            if (textBoxStudentClass.Text.ToLower() == "archive" && textBoxStudentClass.Text != "Archive")//checks if any form of archive has been incorrectly spelt
+            {
+                textBoxStudentClass.Text = "Archive";
+            }
+            if (textBoxStudentClass.Text == "Archive")//updates year value with archive
+            {
+                textBoxStudentYear.Text = "Archive";
+            }
             StudentDataModified();//updates records within the class
         }
 
@@ -2072,6 +2113,17 @@ namespace PAG_Manager
             toolStripTextBoxCreatePreset.Focus();//brings the text box into focus for immediate editing
             toolStripTextBoxCreatePreset.Text = System.DateTime.Today.ToString("dd-MM-yyyy");//fills in the textbox with the current date as a test name for the preset name
             toolStripTextBoxCreatePreset.SelectAll();//selects all text in the text box
+        }
+
+        private void buttonResetToDefault_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure you want to delete all current data? Backups and Presets will be kept, and the program will close.", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
+            if (result == DialogResult.Yes)//asks the user if they are sure they want to delete the preset
+            {
+                Directory.Delete(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\", true);//deletes current directory
+                Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\");
+                Application.Exit();
+            }
         }
     }
 }
