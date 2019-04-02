@@ -275,7 +275,40 @@ namespace PAG_Manager
         }
         public void DeleteStudent(int position)//deletes a student
         {
+            int studentID = studentInfo.ElementAt(position).Key;
+            AddStudentsToDelete(studentID);
             studentInfo.RemoveAt(position);
+        }
+        List<int> studentIdsToDelete = new List<int>();
+        public void AddStudentsToDelete(int ID)
+        {
+            studentIdsToDelete.Add(ID);
+        }
+        public void ClearStudentsToDelete()
+        {
+            studentIdsToDelete.Clear();
+        }
+        public void DeleteStudentRelations()
+        {
+            List<string> newStudentList = new List<string>();
+            string[] seperatedLine;
+            string[] linesRead = File.ReadAllLines(fileLocation + "PagAchievement.csv");
+            for (int i = 0; i < linesRead.Count(); i++)
+            {
+                seperatedLine = linesRead[i].Split(new[] { "," }, StringSplitOptions.None);
+                int studentID = Convert.ToInt32(seperatedLine[0]);
+                if (studentIdsToDelete.Contains(studentID) == false)//checks if the value is not a student to delete, and adds it to a list
+                {
+                    newStudentList.Add(linesRead[i]);
+                }
+            }
+            StreamWriter sw = new StreamWriter(fileLocation + "PagAchievement.csv");
+            for (int line = 0; line < newStudentList.Count; line++)
+            {
+                sw.WriteLine(newStudentList[line]);
+            }
+            sw.Close();
+            ClearStudentsToDelete();
         }
         public void ModifyStudent(int position, string fName, string lName, string year, string theClass)//modifys the student record
         {

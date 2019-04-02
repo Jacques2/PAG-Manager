@@ -120,6 +120,7 @@ namespace PAG_Manager
                 }
                 //student information tab 
                 ad.BuildStudentInformation();
+                ad.ClearStudentsToDelete();
                 listBoxStudentManagementList.Items.Clear();
                 SortedList<int, Tuple<string, string, string, string>> studentInfo = new SortedList<int, Tuple<string, string, string, string>>(ad.GetStudentInformation());
                 for (int i = 0; i < studentInfo.Count; i++)
@@ -1896,6 +1897,7 @@ namespace PAG_Manager
 
         private void buttonStudentManagementSaveChanges_Click(object sender, EventArgs e)//save changes button clicked
         {
+            ad.DeleteStudentRelations();
             ad.SaveStudentData();//saves modified student data
             ReloadAllData(true);
         }
@@ -2186,6 +2188,11 @@ namespace PAG_Manager
                 }
                 dataGridViewSkillRequirement.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = Convert.ToString(number);
             }
+        }
+
+        private void buttonClearAllChanges_Click(object sender, EventArgs e)
+        {
+            ReloadAllData(true);
         }
     }
 }

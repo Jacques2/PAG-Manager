@@ -211,6 +211,7 @@
             this.heightDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sizeTypeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.saveFileDialogExportReport = new System.Windows.Forms.SaveFileDialog();
+            this.buttonClearAllChanges = new System.Windows.Forms.Button();
             this.tabControlMain.SuspendLayout();
             this.tabAwardPag.SuspendLayout();
             this.tableLayoutPanelAwardPag.SuspendLayout();
@@ -1794,8 +1795,9 @@
             this.tableLayoutPanelStudentInfo.Controls.Add(this.labelStudentManagementClass, 0, 3);
             this.tableLayoutPanelStudentInfo.Controls.Add(this.textBoxStudentYear, 1, 2);
             this.tableLayoutPanelStudentInfo.Controls.Add(this.textBoxStudentClass, 1, 3);
-            this.tableLayoutPanelStudentInfo.Controls.Add(this.buttonStudentManagementSaveChanges, 2, 2);
+            this.tableLayoutPanelStudentInfo.Controls.Add(this.buttonStudentManagementSaveChanges, 2, 3);
             this.tableLayoutPanelStudentInfo.Controls.Add(this.buttonStudentManagementAddStudent, 2, 0);
+            this.tableLayoutPanelStudentInfo.Controls.Add(this.buttonClearAllChanges, 2, 2);
             this.tableLayoutPanelStudentInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelStudentInfo.Location = new System.Drawing.Point(183, 3);
             this.tableLayoutPanelStudentInfo.Name = "tableLayoutPanelStudentInfo";
@@ -1804,6 +1806,7 @@
             this.tableLayoutPanelStudentInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanelStudentInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanelStudentInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanelStudentInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanelStudentInfo.Size = new System.Drawing.Size(576, 119);
             this.tableLayoutPanelStudentInfo.TabIndex = 2;
             // 
@@ -1893,9 +1896,9 @@
             // buttonStudentManagementSaveChanges
             // 
             this.buttonStudentManagementSaveChanges.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonStudentManagementSaveChanges.Location = new System.Drawing.Point(439, 61);
+            this.buttonStudentManagementSaveChanges.Location = new System.Drawing.Point(439, 90);
             this.buttonStudentManagementSaveChanges.Name = "buttonStudentManagementSaveChanges";
-            this.buttonStudentManagementSaveChanges.Size = new System.Drawing.Size(134, 23);
+            this.buttonStudentManagementSaveChanges.Size = new System.Drawing.Size(134, 26);
             this.buttonStudentManagementSaveChanges.TabIndex = 7;
             this.buttonStudentManagementSaveChanges.Text = "Save Changes";
             this.buttonStudentManagementSaveChanges.UseVisualStyleBackColor = true;
@@ -2223,6 +2226,17 @@
             this.saveFileDialogExportReport.Title = "Export Report";
             this.saveFileDialogExportReport.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialogExportReport_FileOk);
             // 
+            // buttonClearAllChanges
+            // 
+            this.buttonClearAllChanges.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonClearAllChanges.Location = new System.Drawing.Point(439, 61);
+            this.buttonClearAllChanges.Name = "buttonClearAllChanges";
+            this.buttonClearAllChanges.Size = new System.Drawing.Size(134, 23);
+            this.buttonClearAllChanges.TabIndex = 8;
+            this.buttonClearAllChanges.Text = "Reset Changes";
+            this.buttonClearAllChanges.UseVisualStyleBackColor = true;
+            this.buttonClearAllChanges.Click += new System.EventHandler(this.buttonClearAllChanges_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2490,6 +2504,7 @@
         private System.Windows.Forms.Button buttonResetToDefault;
         private System.Windows.Forms.CheckBox checkBox;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonClearAllChanges;
     }
 }
 
