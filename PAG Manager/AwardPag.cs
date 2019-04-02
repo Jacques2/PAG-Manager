@@ -256,7 +256,7 @@ namespace PAG_Manager
             {
                 for (int pag = 0; pag < pagsCompleted.Count; pag++)
                 {
-                    pagAwardFile.WriteLine(studentIDs[student] + "," + pagsCompleted[pag] + "," + dateCompleted.ToString("dd/MM/yyyy") + "," + skillsCompleted[pag]);
+                    pagAwardFile.WriteLine(studentIDs[student] + "," + pagsCompleted[pag] + "," + dateCompleted.ToString("dd-MM-yyyy") + "," + skillsCompleted[pag]);
                 }
             }
             pagAwardFile.Close();

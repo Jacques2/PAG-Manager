@@ -2163,5 +2163,29 @@ namespace PAG_Manager
 
             MessageBox.Show(Convert.ToString("done"));
         }
+
+        private void dataGridViewSkillRequirement_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 1)//checks if the numbers have been edited
+            {
+                string value = dataGridViewSkillRequirement.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
+                int number;
+                try//try and turn it into an int
+                {
+                    number = Convert.ToInt32(value);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Please enter a whole number", "PAG Manager");
+                    number = 1;
+                }
+                if (number < 1)
+                {
+                    MessageBox.Show("Please enter a number greater than 0", "PAG Manager");
+                    number = 1;
+                }
+                dataGridViewSkillRequirement.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = Convert.ToString(number);
+            }
+        }
     }
 }

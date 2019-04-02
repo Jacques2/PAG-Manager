@@ -226,6 +226,7 @@ namespace PAG_Manager
         }
         public int LevenshteinDistance(string s, string t)
         {//This works out the edit distance between two strings, how many insertions, deletions, modifications and swaps are required to make one string equal to another. Used for student lookup
+            //NOTE: This function was not written by me. This was taken from https://www.dotnetperls.com/levenshtein 
             int n = s.Length;
             int m = t.Length;
             int[,] d = new int[n + 1, m + 1];

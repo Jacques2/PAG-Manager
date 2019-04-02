@@ -110,6 +110,7 @@
             this.tabAdmin = new System.Windows.Forms.TabPage();
             this.tabControlAdmin = new System.Windows.Forms.TabControl();
             this.tabGeneral = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.buttonResetToDefault = new System.Windows.Forms.Button();
             this.checkBoxShowStudentID = new System.Windows.Forms.CheckBox();
             this.buttonLoadDefaults = new System.Windows.Forms.Button();
@@ -210,7 +211,6 @@
             this.heightDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sizeTypeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.saveFileDialogExportReport = new System.Windows.Forms.SaveFileDialog();
-            this.button1 = new System.Windows.Forms.Button();
             this.tabControlMain.SuspendLayout();
             this.tabAwardPag.SuspendLayout();
             this.tableLayoutPanelAwardPag.SuspendLayout();
@@ -1190,6 +1190,16 @@
             this.tabGeneral.Text = "General";
             this.tabGeneral.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(271, 202);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(190, 23);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Convert Old Dates to New Dates";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_2);
+            // 
             // buttonResetToDefault
             // 
             this.buttonResetToDefault.Location = new System.Drawing.Point(53, 86);
@@ -1515,6 +1525,7 @@
             this.dataGridViewSkillRequirement.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataGridViewSkillRequirement.Size = new System.Drawing.Size(750, 437);
             this.dataGridViewSkillRequirement.TabIndex = 0;
+            this.dataGridViewSkillRequirement.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSkillRequirement_CellEndEdit);
             // 
             // SkillRequirementsTableSkillName
             // 
@@ -2211,16 +2222,6 @@
             this.saveFileDialogExportReport.Filter = "Excel Spreadsheet (*.xlsx)|*.xlsx";
             this.saveFileDialogExportReport.Title = "Export Report";
             this.saveFileDialogExportReport.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialogExportReport_FileOk);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(271, 202);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(190, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Convert Old Dates to New Dates";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_2);
             // 
             // FormMain
             // 
