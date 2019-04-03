@@ -458,7 +458,8 @@ namespace PAG_Manager
             Dictionary<int, HashSet<int>> pagAwards = new Dictionary<int, HashSet<int>>();
             string[] seperatedLine;
             string[] linesRead = File.ReadAllLines(fileLocation + "PagAchievement.csv");
-            for (int item = linesRead.Count()-1; item > 0; item--)//loops from the end backward
+
+            for (int item = linesRead.Count()-1; item > -1; item--)//loops from the end backward
             {
                 seperatedLine = linesRead[item].Split(new[] { "," }, StringSplitOptions.None);
                 int studentID = Convert.ToInt32(seperatedLine[0]);
@@ -481,7 +482,7 @@ namespace PAG_Manager
             {
                 MessageBox.Show("Duplicate PAG records found, overwriting older records with new ones", "PAG Manager");
                 StreamWriter sw = new StreamWriter(fileLocation + "PagAchievement.csv");
-                for (int line = noDupePagList.Count-1; line > 0; line--)
+                for (int line = noDupePagList.Count-1; line > -1; line--)
                 {
                     sw.WriteLine(noDupePagList[line]);
                 }
