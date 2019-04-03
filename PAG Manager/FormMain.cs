@@ -1275,16 +1275,29 @@ namespace PAG_Manager
                         {
                             case "0"://achieved skill
                                 dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value = "Achieved";
-                                if (dataGridViewStudentLookup[e.ColumnIndex,0].Value.ToString() == "Absent")//if date is absent, set it to the current date
+                                try
                                 {
-                                    dataGridViewStudentLookup[e.ColumnIndex, 0].Value = System.DateTime.Today.ToString("dd/MM/yyyy");
+                                    if (dataGridViewStudentLookup.Rows[0].Cells[e.ColumnIndex].Value.ToString() == "Absent")//if date is absent, set it to the current date
+                                    {
+                                        dataGridViewStudentLookup.Rows[0].Cells[e.ColumnIndex].Value = System.DateTime.Today.ToString("dd/MM/yyyy");
+                                    }
+                                }
+                                catch (Exception)
+                                {
                                 }
                                 break;
                             case "1"://not achieved skill
                                 dataGridViewStudentLookup[e.ColumnIndex, e.RowIndex].Value = "Not Achieved";//if date is absent, set it to the current date
-                                if (dataGridViewStudentLookup[e.ColumnIndex, 0].Value.ToString() == "Absent")
+                                try
                                 {
-                                    dataGridViewStudentLookup[e.ColumnIndex, 0].Value = System.DateTime.Today.ToString("dd/MM/yyyy");
+                                    if (dataGridViewStudentLookup.Rows[0].Cells[e.ColumnIndex].Value.ToString() == "Absent")
+                                    {
+                                        dataGridViewStudentLookup.Rows[0].Cells[e.ColumnIndex].Value = System.DateTime.Today.ToString("dd/MM/yyyy");
+                                    }
+                                }
+                                catch (Exception)
+                                {
+                                    
                                 }
                                 break;
                             case "2"://absent for skill
