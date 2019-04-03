@@ -85,7 +85,6 @@
             this.radioButtonReportComplete = new System.Windows.Forms.RadioButton();
             this.radioButtonReportNotComplete = new System.Windows.Forms.RadioButton();
             this.radioButtonReportAll = new System.Windows.Forms.RadioButton();
-            this.checkBox = new System.Windows.Forms.CheckBox();
             this.buttonExportReport = new System.Windows.Forms.Button();
             this.tabActivitySelection = new System.Windows.Forms.TabPage();
             this.tableLayoutPanelActivitySelection = new System.Windows.Forms.TableLayoutPanel();
@@ -178,6 +177,7 @@
             this.textBoxStudentClass = new System.Windows.Forms.TextBox();
             this.buttonStudentManagementSaveChanges = new System.Windows.Forms.Button();
             this.buttonStudentManagementAddStudent = new System.Windows.Forms.Button();
+            this.buttonClearAllChanges = new System.Windows.Forms.Button();
             this.tableLayoutPanelStudentMassMove = new System.Windows.Forms.TableLayoutPanel();
             this.labelStudentManagement1 = new System.Windows.Forms.Label();
             this.labelStudentManagement2 = new System.Windows.Forms.Label();
@@ -211,7 +211,6 @@
             this.heightDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sizeTypeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.saveFileDialogExportReport = new System.Windows.Forms.SaveFileDialog();
-            this.buttonClearAllChanges = new System.Windows.Forms.Button();
             this.tabControlMain.SuspendLayout();
             this.tabAwardPag.SuspendLayout();
             this.tableLayoutPanelAwardPag.SuspendLayout();
@@ -805,7 +804,6 @@
             this.flowLayoutPanelStudentReportSettings.Controls.Add(this.radioButtonReportComplete);
             this.flowLayoutPanelStudentReportSettings.Controls.Add(this.radioButtonReportNotComplete);
             this.flowLayoutPanelStudentReportSettings.Controls.Add(this.radioButtonReportAll);
-            this.flowLayoutPanelStudentReportSettings.Controls.Add(this.checkBox);
             this.flowLayoutPanelStudentReportSettings.Controls.Add(this.buttonExportReport);
             this.flowLayoutPanelStudentReportSettings.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanelStudentReportSettings.Location = new System.Drawing.Point(573, 31);
@@ -857,19 +855,9 @@
             this.radioButtonReportAll.UseVisualStyleBackColor = true;
             this.radioButtonReportAll.CheckedChanged += new System.EventHandler(this.radioButtonReportAll_CheckedChanged);
             // 
-            // checkBox
-            // 
-            this.checkBox.AutoSize = true;
-            this.checkBox.Location = new System.Drawing.Point(3, 97);
-            this.checkBox.Name = "checkBox";
-            this.checkBox.Size = new System.Drawing.Size(80, 17);
-            this.checkBox.TabIndex = 10;
-            this.checkBox.Text = "checkBox1";
-            this.checkBox.UseVisualStyleBackColor = true;
-            // 
             // buttonExportReport
             // 
-            this.buttonExportReport.Location = new System.Drawing.Point(3, 120);
+            this.buttonExportReport.Location = new System.Drawing.Point(3, 97);
             this.buttonExportReport.Name = "buttonExportReport";
             this.buttonExportReport.Size = new System.Drawing.Size(113, 23);
             this.buttonExportReport.TabIndex = 9;
@@ -1915,6 +1903,17 @@
             this.buttonStudentManagementAddStudent.UseVisualStyleBackColor = true;
             this.buttonStudentManagementAddStudent.Click += new System.EventHandler(this.buttonStudentManagementAddStudent_Click);
             // 
+            // buttonClearAllChanges
+            // 
+            this.buttonClearAllChanges.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.buttonClearAllChanges.Location = new System.Drawing.Point(439, 61);
+            this.buttonClearAllChanges.Name = "buttonClearAllChanges";
+            this.buttonClearAllChanges.Size = new System.Drawing.Size(134, 23);
+            this.buttonClearAllChanges.TabIndex = 8;
+            this.buttonClearAllChanges.Text = "Reset Changes";
+            this.buttonClearAllChanges.UseVisualStyleBackColor = true;
+            this.buttonClearAllChanges.Click += new System.EventHandler(this.buttonClearAllChanges_Click);
+            // 
             // tableLayoutPanelStudentMassMove
             // 
             this.tableLayoutPanelStudentMassMove.ColumnCount = 6;
@@ -2226,17 +2225,6 @@
             this.saveFileDialogExportReport.Title = "Export Report";
             this.saveFileDialogExportReport.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialogExportReport_FileOk);
             // 
-            // buttonClearAllChanges
-            // 
-            this.buttonClearAllChanges.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.buttonClearAllChanges.Location = new System.Drawing.Point(439, 61);
-            this.buttonClearAllChanges.Name = "buttonClearAllChanges";
-            this.buttonClearAllChanges.Size = new System.Drawing.Size(134, 23);
-            this.buttonClearAllChanges.TabIndex = 8;
-            this.buttonClearAllChanges.Text = "Reset Changes";
-            this.buttonClearAllChanges.UseVisualStyleBackColor = true;
-            this.buttonClearAllChanges.Click += new System.EventHandler(this.buttonClearAllChanges_Click);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2269,7 +2257,6 @@
             this.tableLayoutPanelStudentReport.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudentReport)).EndInit();
             this.flowLayoutPanelStudentReportSettings.ResumeLayout(false);
-            this.flowLayoutPanelStudentReportSettings.PerformLayout();
             this.tabActivitySelection.ResumeLayout(false);
             this.tableLayoutPanelActivitySelection.ResumeLayout(false);
             this.tableLayoutPanelActivitySelection.PerformLayout();
@@ -2502,7 +2489,6 @@
         private System.Windows.Forms.ToolStripMenuItem createPresetWithNameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deletePAGPresetToolStripMenuItem;
         private System.Windows.Forms.Button buttonResetToDefault;
-        private System.Windows.Forms.CheckBox checkBox;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button buttonClearAllChanges;
     }

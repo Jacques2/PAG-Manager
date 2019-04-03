@@ -1609,51 +1609,54 @@ namespace PAG_Manager
                 string studentSName = studentInfo.ElementAt(student).Value.Item2;
                 string studentClass = studentInfo.ElementAt(student).Value.Item3;
                 string studentYear = studentInfo.ElementAt(student).Value.Item4;
-                //get missing skills for student
-                ArrayList missingSkills = new ArrayList();
-                missingSkills = sr.GetMissingSkills(currentStudentID);//gets missing skills
-                string missingSkillString = "";
-                for (int i = 0; i < missingSkills.Count; i++)
+                if (studentClass != "Archive")
                 {
-                    string skillName = sr.GetSkillName(Convert.ToInt32(missingSkills[i]));//combines all missing skills into a string to be displayed to the user
-                    missingSkillString += skillName;
-                    if (i + 1 != missingSkills.Count)
+                    //get missing skills for student
+                    ArrayList missingSkills = new ArrayList();
+                    missingSkills = sr.GetMissingSkills(currentStudentID);//gets missing skills
+                    string missingSkillString = "";
+                    for (int i = 0; i < missingSkills.Count; i++)
                     {
-                        missingSkillString += ", ";
+                        string skillName = sr.GetSkillName(Convert.ToInt32(missingSkills[i]));//combines all missing skills into a string to be displayed to the user
+                        missingSkillString += skillName;
+                        if (i + 1 != missingSkills.Count)
+                        {
+                            missingSkillString += ", ";
+                        }
                     }
-                }
-                //get missing groups for student
-                ArrayList missingGroups = new ArrayList();
-                missingGroups = sr.GetMissingGroups(currentStudentID, true);//gets all missing groups
-                string missingGroupString = "";
-                for (int i = 0; i < missingGroups.Count; i++)
-                {
-                    missingGroupString += missingGroups[i];//combines all missing groups into a string to be displayed to the user
-                    if (i + 1 != missingGroups.Count)
+                    //get missing groups for student
+                    ArrayList missingGroups = new ArrayList();
+                    missingGroups = sr.GetMissingGroups(currentStudentID, true);//gets all missing groups
+                    string missingGroupString = "";
+                    for (int i = 0; i < missingGroups.Count; i++)
                     {
-                        missingGroupString += ", ";
+                        missingGroupString += missingGroups[i];//combines all missing groups into a string to be displayed to the user
+                        if (i + 1 != missingGroups.Count)
+                        {
+                            missingGroupString += ", ";
+                        }
                     }
-                }
-                if (missingGroupString == "")//adding column data, depending on result
-                {
-                    if (missingSkillString == "")
+                    if (missingGroupString == "")//adding column data, depending on result
                     {
-                        dataGridViewStudentReport.Rows.Add(index, studentFName, studentSName, studentClass, studentYear, "Student has passed");//no missing skills or groups
-                        dataGridViewStudentReport.Rows[dataGridViewStudentReport.Rows.Count - 1].Cells[5].Style.BackColor = Color.LawnGreen;
+                        if (missingSkillString == "")
+                        {
+                            dataGridViewStudentReport.Rows.Add(index, studentFName, studentSName, studentClass, studentYear, "Student has passed");//no missing skills or groups
+                            dataGridViewStudentReport.Rows[dataGridViewStudentReport.Rows.Count - 1].Cells[5].Style.BackColor = Color.LawnGreen;
+                        }
+                        else
+                        {
+                            dataGridViewStudentReport.Rows.Add(index, studentFName, studentSName, studentClass, studentYear, "Missing Skills: " + missingSkillString);//no missing groups but missing skills
+                            dataGridViewStudentReport.Rows[dataGridViewStudentReport.Rows.Count - 1].Cells[5].Style.BackColor = Color.Yellow;
+                        }
                     }
                     else
                     {
-                        dataGridViewStudentReport.Rows.Add(index, studentFName, studentSName, studentClass, studentYear, "Missing Skills: " + missingSkillString);//no missing groups but missing skills
+                        dataGridViewStudentReport.Rows.Add(index, studentFName, studentSName, studentClass, studentYear, "Missing PAG's from: " + missingGroupString);//missing groups - skills irrelevent
                         dataGridViewStudentReport.Rows[dataGridViewStudentReport.Rows.Count - 1].Cells[5].Style.BackColor = Color.Yellow;
                     }
+                    //increment progress bar
+                    progressBarStudentReport.Value++;
                 }
-                else
-                {
-                    dataGridViewStudentReport.Rows.Add(index, studentFName, studentSName, studentClass, studentYear, "Missing PAG's from: " + missingGroupString);//missing groups - skills irrelevent
-                    dataGridViewStudentReport.Rows[dataGridViewStudentReport.Rows.Count - 1].Cells[5].Style.BackColor = Color.Yellow;
-                }
-                //increment progress bar
-                progressBarStudentReport.Value++;
             }
             progressBarStudentReport.Value = 0;
             dataGridViewStudentReport.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
