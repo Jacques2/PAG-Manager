@@ -1923,8 +1923,12 @@ namespace PAG_Manager
             comboBoxOutputName.Items.Add("Archive");
             for (int i = 0; i < selectableObjects.Count; i++)//loops through all selectable items
             {
-                comboBoxInputName.Items.Add(selectableObjects.ElementAt(i));//adds items to both combo boxes
-                comboBoxOutputName.Items.Add(selectableObjects.ElementAt(i));
+                string name = selectableObjects.ElementAt(i);
+                comboBoxInputName.Items.Add(name);//adds items to both combo boxes
+                if (name != "Archive")
+                {
+                    comboBoxOutputName.Items.Add(name);
+                }
             }
         }
 
