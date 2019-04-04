@@ -19,15 +19,19 @@ namespace PAG_Manager
         List<int> studentOrder = new List<int>();
         string fileName = "PagGroup.csv";
         List<int> groupIdPosition = new List<int>();
-        public void ClearStudentOrder()
+        public StudentReport(string inputFileLocation)//initialises the class
+        {
+            fileLocation = inputFileLocation;
+        }
+        public void ClearStudentOrder()//clears the order of students
         {
             studentOrder.Clear();
         }
-        public void AddToStudentOrder(int ID)
+        public void AddToStudentOrder(int ID)//adds a student to the order
         {
             studentOrder.Add(ID);
         }
-        public int GetStudentOrder(int index)
+        public int GetStudentOrder(int index)//gets the student id when given the position
         {
             try
             {
@@ -38,27 +42,23 @@ namespace PAG_Manager
                 return new int();
             }
         }
-        public int GetNumberOfGroups()
+        public int GetNumberOfGroups()//gets the number of groups that have been createed
         {
             return groupInfo.Count;
         }
-        public StudentReport(string inputFileLocation)
+        public void LoadGroupInformation()//loads all of the information about the group
         {
-            fileLocation = inputFileLocation;
-        }
-        public void LoadGroupInformation()
-        {
-            groupInfo.Clear();
+            groupInfo.Clear();//clears the information
             groupIdPosition.Clear();
             string lineRead;
             string[] seperatedLine;
-            StreamReader sr = new StreamReader(fileLocation + fileName);
-            lineRead = sr.ReadLine();
-            while (lineRead != null)
+            StreamReader sr = new StreamReader(fileLocation + fileName);//opens file
+            lineRead = sr.ReadLine();//reads line
+            while (lineRead != null)//loops reading lines
             {
                 seperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
                 int groupID = Convert.ToInt32(seperatedLine[0]);
-                groupIdPosition.Add(groupID);
+                groupIdPosition.Add(groupID);//adds id to the position
                 string groupName = seperatedLine[1];
                 List<int> listOfPags = new List<int>();
                 for (int i = 2; i < seperatedLine.Count(); i++)
@@ -72,16 +72,16 @@ namespace PAG_Manager
                         
                     }
                 }
-                groupInfo.Add(groupID, new Tuple<string, List<int>>(groupName, listOfPags));
+                groupInfo.Add(groupID, new Tuple<string, List<int>>(groupName, listOfPags));//adds a new entry to the group info
                 lineRead = sr.ReadLine();
             }
             sr.Close();
         }
-        public int GetGroupId(int position)
+        public int GetGroupId(int position)//gets the group id when given the position
         {
             return groupIdPosition[position];
         }
-        public List<int> GetGroupPagList(int groupID)
+        public List<int> GetGroupPagList(int groupID)//gets the pags assoisated with the specified group
         {
             try
             {
@@ -92,35 +92,35 @@ namespace PAG_Manager
                 return new List<int>();
             }
         }
-        public void AddPagToGroup(int groupID, int pagID)
+        public void AddPagToGroup(int groupID, int pagID)//adds a pag to the group
         {
             if (groupInfo[groupID].Item2.Contains(pagID) == false)//checking if it already exists
             {
                 groupInfo[groupID].Item2.Add(pagID);
             }
         }
-        public void RemovePagFromGroup(int groupID, int pagID)
+        public void RemovePagFromGroup(int groupID, int pagID)//removes a pag from a group
         {
             if (groupInfo[groupID].Item2.Contains(pagID) == true)//checking if it already exists
             {
                 groupInfo[groupID].Item2.Remove(pagID);
             }
         }
-        public Dictionary<int, Tuple<string, List<int>>> GetGroupInfo()
+        public Dictionary<int, Tuple<string, List<int>>> GetGroupInfo()//gets the whole group info data type
         {
             return groupInfo;
         }
-        public void WritePagGroupInfo()
+        public void WritePagGroupInfo()//writes the pag group info to a file
         {
             StreamWriter sw = new StreamWriter(fileLocation + fileName);
             for (int group = 0; group < groupInfo.Count; group++)
             {
-                string lineToWrite = "";
+                string lineToWrite = "";//initiilises the line to write string
                 lineToWrite += groupInfo.ElementAt(group).Key;
                 lineToWrite += ",";
                 lineToWrite += groupInfo.ElementAt(group).Value.Item1;
                 lineToWrite += ",";
-                for (int pag = 0; pag < groupInfo.ElementAt(group).Value.Item2.Count; pag++)
+                for (int pag = 0; pag < groupInfo.ElementAt(group).Value.Item2.Count; pag++)//loops through every pag, adding that to the string
                 {
                     lineToWrite += groupInfo.ElementAt(group).Value.Item2.ElementAt(pag);
                     if (pag < groupInfo.ElementAt(group).Value.Item2.Count-1)//adds commas to all but last value
@@ -128,9 +128,9 @@ namespace PAG_Manager
                         lineToWrite += ",";
                     }
                 }
-                sw.WriteLine(lineToWrite);
+                sw.WriteLine(lineToWrite);//writes line to file
             }
-            sw.Close();
+            sw.Close();//closes file
         }
         public void AddGroup()//adds a group with the id 1 higher than the last group
         {
@@ -143,19 +143,19 @@ namespace PAG_Manager
             {
                 newID = 0;
             }
-            groupIdPosition.Add(newID);
+            groupIdPosition.Add(newID);//adds the new group to the positions
             groupInfo.Add(newID, new Tuple<string, List<int>>("New Group", new List<int>()));
         }
-        public void RenameGroup(int groupID, string name)
+        public void RenameGroup(int groupID, string name)//renames a group with the specified name
         {
             groupInfo[groupID] = new Tuple<string, List<int>>(name, groupInfo[groupID].Item2);
         }
-        public void DeleteGroup(int position)
+        public void DeleteGroup(int position)//deletes a group at the specified position
         {
             groupInfo.Remove(GetGroupId(position));
             groupIdPosition.RemoveAt(position);
         }
-        public int GetNumberOfStudents()
+        public int GetNumberOfStudents()//gets the number of student in the record
         {
             string[] array = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\StudentRecord.csv");
             return array.Count();
@@ -170,7 +170,7 @@ namespace PAG_Manager
         //dictionary with key = pagID, value = time required to achieve
         Dictionary<int, int> skillRequirement = new Dictionary<int, int>();
 
-        public void BuildPagList()
+        public void BuildPagList()//builds the list of pags
         {
             string lineRead;
             string[] seperatedLine;
@@ -194,16 +194,16 @@ namespace PAG_Manager
             }
             sr.Close();
         }
-        public ArrayList GetMissingGroups(int studentID, bool returnAsNames)
+        public ArrayList GetMissingGroups(int studentID, bool returnAsNames)//gets all the missing groups for a student
         {
             ArrayList groupsFailed = new ArrayList();
-            for (int group = 0; group < groupInfo.Count; group++)
+            for (int group = 0; group < groupInfo.Count; group++)//loops through every group
             {
                 List<int> pagsInGroup = new List<int>(groupInfo.ElementAt(group).Value.Item2);
                 bool hasPassed = false;
                 if (studentPagData.ContainsKey(studentID))
                 {
-                    for (int pag = 0; pag < pagsInGroup.Count; pag++)
+                    for (int pag = 0; pag < pagsInGroup.Count; pag++)//loops through every pag
                     {
                         int pagID = pagsInGroup[pag];
                         if (studentPagData[studentID].Contains(pagID))
@@ -214,7 +214,7 @@ namespace PAG_Manager
                 }
                 if (hasPassed == false)
                 {
-                    if (returnAsNames)
+                    if (returnAsNames)//the data can be returned as names or ids.
                     {
                         groupsFailed.Add(groupInfo.ElementAt(group).Value.Item1);
                     }
@@ -236,7 +236,7 @@ namespace PAG_Manager
             while (studentRead != null)
             {
                 seperatedLine = studentRead.Split(new[] { "," }, StringSplitOptions.None);
-                studentInfo.Add(Convert.ToInt32(seperatedLine[0]), Tuple.Create(seperatedLine[1], seperatedLine[2], seperatedLine[3], seperatedLine[4]));
+                studentInfo.Add(Convert.ToInt32(seperatedLine[0]), Tuple.Create(seperatedLine[1], seperatedLine[2], seperatedLine[3], seperatedLine[4]));//adds all student information to dictionary
                 studentRead = studentReader.ReadLine();
             }
             studentReader.Close();
@@ -250,7 +250,7 @@ namespace PAG_Manager
             string[] seperatedLine;
             StreamReader requirementReader = new StreamReader(fileLocation + "SkillRequirement.csv");
             lineRead = requirementReader.ReadLine();
-            while (lineRead != null)
+            while (lineRead != null)//loops through every line
             {
                 seperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
                 int readSkillID = Convert.ToInt32(seperatedLine[0]);
@@ -333,7 +333,7 @@ namespace PAG_Manager
             }
             recordReader.Close();
         }
-        public ArrayList GetMissingSkills(int studentID)
+        public ArrayList GetMissingSkills(int studentID)//gets all the missing skills for a student
         {
             ArrayList missingSkills = new ArrayList();
             for (int skill = 0; skill < skillRequirement.Count; skill++)
@@ -349,21 +349,21 @@ namespace PAG_Manager
                             missingSkills.Add(currentSkill);
                         }
                     }
-                    else
+                    else//no skill for student on record
                     {
                         missingSkills.Add(currentSkill);
                     }
                 }
-                else
+                else//no student record
                 {
                     missingSkills.Add(currentSkill);
                 }
             }
             return missingSkills;
         }
-        public HashSet<int> BuildUniverse(int studentID)
+        public HashSet<int> BuildUniverse(int studentID)//builds the universe for the greedy set cover
         {
-            HashSet<int> universe = new HashSet<int>();
+            HashSet<int> universe = new HashSet<int>();//the universe is the missing skills for a student
             ArrayList missingSkills = new ArrayList();
             missingSkills = GetMissingSkills(studentID);
             for (int i = 0; i < missingSkills.Count; i++)
@@ -396,14 +396,14 @@ namespace PAG_Manager
             {
                 HashSet<int> covered = new HashSet<int>();
                 var remaining = new HashSet<int>(universe);
-                while (universe.IsSubsetOf(covered) == false)
+                while (universe.IsSubsetOf(covered) == false)//loops adding subsets the list of subsets untill the universe has been covered
                 {
                     SortedList<int, int> subsetEff = new SortedList<int, int>();
-                    for (int set = 0; set < subsets.Count; set++)
+                    for (int set = 0; set < subsets.Count; set++)//loops through every subset, checking what the best subset is
                     {
                         subsetEff.Add(set, new HashSet<int>(remaining.Except(subsets.ElementAt(set))).Count);
                     }
-                    var ordered = subsetEff.OrderBy(x => x.Value);
+                    var ordered = subsetEff.OrderBy(x => x.Value);//orders the values that have been found
                     int bestIndex = ordered.ElementAt(0).Key;
                     subListsToUse.Add(subsetIndex[bestIndex]);
                     subsetIndex.RemoveAt(bestIndex);
@@ -415,7 +415,7 @@ namespace PAG_Manager
             return subListsToUse;
         }
         Dictionary<int, HashSet<int>> pagSubset = new Dictionary<int, HashSet<int>>();
-        public void BuildPagSubsets()
+        public void BuildPagSubsets()//builds a list of all the pag subsets to be used in the greedy set cover algorithum
         {
             pagSubset.Clear();
             StreamReader relationReader = new StreamReader(fileLocation + "PagSkillRelation.csv");
@@ -436,7 +436,7 @@ namespace PAG_Manager
             }
             relationReader.Close();
         }
-        public List<HashSet<int>> GetSubsetList()
+        public List<HashSet<int>> GetSubsetList()//gets a list of all the subsets
         {
             List<HashSet<int>> subsets = new List<HashSet<int>>();
             for (int i = 0; i < pagSubset.Count; i++)
@@ -445,13 +445,13 @@ namespace PAG_Manager
             }
             return subsets;
         }
-        public int GetPagID(int index)
+        public int GetPagID(int index)//gets the id of a pag when given its position
         {
             return pagSubset.ElementAt(index).Key;
         }
         Dictionary<int, string> skillList = new Dictionary<int, string>();
         Dictionary<int, string> pagList = new Dictionary<int, string>();
-        public void BuildLists()
+        public void BuildLists()//builds pag and skill lists
         {
             skillList.Clear();
             pagList.Clear();
@@ -476,7 +476,7 @@ namespace PAG_Manager
             }
             skillReader.Close();
         }
-        public string GetSkillName(int ID)
+        public string GetSkillName(int ID)//gets the skill name when given the id
         {
             try
             {
@@ -487,7 +487,7 @@ namespace PAG_Manager
                 return "";
             }
         }
-        public string GetPagName(int ID)
+        public string GetPagName(int ID)//gets the pag name when given its id
         {
             try
             {
@@ -500,15 +500,15 @@ namespace PAG_Manager
         }
         //----------------next section holds complete dataset for filtering-------------------
         List<List<string>> report = new List<List<string>>();
-        public void SetReport(List<List<string>> inputReport)
+        public void SetReport(List<List<string>> inputReport)//holds the full report so that it can be returned when there is no filter
         {
             report = inputReport;
         }
-        public List<List<string>> GetReport()
+        public List<List<string>> GetReport()//no filter report
         {
             return report;
         }
-        public List<List<string>> GetFilteredReport(string filter)
+        public List<List<string>> GetFilteredReport(string filter)//gets a filtered version of the report
         {
             List<List<string>> filteredReport = new List<List<string>>();
             for (int entry = 0; entry < report.Count; entry++)
@@ -661,7 +661,7 @@ namespace PAG_Manager
             //---------------------------------------------
             try
             {
-                excel.SaveAs(new FileInfo(inputLocation));
+                excel.SaveAs(new FileInfo(inputLocation));//trys to save completed file
             }
             catch (Exception)
             {

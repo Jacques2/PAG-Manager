@@ -14,11 +14,11 @@ namespace PAG_Manager
         private Dictionary<int, List<int>> relation = new Dictionary<int, List<int>>();
         private string fileLocation;
         private int inclusion;
-        public PagSkillRelation(string FileLocation)
+        public PagSkillRelation(string FileLocation)//initialised the class
         {
             fileLocation = FileLocation;
         }
-        public void ClearRelations()
+        public void ClearRelations()//clears all of the relations
         {
             relation.Clear();
         }
@@ -34,13 +34,13 @@ namespace PAG_Manager
         {
             if (relation.ContainsKey(pagID))//checks if data for pag already exists
             {
-                if (relation[pagID].Contains(skillID))
+                if (relation[pagID].Contains(skillID))//checks if data for skill within pag exists
                 {
                     relation[pagID].Remove(skillID);
                 }
             }
         }
-        public List<int> GetRelations(int PagID)
+        public List<int> GetRelations(int PagID)//gets all the relations for the specified pag id
         {
             try
             {
@@ -51,11 +51,11 @@ namespace PAG_Manager
                 return new List<int>();
             }
         }
-        public Dictionary<int, List<int>> GetAllRelations()
+        public Dictionary<int, List<int>> GetAllRelations()//gets the entire relation data type
         {
             return relation;
         }
-        public void BuildFromScratch()
+        public void BuildFromScratch()//builds the relations from scratch
         {
             File.Delete(fileLocation + "PagSkillRelation.csv");
             StreamWriter sw = new StreamWriter(fileLocation + "PagSkillRelation.csv");//overwrites exsisting data
@@ -70,7 +70,7 @@ namespace PAG_Manager
             }
             sw.Close();
         }
-        public bool SaveRelations()
+        public bool SaveRelations()//updates all of the relations in the file by appending and overwriting
         {
             bool success = true; //if the update fails, the program needs to switch tabs
             //replaces or adds new data into the pag achievement data file
@@ -92,7 +92,7 @@ namespace PAG_Manager
             {
                 if (arrLine.Contains("D"))
                 {
-                    arrLine.Remove("D");
+                    arrLine.Remove("D");//removes the records marked to be deleted
                 }
                 else
                 {
@@ -120,13 +120,13 @@ namespace PAG_Manager
             if (pagData == "")
             {
                 File.Copy(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagSkillRelation.temp", AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagSkillRelation.csv", true);
-                MessageBox.Show("Student edit failed. Reverting to previous student data", "Alert");
+                MessageBox.Show("Student edit failed. Reverting to previous student data", "Alert");//alerts the user that that the edit has failed
                 success = false;
             }
             File.Delete(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagSkillRelation.temp");
             return success;
         }
-        public void LoadRelationFromFile()
+        public void LoadRelationFromFile()//loads all the relations from a file
         {
             StreamReader sr = new StreamReader(fileLocation + "PagSkillRelation.csv");
             string lineRead;

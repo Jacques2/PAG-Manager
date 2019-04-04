@@ -24,29 +24,29 @@ namespace PAG_Manager
                 return null;
             }
         }
-        public ArrayList LoadHeaders()
+        public ArrayList LoadHeaders()//opens the specified file and loads the skill/pag name on all lines to return to the user
         {
             string lineRead;
             string[] seperatedLine;
             headers.Clear();
-            StreamReader sr = new StreamReader(fileLocation + fileName);
-            lineRead = sr.ReadLine();
-            while (lineRead != null)
+            StreamReader sr = new StreamReader(fileLocation + fileName);//opens the file
+            lineRead = sr.ReadLine();//reads a line
+            while (lineRead != null)//while there are lines in the file
             {
-                seperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-                headers.Add(seperatedLine[1]);
-                lineRead = sr.ReadLine();
+                seperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);//splits up the line by commas
+                headers.Add(seperatedLine[1]);//add the first item in the seperated line to a list
+                lineRead = sr.ReadLine();//read new line to file
             }
-            sr.Close();
+            sr.Close();//close file
             return headers;
         }
-        public ArrayList GetHeaders()
+        public ArrayList GetHeaders()//gets the headers that have just been generated
         {
             return headers;
         }
     }
 
-    internal class SkillsDatabase : Database
+    internal class SkillsDatabase : Database//this class inherits from the database class
     {
         protected override string fileName
         {
@@ -55,7 +55,7 @@ namespace PAG_Manager
                 return "SkillList.csv";
             }
         }
-        public ArrayList LoadSkillData()
+        public ArrayList LoadSkillData()//loads all the skill data into an arraylist which can be turned into a table
         {
             ArrayList tableData = new ArrayList();
             //Load every skill into a dictionary with key = skill id value = position in table
@@ -138,7 +138,7 @@ namespace PAG_Manager
             {
                 lineToWriteToTable = studentInfo.ElementAt(student).Key + "," + studentInfo.ElementAt(student).Value.Item1 + ',' + studentInfo.ElementAt(student).Value.Item2 + ',' + studentInfo.ElementAt(student).Value.Item3 + ',' + studentInfo.ElementAt(student).Value.Item4;
                 int studentID = studentInfo.ElementAt(student).Key;
-                if (pagRecord.ContainsKey(studentID))
+                if (pagRecord.ContainsKey(studentID))//checks if the student id is contained within the pag record
                 {
                     SortedList<int, int> skillPositionList = new SortedList<int, int>();
                     for (int i = 0; i < pagRecord[studentID].Count(); i++)
@@ -146,7 +146,7 @@ namespace PAG_Manager
                         skillPositionList.Add(skillID[pagRecord[studentID].ElementAt(i).Key], pagRecord[studentID].ElementAt(i).Value);
                     }
                     int previousNo = 0;
-                    for (int i = 0; i < skillPositionList.Count; i++)
+                    for (int i = 0; i < skillPositionList.Count; i++)//loops through every item in the skillPosition list
                     {
                         int commasToAdd = skillPositionList.ElementAt(i).Key - previousNo;
                         for (int comma = 0; comma < commasToAdd; comma++)
@@ -164,7 +164,7 @@ namespace PAG_Manager
             return tableData;
         }
     }
-    internal class PagDatabase : Database
+    internal class PagDatabase : Database//this class inherits from the database class
     {
         protected override string fileName
         {
