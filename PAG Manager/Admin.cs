@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
 using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace PAG_Manager
@@ -32,7 +30,7 @@ namespace PAG_Manager
             while (lineRead != null)//loops through every record, adding names to an arraylist
             {
                 seperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-                pagList.Add(Convert.ToInt32(seperatedLine[0]),seperatedLine[1]);
+                pagList.Add(Convert.ToInt32(seperatedLine[0]), seperatedLine[1]);
                 lineRead = pagReader.ReadLine();
             }
             pagReader.Close();
@@ -318,7 +316,7 @@ namespace PAG_Manager
         }
         public void AddStudent()//adds a new student
         {
-            int lastKey = studentInfo.ElementAt(studentInfo.Count-1).Key;
+            int lastKey = studentInfo.ElementAt(studentInfo.Count - 1).Key;
             studentInfo.Add(lastKey + 1, new Tuple<string, string, string, string>("New", "Student", "Year", "Class"));
         }
         public void SaveStudentData()//saves all student information
@@ -459,7 +457,7 @@ namespace PAG_Manager
             string[] seperatedLine;
             string[] linesRead = File.ReadAllLines(fileLocation + "PagAchievement.csv");
 
-            for (int item = linesRead.Count()-1; item > -1; item--)//loops from the end backward
+            for (int item = linesRead.Count() - 1; item > -1; item--)//loops from the end backward
             {
                 seperatedLine = linesRead[item].Split(new[] { "," }, StringSplitOptions.None);
                 int studentID = Convert.ToInt32(seperatedLine[0]);
@@ -482,7 +480,7 @@ namespace PAG_Manager
             {
                 MessageBox.Show("Duplicate PAG records found, overwriting older records with new ones", "PAG Manager");
                 StreamWriter sw = new StreamWriter(fileLocation + "PagAchievement.csv");
-                for (int line = noDupePagList.Count-1; line > -1; line--)
+                for (int line = noDupePagList.Count - 1; line > -1; line--)
                 {
                     sw.WriteLine(noDupePagList[line]);
                 }

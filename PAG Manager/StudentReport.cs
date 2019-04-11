@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
-using System.Windows.Forms;
+﻿using OfficeOpenXml;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data;
-using OfficeOpenXml;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace PAG_Manager
 {
@@ -69,7 +67,7 @@ namespace PAG_Manager
                     }
                     catch (Exception)
                     {
-                        
+
                     }
                 }
                 groupInfo.Add(groupID, new Tuple<string, List<int>>(groupName, listOfPags));//adds a new entry to the group info
@@ -123,7 +121,7 @@ namespace PAG_Manager
                 for (int pag = 0; pag < groupInfo.ElementAt(group).Value.Item2.Count; pag++)//loops through every pag, adding that to the string
                 {
                     lineToWrite += groupInfo.ElementAt(group).Value.Item2.ElementAt(pag);
-                    if (pag < groupInfo.ElementAt(group).Value.Item2.Count-1)//adds commas to all but last value
+                    if (pag < groupInfo.ElementAt(group).Value.Item2.Count - 1)//adds commas to all but last value
                     {
                         lineToWrite += ",";
                     }
@@ -665,7 +663,7 @@ namespace PAG_Manager
             }
             catch (Exception)
             {
-                MessageBox.Show("Unable to export to file, file may be open or read-only","Error Exporting File");
+                MessageBox.Show("Unable to export to file, file may be open or read-only", "Error Exporting File");
             }
             excel.Dispose();
         }

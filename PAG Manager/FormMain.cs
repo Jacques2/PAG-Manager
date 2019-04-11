@@ -242,7 +242,7 @@ namespace PAG_Manager
                 {
                     treeViewYearSelect.Nodes[i].Nodes.Add(classList[i][j]);
                 }
-            }            
+            }
             //building studentID
             studentIDList.Clear();
             for (int year = 0; year < yearDictionary.Count; year++)
@@ -392,7 +392,7 @@ namespace PAG_Manager
                 int totalSkills = dataGridViewStudentLookup.RowCount - 1;
                 ArrayList missingSkills = sr.GetMissingSkills(currentStudentID);
                 int numMissingSkills = missingSkills.Count;
-                dataGridViewStudentLookup.Columns[0].HeaderText = Convert.ToString(listBoxStudentNames.SelectedItem + "\n " + Convert.ToString(totalGroups - numMissingGroups) + "/" + Convert.ToString(totalGroups) +" Groups Completed \n " + Convert.ToString(totalSkills - numMissingSkills) + "/" + Convert.ToString(totalSkills) + " Skills Completed");
+                dataGridViewStudentLookup.Columns[0].HeaderText = Convert.ToString(listBoxStudentNames.SelectedItem + "\n " + Convert.ToString(totalGroups - numMissingGroups) + "/" + Convert.ToString(totalGroups) + " Groups Completed \n " + Convert.ToString(totalSkills - numMissingSkills) + "/" + Convert.ToString(totalSkills) + " Skills Completed");
                 //clears every cell
 
                 t.Stop(); times.Add(Convert.ToString(t.ElapsedMilliseconds)); t.Restart();//WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW
@@ -437,7 +437,7 @@ namespace PAG_Manager
                         }
                         if (Convert.ToString(dataGridViewStudentLookup.Rows[row].Cells[cell].Value) == "Not Achieved")//checks if value is not achieved
                         {
-                            dataGridViewStudentLookup.Rows[row].Cells[cell].Style.BackColor = Color.FromArgb(241,130,48);
+                            dataGridViewStudentLookup.Rows[row].Cells[cell].Style.BackColor = Color.FromArgb(241, 130, 48);
                         }
                         if (Convert.ToString(dataGridViewStudentLookup.Rows[row].Cells[cell].Value) == "Absent")//checks if value is absent
                         {
@@ -491,7 +491,7 @@ namespace PAG_Manager
         {
             if (sl.GetUnsavedChanges() && Convert.ToString(tabControlMain.SelectedTab) != "TabPage: {Student Lookup}")
             {
-                DialogResult result = MessageBox.Show("You have unsaved changes, do you wish to proceed and lose these changes?","Warning",MessageBoxButtons.YesNo,MessageBoxIcon.Exclamation,MessageBoxDefaultButton.Button2);
+                DialogResult result = MessageBox.Show("You have unsaved changes, do you wish to proceed and lose these changes?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
                 if (result == DialogResult.No)//checks if user want to lose changes
                 {
                     tabControlMain.SelectedTab = tabLookup;
@@ -570,7 +570,7 @@ namespace PAG_Manager
                 {
                     List<int> skillsInPag = new List<int>();
                     skillsInPag = psr.GetRelations(sl.ReversePagLookup(column));
-                    for (int row = 0; row < dataGridViewStudentLookup.RowCount -1; row++)
+                    for (int row = 0; row < dataGridViewStudentLookup.RowCount - 1; row++)
                     {
                         if (skillsInPag.Contains(sl.ReverseSkillLookup(row)) == false)
                         {
@@ -631,7 +631,7 @@ namespace PAG_Manager
         {
             ad.AddPag();
             listBoxPagList.Items.Add("New PAG");
-            listBoxPagList.SelectedIndex = listBoxPagList.Items.Count-1;
+            listBoxPagList.SelectedIndex = listBoxPagList.Items.Count - 1;
             pagListToolStripTextBox.Focus();
             pagListToolStripTextBox.SelectAll();
         }
@@ -733,7 +733,7 @@ namespace PAG_Manager
 
         private void ClearTickBoxes()//ADMIN: Clears all check boxes from skill relations
         {
-            for(int i = 0; i < checkedListBoxSkillRelation.Items.Count; i++)
+            for (int i = 0; i < checkedListBoxSkillRelation.Items.Count; i++)
             {
                 checkedListBoxSkillRelation.SetItemCheckState(i, CheckState.Unchecked);
             }
@@ -809,7 +809,7 @@ namespace PAG_Manager
             }
             for (int i = 0; i < checkedListBoxActivitySelectionPag.Items.Count; i++)//Goes through each selected box highlighting all the matching skills
             {
-                if ((checkedListBoxActivitySelectionPag.GetItemChecked(i)&& checkedListBoxActivitySelectionPag.SelectedIndex != i) || (checkedListBoxActivitySelectionPag.SelectedIndex == i && checkedListBoxActivitySelectionPag.GetItemChecked(checkedListBoxActivitySelectionPag.SelectedIndex)==false))//checks if the box is ticked
+                if ((checkedListBoxActivitySelectionPag.GetItemChecked(i) && checkedListBoxActivitySelectionPag.SelectedIndex != i) || (checkedListBoxActivitySelectionPag.SelectedIndex == i && checkedListBoxActivitySelectionPag.GetItemChecked(checkedListBoxActivitySelectionPag.SelectedIndex) == false))//checks if the box is ticked
                 {
                     int pagID = ad.GetPagId(i);
                     List<int> skillsToHighlight = psr.GetRelations(pagID);//gets all related skills
@@ -927,7 +927,7 @@ namespace PAG_Manager
                 }
             }
         }
-        
+
         private void treeViewYearSelect_AfterCheck(object sender, TreeViewEventArgs e)
         {
             if (e.Action != TreeViewAction.Unknown)//checks if the tree has been changed
@@ -980,7 +980,7 @@ namespace PAG_Manager
                 UpdateSelectedPagLabel();
             }
         }
-        
+
         private void UpdateSelectedPagLabel()//updates labels with information about pag award
         {
             int selectedPags = 0;
@@ -1021,7 +1021,7 @@ namespace PAG_Manager
         {
             if (dateTimePickerAwardPag.Value.Date > DateTime.Now)//checks if date is in the future
             {
-                MessageBox.Show("The selected date is in the future. Change the value if you did not mean to select a future date", "Warning",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                MessageBox.Show("The selected date is in the future. Change the value if you did not mean to select a future date", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -1055,7 +1055,7 @@ namespace PAG_Manager
             ArrayList pagsCompletedByStudents = new ArrayList();
             for (int pag = 0; pag < treeViewPagSelect.Nodes.Count; pag++)//searches each pag to check if its ticked
             {
-                if(treeViewPagSelect.Nodes[pag].Checked)
+                if (treeViewPagSelect.Nodes[pag].Checked)
                 {
                     int pagID = ap.GetPagTreeIDFromPosition(pag);
                     skillsFailed.Add(pagID, new List<int>());//Part 4 preperation, creating new blank entrys to be modified
@@ -1116,7 +1116,7 @@ namespace PAG_Manager
                 sw.WriteLine(skill + "," + dataGridViewSkillRequirement.Rows[skill].Cells[1].Value);
             }
             sw.Close();
-            MessageBox.Show("Skill Requirements saved","PAG Manager");
+            MessageBox.Show("Skill Requirements saved", "PAG Manager");
         }
 
         private void buttonImportCSV_Click(object sender, EventArgs e)
@@ -1297,7 +1297,7 @@ namespace PAG_Manager
                                 }
                                 catch (Exception)
                                 {
-                                    
+
                                 }
                                 break;
                             case "2"://absent for skill
@@ -1491,7 +1491,7 @@ namespace PAG_Manager
                 }
                 else//record needs to be deleted
                 {
-                    newData.Add(column, Convert.ToString(studentID) + "," + Convert.ToString(pagID) +",D");
+                    newData.Add(column, Convert.ToString(studentID) + "," + Convert.ToString(pagID) + ",D");
                 }
             }
             bool isSuccess = sl.UpdateStudentData(newData);//updates the student data and returns wether it succeded or not
@@ -1571,7 +1571,7 @@ namespace PAG_Manager
                 pagsInGroup = sr.GetGroupPagList(sr.GetGroupId(listBoxGroupList.SelectedIndex));//gets pags in the selected group
                 for (int i = 0; i < pagsInGroup.Count; i++)//loops through every selected pag, checking it
                 {
-                    checkedListBoxPagList.SetItemCheckState(sl.LookupPagPosition(pagsInGroup[i])-1,CheckState.Checked);
+                    checkedListBoxPagList.SetItemCheckState(sl.LookupPagPosition(pagsInGroup[i]) - 1, CheckState.Checked);
                 }
             }
             else
@@ -1707,7 +1707,7 @@ namespace PAG_Manager
                     int pagID = sr.GetPagID(requiredSubsets.ElementAt(i));
                     string pagName = sr.GetPagName(pagID);//adds the pag name to a string
                     pagString += pagName;
-                    if (i+1 != requiredSubsets.Count)
+                    if (i + 1 != requiredSubsets.Count)
                     {
                         pagString += Environment.NewLine;
                     }
@@ -1715,7 +1715,7 @@ namespace PAG_Manager
                 }
                 if (pagString != "")//returns the string of pags required to the user
                 {
-                    MessageBox.Show("PAG's Required to complete all skills: " + Environment.NewLine + Environment.NewLine + Convert.ToString(pagString),"PAG Report for " + dataGridViewStudentReport[1,e.RowIndex].Value + " " + dataGridViewStudentReport[2, e.RowIndex].Value);
+                    MessageBox.Show("PAG's Required to complete all skills: " + Environment.NewLine + Environment.NewLine + Convert.ToString(pagString), "PAG Report for " + dataGridViewStudentReport[1, e.RowIndex].Value + " " + dataGridViewStudentReport[2, e.RowIndex].Value);
                 }
             }
         }
@@ -1820,7 +1820,7 @@ namespace PAG_Manager
                 string fName = textBoxStudentFName.Text;
                 string lName = textBoxStudentLName.Text;
                 string theClass = textBoxStudentClass.Text;
-                listBoxStudentManagementList.Items[listBoxStudentManagementList.SelectedIndex] = fName + " " + lName + " - " + theClass ;//modifies the list box entry for the student
+                listBoxStudentManagementList.Items[listBoxStudentManagementList.SelectedIndex] = fName + " " + lName + " - " + theClass;//modifies the list box entry for the student
             }
         }
 
@@ -1990,7 +1990,7 @@ namespace PAG_Manager
             }
             else
             {
-                MessageBox.Show("Please fill in all the options","Alert");
+                MessageBox.Show("Please fill in all the options", "Alert");
             }
         }
 
@@ -2113,7 +2113,7 @@ namespace PAG_Manager
             DialogResult result = MessageBox.Show("By loading a preset, any PAG's awarded to students will be removed. Do you want to proceed?\n\n" + e.ClickedItem, "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2);
             if (result == DialogResult.Yes)//asks the user if they are sure that they want to load a preset
             {
-                File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagAchievement.csv","");//clears the pag achievement file
+                File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagAchievement.csv", "");//clears the pag achievement file
                 string fileName = Convert.ToString(e.ClickedItem);
                 string oldDir = AppDomain.CurrentDomain.BaseDirectory + @"Presets\" + fileName + @"\";
                 string newDir = AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\";

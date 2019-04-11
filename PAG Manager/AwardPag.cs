@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace PAG_Manager
@@ -89,7 +87,7 @@ namespace PAG_Manager
                 for (int i = 0; i < group.Count; i++)//builds a 2d list of all results [[year dictionary id, class]]
                 {
                     var key = yearDictionary.FirstOrDefault(x => x.Value == group[i][0]).Key;//reverse dictionary lookup
-                    classList.Add(new List<string> {Convert.ToString(key) , group[i][1] });
+                    classList.Add(new List<string> { Convert.ToString(key), group[i][1] });
                 }
                 for (int i = 0; i < yearDictionary.Count; i++)//builds a blank 2d list to add
                 {
@@ -256,7 +254,7 @@ namespace PAG_Manager
             {
                 for (int pag = 0; pag < pagsCompleted.Count; pag++)
                 {
-                    pagAwardFile.WriteLine(studentIDs[student] + "," + pagsCompleted[pag] + "," + dateCompleted.ToString("dd/MM/yyyy") + "," + skillsCompleted[pag]);
+                    pagAwardFile.WriteLine(studentIDs[student] + "," + pagsCompleted[pag] + "," + dateCompleted.ToString("dd-MM-yyyy") + "," + skillsCompleted[pag]);
                 }
             }
             pagAwardFile.Close();

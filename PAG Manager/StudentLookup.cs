@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace PAG_Manager
@@ -16,7 +14,7 @@ namespace PAG_Manager
         ArrayList namePosition = new ArrayList();
         public bool LoadState { get; set; } = false;//This is used to stop auto colouring of cells when the table loads
         ArrayList fullNamePositions = new ArrayList();
-        Dictionary<int, Dictionary<int, Tuple<Dictionary<int, string>,int>>> studentInfo = new Dictionary<int, Dictionary<int, Tuple<Dictionary<int, string>, int>>>();
+        Dictionary<int, Dictionary<int, Tuple<Dictionary<int, string>, int>>> studentInfo = new Dictionary<int, Dictionary<int, Tuple<Dictionary<int, string>, int>>>();
         Dictionary<int, int> skillLookup = new Dictionary<int, int>();
         Dictionary<int, int> pagLookup = new Dictionary<int, int>();
         Dictionary<int, SortedList<int, int>> relations = new Dictionary<int, SortedList<int, int>>();
@@ -172,11 +170,11 @@ namespace PAG_Manager
                 char[] seperatedSkills = combinedSkills.ToCharArray();
                 if (studentInfo.ContainsKey(studentID) == false)//creates new entry for student if not exist
                 {
-                    studentInfo.Add(studentID,new Dictionary<int, Tuple<Dictionary<int, string>, int>>());
+                    studentInfo.Add(studentID, new Dictionary<int, Tuple<Dictionary<int, string>, int>>());
                 }
                 if (studentInfo[studentID].ContainsKey(pagID) == false)//creates new entry for pag within student if not exist
                 {
-                    studentInfo[studentID].Add(pagID,new Tuple<Dictionary<int, string>, int>(new Dictionary<int, string>(),currentLine));
+                    studentInfo[studentID].Add(pagID, new Tuple<Dictionary<int, string>, int>(new Dictionary<int, string>(), currentLine));
                 }
                 for (int skill = 0; skill < seperatedSkills.Count(); skill++)
                 {
@@ -249,7 +247,7 @@ namespace PAG_Manager
                 for (int j = 1; j <= m; j++)
                 {
                     int cost = (t[j - 1] == s[i - 1]) ? 0 : 1;
-                    d[i, j] = Math.Min(Math.Min(d[i - 1, j] + 1, d[i, j - 1] + 1),d[i - 1, j - 1] + cost);
+                    d[i, j] = Math.Min(Math.Min(d[i - 1, j] + 1, d[i, j - 1] + 1), d[i - 1, j - 1] + cost);
                 }
             }
             return d[n, m];
@@ -308,7 +306,7 @@ namespace PAG_Manager
             }
             return skillOrder;
         }
-        public bool UpdateStudentData(Dictionary<int,string> newData)//updates data for a modified student
+        public bool UpdateStudentData(Dictionary<int, string> newData)//updates data for a modified student
         {
             bool success = true; //if the update fails, the program needs to switch tabs
             //replaces or adds new data into the pag achievement data file

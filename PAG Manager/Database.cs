@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
 using System.Collections;
-using System.Windows.Forms;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace PAG_Manager
 {
@@ -178,7 +175,7 @@ namespace PAG_Manager
             //This converts every students pag data into an arraylist line by line, then written to a table. This is a complicated multi step process that you dont want to debug
             //STEP 1: Read every students info and put into a dictionary with key= student ID and value = (FName, LName, Year, Class)
             ArrayList tableData = new ArrayList();
-            Dictionary<int, Tuple<string,string,string,string>> studentNames = new Dictionary<int, Tuple<string, string, string, string>>();//Gets every students name, year and class
+            Dictionary<int, Tuple<string, string, string, string>> studentNames = new Dictionary<int, Tuple<string, string, string, string>>();//Gets every students name, year and class
             StreamReader nameReader = new StreamReader(fileLocation + "StudentRecord.csv");
             string nameRead = nameReader.ReadLine();
             string[] seperatedLine;
@@ -191,7 +188,7 @@ namespace PAG_Manager
             nameReader.Close();
             //STEP 2: Read every pag record and store in dictionary with key = student ID and value = (dictionary with key = pag id and value = pag completion date)
             //loops reading pag dates and adding them to an list of dictionaries contained in a dictionary. very simple
-            Dictionary<int, Dictionary<int,string>> pagData = new Dictionary<int, Dictionary<int, string>>();
+            Dictionary<int, Dictionary<int, string>> pagData = new Dictionary<int, Dictionary<int, string>>();
             StreamReader pagReader = new StreamReader(fileLocation + "PagAchievement.csv");
             string pagRead = pagReader.ReadLine();
             while (pagRead != null)
@@ -202,7 +199,7 @@ namespace PAG_Manager
                     pagData.Add(Convert.ToInt32(seperatedLine[0]), new Dictionary<int, string>());
                 }
                 //modifys record to add pag achivement
-                pagData[Convert.ToInt32(seperatedLine[0])].Add(Convert.ToInt32(seperatedLine[1]),seperatedLine[2]);
+                pagData[Convert.ToInt32(seperatedLine[0])].Add(Convert.ToInt32(seperatedLine[1]), seperatedLine[2]);
                 //read next line
                 pagRead = pagReader.ReadLine();
             }
@@ -217,7 +214,7 @@ namespace PAG_Manager
             {
                 currentIndex++;
                 seperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-                pagID.Add(Convert.ToInt32(seperatedLine[0]),currentIndex);
+                pagID.Add(Convert.ToInt32(seperatedLine[0]), currentIndex);
                 lineRead = sr.ReadLine();
             }
             sr.Close();
@@ -231,7 +228,7 @@ namespace PAG_Manager
                     pagsOnRecord.Clear();
                     for (int record = 0; record < pagData[studentNames.ElementAt(student).Key].Count; record++)
                     {
-                        pagsOnRecord.Add(pagID[pagData[studentNames.ElementAt(student).Key].ElementAt(record).Key],pagData[studentNames.ElementAt(student).Key].ElementAt(record).Key);
+                        pagsOnRecord.Add(pagID[pagData[studentNames.ElementAt(student).Key].ElementAt(record).Key], pagData[studentNames.ElementAt(student).Key].ElementAt(record).Key);
                         //pagData[studentNames.ElementAt(student).Key].ElementAt(record) <- gets pag id and date
                     }
                     //STEP 4B: Prepare the main student data to write to the table

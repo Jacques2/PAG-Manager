@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace PAG_Manager
@@ -54,21 +52,6 @@ namespace PAG_Manager
         public Dictionary<int, List<int>> GetAllRelations()//gets the entire relation data type
         {
             return relation;
-        }
-        public void BuildFromScratch()//builds the relations from scratch
-        {
-            File.Delete(fileLocation + "PagSkillRelation.csv");
-            StreamWriter sw = new StreamWriter(fileLocation + "PagSkillRelation.csv");//overwrites exsisting data
-            for (int pag = 0; pag < relation.Count; pag++)
-            {
-                List<int> listOfSkills = new List<int>(relation.ElementAt(pag).Value);
-                int pagID = relation.ElementAt(pag).Key;
-                for (int skillID = 0; skillID < listOfSkills.Count; skillID++)//This loops through every record in the dictionary to write to the file
-                {
-                    sw.WriteLine(pagID + "," + listOfSkills[skillID] + "," + skillID);
-                }
-            }
-            sw.Close();
         }
         public bool SaveRelations()//updates all of the relations in the file by appending and overwriting
         {
