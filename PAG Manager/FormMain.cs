@@ -122,6 +122,7 @@ namespace PAG_Manager
                 ad.BuildStudentInformation();
                 ad.ClearStudentsToDelete();
                 listBoxStudentManagementList.Items.Clear();
+                comboBoxInputType.SelectedIndex = -1;
                 SortedList<int, Tuple<string, string, string, string>> studentInfo = new SortedList<int, Tuple<string, string, string, string>>(ad.GetStudentInformation());
                 for (int i = 0; i < studentInfo.Count; i++)
                 {
