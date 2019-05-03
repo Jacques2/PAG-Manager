@@ -661,9 +661,13 @@ namespace PAG_Manager
                         ad.RemovePagFromPosition(listBoxPagList.SelectedIndex);
                         listBoxPagList.Items.RemoveAt(listBoxPagList.SelectedIndex);
                     }
+                    else if (relations.Count == 1)
+                    {
+                        MessageBox.Show("This PAG has 1 skill assigned to it and cannot be deleted. Unassign this skill before deleting.");
+                    }
                     else
                     {
-                        MessageBox.Show("This PAG has 1 or more skills assigned to it and cannot be deleted. Unassign these skills before deleting");
+                        MessageBox.Show("This PAG has " + Convert.ToString(relations.Count) + " assigned to it and cannot be deleted. Unassign these skills before deleting.");
                     }
                 }
                 else
@@ -1997,18 +2001,7 @@ namespace PAG_Manager
 
         private void backupRestoreToolStripMenuItem_Click(object sender, EventArgs e)//backup menu item opened
         {
-            restoreDataToolStripMenuItem.DropDownItems.Clear();//items are cleared from the drop down item list
-            deleteBackupToolStripMenuItem.DropDownItems.Clear();
-            List<string> directories = new List<string>(Directory.GetDirectories(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\"));//gets a list of directories in the savedata folder
-            for (int i = 0; i < directories.Count; i++)//loops through every directory
-            {
-                string backupName = directories[i].Replace(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\", "");//removes all but the last part of the directory from the list of directories
-                if (backupName != "Current")//checks if the name of the backup is not called current - the main directory used for the program
-                {
-                    restoreDataToolStripMenuItem.DropDownItems.Add(backupName);//adds the list of backups to the lists of backups
-                    deleteBackupToolStripMenuItem.DropDownItems.Add(backupName);
-                }
-            }
+
         }
 
         private void toolStripTextBoxBackupName_TextChanged(object sender, EventArgs e)//changes the create backup button with the text box text
@@ -2073,19 +2066,7 @@ namespace PAG_Manager
 
         private void loadPAGPresetToolStripMenuItem_Click(object sender, EventArgs e)//loads preset drop down items to be selected
         {
-            loadPAGPresetToolStripMenuItem.DropDownItems.Clear();//clears any current preset items from drop down lists
-            deletePAGPresetToolStripMenuItem.DropDownItems.Clear();
-            if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Presets\") == false)//check if preset directory exists
-            {
-                DirectoryInfo di = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + @"Presets");//creates new directory if one does not exist
-            }
-            List<string> directories = new List<string>(Directory.GetDirectories(AppDomain.CurrentDomain.BaseDirectory + @"Presets\"));//gets list of directories
-            for (int i = 0; i < directories.Count; i++)//loops through each directory
-            {
-                string backupName = directories[i].Replace(AppDomain.CurrentDomain.BaseDirectory + @"Presets\", "");
-                loadPAGPresetToolStripMenuItem.DropDownItems.Add(backupName);//adds directory to both lists
-                deletePAGPresetToolStripMenuItem.DropDownItems.Add(backupName);
-            }
+
         }
 
         private void createPresetWithNameToolStripMenuItem_Click(object sender, EventArgs e)//creates a preset with the name in the text box
@@ -2214,6 +2195,39 @@ namespace PAG_Manager
         private void buttonClearAllChanges_Click(object sender, EventArgs e)
         {
             ReloadAllData(true);
+        }
+
+        private void BackupRestoreToolStripMenuItem_DropDownOpened(object sender, EventArgs e)
+        {
+            restoreDataToolStripMenuItem.DropDownItems.Clear();//items are cleared from the drop down item list
+            deleteBackupToolStripMenuItem.DropDownItems.Clear();
+            List<string> directories = new List<string>(Directory.GetDirectories(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\"));//gets a list of directories in the savedata folder
+            for (int i = 0; i < directories.Count; i++)//loops through every directory
+            {
+                string backupName = directories[i].Replace(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\", "");//removes all but the last part of the directory from the list of directories
+                if (backupName != "Current")//checks if the name of the backup is not called current - the main directory used for the program
+                {
+                    restoreDataToolStripMenuItem.DropDownItems.Add(backupName);//adds the list of backups to the lists of backups
+                    deleteBackupToolStripMenuItem.DropDownItems.Add(backupName);
+                }
+            }
+        }
+
+        private void PAGPresetToolStripMenuItem_DropDownOpened(object sender, EventArgs e)
+        {
+            loadPAGPresetToolStripMenuItem.DropDownItems.Clear();//clears any current preset items from drop down lists
+            deletePAGPresetToolStripMenuItem.DropDownItems.Clear();
+            if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Presets\") == false)//check if preset directory exists
+            {
+                DirectoryInfo di = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + @"Presets");//creates new directory if one does not exist
+            }
+            List<string> directories = new List<string>(Directory.GetDirectories(AppDomain.CurrentDomain.BaseDirectory + @"Presets\"));//gets list of directories
+            for (int i = 0; i < directories.Count; i++)//loops through each directory
+            {
+                string backupName = directories[i].Replace(AppDomain.CurrentDomain.BaseDirectory + @"Presets\", "");
+                loadPAGPresetToolStripMenuItem.DropDownItems.Add(backupName);//adds directory to both lists
+                deletePAGPresetToolStripMenuItem.DropDownItems.Add(backupName);
+            }
         }
     }
 }
