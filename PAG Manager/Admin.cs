@@ -247,6 +247,7 @@ namespace PAG_Manager
                 csvLines.Add(lineRead);
                 lineRead = csvReader.ReadLine();
             }
+            csvReader.Close();
             return csvLines;
         }
         public void BuildStudentInformation()//builds all student data

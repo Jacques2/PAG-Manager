@@ -1677,7 +1677,7 @@ namespace PAG_Manager
                 }
                 if (pagString != "")//returns the string of pags required to the user
                 {
-                    MessageBox.Show("PAG's Required to complete all skills: " + Environment.NewLine + Environment.NewLine + Convert.ToString(pagString), "PAG Report for " + dataGridViewStudentReport[1, e.RowIndex].Value + " " + dataGridViewStudentReport[2, e.RowIndex].Value);
+                    MessageBox.Show("PAG's Required to complete all skills at least once: " + Environment.NewLine + Environment.NewLine + Convert.ToString(pagString), "PAG Report for " + dataGridViewStudentReport[1, e.RowIndex].Value + " " + dataGridViewStudentReport[2, e.RowIndex].Value);
                 }
             }
         }
