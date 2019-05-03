@@ -68,12 +68,15 @@ namespace PAG_Manager
                 while (lineRead != null)//loops through every record, adding years and classes to an arraylist
                 {
                     seperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-                    if (year.Contains(seperatedLine[3]) == false)//checking if value already exsists
+                    if (seperatedLine[3] != "Archive")
                     {
-                        year.Add(seperatedLine[3]);
+                        if (year.Contains(seperatedLine[3]) == false)//checking if value already exsists
+                        {
+                            year.Add(seperatedLine[3]);
+                        }
+                        group.Add(new List<string> { seperatedLine[3], seperatedLine[4] });//build a list of lists of classes within years
+                        studentList.Add(new List<string> { seperatedLine[0], seperatedLine[3], seperatedLine[4], seperatedLine[1] + " " + seperatedLine[2] });//build a list of all students
                     }
-                    group.Add(new List<string> { seperatedLine[3], seperatedLine[4] });//build a list of lists of classes within years
-                    studentList.Add(new List<string> { seperatedLine[0], seperatedLine[3], seperatedLine[4], seperatedLine[1] + " " + seperatedLine[2] });//build a list of all students
                     lineRead = sr.ReadLine();
                 }
                 sr.Close();
