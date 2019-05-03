@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabAwardPag = new System.Windows.Forms.TabPage();
             this.tableLayoutPanelAwardPag = new System.Windows.Forms.TableLayoutPanel();
@@ -73,6 +73,12 @@
             this.buttonGenerateReport = new System.Windows.Forms.Button();
             this.progressBarStudentReport = new System.Windows.Forms.ProgressBar();
             this.dataGridViewStudentReport = new System.Windows.Forms.DataGridView();
+            this.StudentReportID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StudentReportFName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StudentReportSName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StudentReportYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StudentReportClass = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StudentReportCondition = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelReportSettings = new System.Windows.Forms.Label();
             this.flowLayoutPanelStudentReportSettings = new System.Windows.Forms.FlowLayoutPanel();
             this.labelFilterBy = new System.Windows.Forms.Label();
@@ -106,7 +112,6 @@
             this.button1 = new System.Windows.Forms.Button();
             this.buttonResetToDefault = new System.Windows.Forms.Button();
             this.checkBoxShowStudentID = new System.Windows.Forms.CheckBox();
-            this.buttonLoadDefaults = new System.Windows.Forms.Button();
             this.radioButtonAdmin = new System.Windows.Forms.RadioButton();
             this.buttonGetDirectory = new System.Windows.Forms.Button();
             this.tabSkillPagList = new System.Windows.Forms.TabPage();
@@ -195,8 +200,6 @@
             this.deletePAGPresetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hidePagViewColumnsWithoutPAGDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.startMaximisedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.adminToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openManualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -205,12 +208,7 @@
             this.heightDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sizeTypeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.saveFileDialogExportReport = new System.Windows.Forms.SaveFileDialog();
-            this.StudentReportID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StudentReportFName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StudentReportSName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StudentReportYear = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StudentReportClass = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StudentReportCondition = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.textBoxStudentFilter = new System.Windows.Forms.TextBox();
             this.tabControlMain.SuspendLayout();
             this.tabAwardPag.SuspendLayout();
             this.tableLayoutPanelAwardPag.SuspendLayout();
@@ -517,14 +515,14 @@
             this.dataGridViewStudentLookup.AllowUserToAddRows = false;
             this.dataGridViewStudentLookup.AllowUserToDeleteRows = false;
             this.dataGridViewStudentLookup.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewStudentLookup.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewStudentLookup.DefaultCellStyle = dataGridViewCellStyle11;
             this.dataGridViewStudentLookup.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewStudentLookup.Location = new System.Drawing.Point(183, 63);
             this.dataGridViewStudentLookup.Name = "dataGridViewStudentLookup";
@@ -737,6 +735,50 @@
             this.dataGridViewStudentReport.Size = new System.Drawing.Size(564, 471);
             this.dataGridViewStudentReport.TabIndex = 2;
             this.dataGridViewStudentReport.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStudentReport_CellEnter);
+            // 
+            // StudentReportID
+            // 
+            this.StudentReportID.HeaderText = "ID";
+            this.StudentReportID.Name = "StudentReportID";
+            this.StudentReportID.ReadOnly = true;
+            this.StudentReportID.Visible = false;
+            // 
+            // StudentReportFName
+            // 
+            this.StudentReportFName.HeaderText = "First Name";
+            this.StudentReportFName.Name = "StudentReportFName";
+            this.StudentReportFName.ReadOnly = true;
+            this.StudentReportFName.Width = 85;
+            // 
+            // StudentReportSName
+            // 
+            this.StudentReportSName.HeaderText = "Last Name";
+            this.StudentReportSName.Name = "StudentReportSName";
+            this.StudentReportSName.ReadOnly = true;
+            this.StudentReportSName.Width = 85;
+            // 
+            // StudentReportYear
+            // 
+            this.StudentReportYear.HeaderText = "Year";
+            this.StudentReportYear.Name = "StudentReportYear";
+            this.StudentReportYear.ReadOnly = true;
+            this.StudentReportYear.Width = 50;
+            // 
+            // StudentReportClass
+            // 
+            this.StudentReportClass.HeaderText = "Class";
+            this.StudentReportClass.Name = "StudentReportClass";
+            this.StudentReportClass.ReadOnly = true;
+            this.StudentReportClass.Width = 50;
+            // 
+            // StudentReportCondition
+            // 
+            this.StudentReportCondition.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.StudentReportCondition.DefaultCellStyle = dataGridViewCellStyle12;
+            this.StudentReportCondition.HeaderText = "Condition";
+            this.StudentReportCondition.Name = "StudentReportCondition";
+            this.StudentReportCondition.ReadOnly = true;
             // 
             // labelReportSettings
             // 
@@ -1120,7 +1162,6 @@
             this.tabGeneral.Controls.Add(this.button1);
             this.tabGeneral.Controls.Add(this.buttonResetToDefault);
             this.tabGeneral.Controls.Add(this.checkBoxShowStudentID);
-            this.tabGeneral.Controls.Add(this.buttonLoadDefaults);
             this.tabGeneral.Controls.Add(this.radioButtonAdmin);
             this.tabGeneral.Controls.Add(this.buttonGetDirectory);
             this.tabGeneral.Location = new System.Drawing.Point(4, 22);
@@ -1161,16 +1202,6 @@
             this.checkBoxShowStudentID.Text = "Show Student ID";
             this.checkBoxShowStudentID.UseVisualStyleBackColor = true;
             this.checkBoxShowStudentID.CheckedChanged += new System.EventHandler(this.checkBoxShowStudentID_CheckedChanged);
-            // 
-            // buttonLoadDefaults
-            // 
-            this.buttonLoadDefaults.Location = new System.Drawing.Point(53, 118);
-            this.buttonLoadDefaults.Name = "buttonLoadDefaults";
-            this.buttonLoadDefaults.Size = new System.Drawing.Size(120, 23);
-            this.buttonLoadDefaults.TabIndex = 3;
-            this.buttonLoadDefaults.Text = "Load Default Settings";
-            this.buttonLoadDefaults.UseVisualStyleBackColor = true;
-            this.buttonLoadDefaults.Click += new System.EventHandler(this.buttonLoadDefaults_Click);
             // 
             // radioButtonAdmin
             // 
@@ -1697,14 +1728,16 @@
             this.tableLayoutPanelStudentManagement.ColumnCount = 2;
             this.tableLayoutPanelStudentManagement.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180F));
             this.tableLayoutPanelStudentManagement.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelStudentManagement.Controls.Add(this.listBoxStudentManagementList, 0, 0);
             this.tableLayoutPanelStudentManagement.Controls.Add(this.tableLayoutPanelStudentInfo, 1, 0);
-            this.tableLayoutPanelStudentManagement.Controls.Add(this.tableLayoutPanelStudentMassMove, 1, 1);
+            this.tableLayoutPanelStudentManagement.Controls.Add(this.tableLayoutPanelStudentMassMove, 1, 2);
+            this.tableLayoutPanelStudentManagement.Controls.Add(this.listBoxStudentManagementList, 0, 1);
+            this.tableLayoutPanelStudentManagement.Controls.Add(this.textBoxStudentFilter, 0, 0);
             this.tableLayoutPanelStudentManagement.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelStudentManagement.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanelStudentManagement.Name = "tableLayoutPanelStudentManagement";
-            this.tableLayoutPanelStudentManagement.RowCount = 2;
-            this.tableLayoutPanelStudentManagement.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 125F));
+            this.tableLayoutPanelStudentManagement.RowCount = 3;
+            this.tableLayoutPanelStudentManagement.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanelStudentManagement.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanelStudentManagement.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanelStudentManagement.Size = new System.Drawing.Size(762, 479);
             this.tableLayoutPanelStudentManagement.TabIndex = 0;
@@ -1713,10 +1746,10 @@
             // 
             this.listBoxStudentManagementList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listBoxStudentManagementList.FormattingEnabled = true;
-            this.listBoxStudentManagementList.Location = new System.Drawing.Point(3, 3);
+            this.listBoxStudentManagementList.Location = new System.Drawing.Point(3, 28);
             this.listBoxStudentManagementList.Name = "listBoxStudentManagementList";
             this.tableLayoutPanelStudentManagement.SetRowSpan(this.listBoxStudentManagementList, 2);
-            this.listBoxStudentManagementList.Size = new System.Drawing.Size(174, 473);
+            this.listBoxStudentManagementList.Size = new System.Drawing.Size(174, 448);
             this.listBoxStudentManagementList.TabIndex = 0;
             this.listBoxStudentManagementList.SelectedIndexChanged += new System.EventHandler(this.listBoxStudentManagementList_SelectedIndexChanged);
             // 
@@ -1742,6 +1775,7 @@
             this.tableLayoutPanelStudentInfo.Location = new System.Drawing.Point(183, 3);
             this.tableLayoutPanelStudentInfo.Name = "tableLayoutPanelStudentInfo";
             this.tableLayoutPanelStudentInfo.RowCount = 4;
+            this.tableLayoutPanelStudentManagement.SetRowSpan(this.tableLayoutPanelStudentInfo, 2);
             this.tableLayoutPanelStudentInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanelStudentInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanelStudentInfo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
@@ -1985,7 +2019,6 @@
             this.backupRestoreToolStripMenuItem,
             this.PAGPresetToolStripMenuItem,
             this.viewToolStripMenuItem,
-            this.settingsToolStripMenuItem,
             this.adminToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.menuStripMain.Location = new System.Drawing.Point(0, 0);
@@ -2011,7 +2044,7 @@
             this.toolStripTextBoxBackupName,
             this.backupWithNameToolStripMenuItem});
             this.backupDataToolStripMenuItem.Name = "backupDataToolStripMenuItem";
-            this.backupDataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.backupDataToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.backupDataToolStripMenuItem.Text = "Backup Data";
             this.backupDataToolStripMenuItem.DropDownOpened += new System.EventHandler(this.backupDataToolStripMenuItem_DropDownOpened);
             // 
@@ -2032,14 +2065,14 @@
             // restoreDataToolStripMenuItem
             // 
             this.restoreDataToolStripMenuItem.Name = "restoreDataToolStripMenuItem";
-            this.restoreDataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.restoreDataToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.restoreDataToolStripMenuItem.Text = "Restore Data";
             this.restoreDataToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.restoreDataToolStripMenuItem_DropDownItemClicked);
             // 
             // deleteBackupToolStripMenuItem
             // 
             this.deleteBackupToolStripMenuItem.Name = "deleteBackupToolStripMenuItem";
-            this.deleteBackupToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteBackupToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.deleteBackupToolStripMenuItem.Text = "Delete Backup";
             this.deleteBackupToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.deleteBackupToolStripMenuItem_DropDownItemClicked);
             // 
@@ -2060,7 +2093,7 @@
             this.toolStripTextBoxCreatePreset,
             this.createPresetWithNameToolStripMenuItem});
             this.createPAGPresetToolStripMenuItem.Name = "createPAGPresetToolStripMenuItem";
-            this.createPAGPresetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.createPAGPresetToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.createPAGPresetToolStripMenuItem.Text = "Create PAG Preset";
             this.createPAGPresetToolStripMenuItem.DropDownOpened += new System.EventHandler(this.createPAGPresetToolStripMenuItem_DropDownOpened);
             // 
@@ -2080,14 +2113,14 @@
             // loadPAGPresetToolStripMenuItem
             // 
             this.loadPAGPresetToolStripMenuItem.Name = "loadPAGPresetToolStripMenuItem";
-            this.loadPAGPresetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadPAGPresetToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.loadPAGPresetToolStripMenuItem.Text = "Load PAG Preset";
             this.loadPAGPresetToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.loadPAGPresetToolStripMenuItem_DropDownItemClicked);
             // 
             // deletePAGPresetToolStripMenuItem
             // 
             this.deletePAGPresetToolStripMenuItem.Name = "deletePAGPresetToolStripMenuItem";
-            this.deletePAGPresetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deletePAGPresetToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
             this.deletePAGPresetToolStripMenuItem.Text = "Delete PAG Preset";
             this.deletePAGPresetToolStripMenuItem.DropDownItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.deletePAGPresetToolStripMenuItem_DropDownItemClicked);
             // 
@@ -2106,22 +2139,6 @@
             this.hidePagViewColumnsWithoutPAGDataToolStripMenuItem.Size = new System.Drawing.Size(296, 22);
             this.hidePagViewColumnsWithoutPAGDataToolStripMenuItem.Text = "Hide Pag View Columns without PAG data";
             this.hidePagViewColumnsWithoutPAGDataToolStripMenuItem.CheckStateChanged += new System.EventHandler(this.hidePagViewColumnsWithoutPAGDataToolStripMenuItem_CheckStateChanged);
-            // 
-            // settingsToolStripMenuItem
-            // 
-            this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.startMaximisedToolStripMenuItem});
-            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
-            this.settingsToolStripMenuItem.Text = "Settings";
-            // 
-            // startMaximisedToolStripMenuItem
-            // 
-            this.startMaximisedToolStripMenuItem.CheckOnClick = true;
-            this.startMaximisedToolStripMenuItem.Name = "startMaximisedToolStripMenuItem";
-            this.startMaximisedToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
-            this.startMaximisedToolStripMenuItem.Text = "Start Maximised";
-            this.startMaximisedToolStripMenuItem.Click += new System.EventHandler(this.startMaximisedToolStripMenuItem_Click);
             // 
             // adminToolStripMenuItem
             // 
@@ -2177,49 +2194,14 @@
             this.saveFileDialogExportReport.Title = "Export Report";
             this.saveFileDialogExportReport.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialogExportReport_FileOk);
             // 
-            // StudentReportID
+            // textBoxStudentFilter
             // 
-            this.StudentReportID.HeaderText = "ID";
-            this.StudentReportID.Name = "StudentReportID";
-            this.StudentReportID.ReadOnly = true;
-            this.StudentReportID.Visible = false;
-            // 
-            // StudentReportFName
-            // 
-            this.StudentReportFName.HeaderText = "First Name";
-            this.StudentReportFName.Name = "StudentReportFName";
-            this.StudentReportFName.ReadOnly = true;
-            this.StudentReportFName.Width = 85;
-            // 
-            // StudentReportSName
-            // 
-            this.StudentReportSName.HeaderText = "Last Name";
-            this.StudentReportSName.Name = "StudentReportSName";
-            this.StudentReportSName.ReadOnly = true;
-            this.StudentReportSName.Width = 85;
-            // 
-            // StudentReportYear
-            // 
-            this.StudentReportYear.HeaderText = "Year";
-            this.StudentReportYear.Name = "StudentReportYear";
-            this.StudentReportYear.ReadOnly = true;
-            this.StudentReportYear.Width = 50;
-            // 
-            // StudentReportClass
-            // 
-            this.StudentReportClass.HeaderText = "Class";
-            this.StudentReportClass.Name = "StudentReportClass";
-            this.StudentReportClass.ReadOnly = true;
-            this.StudentReportClass.Width = 50;
-            // 
-            // StudentReportCondition
-            // 
-            this.StudentReportCondition.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.StudentReportCondition.DefaultCellStyle = dataGridViewCellStyle2;
-            this.StudentReportCondition.HeaderText = "Condition";
-            this.StudentReportCondition.Name = "StudentReportCondition";
-            this.StudentReportCondition.ReadOnly = true;
+            this.textBoxStudentFilter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxStudentFilter.Location = new System.Drawing.Point(3, 3);
+            this.textBoxStudentFilter.Name = "textBoxStudentFilter";
+            this.textBoxStudentFilter.Size = new System.Drawing.Size(174, 20);
+            this.textBoxStudentFilter.TabIndex = 4;
+            this.textBoxStudentFilter.TextChanged += new System.EventHandler(this.TextBox1_TextChanged);
             // 
             // FormMain
             // 
@@ -2294,6 +2276,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudentImport)).EndInit();
             this.tabStudentManagement.ResumeLayout(false);
             this.tableLayoutPanelStudentManagement.ResumeLayout(false);
+            this.tableLayoutPanelStudentManagement.PerformLayout();
             this.tableLayoutPanelStudentInfo.ResumeLayout(false);
             this.tableLayoutPanelStudentInfo.PerformLayout();
             this.tableLayoutPanelStudentMassMove.ResumeLayout(false);
@@ -2344,7 +2327,6 @@
         private System.Windows.Forms.ToolStripButton skillListToolStripButtonAddRecord;
         private System.Windows.Forms.ToolStripButton skillListToolStripButtonRemovePag;
         private System.Windows.Forms.ListBox listBoxSkillList;
-        private System.Windows.Forms.Button buttonLoadDefaults;
         private System.Windows.Forms.ToolStripButton pagListToolStripButtonSave;
         private System.Windows.Forms.ToolStripButton skillListToolStripButtonSave;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelPagSkillRelation;
@@ -2404,8 +2386,6 @@
         private System.Windows.Forms.ToolStripMenuItem hidePagViewColumnsWithoutPAGDataToolStripMenuItem;
         private System.Windows.Forms.CheckBox checkBoxShowStudentID;
         private System.Windows.Forms.DataGridView dataGridViewStudentLookup;
-        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem startMaximisedToolStripMenuItem;
         private System.Windows.Forms.Button buttonLookupSubmitModifications;
         private System.Windows.Forms.DataGridViewTextBoxColumn StudentID;
         private System.Windows.Forms.DataGridViewTextBoxColumn StudentFName;
@@ -2487,6 +2467,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn StudentReportYear;
         private System.Windows.Forms.DataGridViewTextBoxColumn StudentReportClass;
         private System.Windows.Forms.DataGridViewTextBoxColumn StudentReportCondition;
+        private System.Windows.Forms.TextBox textBoxStudentFilter;
     }
 }
 

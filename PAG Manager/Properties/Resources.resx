@@ -124,23 +124,8 @@
   <data name="EPPlusXml" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\MyAssets\EPPlus.xml;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="PagGroup" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\MyAssets\PagGroup.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="PagList" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\MyAssets\PagList.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="PagSkillRelation" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\MyAssets\PagSkillRelation.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
   <data name="PAG_Manager_Help" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PAG Manager Help.chm;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="SkillList" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\MyAssets\SkillList.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="SkillRequirement" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\MyAssets\SkillRequirement.csv;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\MyAssets\temp\1.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

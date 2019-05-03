@@ -18,6 +18,7 @@ namespace PAG_Manager
         }
         SortedList<int, string> pagList = new SortedList<int, string>();
         SortedList<int, string> skillList = new SortedList<int, string>();
+        List<int> positioning = new List<int>();
         public void LoadData()
         {
             string lineRead;
@@ -252,13 +253,17 @@ namespace PAG_Manager
         {
             //dictionary has key = studentID, value = tuple(FirstName,LastName,Year,Class)
             studentInfo.Clear();
+            positioning.Clear();
             StreamReader studentReader = new StreamReader(fileLocation + "StudentRecord.csv");
             string studentRead = studentReader.ReadLine();
             string[] seperatedLine;
+            int index = -1;
             while (studentRead != null)
             {
+                index++;
                 seperatedLine = studentRead.Split(new[] { "," }, StringSplitOptions.None);
                 studentInfo.Add(Convert.ToInt32(seperatedLine[0]), Tuple.Create(seperatedLine[1], seperatedLine[2], seperatedLine[3], seperatedLine[4]));
+                positioning.Add(index);
                 studentRead = studentReader.ReadLine();
             }
             studentReader.Close();
@@ -269,11 +274,26 @@ namespace PAG_Manager
         }
         public Tuple<string, string, string, string> GetInformation(int position)//gets information about a student from its position
         {
-            return studentInfo.ElementAt(position).Value;
+            return studentInfo.ElementAt(positioning[position]).Value;
+        }
+        public SortedList<int, Tuple<string, string, string, string>> FilterList(string filter)
+        {
+            SortedList<int, Tuple<string, string, string, string>> filteredStudents = new SortedList<int, Tuple<string, string, string, string>>();
+            positioning.Clear();
+            for (int i = 0; i < studentInfo.Count; i++)
+            {
+                var student = studentInfo.ElementAt(i).Value;
+                if ((student.Item1.ToLower() + " " + student.Item2.ToLower() + " " + student.Item3.ToLower() + " " + student.Item4.ToLower()).Contains(filter))
+                {
+                    filteredStudents.Add(studentInfo.ElementAt(i).Key, new Tuple<string, string, string, string>(student.Item1, student.Item2, student.Item3, student.Item4));
+                    positioning.Add(i);
+                }
+            }
+            return filteredStudents;
         }
         public void DeleteStudent(int position)//deletes a student
         {
-            int studentID = studentInfo.ElementAt(position).Key;
+            int studentID = studentInfo.ElementAt(positioning[position]).Key;
             AddStudentsToDelete(studentID);
             studentInfo.RemoveAt(position);
         }
@@ -310,7 +330,7 @@ namespace PAG_Manager
         }
         public void ModifyStudent(int position, string fName, string lName, string year, string theClass)//modifys the student record
         {
-            int key = studentInfo.ElementAt(position).Key;
+            int key = studentInfo.ElementAt(positioning[position]).Key;
             studentInfo.Remove(key);
             studentInfo.Add(key, new Tuple<string, string, string, string>(fName, lName, year, theClass));
         }

@@ -50,26 +50,9 @@ namespace PAG_Manager
             setupSettings.Close();
             // HIDING ADMIN TAB
             tabControlMain.TabPages.Remove(tabAdmin); //This line may be disabled while testing admin features, do not delete!
-            ReloadAllSettings();
             // ACTIVITY/CONTENT SELECTION
             // LOAD ALL DATA
             ReloadAllData(false);
-        }
-        private void ReloadAllSettings()
-        {
-            string lineRead;
-            string[] seperatedLine;
-            StreamReader sr = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\settings.dat");//opens the student record file to start reading names
-            lineRead = sr.ReadLine();
-            if (lineRead != "" && lineRead != null)
-            {
-                seperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
-                if (seperatedLine[1] == "true")
-                {
-                    this.WindowState = FormWindowState.Maximized;
-                }
-                sr.Close();
-            }
         }
         private void ReloadAllData(bool admin)//Reloads all data into the program when big changes are made
         {//The parameter decides if the admin stuff will be reloaded. This saves processing power if the user does not need admin functions.
@@ -121,16 +104,9 @@ namespace PAG_Manager
                 //student information tab 
                 ad.BuildStudentInformation();
                 ad.ClearStudentsToDelete();
-                listBoxStudentManagementList.Items.Clear();
                 comboBoxInputType.SelectedIndex = -1;
-                SortedList<int, Tuple<string, string, string, string>> studentInfo = new SortedList<int, Tuple<string, string, string, string>>(ad.GetStudentInformation());
-                for (int i = 0; i < studentInfo.Count; i++)
-                {
-                    string fName = studentInfo.ElementAt(i).Value.Item1;
-                    string lName = studentInfo.ElementAt(i).Value.Item2;
-                    string theClass = studentInfo.ElementAt(i).Value.Item4;
-                    listBoxStudentManagementList.Items.Add(fName + " " + lName + " - " + theClass);
-                }
+                textBoxStudentFilter.Text = "";
+                FilterStudentManagement();
                 //disabling things that should not be edited straight away
                 checkedListBoxPagList.Enabled = false;
                 checkedListBoxSkillRelation.Enabled = false;
@@ -709,17 +685,6 @@ namespace PAG_Manager
                     MessageBox.Show("This skill has been awarded to at least one student and cannot be removed", "PAG Manager");
                 }
             }
-        }
-
-        private void buttonLoadDefaults_Click(object sender, EventArgs e)//ADMIN: Writes defaults saved internally within the program into external files that can be used/modified by the program
-        {
-            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagList.csv", (PAG_Manager.Properties.Resources.PagList));
-            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\SkillList.csv", (PAG_Manager.Properties.Resources.SkillList));
-            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagSkillRelation.csv", (PAG_Manager.Properties.Resources.PagSkillRelation));
-            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagGroup.csv", (PAG_Manager.Properties.Resources.PagGroup));
-            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\SkillRequirement.csv", (PAG_Manager.Properties.Resources.SkillRequirement));
-            MessageBox.Show("Defaults successfully loaded", "PAG Manager");
-            ReloadAllData(true);
         }
 
         private void pagListToolStripButtonSave_Click(object sender, EventArgs e)//ADMIN: Saves all PAG Data
@@ -1429,14 +1394,6 @@ namespace PAG_Manager
             }
         }
 
-        private void startMaximisedToolStripMenuItem_Click(object sender, EventArgs e)//set start on maximised option
-        {
-            if (startMaximisedToolStripMenuItem.Checked)
-            {
-
-            }
-        }
-
         private void buttonLookupSubmitModifications_Click(object sender, EventArgs e)//submit student lookup modifications
         {
             //first builds a new arraylist to store all the new data to be written to file
@@ -1977,15 +1934,8 @@ namespace PAG_Manager
                 }
                 ad.FindAndReplace(inputType, inputItem, outputItem);
                 //rebuilds the listbox with new information
-                listBoxStudentManagementList.Items.Clear();//clears the list of students for rebuilding
-                SortedList<int, Tuple<string, string, string, string>> studentInfo = new SortedList<int, Tuple<string, string, string, string>>(ad.GetStudentInformation());//gets updated student information
-                for (int i = 0; i < studentInfo.Count; i++)//loops through every student
-                {
-                    string fName = studentInfo.ElementAt(i).Value.Item1;
-                    string lName = studentInfo.ElementAt(i).Value.Item2;
-                    string theClass = studentInfo.ElementAt(i).Value.Item4;
-                    listBoxStudentManagementList.Items.Add(fName + " " + lName + " - " + theClass);//adds record to the list of students
-                }
+                textBoxStudentFilter.Text = "";
+                FilterStudentManagement();
                 textBoxStudentFName.Text = "";//clears all text boxes
                 textBoxStudentLName.Text = "";
                 textBoxStudentYear.Text = "";
@@ -2227,6 +2177,29 @@ namespace PAG_Manager
                 string backupName = directories[i].Replace(AppDomain.CurrentDomain.BaseDirectory + @"Presets\", "");
                 loadPAGPresetToolStripMenuItem.DropDownItems.Add(backupName);//adds directory to both lists
                 deletePAGPresetToolStripMenuItem.DropDownItems.Add(backupName);
+            }
+        }
+
+        private void TextBox1_TextChanged(object sender, EventArgs e)
+        {
+            ReplaceCommas(sender);
+            FilterStudentManagement();
+        }
+        private void FilterStudentManagement()
+        {
+            listBoxStudentManagementList.SelectedIndex = -1;
+            textBoxStudentFName.Text = "";//clears all text boxes
+            textBoxStudentLName.Text = "";
+            textBoxStudentYear.Text = "";
+            textBoxStudentClass.Text = "";
+            listBoxStudentManagementList.Items.Clear();//clears the list of students for rebuilding
+            SortedList<int, Tuple<string, string, string, string>> studentInfo = new SortedList<int, Tuple<string, string, string, string>>(ad.FilterList(textBoxStudentFilter.Text.ToLower()));
+            for (int i = 0; i < studentInfo.Count; i++)
+            {
+                string fName = studentInfo.ElementAt(i).Value.Item1;
+                string lName = studentInfo.ElementAt(i).Value.Item2;
+                string theClass = studentInfo.ElementAt(i).Value.Item4;
+                listBoxStudentManagementList.Items.Add(fName + " " + lName + " - " + theClass);
             }
         }
     }
