@@ -20,7 +20,7 @@ namespace PAG_Manager
         AwardPag ap = new AwardPag(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\");
         StudentReport sr = new StudentReport(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\");
 
-        public FormMain()//Initialising the form
+        public FormMain()//Initialising the form 
         {
             InitializeComponent();
         }
