@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace PAG_Manager
 {
@@ -1113,6 +1114,13 @@ namespace PAG_Manager
                 dataGridViewStudentImport.Rows.Add(seperatedLine);
             }
             buttonAddStudentRecord.Enabled = true;
+            for (int row = 0; row < dataGridViewStudentImport.RowCount-1; row++)
+            {
+                for (int column = 0; column < dataGridViewStudentImport.ColumnCount; column++)
+                {
+                    dataGridViewStudentImport.Rows[row].Cells[column].Value = Regex.Replace(dataGridViewStudentImport.Rows[row].Cells[column].Value.ToString(), @"[^a-zA-Z0-9\s]", string.Empty);
+                }
+            }
         }
 
         private void openFileDialogImportCSV_HelpRequest(object sender, EventArgs e)
@@ -2201,6 +2209,11 @@ namespace PAG_Manager
                 string theClass = studentInfo.ElementAt(i).Value.Item4;
                 listBoxStudentManagementList.Items.Add(fName + " " + lName + " - " + theClass);
             }
+        }
+
+        private void DataGridViewStudentImport_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            dataGridViewStudentImport.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = Regex.Replace(dataGridViewStudentImport.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString(), @"[^a-zA-Z0-9\s]", string.Empty);
         }
     }
 }
