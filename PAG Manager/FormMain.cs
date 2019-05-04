@@ -2122,10 +2122,10 @@ namespace PAG_Manager
         {
             if (e.ColumnIndex == 1)//checks if the numbers have been edited
             {
-                string value = dataGridViewSkillRequirement.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
                 int number;
                 try//try and turn it into an int
                 {
+                    string value = dataGridViewSkillRequirement.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
                     number = Convert.ToInt32(value);
                 }
                 catch (Exception)

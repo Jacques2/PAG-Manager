@@ -92,7 +92,8 @@ namespace PAG_Manager
         }
         public void AddSkill()//adds a skill to the list
         {
-            skillList.Add(skillList.ElementAt(skillList.Count - 1).Key + 1, "New Skill");
+            int key = skillList.ElementAt(skillList.Count - 1).Key + 1;
+            skillList.Add(key, "New Skill");
         }
         public void RenamePag(int position, string newName)//renames a pag
         {
@@ -121,6 +122,42 @@ namespace PAG_Manager
                 sw.WriteLine(skillList.ElementAt(i).Key + "," + skillList.ElementAt(i).Value);
             }
             sw.Close();
+            //loads all requirements into a data type
+            Dictionary<int, int> skillRequirements = new Dictionary<int, int>();
+            Dictionary<int, int> newSkillRequirements = new Dictionary<int, int>();
+            string[] linesRead = File.ReadAllLines(fileLocation + "SkillRequirement.csv");
+            for (int i = 0; i < linesRead.Count(); i++)
+            {
+                string[] seperatedLine = linesRead[i].Split(new[] { "," }, StringSplitOptions.None);
+                if (!skillRequirements.ContainsKey(Convert.ToInt32(seperatedLine[0])))
+                {
+                    skillRequirements.Add(Convert.ToInt32(seperatedLine[0]), Convert.ToInt32(seperatedLine[1]));
+                }
+            }
+            //loops through each skill record
+            StreamReader sr = new StreamReader(fileLocation + "SkillList.csv");
+            string lineRead = sr.ReadLine();
+            while (lineRead != null)
+            {
+                string[] seperatedLine = lineRead.Split(new[] { "," }, StringSplitOptions.None);
+                if (skillRequirements.ContainsKey(Convert.ToInt32(seperatedLine[0])))
+                {
+                    newSkillRequirements.Add(Convert.ToInt32(seperatedLine[0]), skillRequirements[Convert.ToInt32(seperatedLine[0])]);
+                }
+                else
+                {
+                    newSkillRequirements.Add(Convert.ToInt32(seperatedLine[0]), 1);
+                }
+                lineRead = sr.ReadLine();
+            }
+            sr.Close();
+            //writes all ids back to file
+            StreamWriter sw2 = new StreamWriter(fileLocation + "SkillRequirement.csv");
+            for (int i = 0; i < newSkillRequirements.Count; i++)
+            {
+                sw2.WriteLine(newSkillRequirements.ElementAt(i).Key + "," + newSkillRequirements.ElementAt(i).Value);
+            }
+            sw2.Close();
         }
         HashSet<int> pagsInUse = new HashSet<int>();
         public void BuildPagsInUse()//builds a list of pags that are awarded to students
