@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabAwardPag = new System.Windows.Forms.TabPage();
@@ -213,6 +213,10 @@
             this.heightDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sizeTypeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.saveFileDialogExportReport = new System.Windows.Forms.SaveFileDialog();
+            this.tableLayoutPanelSkillView = new System.Windows.Forms.TableLayoutPanel();
+            this.flowLayoutPanelSkillSearch = new System.Windows.Forms.FlowLayoutPanel();
+            this.labelSkillFilter = new System.Windows.Forms.Label();
+            this.textBoxSkillSearch = new System.Windows.Forms.TextBox();
             this.tabControlMain.SuspendLayout();
             this.tabAwardPag.SuspendLayout();
             this.tableLayoutPanelAwardPag.SuspendLayout();
@@ -264,6 +268,8 @@
             this.tableLayoutPanelStudentInfo.SuspendLayout();
             this.tableLayoutPanelStudentMassMove.SuspendLayout();
             this.menuStripMain.SuspendLayout();
+            this.tableLayoutPanelSkillView.SuspendLayout();
+            this.flowLayoutPanelSkillSearch.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlMain
@@ -521,14 +527,14 @@
             this.dataGridViewStudentLookup.AllowUserToAddRows = false;
             this.dataGridViewStudentLookup.AllowUserToDeleteRows = false;
             this.dataGridViewStudentLookup.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewStudentLookup.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewStudentLookup.DefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridViewStudentLookup.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewStudentLookup.Location = new System.Drawing.Point(183, 63);
             this.dataGridViewStudentLookup.Name = "dataGridViewStudentLookup";
@@ -652,8 +658,7 @@
             // 
             // tabSkills
             // 
-            this.tabSkills.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.tabSkills.Controls.Add(this.dataGridViewSkills);
+            this.tabSkills.Controls.Add(this.tableLayoutPanelSkillView);
             this.tabSkills.Location = new System.Drawing.Point(4, 22);
             this.tabSkills.Name = "tabSkills";
             this.tabSkills.Padding = new System.Windows.Forms.Padding(3);
@@ -665,6 +670,7 @@
             // 
             this.dataGridViewSkills.AllowUserToAddRows = false;
             this.dataGridViewSkills.AllowUserToDeleteRows = false;
+            this.dataGridViewSkills.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridViewSkills.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewSkills.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewSkills.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -674,11 +680,14 @@
             this.StudentYear,
             this.StudentClass});
             this.dataGridViewSkills.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewSkills.Location = new System.Drawing.Point(3, 3);
+            this.dataGridViewSkills.GridColor = System.Drawing.SystemColors.Control;
+            this.dataGridViewSkills.Location = new System.Drawing.Point(3, 38);
             this.dataGridViewSkills.Name = "dataGridViewSkills";
             this.dataGridViewSkills.ReadOnly = true;
-            this.dataGridViewSkills.Size = new System.Drawing.Size(770, 505);
+            this.dataGridViewSkills.RowHeadersVisible = false;
+            this.dataGridViewSkills.Size = new System.Drawing.Size(764, 464);
             this.dataGridViewSkills.TabIndex = 0;
+            this.dataGridViewSkills.SelectionChanged += new System.EventHandler(this.DataGridViewSkills_SelectionChanged);
             // 
             // StudentID
             // 
@@ -825,8 +834,8 @@
             // StudentReportCondition
             // 
             this.StudentReportCondition.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.StudentReportCondition.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.StudentReportCondition.DefaultCellStyle = dataGridViewCellStyle8;
             this.StudentReportCondition.HeaderText = "Condition";
             this.StudentReportCondition.Name = "StudentReportCondition";
             this.StudentReportCondition.ReadOnly = true;
@@ -2255,6 +2264,48 @@
             this.saveFileDialogExportReport.Title = "Export Report";
             this.saveFileDialogExportReport.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialogExportReport_FileOk);
             // 
+            // tableLayoutPanelSkillView
+            // 
+            this.tableLayoutPanelSkillView.ColumnCount = 1;
+            this.tableLayoutPanelSkillView.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelSkillView.Controls.Add(this.flowLayoutPanelSkillSearch, 0, 0);
+            this.tableLayoutPanelSkillView.Controls.Add(this.dataGridViewSkills, 0, 1);
+            this.tableLayoutPanelSkillView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelSkillView.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanelSkillView.Name = "tableLayoutPanelSkillView";
+            this.tableLayoutPanelSkillView.RowCount = 2;
+            this.tableLayoutPanelSkillView.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanelSkillView.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelSkillView.Size = new System.Drawing.Size(770, 505);
+            this.tableLayoutPanelSkillView.TabIndex = 1;
+            // 
+            // flowLayoutPanelSkillSearch
+            // 
+            this.flowLayoutPanelSkillSearch.Controls.Add(this.labelSkillFilter);
+            this.flowLayoutPanelSkillSearch.Controls.Add(this.textBoxSkillSearch);
+            this.flowLayoutPanelSkillSearch.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanelSkillSearch.Location = new System.Drawing.Point(3, 3);
+            this.flowLayoutPanelSkillSearch.Name = "flowLayoutPanelSkillSearch";
+            this.flowLayoutPanelSkillSearch.Size = new System.Drawing.Size(764, 29);
+            this.flowLayoutPanelSkillSearch.TabIndex = 0;
+            // 
+            // labelSkillFilter
+            // 
+            this.labelSkillFilter.Location = new System.Drawing.Point(3, 0);
+            this.labelSkillFilter.Name = "labelSkillFilter";
+            this.labelSkillFilter.Size = new System.Drawing.Size(145, 25);
+            this.labelSkillFilter.TabIndex = 5;
+            this.labelSkillFilter.Text = "Filter by Name, Year or Class:";
+            this.labelSkillFilter.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // textBoxSkillSearch
+            // 
+            this.textBoxSkillSearch.Location = new System.Drawing.Point(154, 3);
+            this.textBoxSkillSearch.Name = "textBoxSkillSearch";
+            this.textBoxSkillSearch.Size = new System.Drawing.Size(184, 20);
+            this.textBoxSkillSearch.TabIndex = 6;
+            this.textBoxSkillSearch.TextChanged += new System.EventHandler(this.TextBoxSkillSearch_TextChanged);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2338,6 +2389,9 @@
             this.tableLayoutPanelStudentMassMove.PerformLayout();
             this.menuStripMain.ResumeLayout(false);
             this.menuStripMain.PerformLayout();
+            this.tableLayoutPanelSkillView.ResumeLayout(false);
+            this.flowLayoutPanelSkillSearch.ResumeLayout(false);
+            this.flowLayoutPanelSkillSearch.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2527,6 +2581,10 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelPAGSearch;
         private System.Windows.Forms.Label labelPagViewFilter;
         private System.Windows.Forms.TextBox textBoxPagSearch;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelSkillView;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelSkillSearch;
+        private System.Windows.Forms.Label labelSkillFilter;
+        private System.Windows.Forms.TextBox textBoxSkillSearch;
     }
 }
 

@@ -161,12 +161,12 @@ namespace PAG_Manager
             dataGridViewPag.Rows.Clear();
 
             // SKILLS TABLE
-            //AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\"
             ArrayList skillHeaders = sd.LoadHeaders();
             for (int i = 0; i < skillHeaders.Count; i++)
             {
                 dataGridViewSkills.Columns.Add("Skill" + Convert.ToString(i), Convert.ToString(skillHeaders[i]));
             }
+            List<ArrayList> skillTable = new List<ArrayList>();//used to save the whole table
             ArrayList skillData = new ArrayList();
             skillData = sd.LoadSkillData();
             for (int row = 0; row < skillData.Count; row++)
@@ -175,8 +175,10 @@ namespace PAG_Manager
                 if (seperatedLine[3] != "Archive")
                 {
                     dataGridViewSkills.Rows.Add(seperatedLine);
+                    skillTable.Add(new ArrayList(seperatedLine));
                 }
             }
+            sd.SetTable(skillTable);
             dataGridViewSkills.Columns[0].Visible = false;
             // PAG DATES TABLE
             ArrayList pagHeaders = pd.LoadHeaders();
@@ -184,7 +186,7 @@ namespace PAG_Manager
             {
                 dataGridViewPag.Columns.Add("Pag" + Convert.ToString(i), Convert.ToString(pagHeaders[i]));
             }
-            List<ArrayList> table = new List<ArrayList>();//used to save the whole table
+            List<ArrayList> pagTable = new List<ArrayList>();//used to save the whole table
             ArrayList tableData = new ArrayList();
             tableData = pd.LoadPagData();
             for (int row = 0; row < tableData.Count; row++)
@@ -193,10 +195,10 @@ namespace PAG_Manager
                 if (seperatedLine[3] != "Archive")
                 {
                     dataGridViewPag.Rows.Add(seperatedLine);
-                    table.Add(new ArrayList(seperatedLine));
+                    pagTable.Add(new ArrayList(seperatedLine));
                 }
             }
-            pd.SetTable(table);
+            pd.SetTable(pagTable);
             dataGridViewPag.Columns[0].Visible = false;
             //Tree view - Years, classes and students
             treeViewYearSelect.Nodes.Clear();
@@ -2238,6 +2240,22 @@ namespace PAG_Manager
                         dataGridViewPag.Rows[row].Cells[cell].Style.BackColor = Color.Gold;//colours gold if completed
                     }
                 }
+            }
+        }
+
+        private void DataGridViewSkills_SelectionChanged(object sender, EventArgs e)
+        {
+            dataGridViewSkills.ClearSelection();
+        }
+
+        private void TextBoxSkillSearch_TextChanged(object sender, EventArgs e)
+        {
+            List<ArrayList> filteredTable = new List<ArrayList>();
+            filteredTable = sd.FilterTable(textBoxSkillSearch.Text);
+            dataGridViewSkills.Rows.Clear();
+            foreach (var row in filteredTable)
+            {
+                dataGridViewSkills.Rows.Add(row.ToArray());
             }
         }
     }
