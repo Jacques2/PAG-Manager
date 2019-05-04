@@ -10,6 +10,7 @@ namespace PAG_Manager
     {
         protected string fileLocation;
         protected ArrayList headers = new ArrayList();
+        protected List<ArrayList> table = new List<ArrayList>();
         public Database()
         {
             fileLocation = AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\";
@@ -40,6 +41,26 @@ namespace PAG_Manager
         public ArrayList GetHeaders()//gets the headers that have just been generated
         {
             return headers;
+        }
+
+        public void SetTable(List<ArrayList> inputTable)
+        {
+            table.Clear();
+            table = inputTable;
+        }
+
+        public List<ArrayList> FilterTable(string filter)
+        {
+            List<ArrayList> filteredTable = new List<ArrayList>();
+            for (int i = 0; i < table.Count; i++)
+            {
+                var item = table.ElementAt(i);
+                if ((item[1] + " " + item[2] + " " + item[3] + " " + item[4]).ToLower().Contains(filter.ToLower()))
+                {
+                    filteredTable.Add(item);
+                }
+            }
+            return filteredTable;
         }
     }
 

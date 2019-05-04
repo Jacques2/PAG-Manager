@@ -20,6 +20,8 @@ namespace PAG_Manager
         PagSkillRelation psr = new PagSkillRelation(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\");
         AwardPag ap = new AwardPag(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\");
         StudentReport sr = new StudentReport(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\");
+        SkillsDatabase sd = new SkillsDatabase();
+        PagDatabase pd = new PagDatabase();
 
         public FormMain()//Initialising the form 
         {
@@ -160,7 +162,6 @@ namespace PAG_Manager
 
             // SKILLS TABLE
             //AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\"
-            SkillsDatabase sd = new SkillsDatabase();
             ArrayList skillHeaders = sd.LoadHeaders();
             for (int i = 0; i < skillHeaders.Count; i++)
             {
@@ -178,12 +179,12 @@ namespace PAG_Manager
             }
             dataGridViewSkills.Columns[0].Visible = false;
             // PAG DATES TABLE
-            PagDatabase pd = new PagDatabase();
             ArrayList pagHeaders = pd.LoadHeaders();
             for (int i = 0; i < pagHeaders.Count; i++)
             {
                 dataGridViewPag.Columns.Add("Pag" + Convert.ToString(i), Convert.ToString(pagHeaders[i]));
             }
+            List<ArrayList> table = new List<ArrayList>();//used to save the whole table
             ArrayList tableData = new ArrayList();
             tableData = pd.LoadPagData();
             for (int row = 0; row < tableData.Count; row++)
@@ -192,8 +193,10 @@ namespace PAG_Manager
                 if (seperatedLine[3] != "Archive")
                 {
                     dataGridViewPag.Rows.Add(seperatedLine);
+                    table.Add(new ArrayList(seperatedLine));
                 }
             }
+            pd.SetTable(table);
             dataGridViewPag.Columns[0].Visible = false;
             //Tree view - Years, classes and students
             treeViewYearSelect.Nodes.Clear();
@@ -495,20 +498,7 @@ namespace PAG_Manager
             }
             if (Convert.ToString(tabControlMain.SelectedTab) == "TabPage: {PAG View}")
             {
-                for (int row = 0; row < dataGridViewPag.RowCount; row++)//loops through every row
-                {
-                    for (int cell = 5; cell < dataGridViewPag.ColumnCount; cell++)//loops through every column
-                    {
-                        if (Convert.ToString(dataGridViewPag.Rows[row].Cells[cell].Value) == "Absent")//checks if student is absent
-                        {
-                            dataGridViewPag.Rows[row].Cells[cell].Style.BackColor = Color.OrangeRed;//colours red if absent
-                        }
-                        else if (Convert.ToString(dataGridViewPag.Rows[row].Cells[cell].Value) != "")
-                        {
-                            dataGridViewPag.Rows[row].Cells[cell].Style.BackColor = Color.Gold;//colours gold if completed
-                        }
-                    }
-                }
+                RecolourPagView();
             }
             if (Convert.ToString(tabControlMain.SelectedTab) == "TabPage: {Student Lookup}" && sl.GetUnsavedChanges() == false)
             {
@@ -2214,6 +2204,41 @@ namespace PAG_Manager
         private void DataGridViewStudentImport_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             dataGridViewStudentImport.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = Regex.Replace(dataGridViewStudentImport.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString(), @"[^a-zA-Z0-9\s]", string.Empty);
+        }
+
+        private void DataGridViewPag_SelectionChanged(object sender, EventArgs e)
+        {
+            dataGridViewPag.ClearSelection();
+        }
+
+        private void TextBoxPagSearch_TextChanged(object sender, EventArgs e)
+        {
+            List<ArrayList> filteredTable = new List<ArrayList>();
+            filteredTable = pd.FilterTable(textBoxPagSearch.Text);
+            dataGridViewPag.Rows.Clear();
+            foreach (var row in filteredTable)
+            {
+                dataGridViewPag.Rows.Add(row.ToArray());
+            }
+            RecolourPagView();
+        }
+
+        private void RecolourPagView()
+        {
+            for (int row = 0; row < dataGridViewPag.RowCount; row++)//loops through every row
+            {
+                for (int cell = 5; cell < dataGridViewPag.ColumnCount; cell++)//loops through every column
+                {
+                    if (Convert.ToString(dataGridViewPag.Rows[row].Cells[cell].Value) == "Absent")//checks if student is absent
+                    {
+                        dataGridViewPag.Rows[row].Cells[cell].Style.BackColor = Color.OrangeRed;//colours red if absent
+                    }
+                    else if (Convert.ToString(dataGridViewPag.Rows[row].Cells[cell].Value) != "")
+                    {
+                        dataGridViewPag.Rows[row].Cells[cell].Style.BackColor = Color.Gold;//colours gold if completed
+                    }
+                }
+            }
         }
     }
 }

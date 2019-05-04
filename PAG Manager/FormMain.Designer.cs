@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabAwardPag = new System.Windows.Forms.TabPage();
@@ -55,6 +55,10 @@
             this.listBoxStudentNames = new System.Windows.Forms.ListBox();
             this.dataGridViewStudentLookup = new System.Windows.Forms.DataGridView();
             this.tabPagDates = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanelPagView = new System.Windows.Forms.TableLayoutPanel();
+            this.flowLayoutPanelPAGSearch = new System.Windows.Forms.FlowLayoutPanel();
+            this.labelPagViewFilter = new System.Windows.Forms.Label();
+            this.textBoxPagSearch = new System.Windows.Forms.TextBox();
             this.dataGridViewPag = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -163,7 +167,6 @@
             this.dataGridViewStudentImport = new System.Windows.Forms.DataGridView();
             this.tabStudentManagement = new System.Windows.Forms.TabPage();
             this.tableLayoutPanelStudentManagement = new System.Windows.Forms.TableLayoutPanel();
-            this.listBoxStudentManagementList = new System.Windows.Forms.ListBox();
             this.tableLayoutPanelStudentInfo = new System.Windows.Forms.TableLayoutPanel();
             this.buttonStudentManagementDeleteStudent = new System.Windows.Forms.Button();
             this.textBoxStudentLName = new System.Windows.Forms.TextBox();
@@ -185,6 +188,8 @@
             this.comboBoxOutputName = new System.Windows.Forms.ComboBox();
             this.buttonMoveStudents = new System.Windows.Forms.Button();
             this.labelNewItem = new System.Windows.Forms.Label();
+            this.listBoxStudentManagementList = new System.Windows.Forms.ListBox();
+            this.textBoxStudentFilter = new System.Windows.Forms.TextBox();
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.backupRestoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backupDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -208,7 +213,6 @@
             this.heightDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sizeTypeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.saveFileDialogExportReport = new System.Windows.Forms.SaveFileDialog();
-            this.textBoxStudentFilter = new System.Windows.Forms.TextBox();
             this.tabControlMain.SuspendLayout();
             this.tabAwardPag.SuspendLayout();
             this.tableLayoutPanelAwardPag.SuspendLayout();
@@ -218,6 +222,8 @@
             this.groupBoxLookupSearch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudentLookup)).BeginInit();
             this.tabPagDates.SuspendLayout();
+            this.tableLayoutPanelPagView.SuspendLayout();
+            this.flowLayoutPanelPAGSearch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPag)).BeginInit();
             this.tabSkills.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSkills)).BeginInit();
@@ -515,14 +521,14 @@
             this.dataGridViewStudentLookup.AllowUserToAddRows = false;
             this.dataGridViewStudentLookup.AllowUserToDeleteRows = false;
             this.dataGridViewStudentLookup.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewStudentLookup.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewStudentLookup.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewStudentLookup.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewStudentLookup.Location = new System.Drawing.Point(183, 63);
             this.dataGridViewStudentLookup.Name = "dataGridViewStudentLookup";
@@ -535,8 +541,7 @@
             // 
             // tabPagDates
             // 
-            this.tabPagDates.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.tabPagDates.Controls.Add(this.dataGridViewPag);
+            this.tabPagDates.Controls.Add(this.tableLayoutPanelPagView);
             this.tabPagDates.Location = new System.Drawing.Point(4, 22);
             this.tabPagDates.Margin = new System.Windows.Forms.Padding(2);
             this.tabPagDates.Name = "tabPagDates";
@@ -545,10 +550,53 @@
             this.tabPagDates.TabIndex = 2;
             this.tabPagDates.Text = "PAG View";
             // 
+            // tableLayoutPanelPagView
+            // 
+            this.tableLayoutPanelPagView.ColumnCount = 1;
+            this.tableLayoutPanelPagView.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelPagView.Controls.Add(this.flowLayoutPanelPAGSearch, 0, 0);
+            this.tableLayoutPanelPagView.Controls.Add(this.dataGridViewPag, 0, 1);
+            this.tableLayoutPanelPagView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelPagView.Location = new System.Drawing.Point(2, 2);
+            this.tableLayoutPanelPagView.Name = "tableLayoutPanelPagView";
+            this.tableLayoutPanelPagView.RowCount = 2;
+            this.tableLayoutPanelPagView.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanelPagView.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelPagView.Size = new System.Drawing.Size(772, 507);
+            this.tableLayoutPanelPagView.TabIndex = 2;
+            // 
+            // flowLayoutPanelPAGSearch
+            // 
+            this.flowLayoutPanelPAGSearch.Controls.Add(this.labelPagViewFilter);
+            this.flowLayoutPanelPAGSearch.Controls.Add(this.textBoxPagSearch);
+            this.flowLayoutPanelPAGSearch.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanelPAGSearch.Location = new System.Drawing.Point(3, 3);
+            this.flowLayoutPanelPAGSearch.Name = "flowLayoutPanelPAGSearch";
+            this.flowLayoutPanelPAGSearch.Size = new System.Drawing.Size(766, 29);
+            this.flowLayoutPanelPAGSearch.TabIndex = 2;
+            // 
+            // labelPagViewFilter
+            // 
+            this.labelPagViewFilter.Location = new System.Drawing.Point(3, 0);
+            this.labelPagViewFilter.Name = "labelPagViewFilter";
+            this.labelPagViewFilter.Size = new System.Drawing.Size(145, 25);
+            this.labelPagViewFilter.TabIndex = 3;
+            this.labelPagViewFilter.Text = "Filter by Name, Year or Class:";
+            this.labelPagViewFilter.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // textBoxPagSearch
+            // 
+            this.textBoxPagSearch.Location = new System.Drawing.Point(154, 3);
+            this.textBoxPagSearch.Name = "textBoxPagSearch";
+            this.textBoxPagSearch.Size = new System.Drawing.Size(184, 20);
+            this.textBoxPagSearch.TabIndex = 4;
+            this.textBoxPagSearch.TextChanged += new System.EventHandler(this.TextBoxPagSearch_TextChanged);
+            // 
             // dataGridViewPag
             // 
             this.dataGridViewPag.AllowUserToAddRows = false;
             this.dataGridViewPag.AllowUserToDeleteRows = false;
+            this.dataGridViewPag.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridViewPag.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridViewPag.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewPag.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -558,11 +606,14 @@
             this.dataGridViewTextBoxColumn4,
             this.dataGridViewTextBoxColumn5});
             this.dataGridViewPag.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewPag.Location = new System.Drawing.Point(2, 2);
+            this.dataGridViewPag.GridColor = System.Drawing.SystemColors.Control;
+            this.dataGridViewPag.Location = new System.Drawing.Point(3, 38);
             this.dataGridViewPag.Name = "dataGridViewPag";
             this.dataGridViewPag.ReadOnly = true;
-            this.dataGridViewPag.Size = new System.Drawing.Size(772, 507);
+            this.dataGridViewPag.RowHeadersVisible = false;
+            this.dataGridViewPag.Size = new System.Drawing.Size(766, 466);
             this.dataGridViewPag.TabIndex = 1;
+            this.dataGridViewPag.SelectionChanged += new System.EventHandler(this.DataGridViewPag_SelectionChanged);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -774,8 +825,8 @@
             // StudentReportCondition
             // 
             this.StudentReportCondition.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.StudentReportCondition.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.StudentReportCondition.DefaultCellStyle = dataGridViewCellStyle4;
             this.StudentReportCondition.HeaderText = "Condition";
             this.StudentReportCondition.Name = "StudentReportCondition";
             this.StudentReportCondition.ReadOnly = true;
@@ -1743,17 +1794,6 @@
             this.tableLayoutPanelStudentManagement.Size = new System.Drawing.Size(762, 479);
             this.tableLayoutPanelStudentManagement.TabIndex = 0;
             // 
-            // listBoxStudentManagementList
-            // 
-            this.listBoxStudentManagementList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBoxStudentManagementList.FormattingEnabled = true;
-            this.listBoxStudentManagementList.Location = new System.Drawing.Point(3, 28);
-            this.listBoxStudentManagementList.Name = "listBoxStudentManagementList";
-            this.tableLayoutPanelStudentManagement.SetRowSpan(this.listBoxStudentManagementList, 2);
-            this.listBoxStudentManagementList.Size = new System.Drawing.Size(174, 448);
-            this.listBoxStudentManagementList.TabIndex = 0;
-            this.listBoxStudentManagementList.SelectedIndexChanged += new System.EventHandler(this.listBoxStudentManagementList_SelectedIndexChanged);
-            // 
             // tableLayoutPanelStudentInfo
             // 
             this.tableLayoutPanelStudentInfo.ColumnCount = 3;
@@ -2014,6 +2054,26 @@
             this.labelNewItem.TabIndex = 6;
             this.labelNewItem.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // listBoxStudentManagementList
+            // 
+            this.listBoxStudentManagementList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBoxStudentManagementList.FormattingEnabled = true;
+            this.listBoxStudentManagementList.Location = new System.Drawing.Point(3, 28);
+            this.listBoxStudentManagementList.Name = "listBoxStudentManagementList";
+            this.tableLayoutPanelStudentManagement.SetRowSpan(this.listBoxStudentManagementList, 2);
+            this.listBoxStudentManagementList.Size = new System.Drawing.Size(174, 448);
+            this.listBoxStudentManagementList.TabIndex = 0;
+            this.listBoxStudentManagementList.SelectedIndexChanged += new System.EventHandler(this.listBoxStudentManagementList_SelectedIndexChanged);
+            // 
+            // textBoxStudentFilter
+            // 
+            this.textBoxStudentFilter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxStudentFilter.Location = new System.Drawing.Point(3, 3);
+            this.textBoxStudentFilter.Name = "textBoxStudentFilter";
+            this.textBoxStudentFilter.Size = new System.Drawing.Size(174, 20);
+            this.textBoxStudentFilter.TabIndex = 4;
+            this.textBoxStudentFilter.TextChanged += new System.EventHandler(this.TextBox1_TextChanged);
+            // 
             // menuStripMain
             // 
             this.menuStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -2195,15 +2255,6 @@
             this.saveFileDialogExportReport.Title = "Export Report";
             this.saveFileDialogExportReport.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialogExportReport_FileOk);
             // 
-            // textBoxStudentFilter
-            // 
-            this.textBoxStudentFilter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxStudentFilter.Location = new System.Drawing.Point(3, 3);
-            this.textBoxStudentFilter.Name = "textBoxStudentFilter";
-            this.textBoxStudentFilter.Size = new System.Drawing.Size(174, 20);
-            this.textBoxStudentFilter.TabIndex = 4;
-            this.textBoxStudentFilter.TextChanged += new System.EventHandler(this.TextBox1_TextChanged);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2228,6 +2279,9 @@
             this.groupBoxLookupSearch.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudentLookup)).EndInit();
             this.tabPagDates.ResumeLayout(false);
+            this.tableLayoutPanelPagView.ResumeLayout(false);
+            this.flowLayoutPanelPAGSearch.ResumeLayout(false);
+            this.flowLayoutPanelPAGSearch.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPag)).EndInit();
             this.tabSkills.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSkills)).EndInit();
@@ -2469,6 +2523,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn StudentReportClass;
         private System.Windows.Forms.DataGridViewTextBoxColumn StudentReportCondition;
         private System.Windows.Forms.TextBox textBoxStudentFilter;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelPagView;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelPAGSearch;
+        private System.Windows.Forms.Label labelPagViewFilter;
+        private System.Windows.Forms.TextBox textBoxPagSearch;
     }
 }
 
