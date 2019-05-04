@@ -757,6 +757,7 @@ namespace PAG_Manager
         {
             psr.SaveRelations();
             ReloadAllData(true);
+            MessageBox.Show("PAG Skill Relations Saved", "PAG Manager");
         }
 
         private void dataGridViewActivitySelectionSkills_SelectionChanged(object sender, EventArgs e)//Stops selection of the activity selection skills list
