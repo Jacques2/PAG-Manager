@@ -366,11 +366,21 @@ namespace PAG_Manager
             sw.Close();
             ClearStudentsToDelete();
         }
-        public void ModifyStudent(int position, string fName, string lName, string year, string theClass)//modifys the student record
+        public bool ModifyStudent(int position, string fName, string lName, string year, string theClass)//modifys the student record
         {
+            bool modified;
             int key = studentInfo.ElementAt(positioning[position]).Key;
-            studentInfo.Remove(key);
-            studentInfo.Add(key, new Tuple<string, string, string, string>(fName, lName, year, theClass));
+            if (studentInfo[key].Item1 == fName && studentInfo[key].Item2 == lName && studentInfo[key].Item3 == year && studentInfo[key].Item4 == theClass)//check if tuples are equal
+            {
+                modified = false;
+            }
+            else
+            {
+                modified = true;
+                studentInfo.Remove(key);
+                studentInfo.Add(key, new Tuple<string, string, string, string>(fName, lName, year, theClass));
+            }
+            return modified;
         }
         public void AddStudent()//adds a new student
         {

@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabAwardPag = new System.Windows.Forms.TabPage();
@@ -66,6 +66,10 @@
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabSkills = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanelSkillView = new System.Windows.Forms.TableLayoutPanel();
+            this.flowLayoutPanelSkillSearch = new System.Windows.Forms.FlowLayoutPanel();
+            this.labelSkillFilter = new System.Windows.Forms.Label();
+            this.textBoxSkillSearch = new System.Windows.Forms.TextBox();
             this.dataGridViewSkills = new System.Windows.Forms.DataGridView();
             this.StudentID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StudentFName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -213,10 +217,7 @@
             this.heightDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sizeTypeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.saveFileDialogExportReport = new System.Windows.Forms.SaveFileDialog();
-            this.tableLayoutPanelSkillView = new System.Windows.Forms.TableLayoutPanel();
-            this.flowLayoutPanelSkillSearch = new System.Windows.Forms.FlowLayoutPanel();
-            this.labelSkillFilter = new System.Windows.Forms.Label();
-            this.textBoxSkillSearch = new System.Windows.Forms.TextBox();
+            this.labelUnsavedChanges = new System.Windows.Forms.Label();
             this.tabControlMain.SuspendLayout();
             this.tabAwardPag.SuspendLayout();
             this.tableLayoutPanelAwardPag.SuspendLayout();
@@ -230,6 +231,8 @@
             this.flowLayoutPanelPAGSearch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPag)).BeginInit();
             this.tabSkills.SuspendLayout();
+            this.tableLayoutPanelSkillView.SuspendLayout();
+            this.flowLayoutPanelSkillSearch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSkills)).BeginInit();
             this.tabReport.SuspendLayout();
             this.tableLayoutPanelStudentReport.SuspendLayout();
@@ -268,8 +271,6 @@
             this.tableLayoutPanelStudentInfo.SuspendLayout();
             this.tableLayoutPanelStudentMassMove.SuspendLayout();
             this.menuStripMain.SuspendLayout();
-            this.tableLayoutPanelSkillView.SuspendLayout();
-            this.flowLayoutPanelSkillSearch.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControlMain
@@ -527,14 +528,14 @@
             this.dataGridViewStudentLookup.AllowUserToAddRows = false;
             this.dataGridViewStudentLookup.AllowUserToDeleteRows = false;
             this.dataGridViewStudentLookup.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewStudentLookup.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewStudentLookup.DefaultCellStyle = dataGridViewCellStyle15;
             this.dataGridViewStudentLookup.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewStudentLookup.Location = new System.Drawing.Point(183, 63);
             this.dataGridViewStudentLookup.Name = "dataGridViewStudentLookup";
@@ -665,6 +666,48 @@
             this.tabSkills.Size = new System.Drawing.Size(776, 511);
             this.tabSkills.TabIndex = 0;
             this.tabSkills.Text = "Skills View";
+            // 
+            // tableLayoutPanelSkillView
+            // 
+            this.tableLayoutPanelSkillView.ColumnCount = 1;
+            this.tableLayoutPanelSkillView.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelSkillView.Controls.Add(this.flowLayoutPanelSkillSearch, 0, 0);
+            this.tableLayoutPanelSkillView.Controls.Add(this.dataGridViewSkills, 0, 1);
+            this.tableLayoutPanelSkillView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanelSkillView.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanelSkillView.Name = "tableLayoutPanelSkillView";
+            this.tableLayoutPanelSkillView.RowCount = 2;
+            this.tableLayoutPanelSkillView.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanelSkillView.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanelSkillView.Size = new System.Drawing.Size(770, 505);
+            this.tableLayoutPanelSkillView.TabIndex = 1;
+            // 
+            // flowLayoutPanelSkillSearch
+            // 
+            this.flowLayoutPanelSkillSearch.Controls.Add(this.labelSkillFilter);
+            this.flowLayoutPanelSkillSearch.Controls.Add(this.textBoxSkillSearch);
+            this.flowLayoutPanelSkillSearch.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanelSkillSearch.Location = new System.Drawing.Point(3, 3);
+            this.flowLayoutPanelSkillSearch.Name = "flowLayoutPanelSkillSearch";
+            this.flowLayoutPanelSkillSearch.Size = new System.Drawing.Size(764, 29);
+            this.flowLayoutPanelSkillSearch.TabIndex = 0;
+            // 
+            // labelSkillFilter
+            // 
+            this.labelSkillFilter.Location = new System.Drawing.Point(3, 0);
+            this.labelSkillFilter.Name = "labelSkillFilter";
+            this.labelSkillFilter.Size = new System.Drawing.Size(145, 25);
+            this.labelSkillFilter.TabIndex = 5;
+            this.labelSkillFilter.Text = "Filter by Name, Year or Class:";
+            this.labelSkillFilter.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // textBoxSkillSearch
+            // 
+            this.textBoxSkillSearch.Location = new System.Drawing.Point(154, 3);
+            this.textBoxSkillSearch.Name = "textBoxSkillSearch";
+            this.textBoxSkillSearch.Size = new System.Drawing.Size(184, 20);
+            this.textBoxSkillSearch.TabIndex = 6;
+            this.textBoxSkillSearch.TextChanged += new System.EventHandler(this.TextBoxSkillSearch_TextChanged);
             // 
             // dataGridViewSkills
             // 
@@ -834,8 +877,8 @@
             // StudentReportCondition
             // 
             this.StudentReportCondition.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.StudentReportCondition.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.StudentReportCondition.DefaultCellStyle = dataGridViewCellStyle16;
             this.StudentReportCondition.HeaderText = "Condition";
             this.StudentReportCondition.Name = "StudentReportCondition";
             this.StudentReportCondition.ReadOnly = true;
@@ -1966,6 +2009,7 @@
             this.tableLayoutPanelStudentMassMove.Controls.Add(this.comboBoxOutputName, 4, 1);
             this.tableLayoutPanelStudentMassMove.Controls.Add(this.buttonMoveStudents, 5, 1);
             this.tableLayoutPanelStudentMassMove.Controls.Add(this.labelNewItem, 4, 2);
+            this.tableLayoutPanelStudentMassMove.Controls.Add(this.labelUnsavedChanges, 2, 0);
             this.tableLayoutPanelStudentMassMove.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanelStudentMassMove.Location = new System.Drawing.Point(183, 128);
             this.tableLayoutPanelStudentMassMove.Name = "tableLayoutPanelStudentMassMove";
@@ -2264,47 +2308,20 @@
             this.saveFileDialogExportReport.Title = "Export Report";
             this.saveFileDialogExportReport.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialogExportReport_FileOk);
             // 
-            // tableLayoutPanelSkillView
+            // labelUnsavedChanges
             // 
-            this.tableLayoutPanelSkillView.ColumnCount = 1;
-            this.tableLayoutPanelSkillView.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelSkillView.Controls.Add(this.flowLayoutPanelSkillSearch, 0, 0);
-            this.tableLayoutPanelSkillView.Controls.Add(this.dataGridViewSkills, 0, 1);
-            this.tableLayoutPanelSkillView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanelSkillView.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanelSkillView.Name = "tableLayoutPanelSkillView";
-            this.tableLayoutPanelSkillView.RowCount = 2;
-            this.tableLayoutPanelSkillView.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
-            this.tableLayoutPanelSkillView.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanelSkillView.Size = new System.Drawing.Size(770, 505);
-            this.tableLayoutPanelSkillView.TabIndex = 1;
-            // 
-            // flowLayoutPanelSkillSearch
-            // 
-            this.flowLayoutPanelSkillSearch.Controls.Add(this.labelSkillFilter);
-            this.flowLayoutPanelSkillSearch.Controls.Add(this.textBoxSkillSearch);
-            this.flowLayoutPanelSkillSearch.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanelSkillSearch.Location = new System.Drawing.Point(3, 3);
-            this.flowLayoutPanelSkillSearch.Name = "flowLayoutPanelSkillSearch";
-            this.flowLayoutPanelSkillSearch.Size = new System.Drawing.Size(764, 29);
-            this.flowLayoutPanelSkillSearch.TabIndex = 0;
-            // 
-            // labelSkillFilter
-            // 
-            this.labelSkillFilter.Location = new System.Drawing.Point(3, 0);
-            this.labelSkillFilter.Name = "labelSkillFilter";
-            this.labelSkillFilter.Size = new System.Drawing.Size(145, 25);
-            this.labelSkillFilter.TabIndex = 5;
-            this.labelSkillFilter.Text = "Filter by Name, Year or Class:";
-            this.labelSkillFilter.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // textBoxSkillSearch
-            // 
-            this.textBoxSkillSearch.Location = new System.Drawing.Point(154, 3);
-            this.textBoxSkillSearch.Name = "textBoxSkillSearch";
-            this.textBoxSkillSearch.Size = new System.Drawing.Size(184, 20);
-            this.textBoxSkillSearch.TabIndex = 6;
-            this.textBoxSkillSearch.TextChanged += new System.EventHandler(this.TextBoxSkillSearch_TextChanged);
+            this.labelUnsavedChanges.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelUnsavedChanges.AutoSize = true;
+            this.tableLayoutPanelStudentMassMove.SetColumnSpan(this.labelUnsavedChanges, 4);
+            this.labelUnsavedChanges.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelUnsavedChanges.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.labelUnsavedChanges.Location = new System.Drawing.Point(309, 0);
+            this.labelUnsavedChanges.Name = "labelUnsavedChanges";
+            this.labelUnsavedChanges.Size = new System.Drawing.Size(264, 13);
+            this.labelUnsavedChanges.TabIndex = 7;
+            this.labelUnsavedChanges.Text = "WARNING: YOU HAVE UNSAVED CHANGES";
+            this.labelUnsavedChanges.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.labelUnsavedChanges.Visible = false;
             // 
             // FormMain
             // 
@@ -2335,6 +2352,9 @@
             this.flowLayoutPanelPAGSearch.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPag)).EndInit();
             this.tabSkills.ResumeLayout(false);
+            this.tableLayoutPanelSkillView.ResumeLayout(false);
+            this.flowLayoutPanelSkillSearch.ResumeLayout(false);
+            this.flowLayoutPanelSkillSearch.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSkills)).EndInit();
             this.tabReport.ResumeLayout(false);
             this.tableLayoutPanelStudentReport.ResumeLayout(false);
@@ -2389,9 +2409,6 @@
             this.tableLayoutPanelStudentMassMove.PerformLayout();
             this.menuStripMain.ResumeLayout(false);
             this.menuStripMain.PerformLayout();
-            this.tableLayoutPanelSkillView.ResumeLayout(false);
-            this.flowLayoutPanelSkillSearch.ResumeLayout(false);
-            this.flowLayoutPanelSkillSearch.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2585,6 +2602,7 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanelSkillSearch;
         private System.Windows.Forms.Label labelSkillFilter;
         private System.Windows.Forms.TextBox textBoxSkillSearch;
+        private System.Windows.Forms.Label labelUnsavedChanges;
     }
 }
 

@@ -117,6 +117,7 @@ namespace PAG_Manager
                 ad.BuildPagsInUse();
                 ad.BuildSkillsInUse();
                 ad.BuildSkillRelationList();
+                labelUnsavedChanges.Visible = false;
             }
             //pag skill relations
             psr.ClearRelations();
@@ -1759,11 +1760,12 @@ namespace PAG_Manager
                 MessageBox.Show("Could not open excel file", "PAG Manager");
             }
         }
-
+        bool loadingStudent = false;
         private void listBoxStudentManagementList_SelectedIndexChanged(object sender, EventArgs e)//a new student has been selected
         {
             if (listBoxStudentManagementList.SelectedIndex != -1)//checks a valid student has been selected
             {
+                loadingStudent = true;
                 string fName = ad.GetInformation(listBoxStudentManagementList.SelectedIndex).Item1;//gets the information about the student and fills in the text boxes
                 string lName = ad.GetInformation(listBoxStudentManagementList.SelectedIndex).Item2;
                 string year = ad.GetInformation(listBoxStudentManagementList.SelectedIndex).Item3;
@@ -1772,6 +1774,7 @@ namespace PAG_Manager
                 textBoxStudentLName.Text = lName;
                 textBoxStudentYear.Text = year;
                 textBoxStudentClass.Text = theClass;
+                loadingStudent = false;
             }
         }
 
@@ -1779,52 +1782,69 @@ namespace PAG_Manager
         {
             if (listBoxStudentManagementList.SelectedIndex != -1)//checks that a student is currently selected
             {
-                ad.ModifyStudent(listBoxStudentManagementList.SelectedIndex, textBoxStudentFName.Text, textBoxStudentLName.Text, textBoxStudentYear.Text, textBoxStudentClass.Text);//modifies the student
-                string fName = textBoxStudentFName.Text;
-                string lName = textBoxStudentLName.Text;
-                string theClass = textBoxStudentClass.Text;
-                listBoxStudentManagementList.Items[listBoxStudentManagementList.SelectedIndex] = fName + " " + lName + " - " + theClass;//modifies the list box entry for the student
+
+                bool modified = ad.ModifyStudent(listBoxStudentManagementList.SelectedIndex, textBoxStudentFName.Text, textBoxStudentLName.Text, textBoxStudentYear.Text, textBoxStudentClass.Text);//modifies the student
+                if (modified)
+                {
+                    string fName = textBoxStudentFName.Text;
+                    string lName = textBoxStudentLName.Text;
+                    string theClass = textBoxStudentClass.Text;
+                    listBoxStudentManagementList.Items[listBoxStudentManagementList.SelectedIndex] = fName + " " + lName + " - " + theClass;//modifies the list box entry for the student
+                    labelUnsavedChanges.Visible = true;
+                }
             }
         }
 
         private void textBoxStudentFName_TextChanged(object sender, EventArgs e)//text box modified
         {
-            ReplaceCommas(sender);//replaces commas with semi colons
-            StudentDataModified();//updates records within the class
+            if (listBoxStudentManagementList.SelectedIndex != -1 && loadingStudent == false)
+            {
+                ReplaceCommas(sender);//replaces commas with semi colons
+                StudentDataModified();//updates records within the class
+            }
         }
 
         private void textBoxStudentLName_TextChanged(object sender, EventArgs e)//text box modified
         {
-            ReplaceCommas(sender);//replaces commas with semi colons
-            StudentDataModified();//updates records within the class
+            if (listBoxStudentManagementList.SelectedIndex != -1 && loadingStudent == false)
+            {
+                ReplaceCommas(sender);//replaces commas with semi colons
+                StudentDataModified();//updates records within the class
+            }
         }
 
         private void textBoxStudentYear_TextChanged(object sender, EventArgs e)//text box modified
         {
-            ReplaceCommas(sender);//replaces commas with semi colons
-            if (textBoxStudentYear.Text.ToLower() == "archive" && textBoxStudentYear.Text != "Archive")//checks if any form of archive has been incorrectly spelt
+            if (listBoxStudentManagementList.SelectedIndex != -1 && loadingStudent == false)
             {
-                textBoxStudentYear.Text = "Archive";
+                ReplaceCommas(sender);//replaces commas with semi colons
+                if (textBoxStudentYear.Text.ToLower() == "archive" && textBoxStudentYear.Text != "Archive")//checks if any form of archive has been incorrectly spelt
+                {
+                    textBoxStudentYear.Text = "Archive";
+                }
+                if (textBoxStudentYear.Text == "Archive")//updates class value with archive
+                {
+                    textBoxStudentClass.Text = "Archive";
+                }
+                StudentDataModified();//updates records within the class
             }
-            if (textBoxStudentYear.Text == "Archive")//updates class value with archive
-            {
-                textBoxStudentClass.Text = "Archive";
-            }
-            StudentDataModified();//updates records within the class
         }
 
         private void textBoxStudentClass_TextChanged(object sender, EventArgs e)//text box modified
         {
-            ReplaceCommas(sender);//replaces commas with semi colons
-            if (textBoxStudentClass.Text.ToLower() == "archive" && textBoxStudentClass.Text != "Archive")//checks if any form of archive has been incorrectly spelt
+            if (listBoxStudentManagementList.SelectedIndex != -1 && loadingStudent == false)
             {
-                textBoxStudentClass.Text = "Archive";
+                ReplaceCommas(sender);//replaces commas with semi colons
+                if (textBoxStudentClass.Text.ToLower() == "archive" && textBoxStudentClass.Text != "Archive")//checks if any form of archive has been incorrectly spelt
+                {
+                    textBoxStudentClass.Text = "Archive";
+                }
+                if (textBoxStudentClass.Text == "Archive")//updates year value with archive
+                {
+                    textBoxStudentYear.Text = "Archive";
+                }
+                StudentDataModified();//updates records within the class
             }
-            if (textBoxStudentClass.Text == "Archive")//updates year value with archive
-            {
-                textBoxStudentYear.Text = "Archive";
-            }
-            StudentDataModified();//updates records within the class
         }
 
         private void ReplaceCommas(object sender)//used for all text boxes to replace commas with semi colons to avoid messing with the csv files
@@ -1878,6 +1898,7 @@ namespace PAG_Manager
         {
             ad.DeleteStudentRelations();
             ad.SaveStudentData();//saves modified student data
+            labelUnsavedChanges.Visible = false;
             ReloadAllData(true);
         }
 
@@ -1929,6 +1950,7 @@ namespace PAG_Manager
             string outputItem = Convert.ToString(comboBoxOutputName.SelectedItem);
             if (inputType != "" && inputItem != "" && outputItem != "")//checks if any values are blank
             {
+                labelUnsavedChanges.Visible = true;
                 if (comboBoxOutputName.SelectedIndex == 0)//checks if new.. option has been selected
                 {
                     outputItem = labelNewItem.Text;//sets the output item to the value of the label (what the user has named the new class)
