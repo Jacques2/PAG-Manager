@@ -11,7 +11,7 @@ namespace PAG_Manager
             InitializeComponent();
             this.Text = String.Format("About {0}", AssemblyTitle);
             this.labelProductName.Text = AssemblyProduct;
-            this.labelVersion.Text = String.Format("Version 1.3");
+            this.labelVersion.Text = String.Format("Version 1.4");
             this.labelCopyright.Text = "Jacques Eluecque " + AssemblyCopyright;
             this.labelCompanyName.Text = "Made for Mrs Rojek and the Northgate Science Team";
             this.textBoxDescription.Text = "This program will let you create, modify and award PAG's to an unlimited number of students, all in a portable, fast and convenient application";
@@ -146,6 +146,11 @@ namespace PAG_Manager
             {
                 a = 0;
             }
+        }
+
+        private void AboutBox_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
