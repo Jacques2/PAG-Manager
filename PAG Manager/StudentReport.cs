@@ -557,24 +557,27 @@ namespace PAG_Manager
             for (int student = 0; student < studentInfo.Count; student++)//loops through each student
             {
                 int currentStudentID = studentInfo.ElementAt(student).Key;
-                string studentFName = studentInfo[currentStudentID].Item1;
-                string studentLName = studentInfo[currentStudentID].Item2;
                 string studentYear = studentInfo[currentStudentID].Item3;
-                string studentClass = studentInfo[currentStudentID].Item4;
-                ArrayList missingGroups = new ArrayList();
-                missingGroups = GetMissingGroups(currentStudentID, false);
-                for (int group = 0; group < missingGroups.Count; group++)//loops through each group student has not achieved
+                if (studentYear != "Archive")
                 {
-                    int groupID = Convert.ToInt32(missingGroups[group]);
-                    if (data[groupID].Item2.ContainsKey(studentYear) == false)//check if year exists
+                    string studentFName = studentInfo[currentStudentID].Item1;
+                    string studentLName = studentInfo[currentStudentID].Item2;
+                    string studentClass = studentInfo[currentStudentID].Item4;
+                    ArrayList missingGroups = new ArrayList();
+                    missingGroups = GetMissingGroups(currentStudentID, false);
+                    for (int group = 0; group < missingGroups.Count; group++)//loops through each group student has not achieved
                     {
-                        data[groupID].Item2.Add(studentYear, new Dictionary<string, List<Tuple<string, string>>>());
+                        int groupID = Convert.ToInt32(missingGroups[group]);
+                        if (data[groupID].Item2.ContainsKey(studentYear) == false)//check if year exists
+                        {
+                            data[groupID].Item2.Add(studentYear, new Dictionary<string, List<Tuple<string, string>>>());
+                        }
+                        if (data[groupID].Item2[studentYear].ContainsKey(studentClass) == false)//check if class exists
+                        {
+                            data[groupID].Item2[studentYear].Add(studentClass, new List<Tuple<string, string>>());
+                        }
+                        data[groupID].Item2[studentYear][studentClass].Add(new Tuple<string, string>(studentFName, studentLName));
                     }
-                    if (data[groupID].Item2[studentYear].ContainsKey(studentClass) == false)//check if class exists
-                    {
-                        data[groupID].Item2[studentYear].Add(studentClass, new List<Tuple<string, string>>());
-                    }
-                    data[groupID].Item2[studentYear][studentClass].Add(new Tuple<string, string>(studentFName, studentLName));
                 }
             }
             //now writes data to excel file
