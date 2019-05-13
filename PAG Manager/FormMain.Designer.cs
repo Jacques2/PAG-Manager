@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabAwardPag = new System.Windows.Forms.TabPage();
@@ -117,10 +117,8 @@
             this.tabAdmin = new System.Windows.Forms.TabPage();
             this.tabControlAdmin = new System.Windows.Forms.TabControl();
             this.tabGeneral = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
             this.buttonResetToDefault = new System.Windows.Forms.Button();
             this.checkBoxShowStudentID = new System.Windows.Forms.CheckBox();
-            this.radioButtonAdmin = new System.Windows.Forms.RadioButton();
             this.buttonGetDirectory = new System.Windows.Forms.Button();
             this.tabSkillPagList = new System.Windows.Forms.TabPage();
             this.tableLayoutPanelPagSkillList = new System.Windows.Forms.TableLayoutPanel();
@@ -192,6 +190,7 @@
             this.comboBoxOutputName = new System.Windows.Forms.ComboBox();
             this.buttonMoveStudents = new System.Windows.Forms.Button();
             this.labelNewItem = new System.Windows.Forms.Label();
+            this.labelUnsavedChanges = new System.Windows.Forms.Label();
             this.listBoxStudentManagementList = new System.Windows.Forms.ListBox();
             this.textBoxStudentFilter = new System.Windows.Forms.TextBox();
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
@@ -217,7 +216,9 @@
             this.heightDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sizeTypeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.saveFileDialogExportReport = new System.Windows.Forms.SaveFileDialog();
-            this.labelUnsavedChanges = new System.Windows.Forms.Label();
+            this.labelAdminStudentID = new System.Windows.Forms.Label();
+            this.labelAdminProgramDirectory = new System.Windows.Forms.Label();
+            this.labelAdminDeleteData = new System.Windows.Forms.Label();
             this.tabControlMain.SuspendLayout();
             this.tabAwardPag.SuspendLayout();
             this.tableLayoutPanelAwardPag.SuspendLayout();
@@ -528,14 +529,14 @@
             this.dataGridViewStudentLookup.AllowUserToAddRows = false;
             this.dataGridViewStudentLookup.AllowUserToDeleteRows = false;
             this.dataGridViewStudentLookup.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewStudentLookup.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewStudentLookup.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewStudentLookup.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewStudentLookup.Location = new System.Drawing.Point(183, 63);
             this.dataGridViewStudentLookup.Name = "dataGridViewStudentLookup";
@@ -877,8 +878,8 @@
             // StudentReportCondition
             // 
             this.StudentReportCondition.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.StudentReportCondition.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.StudentReportCondition.DefaultCellStyle = dataGridViewCellStyle2;
             this.StudentReportCondition.HeaderText = "Condition";
             this.StudentReportCondition.Name = "StudentReportCondition";
             this.StudentReportCondition.ReadOnly = true;
@@ -1245,13 +1246,13 @@
             // 
             // tabControlAdmin
             // 
-            this.tabControlAdmin.Controls.Add(this.tabGeneral);
             this.tabControlAdmin.Controls.Add(this.tabSkillPagList);
             this.tabControlAdmin.Controls.Add(this.tabPagSkillRelation);
             this.tabControlAdmin.Controls.Add(this.tabSkillRequirements);
             this.tabControlAdmin.Controls.Add(this.tabGroup);
             this.tabControlAdmin.Controls.Add(this.tabStudentImport);
             this.tabControlAdmin.Controls.Add(this.tabStudentManagement);
+            this.tabControlAdmin.Controls.Add(this.tabGeneral);
             this.tabControlAdmin.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlAdmin.Location = new System.Drawing.Point(3, 3);
             this.tabControlAdmin.Name = "tabControlAdmin";
@@ -1262,10 +1263,11 @@
             // 
             // tabGeneral
             // 
-            this.tabGeneral.Controls.Add(this.button1);
+            this.tabGeneral.Controls.Add(this.labelAdminDeleteData);
+            this.tabGeneral.Controls.Add(this.labelAdminProgramDirectory);
+            this.tabGeneral.Controls.Add(this.labelAdminStudentID);
             this.tabGeneral.Controls.Add(this.buttonResetToDefault);
             this.tabGeneral.Controls.Add(this.checkBoxShowStudentID);
-            this.tabGeneral.Controls.Add(this.radioButtonAdmin);
             this.tabGeneral.Controls.Add(this.buttonGetDirectory);
             this.tabGeneral.Location = new System.Drawing.Point(4, 22);
             this.tabGeneral.Name = "tabGeneral";
@@ -1275,21 +1277,11 @@
             this.tabGeneral.Text = "General";
             this.tabGeneral.UseVisualStyleBackColor = true;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(271, 202);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(190, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Convert Old Dates to New Dates";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_2);
-            // 
             // buttonResetToDefault
             // 
-            this.buttonResetToDefault.Location = new System.Drawing.Point(53, 86);
+            this.buttonResetToDefault.Location = new System.Drawing.Point(6, 58);
             this.buttonResetToDefault.Name = "buttonResetToDefault";
-            this.buttonResetToDefault.Size = new System.Drawing.Size(110, 23);
+            this.buttonResetToDefault.Size = new System.Drawing.Size(126, 23);
             this.buttonResetToDefault.TabIndex = 5;
             this.buttonResetToDefault.Text = "Delete All Data";
             this.buttonResetToDefault.UseVisualStyleBackColor = true;
@@ -1298,7 +1290,7 @@
             // checkBoxShowStudentID
             // 
             this.checkBoxShowStudentID.AutoSize = true;
-            this.checkBoxShowStudentID.Location = new System.Drawing.Point(344, 22);
+            this.checkBoxShowStudentID.Location = new System.Drawing.Point(6, 6);
             this.checkBoxShowStudentID.Name = "checkBoxShowStudentID";
             this.checkBoxShowStudentID.Size = new System.Drawing.Size(107, 17);
             this.checkBoxShowStudentID.TabIndex = 4;
@@ -1306,24 +1298,13 @@
             this.checkBoxShowStudentID.UseVisualStyleBackColor = true;
             this.checkBoxShowStudentID.CheckedChanged += new System.EventHandler(this.checkBoxShowStudentID_CheckedChanged);
             // 
-            // radioButtonAdmin
-            // 
-            this.radioButtonAdmin.AutoSize = true;
-            this.radioButtonAdmin.Location = new System.Drawing.Point(43, 22);
-            this.radioButtonAdmin.Name = "radioButtonAdmin";
-            this.radioButtonAdmin.Size = new System.Drawing.Size(194, 17);
-            this.radioButtonAdmin.TabIndex = 0;
-            this.radioButtonAdmin.Text = "Enable Advanced Database Editing";
-            this.radioButtonAdmin.UseVisualStyleBackColor = true;
-            this.radioButtonAdmin.CheckedChanged += new System.EventHandler(this.radioButtonAdmin_CheckedChanged);
-            // 
             // buttonGetDirectory
             // 
-            this.buttonGetDirectory.Location = new System.Drawing.Point(53, 56);
+            this.buttonGetDirectory.Location = new System.Drawing.Point(6, 29);
             this.buttonGetDirectory.Name = "buttonGetDirectory";
-            this.buttonGetDirectory.Size = new System.Drawing.Size(110, 23);
+            this.buttonGetDirectory.Size = new System.Drawing.Size(126, 23);
             this.buttonGetDirectory.TabIndex = 1;
-            this.buttonGetDirectory.Text = "Get Main Directory";
+            this.buttonGetDirectory.Text = "Get Program Directory";
             this.buttonGetDirectory.UseVisualStyleBackColor = true;
             this.buttonGetDirectory.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -2107,6 +2088,21 @@
             this.labelNewItem.TabIndex = 6;
             this.labelNewItem.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // labelUnsavedChanges
+            // 
+            this.labelUnsavedChanges.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelUnsavedChanges.AutoSize = true;
+            this.tableLayoutPanelStudentMassMove.SetColumnSpan(this.labelUnsavedChanges, 4);
+            this.labelUnsavedChanges.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelUnsavedChanges.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.labelUnsavedChanges.Location = new System.Drawing.Point(309, 0);
+            this.labelUnsavedChanges.Name = "labelUnsavedChanges";
+            this.labelUnsavedChanges.Size = new System.Drawing.Size(264, 13);
+            this.labelUnsavedChanges.TabIndex = 7;
+            this.labelUnsavedChanges.Text = "WARNING: YOU HAVE UNSAVED CHANGES";
+            this.labelUnsavedChanges.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.labelUnsavedChanges.Visible = false;
+            // 
             // listBoxStudentManagementList
             // 
             this.listBoxStudentManagementList.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -2308,20 +2304,32 @@
             this.saveFileDialogExportReport.Title = "Export Report";
             this.saveFileDialogExportReport.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialogExportReport_FileOk);
             // 
-            // labelUnsavedChanges
+            // labelAdminStudentID
             // 
-            this.labelUnsavedChanges.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelUnsavedChanges.AutoSize = true;
-            this.tableLayoutPanelStudentMassMove.SetColumnSpan(this.labelUnsavedChanges, 4);
-            this.labelUnsavedChanges.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelUnsavedChanges.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.labelUnsavedChanges.Location = new System.Drawing.Point(309, 0);
-            this.labelUnsavedChanges.Name = "labelUnsavedChanges";
-            this.labelUnsavedChanges.Size = new System.Drawing.Size(264, 13);
-            this.labelUnsavedChanges.TabIndex = 7;
-            this.labelUnsavedChanges.Text = "WARNING: YOU HAVE UNSAVED CHANGES";
-            this.labelUnsavedChanges.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.labelUnsavedChanges.Visible = false;
+            this.labelAdminStudentID.AutoSize = true;
+            this.labelAdminStudentID.Location = new System.Drawing.Point(146, 7);
+            this.labelAdminStudentID.Name = "labelAdminStudentID";
+            this.labelAdminStudentID.Size = new System.Drawing.Size(383, 13);
+            this.labelAdminStudentID.TabIndex = 6;
+            this.labelAdminStudentID.Text = "Shows the column with student ID in PAG view, Skills view, and Student Report";
+            // 
+            // labelAdminProgramDirectory
+            // 
+            this.labelAdminProgramDirectory.AutoSize = true;
+            this.labelAdminProgramDirectory.Location = new System.Drawing.Point(146, 34);
+            this.labelAdminProgramDirectory.Name = "labelAdminProgramDirectory";
+            this.labelAdminProgramDirectory.Size = new System.Drawing.Size(356, 13);
+            this.labelAdminProgramDirectory.TabIndex = 7;
+            this.labelAdminProgramDirectory.Text = "Shows the directory where the program is stored, then opens that directory";
+            // 
+            // labelAdminDeleteData
+            // 
+            this.labelAdminDeleteData.AutoSize = true;
+            this.labelAdminDeleteData.Location = new System.Drawing.Point(146, 63);
+            this.labelAdminDeleteData.Name = "labelAdminDeleteData";
+            this.labelAdminDeleteData.Size = new System.Drawing.Size(237, 13);
+            this.labelAdminDeleteData.TabIndex = 8;
+            this.labelAdminDeleteData.Text = "Deletes all data (Excluding backups and presets)";
             // 
             // FormMain
             // 
@@ -2419,7 +2427,6 @@
         private System.Windows.Forms.TabControl tabControlMain;
         private System.Windows.Forms.TabPage tabSkills;
         private System.Windows.Forms.TabPage tabAdmin;
-        private System.Windows.Forms.RadioButton radioButtonAdmin;
         public System.Windows.Forms.DataGridView dataGridViewSkills;
         private System.Windows.Forms.Button buttonGetDirectory;
         private System.Windows.Forms.TabPage tabPagDates;
@@ -2585,7 +2592,6 @@
         private System.Windows.Forms.ToolStripMenuItem createPresetWithNameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deletePAGPresetToolStripMenuItem;
         private System.Windows.Forms.Button buttonResetToDefault;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button buttonClearAllChanges;
         private System.Windows.Forms.DataGridViewTextBoxColumn StudentReportID;
         private System.Windows.Forms.DataGridViewTextBoxColumn StudentReportFName;
@@ -2603,6 +2609,9 @@
         private System.Windows.Forms.Label labelSkillFilter;
         private System.Windows.Forms.TextBox textBoxSkillSearch;
         private System.Windows.Forms.Label labelUnsavedChanges;
+        private System.Windows.Forms.Label labelAdminDeleteData;
+        private System.Windows.Forms.Label labelAdminProgramDirectory;
+        private System.Windows.Forms.Label labelAdminStudentID;
     }
 }
 
