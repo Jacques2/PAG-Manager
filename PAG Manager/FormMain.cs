@@ -34,6 +34,15 @@ namespace PAG_Manager
             {
                 DirectoryInfo di = Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\");
             }
+            try
+            {
+                File.WriteAllBytes(AppDomain.CurrentDomain.BaseDirectory + @"EPPlus.dll", (PAG_Manager.Properties.Resources.EPPlusDll));//copies required dll files to the base directory in case they have been deleted
+                File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"EPPlus.xml", (PAG_Manager.Properties.Resources.EPPlusXml));
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Program was not able to write the Excel Library. You may encounter issues exporting to excel");
+            }
             // CREATE FILES IF NOT EXSIST
             StreamWriter setupPag = File.AppendText(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\PagList.csv");
             setupPag.Close();
@@ -1735,8 +1744,6 @@ namespace PAG_Manager
         {
             try
             {
-                File.WriteAllBytes(AppDomain.CurrentDomain.BaseDirectory + @"EPPlus.dll", (PAG_Manager.Properties.Resources.EPPlusDll));//copies required dll files to the base directory in case they have been deleted
-                File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"EPPlus.xml", (PAG_Manager.Properties.Resources.EPPlusXml));
                 saveFileDialogExportReport.FileName = "PAG Manager Student Report " + DateTime.Today.ToString("dd-MM-yyyy");//fills in the name as the date by default
                 saveFileDialogExportReport.ShowDialog();//shows the save location dialog
             }
