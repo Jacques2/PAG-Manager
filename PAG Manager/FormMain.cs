@@ -275,6 +275,7 @@ namespace PAG_Manager
             sr.BuildLists();
             sr.BuildPagList();
             sr.BuildSkillInformation();
+            dataGridViewStudentReport.Rows.Clear();
         }
 
         private void radioButtonAdmin_CheckedChanged(object sender, EventArgs e)//ADMIN: Allows advanced database editing
