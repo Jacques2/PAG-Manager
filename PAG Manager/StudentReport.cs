@@ -615,37 +615,40 @@ namespace PAG_Manager
                     for (int year = 0; year < data[groupID].Item2.Count; year++)//loops through every year
                     {
                         string currentYear = data[groupID].Item2.ElementAt(year).Key;
-                        if (year > 0)
+                        if (currentYear != "Archive")
                         {
-                            excelWorksheet.Cells[currentRow - 1, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
-                            excelWorksheet.Cells[currentRow - 1, 4].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
-                        }
-                        for (int theClass = 0; theClass < data[groupID].Item2[currentYear].Count; theClass++)//loops through every class
-                        {
-                            if (theClass > 0)
+                            if (year > 0)
                             {
                                 excelWorksheet.Cells[currentRow - 1, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
                                 excelWorksheet.Cells[currentRow - 1, 4].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
                             }
-                            string currentClass = data[groupID].Item2[currentYear].ElementAt(theClass).Key;
-                            excelWorksheet.Cells[currentRow, 2].Value = currentYear;
-                            excelWorksheet.Cells[currentRow, 3].Value = currentClass;
-                            excelWorksheet.Cells[currentRow, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
-                            excelWorksheet.Cells[currentRow, 4].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
-                            excelWorksheet.Cells[currentRow, 2].Style.Font.Bold = true;
-                            excelWorksheet.Cells[currentRow, 3].Style.Font.Bold = true;
-                            currentRow++;
-                            for (int student = 0; student < data[groupID].Item2[currentYear][currentClass].Count; student++)
+                            for (int theClass = 0; theClass < data[groupID].Item2[currentYear].Count; theClass++)//loops through every class
                             {
-                                string FName = data[groupID].Item2[currentYear][currentClass][student].Item1;
-                                string LName = data[groupID].Item2[currentYear][currentClass][student].Item2;
-                                excelWorksheet.Cells[currentRow, 3].Value = FName;
-                                excelWorksheet.Cells[currentRow, 4].Value = LName;
+                                if (theClass > 0)
+                                {
+                                    excelWorksheet.Cells[currentRow - 1, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                                    excelWorksheet.Cells[currentRow - 1, 4].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                                }
+                                string currentClass = data[groupID].Item2[currentYear].ElementAt(theClass).Key;
+                                excelWorksheet.Cells[currentRow, 2].Value = currentYear;
+                                excelWorksheet.Cells[currentRow, 3].Value = currentClass;
                                 excelWorksheet.Cells[currentRow, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
                                 excelWorksheet.Cells[currentRow, 4].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                                excelWorksheet.Cells[currentRow, 2].Style.Font.Bold = true;
+                                excelWorksheet.Cells[currentRow, 3].Style.Font.Bold = true;
+                                currentRow++;
+                                for (int student = 0; student < data[groupID].Item2[currentYear][currentClass].Count; student++)
+                                {
+                                    string FName = data[groupID].Item2[currentYear][currentClass][student].Item1;
+                                    string LName = data[groupID].Item2[currentYear][currentClass][student].Item2;
+                                    excelWorksheet.Cells[currentRow, 3].Value = FName;
+                                    excelWorksheet.Cells[currentRow, 4].Value = LName;
+                                    excelWorksheet.Cells[currentRow, 2].Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                                    excelWorksheet.Cells[currentRow, 4].Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
+                                    currentRow++;
+                                }
                                 currentRow++;
                             }
-                            currentRow++;
                         }
                     }
                     excelWorksheet.Cells[currentRow - 2, 2].Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thick;
