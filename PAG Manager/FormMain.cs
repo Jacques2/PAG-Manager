@@ -1123,6 +1123,10 @@ namespace PAG_Manager
                 for (int column = 0; column < dataGridViewStudentImport.ColumnCount; column++)
                 {
                     dataGridViewStudentImport.Rows[row].Cells[column].Value = Regex.Replace(dataGridViewStudentImport.Rows[row].Cells[column].Value.ToString(), @"[^a-zA-Z0-9\s]", string.Empty);
+                    if (dataGridViewStudentImport.Rows[row].Cells[column].Value.ToString().ToLower() == "archive")
+                    {
+                        dataGridViewStudentImport.Rows[row].Cells[column].Value = "Invalid";
+                    }
                 }
             }
         }

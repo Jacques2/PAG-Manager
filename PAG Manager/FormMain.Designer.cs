@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabAwardPag = new System.Windows.Forms.TabPage();
@@ -116,10 +116,6 @@
             this.listBoxContentSelectionInclusion = new System.Windows.Forms.ListBox();
             this.tabAdmin = new System.Windows.Forms.TabPage();
             this.tabControlAdmin = new System.Windows.Forms.TabControl();
-            this.tabGeneral = new System.Windows.Forms.TabPage();
-            this.buttonResetToDefault = new System.Windows.Forms.Button();
-            this.checkBoxShowStudentID = new System.Windows.Forms.CheckBox();
-            this.buttonGetDirectory = new System.Windows.Forms.Button();
             this.tabSkillPagList = new System.Windows.Forms.TabPage();
             this.tableLayoutPanelPagSkillList = new System.Windows.Forms.TableLayoutPanel();
             this.listBoxSkillList = new System.Windows.Forms.ListBox();
@@ -193,6 +189,13 @@
             this.labelUnsavedChanges = new System.Windows.Forms.Label();
             this.listBoxStudentManagementList = new System.Windows.Forms.ListBox();
             this.textBoxStudentFilter = new System.Windows.Forms.TextBox();
+            this.tabGeneral = new System.Windows.Forms.TabPage();
+            this.labelAdminDeleteData = new System.Windows.Forms.Label();
+            this.labelAdminProgramDirectory = new System.Windows.Forms.Label();
+            this.labelAdminStudentID = new System.Windows.Forms.Label();
+            this.buttonResetToDefault = new System.Windows.Forms.Button();
+            this.checkBoxShowStudentID = new System.Windows.Forms.CheckBox();
+            this.buttonGetDirectory = new System.Windows.Forms.Button();
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.backupRestoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.backupDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -216,9 +219,6 @@
             this.heightDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sizeTypeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.saveFileDialogExportReport = new System.Windows.Forms.SaveFileDialog();
-            this.labelAdminStudentID = new System.Windows.Forms.Label();
-            this.labelAdminProgramDirectory = new System.Windows.Forms.Label();
-            this.labelAdminDeleteData = new System.Windows.Forms.Label();
             this.tabControlMain.SuspendLayout();
             this.tabAwardPag.SuspendLayout();
             this.tableLayoutPanelAwardPag.SuspendLayout();
@@ -250,7 +250,6 @@
             this.tableLayoutPanelContentSelectionActivitySelection.SuspendLayout();
             this.tabAdmin.SuspendLayout();
             this.tabControlAdmin.SuspendLayout();
-            this.tabGeneral.SuspendLayout();
             this.tabSkillPagList.SuspendLayout();
             this.tableLayoutPanelPagSkillList.SuspendLayout();
             this.toolStripSkillList.SuspendLayout();
@@ -271,6 +270,7 @@
             this.tableLayoutPanelStudentManagement.SuspendLayout();
             this.tableLayoutPanelStudentInfo.SuspendLayout();
             this.tableLayoutPanelStudentMassMove.SuspendLayout();
+            this.tabGeneral.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -529,14 +529,14 @@
             this.dataGridViewStudentLookup.AllowUserToAddRows = false;
             this.dataGridViewStudentLookup.AllowUserToDeleteRows = false;
             this.dataGridViewStudentLookup.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewStudentLookup.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewStudentLookup.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewStudentLookup.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewStudentLookup.Location = new System.Drawing.Point(183, 63);
             this.dataGridViewStudentLookup.Name = "dataGridViewStudentLookup";
@@ -878,8 +878,8 @@
             // StudentReportCondition
             // 
             this.StudentReportCondition.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.StudentReportCondition.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.StudentReportCondition.DefaultCellStyle = dataGridViewCellStyle4;
             this.StudentReportCondition.HeaderText = "Condition";
             this.StudentReportCondition.Name = "StudentReportCondition";
             this.StudentReportCondition.ReadOnly = true;
@@ -1260,53 +1260,6 @@
             this.tabControlAdmin.Size = new System.Drawing.Size(770, 505);
             this.tabControlAdmin.TabIndex = 3;
             this.tabControlAdmin.Resize += new System.EventHandler(this.tabControlAdmin_Resize);
-            // 
-            // tabGeneral
-            // 
-            this.tabGeneral.Controls.Add(this.labelAdminDeleteData);
-            this.tabGeneral.Controls.Add(this.labelAdminProgramDirectory);
-            this.tabGeneral.Controls.Add(this.labelAdminStudentID);
-            this.tabGeneral.Controls.Add(this.buttonResetToDefault);
-            this.tabGeneral.Controls.Add(this.checkBoxShowStudentID);
-            this.tabGeneral.Controls.Add(this.buttonGetDirectory);
-            this.tabGeneral.Location = new System.Drawing.Point(4, 22);
-            this.tabGeneral.Name = "tabGeneral";
-            this.tabGeneral.Padding = new System.Windows.Forms.Padding(3);
-            this.tabGeneral.Size = new System.Drawing.Size(762, 479);
-            this.tabGeneral.TabIndex = 0;
-            this.tabGeneral.Text = "General";
-            this.tabGeneral.UseVisualStyleBackColor = true;
-            // 
-            // buttonResetToDefault
-            // 
-            this.buttonResetToDefault.Location = new System.Drawing.Point(6, 58);
-            this.buttonResetToDefault.Name = "buttonResetToDefault";
-            this.buttonResetToDefault.Size = new System.Drawing.Size(126, 23);
-            this.buttonResetToDefault.TabIndex = 5;
-            this.buttonResetToDefault.Text = "Delete All Data";
-            this.buttonResetToDefault.UseVisualStyleBackColor = true;
-            this.buttonResetToDefault.Click += new System.EventHandler(this.buttonResetToDefault_Click);
-            // 
-            // checkBoxShowStudentID
-            // 
-            this.checkBoxShowStudentID.AutoSize = true;
-            this.checkBoxShowStudentID.Location = new System.Drawing.Point(6, 6);
-            this.checkBoxShowStudentID.Name = "checkBoxShowStudentID";
-            this.checkBoxShowStudentID.Size = new System.Drawing.Size(107, 17);
-            this.checkBoxShowStudentID.TabIndex = 4;
-            this.checkBoxShowStudentID.Text = "Show Student ID";
-            this.checkBoxShowStudentID.UseVisualStyleBackColor = true;
-            this.checkBoxShowStudentID.CheckedChanged += new System.EventHandler(this.checkBoxShowStudentID_CheckedChanged);
-            // 
-            // buttonGetDirectory
-            // 
-            this.buttonGetDirectory.Location = new System.Drawing.Point(6, 29);
-            this.buttonGetDirectory.Name = "buttonGetDirectory";
-            this.buttonGetDirectory.Size = new System.Drawing.Size(126, 23);
-            this.buttonGetDirectory.TabIndex = 1;
-            this.buttonGetDirectory.Text = "Get Program Directory";
-            this.buttonGetDirectory.UseVisualStyleBackColor = true;
-            this.buttonGetDirectory.Click += new System.EventHandler(this.button1_Click);
             // 
             // tabSkillPagList
             // 
@@ -2123,6 +2076,80 @@
             this.textBoxStudentFilter.TabIndex = 4;
             this.textBoxStudentFilter.TextChanged += new System.EventHandler(this.TextBox1_TextChanged);
             // 
+            // tabGeneral
+            // 
+            this.tabGeneral.Controls.Add(this.labelAdminDeleteData);
+            this.tabGeneral.Controls.Add(this.labelAdminProgramDirectory);
+            this.tabGeneral.Controls.Add(this.labelAdminStudentID);
+            this.tabGeneral.Controls.Add(this.buttonResetToDefault);
+            this.tabGeneral.Controls.Add(this.checkBoxShowStudentID);
+            this.tabGeneral.Controls.Add(this.buttonGetDirectory);
+            this.tabGeneral.Location = new System.Drawing.Point(4, 22);
+            this.tabGeneral.Name = "tabGeneral";
+            this.tabGeneral.Padding = new System.Windows.Forms.Padding(3);
+            this.tabGeneral.Size = new System.Drawing.Size(762, 479);
+            this.tabGeneral.TabIndex = 0;
+            this.tabGeneral.Text = "Other Settings";
+            this.tabGeneral.UseVisualStyleBackColor = true;
+            // 
+            // labelAdminDeleteData
+            // 
+            this.labelAdminDeleteData.AutoSize = true;
+            this.labelAdminDeleteData.Location = new System.Drawing.Point(146, 63);
+            this.labelAdminDeleteData.Name = "labelAdminDeleteData";
+            this.labelAdminDeleteData.Size = new System.Drawing.Size(237, 13);
+            this.labelAdminDeleteData.TabIndex = 8;
+            this.labelAdminDeleteData.Text = "Deletes all data (Excluding backups and presets)";
+            // 
+            // labelAdminProgramDirectory
+            // 
+            this.labelAdminProgramDirectory.AutoSize = true;
+            this.labelAdminProgramDirectory.Location = new System.Drawing.Point(146, 34);
+            this.labelAdminProgramDirectory.Name = "labelAdminProgramDirectory";
+            this.labelAdminProgramDirectory.Size = new System.Drawing.Size(356, 13);
+            this.labelAdminProgramDirectory.TabIndex = 7;
+            this.labelAdminProgramDirectory.Text = "Shows the directory where the program is stored, then opens that directory";
+            // 
+            // labelAdminStudentID
+            // 
+            this.labelAdminStudentID.AutoSize = true;
+            this.labelAdminStudentID.Location = new System.Drawing.Point(146, 7);
+            this.labelAdminStudentID.Name = "labelAdminStudentID";
+            this.labelAdminStudentID.Size = new System.Drawing.Size(383, 13);
+            this.labelAdminStudentID.TabIndex = 6;
+            this.labelAdminStudentID.Text = "Shows the column with student ID in PAG view, Skills view, and Student Report";
+            // 
+            // buttonResetToDefault
+            // 
+            this.buttonResetToDefault.Location = new System.Drawing.Point(6, 58);
+            this.buttonResetToDefault.Name = "buttonResetToDefault";
+            this.buttonResetToDefault.Size = new System.Drawing.Size(126, 23);
+            this.buttonResetToDefault.TabIndex = 5;
+            this.buttonResetToDefault.Text = "Delete All Data";
+            this.buttonResetToDefault.UseVisualStyleBackColor = true;
+            this.buttonResetToDefault.Click += new System.EventHandler(this.buttonResetToDefault_Click);
+            // 
+            // checkBoxShowStudentID
+            // 
+            this.checkBoxShowStudentID.AutoSize = true;
+            this.checkBoxShowStudentID.Location = new System.Drawing.Point(6, 6);
+            this.checkBoxShowStudentID.Name = "checkBoxShowStudentID";
+            this.checkBoxShowStudentID.Size = new System.Drawing.Size(107, 17);
+            this.checkBoxShowStudentID.TabIndex = 4;
+            this.checkBoxShowStudentID.Text = "Show Student ID";
+            this.checkBoxShowStudentID.UseVisualStyleBackColor = true;
+            this.checkBoxShowStudentID.CheckedChanged += new System.EventHandler(this.checkBoxShowStudentID_CheckedChanged);
+            // 
+            // buttonGetDirectory
+            // 
+            this.buttonGetDirectory.Location = new System.Drawing.Point(6, 29);
+            this.buttonGetDirectory.Name = "buttonGetDirectory";
+            this.buttonGetDirectory.Size = new System.Drawing.Size(126, 23);
+            this.buttonGetDirectory.TabIndex = 1;
+            this.buttonGetDirectory.Text = "Get Program Directory";
+            this.buttonGetDirectory.UseVisualStyleBackColor = true;
+            this.buttonGetDirectory.Click += new System.EventHandler(this.button1_Click);
+            // 
             // menuStripMain
             // 
             this.menuStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -2269,13 +2296,13 @@
             // openManualToolStripMenuItem
             // 
             this.openManualToolStripMenuItem.Name = "openManualToolStripMenuItem";
-            this.openManualToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.openManualToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openManualToolStripMenuItem.Text = "Open Manual";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -2303,33 +2330,6 @@
             this.saveFileDialogExportReport.Filter = "Excel Spreadsheet (*.xlsx)|*.xlsx";
             this.saveFileDialogExportReport.Title = "Export Report";
             this.saveFileDialogExportReport.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialogExportReport_FileOk);
-            // 
-            // labelAdminStudentID
-            // 
-            this.labelAdminStudentID.AutoSize = true;
-            this.labelAdminStudentID.Location = new System.Drawing.Point(146, 7);
-            this.labelAdminStudentID.Name = "labelAdminStudentID";
-            this.labelAdminStudentID.Size = new System.Drawing.Size(383, 13);
-            this.labelAdminStudentID.TabIndex = 6;
-            this.labelAdminStudentID.Text = "Shows the column with student ID in PAG view, Skills view, and Student Report";
-            // 
-            // labelAdminProgramDirectory
-            // 
-            this.labelAdminProgramDirectory.AutoSize = true;
-            this.labelAdminProgramDirectory.Location = new System.Drawing.Point(146, 34);
-            this.labelAdminProgramDirectory.Name = "labelAdminProgramDirectory";
-            this.labelAdminProgramDirectory.Size = new System.Drawing.Size(356, 13);
-            this.labelAdminProgramDirectory.TabIndex = 7;
-            this.labelAdminProgramDirectory.Text = "Shows the directory where the program is stored, then opens that directory";
-            // 
-            // labelAdminDeleteData
-            // 
-            this.labelAdminDeleteData.AutoSize = true;
-            this.labelAdminDeleteData.Location = new System.Drawing.Point(146, 63);
-            this.labelAdminDeleteData.Name = "labelAdminDeleteData";
-            this.labelAdminDeleteData.Size = new System.Drawing.Size(237, 13);
-            this.labelAdminDeleteData.TabIndex = 8;
-            this.labelAdminDeleteData.Text = "Deletes all data (Excluding backups and presets)";
             // 
             // FormMain
             // 
@@ -2384,8 +2384,6 @@
             this.tableLayoutPanelContentSelectionActivitySelection.PerformLayout();
             this.tabAdmin.ResumeLayout(false);
             this.tabControlAdmin.ResumeLayout(false);
-            this.tabGeneral.ResumeLayout(false);
-            this.tabGeneral.PerformLayout();
             this.tabSkillPagList.ResumeLayout(false);
             this.tableLayoutPanelPagSkillList.ResumeLayout(false);
             this.tableLayoutPanelPagSkillList.PerformLayout();
@@ -2415,6 +2413,8 @@
             this.tableLayoutPanelStudentInfo.PerformLayout();
             this.tableLayoutPanelStudentMassMove.ResumeLayout(false);
             this.tableLayoutPanelStudentMassMove.PerformLayout();
+            this.tabGeneral.ResumeLayout(false);
+            this.tabGeneral.PerformLayout();
             this.menuStripMain.ResumeLayout(false);
             this.menuStripMain.PerformLayout();
             this.ResumeLayout(false);
