@@ -2285,6 +2285,7 @@ namespace PAG_Manager
                 Directory.Delete(AppDomain.CurrentDomain.BaseDirectory + @"Presets\Preset - Physics", true);
             }
             ZipFile.ExtractToDirectory(AppDomain.CurrentDomain.BaseDirectory + @"presets.zip", AppDomain.CurrentDomain.BaseDirectory + @"Presets\");
+            MessageBox.Show("Presets added.", "PAG Manager");
         }
     }
 }
