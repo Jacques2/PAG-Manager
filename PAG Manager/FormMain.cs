@@ -83,6 +83,10 @@ namespace PAG_Manager
                 listBoxPagRelation.Items.Clear();
                 listBoxSkillList.Items.Clear();
                 listBoxGroupList.Items.Clear();
+                pagListToolStripTextBox.Enabled = false;
+                pagListToolStripTextBox.Text = "";
+                skillListToolStripTextBox.Enabled = false;
+                skillListToolStripTextBox.Text = "";
                 dataGridViewSkillRequirement.Rows.Clear();
                 checkedListBoxSkillRelation.Items.Clear();
                 checkedListBoxPagList.Items.Clear();
@@ -577,7 +581,9 @@ namespace PAG_Manager
             if (listBoxPagList.SelectedIndex != -1)
             {
                 pagListToolStripTextBox.Text = (Convert.ToString(listBoxPagList.SelectedItem));
+                pagListToolStripTextBox.Enabled = true;
             }
+
         }
 
         private void pagListToolStripTextBox_TextChanged(object sender, EventArgs e)//ADMIN: Changes the list box selected value to the user modified value in the text box
@@ -595,6 +601,7 @@ namespace PAG_Manager
             if (listBoxSkillList.SelectedIndex != -1)
             {
                 skillListToolStripTextBox.Text = (Convert.ToString(listBoxSkillList.SelectedItem));
+                skillListToolStripTextBox.Enabled = true;
             }
         }
 
@@ -2004,7 +2011,7 @@ namespace PAG_Manager
         private void backupWithNameToolStripMenuItem_Click(object sender, EventArgs e)//creates a new backup
         {
             string fileName = toolStripTextBoxBackupName.Text;
-            if (!string.IsNullOrEmpty(fileName) && fileName.IndexOfAny(Path.GetInvalidFileNameChars()) < 0 && fileName != "Current")//checks if the name is valid (not called "current", null, empty, or have invalid file name chars)
+            if (!string.IsNullOrEmpty(fileName) && fileName.IndexOfAny(Path.GetInvalidFileNameChars()) < 0 && fileName.ToLower() != "current")//checks if the name is valid (not called "current", null, empty, or have invalid file name chars)
             {
                 string newDir = AppDomain.CurrentDomain.BaseDirectory + @"SaveData\" + fileName + @"\";
                 string oldDir = AppDomain.CurrentDomain.BaseDirectory + @"SaveData\Current\";

@@ -1323,6 +1323,7 @@
             // 
             // skillListToolStripTextBox
             // 
+            this.skillListToolStripTextBox.Enabled = false;
             this.skillListToolStripTextBox.Name = "skillListToolStripTextBox";
             this.skillListToolStripTextBox.Size = new System.Drawing.Size(237, 25);
             this.skillListToolStripTextBox.TextChanged += new System.EventHandler(this.skillListToolStripTextBox_TextChanged);
@@ -1385,6 +1386,7 @@
             // 
             // pagListToolStripTextBox
             // 
+            this.pagListToolStripTextBox.Enabled = false;
             this.pagListToolStripTextBox.Name = "pagListToolStripTextBox";
             this.pagListToolStripTextBox.Size = new System.Drawing.Size(237, 25);
             this.pagListToolStripTextBox.TextChanged += new System.EventHandler(this.pagListToolStripTextBox_TextChanged);
@@ -2296,20 +2298,19 @@
             // openManualToolStripMenuItem
             // 
             this.openManualToolStripMenuItem.Name = "openManualToolStripMenuItem";
-            this.openManualToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openManualToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.openManualToolStripMenuItem.Text = "Open Manual";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // openFileDialogImportCSV
             // 
             this.openFileDialogImportCSV.Filter = "CSV files (*.csv)|*.csv";
-            this.openFileDialogImportCSV.ShowHelp = true;
             this.openFileDialogImportCSV.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialogImportCSV_FileOk);
             this.openFileDialogImportCSV.HelpRequest += new System.EventHandler(this.openFileDialogImportCSV_HelpRequest);
             // 

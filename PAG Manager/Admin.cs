@@ -88,7 +88,14 @@ namespace PAG_Manager
         }
         public void AddPag()//adds a pag to the list
         {
-            pagList.Add(pagList.ElementAt(pagList.Count - 1).Key + 1, "New PAG");
+            if (pagList.Count == 0)
+            {
+                pagList.Add(0, "New PAG");
+            }
+            else
+            {
+                pagList.Add(pagList.ElementAt(pagList.Count - 1).Key + 1, "New PAG");
+            }
         }
         public void AddSkill()//adds a skill to the list
         {
