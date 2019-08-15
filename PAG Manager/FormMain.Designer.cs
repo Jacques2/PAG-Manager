@@ -190,6 +190,7 @@
             this.listBoxStudentManagementList = new System.Windows.Forms.ListBox();
             this.textBoxStudentFilter = new System.Windows.Forms.TextBox();
             this.tabGeneral = new System.Windows.Forms.TabPage();
+            this.labelDefaultPresets = new System.Windows.Forms.Label();
             this.buttonAddPresets = new System.Windows.Forms.Button();
             this.labelAdminDeleteData = new System.Windows.Forms.Label();
             this.labelAdminProgramDirectory = new System.Windows.Forms.Label();
@@ -220,7 +221,6 @@
             this.heightDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sizeTypeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.saveFileDialogExportReport = new System.Windows.Forms.SaveFileDialog();
-            this.labelDefaultPresets = new System.Windows.Forms.Label();
             this.tabControlMain.SuspendLayout();
             this.tabAwardPag.SuspendLayout();
             this.tableLayoutPanelAwardPag.SuspendLayout();
@@ -2098,6 +2098,16 @@
             this.tabGeneral.Text = "Other Settings";
             this.tabGeneral.UseVisualStyleBackColor = true;
             // 
+            // labelDefaultPresets
+            // 
+            this.labelDefaultPresets.AutoSize = true;
+            this.labelDefaultPresets.Location = new System.Drawing.Point(146, 63);
+            this.labelDefaultPresets.Name = "labelDefaultPresets";
+            this.labelDefaultPresets.Size = new System.Drawing.Size(614, 13);
+            this.labelDefaultPresets.TabIndex = 10;
+            this.labelDefaultPresets.Text = "Adds presets for OCR Biology (H420), Chemistry (H432) and Physics (H556) PAG\'s in" +
+    " line with Version 1 of the OCR PAG Tracker";
+            // 
             // buttonAddPresets
             // 
             this.buttonAddPresets.Location = new System.Drawing.Point(6, 58);
@@ -2313,13 +2323,13 @@
             // openManualToolStripMenuItem
             // 
             this.openManualToolStripMenuItem.Name = "openManualToolStripMenuItem";
-            this.openManualToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openManualToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.openManualToolStripMenuItem.Text = "Open Manual";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -2346,16 +2356,6 @@
             this.saveFileDialogExportReport.Filter = "Excel Spreadsheet (*.xlsx)|*.xlsx";
             this.saveFileDialogExportReport.Title = "Export Report";
             this.saveFileDialogExportReport.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialogExportReport_FileOk);
-            // 
-            // labelDefaultPresets
-            // 
-            this.labelDefaultPresets.AutoSize = true;
-            this.labelDefaultPresets.Location = new System.Drawing.Point(146, 63);
-            this.labelDefaultPresets.Name = "labelDefaultPresets";
-            this.labelDefaultPresets.Size = new System.Drawing.Size(614, 13);
-            this.labelDefaultPresets.TabIndex = 10;
-            this.labelDefaultPresets.Text = "Adds presets for OCR Biology (H420), Chemistry (H432) and Physics (H556) PAG\'s in" +
-    " line with Version 1 of the OCR PAG Tracker";
             // 
             // FormMain
             // 

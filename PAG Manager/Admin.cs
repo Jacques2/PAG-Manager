@@ -391,8 +391,17 @@ namespace PAG_Manager
         }
         public void AddStudent()//adds a new student
         {
-            int lastKey = studentInfo.ElementAt(studentInfo.Count - 1).Key;
+            int lastKey;
+            if (studentInfo.Count == 0)
+            {
+                lastKey = -1;
+            }
+            else
+            {
+                lastKey = studentInfo.ElementAt(studentInfo.Count - 1).Key;
+            }
             studentInfo.Add(lastKey + 1, new Tuple<string, string, string, string>("New", "Student", "Year", "Class"));
+            positioning.Add(studentInfo.Count - 1);
         }
         public void SaveStudentData()//saves all student information
         {

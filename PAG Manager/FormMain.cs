@@ -1908,6 +1908,7 @@ namespace PAG_Manager
 
         private void buttonStudentManagementAddStudent_Click(object sender, EventArgs e)//add student button clicked
         {
+            textBoxStudentFilter.Text = "";
             ad.AddStudent();//adds a student within the class
             listBoxStudentManagementList.Items.Add("New Student - Class");//adds student to list
             listBoxStudentManagementList.SelectedIndex = listBoxStudentManagementList.Items.Count - 1;//selects the student within the list
