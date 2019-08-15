@@ -163,5 +163,15 @@ namespace PAG_Manager.Properties {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] presets {
+            get {
+                object obj = ResourceManager.GetObject("presets", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

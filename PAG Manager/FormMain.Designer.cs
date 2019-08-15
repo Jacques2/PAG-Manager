@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabAwardPag = new System.Windows.Forms.TabPage();
@@ -190,6 +190,7 @@
             this.listBoxStudentManagementList = new System.Windows.Forms.ListBox();
             this.textBoxStudentFilter = new System.Windows.Forms.TextBox();
             this.tabGeneral = new System.Windows.Forms.TabPage();
+            this.buttonAddPresets = new System.Windows.Forms.Button();
             this.labelAdminDeleteData = new System.Windows.Forms.Label();
             this.labelAdminProgramDirectory = new System.Windows.Forms.Label();
             this.labelAdminStudentID = new System.Windows.Forms.Label();
@@ -219,6 +220,7 @@
             this.heightDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sizeTypeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.saveFileDialogExportReport = new System.Windows.Forms.SaveFileDialog();
+            this.labelDefaultPresets = new System.Windows.Forms.Label();
             this.tabControlMain.SuspendLayout();
             this.tabAwardPag.SuspendLayout();
             this.tableLayoutPanelAwardPag.SuspendLayout();
@@ -529,14 +531,14 @@
             this.dataGridViewStudentLookup.AllowUserToAddRows = false;
             this.dataGridViewStudentLookup.AllowUserToDeleteRows = false;
             this.dataGridViewStudentLookup.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewStudentLookup.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewStudentLookup.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewStudentLookup.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewStudentLookup.Location = new System.Drawing.Point(183, 63);
             this.dataGridViewStudentLookup.Name = "dataGridViewStudentLookup";
@@ -878,8 +880,8 @@
             // StudentReportCondition
             // 
             this.StudentReportCondition.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.StudentReportCondition.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.StudentReportCondition.DefaultCellStyle = dataGridViewCellStyle2;
             this.StudentReportCondition.HeaderText = "Condition";
             this.StudentReportCondition.Name = "StudentReportCondition";
             this.StudentReportCondition.ReadOnly = true;
@@ -2080,6 +2082,8 @@
             // 
             // tabGeneral
             // 
+            this.tabGeneral.Controls.Add(this.labelDefaultPresets);
+            this.tabGeneral.Controls.Add(this.buttonAddPresets);
             this.tabGeneral.Controls.Add(this.labelAdminDeleteData);
             this.tabGeneral.Controls.Add(this.labelAdminProgramDirectory);
             this.tabGeneral.Controls.Add(this.labelAdminStudentID);
@@ -2094,10 +2098,20 @@
             this.tabGeneral.Text = "Other Settings";
             this.tabGeneral.UseVisualStyleBackColor = true;
             // 
+            // buttonAddPresets
+            // 
+            this.buttonAddPresets.Location = new System.Drawing.Point(6, 58);
+            this.buttonAddPresets.Name = "buttonAddPresets";
+            this.buttonAddPresets.Size = new System.Drawing.Size(126, 23);
+            this.buttonAddPresets.TabIndex = 9;
+            this.buttonAddPresets.Text = "Add Default Presets";
+            this.buttonAddPresets.UseVisualStyleBackColor = true;
+            this.buttonAddPresets.Click += new System.EventHandler(this.ButtonAddPresets_Click);
+            // 
             // labelAdminDeleteData
             // 
             this.labelAdminDeleteData.AutoSize = true;
-            this.labelAdminDeleteData.Location = new System.Drawing.Point(146, 63);
+            this.labelAdminDeleteData.Location = new System.Drawing.Point(146, 92);
             this.labelAdminDeleteData.Name = "labelAdminDeleteData";
             this.labelAdminDeleteData.Size = new System.Drawing.Size(237, 13);
             this.labelAdminDeleteData.TabIndex = 8;
@@ -2123,12 +2137,13 @@
             // 
             // buttonResetToDefault
             // 
-            this.buttonResetToDefault.Location = new System.Drawing.Point(6, 58);
+            this.buttonResetToDefault.BackColor = System.Drawing.Color.Red;
+            this.buttonResetToDefault.Location = new System.Drawing.Point(6, 87);
             this.buttonResetToDefault.Name = "buttonResetToDefault";
             this.buttonResetToDefault.Size = new System.Drawing.Size(126, 23);
             this.buttonResetToDefault.TabIndex = 5;
             this.buttonResetToDefault.Text = "Delete All Data";
-            this.buttonResetToDefault.UseVisualStyleBackColor = true;
+            this.buttonResetToDefault.UseVisualStyleBackColor = false;
             this.buttonResetToDefault.Click += new System.EventHandler(this.buttonResetToDefault_Click);
             // 
             // checkBoxShowStudentID
@@ -2298,13 +2313,13 @@
             // openManualToolStripMenuItem
             // 
             this.openManualToolStripMenuItem.Name = "openManualToolStripMenuItem";
-            this.openManualToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.openManualToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openManualToolStripMenuItem.Text = "Open Manual";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -2331,6 +2346,16 @@
             this.saveFileDialogExportReport.Filter = "Excel Spreadsheet (*.xlsx)|*.xlsx";
             this.saveFileDialogExportReport.Title = "Export Report";
             this.saveFileDialogExportReport.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialogExportReport_FileOk);
+            // 
+            // labelDefaultPresets
+            // 
+            this.labelDefaultPresets.AutoSize = true;
+            this.labelDefaultPresets.Location = new System.Drawing.Point(146, 63);
+            this.labelDefaultPresets.Name = "labelDefaultPresets";
+            this.labelDefaultPresets.Size = new System.Drawing.Size(614, 13);
+            this.labelDefaultPresets.TabIndex = 10;
+            this.labelDefaultPresets.Text = "Adds presets for OCR Biology (H420), Chemistry (H432) and Physics (H556) PAG\'s in" +
+    " line with Version 1 of the OCR PAG Tracker";
             // 
             // FormMain
             // 
@@ -2613,6 +2638,8 @@
         private System.Windows.Forms.Label labelAdminDeleteData;
         private System.Windows.Forms.Label labelAdminProgramDirectory;
         private System.Windows.Forms.Label labelAdminStudentID;
+        private System.Windows.Forms.Button buttonAddPresets;
+        private System.Windows.Forms.Label labelDefaultPresets;
     }
 }
 

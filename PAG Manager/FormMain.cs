@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
@@ -1125,7 +1126,7 @@ namespace PAG_Manager
                 dataGridViewStudentImport.Rows.Add(seperatedLine);
             }
             buttonAddStudentRecord.Enabled = true;
-            for (int row = 0; row < dataGridViewStudentImport.RowCount-1; row++)
+            for (int row = 0; row < dataGridViewStudentImport.RowCount - 1; row++)
             {
                 for (int column = 0; column < dataGridViewStudentImport.ColumnCount; column++)
                 {
@@ -2266,6 +2267,24 @@ namespace PAG_Manager
             {
                 dataGridViewSkills.Rows.Add(row.ToArray());
             }
+        }
+
+        private void ButtonAddPresets_Click(object sender, EventArgs e)
+        {
+            File.WriteAllBytes(AppDomain.CurrentDomain.BaseDirectory + @"presets.zip", Properties.Resources.presets);
+            if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Presets\Preset - Biology"))
+            {
+                Directory.Delete(AppDomain.CurrentDomain.BaseDirectory + @"Presets\Preset - Biology", true);
+            }
+            if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Presets\Preset - Chemistry"))
+            {
+                Directory.Delete(AppDomain.CurrentDomain.BaseDirectory + @"Presets\Preset - Chemistry", true);
+            }
+            if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + @"Presets\Preset - Physics"))
+            {
+                Directory.Delete(AppDomain.CurrentDomain.BaseDirectory + @"Presets\Preset - Physics", true);
+            }
+            ZipFile.ExtractToDirectory(AppDomain.CurrentDomain.BaseDirectory + @"presets.zip", AppDomain.CurrentDomain.BaseDirectory + @"Presets\");
         }
     }
 }
