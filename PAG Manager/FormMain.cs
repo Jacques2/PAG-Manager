@@ -2288,5 +2288,31 @@ namespace PAG_Manager
             ZipFile.ExtractToDirectory(AppDomain.CurrentDomain.BaseDirectory + @"presets.zip", AppDomain.CurrentDomain.BaseDirectory + @"Presets\");
             MessageBox.Show("Presets added.", "PAG Manager");
         }
+
+        private void ButtonExportData_Click(object sender, EventArgs e)
+        {
+            saveFileDialogExportData.FileName = "PAG Manager Export " + DateTime.Today.ToString("dd-MM-yyyy");
+            saveFileDialogExportData.ShowDialog();
+        }
+
+        private void ButtonImportData_Click(object sender, EventArgs e)
+        {
+            openFileDialogImportData.ShowDialog();
+        }
+
+        private void SaveFileDialogExportData_FileOk(object sender, CancelEventArgs e)
+        {
+            ZipFile.CreateFromDirectory(FILELOC, saveFileDialogExportData.FileName);
+        }
+
+        private void OpenFileDialogImportData_FileOk(object sender, CancelEventArgs e)
+        {
+            string fileName = openFileDialogImportData.SafeFileName.Remove(openFileDialogImportData.SafeFileName.Count()-4);
+            if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\" + fileName + @"\"))
+            {
+                Directory.Delete(AppDomain.CurrentDomain.BaseDirectory + @"SaveData\" + fileName + @"\", true);
+            }
+            ZipFile.ExtractToDirectory(openFileDialogImportData.FileName, AppDomain.CurrentDomain.BaseDirectory + @"SaveData\" + fileName + @"\");
+        }
     }
 }

@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabAwardPag = new System.Windows.Forms.TabPage();
@@ -190,6 +190,10 @@
             this.listBoxStudentManagementList = new System.Windows.Forms.ListBox();
             this.textBoxStudentFilter = new System.Windows.Forms.TextBox();
             this.tabGeneral = new System.Windows.Forms.TabPage();
+            this.labelImportData = new System.Windows.Forms.Label();
+            this.buttonImportData = new System.Windows.Forms.Button();
+            this.labelExportData = new System.Windows.Forms.Label();
+            this.buttonExportData = new System.Windows.Forms.Button();
             this.labelDefaultPresets = new System.Windows.Forms.Label();
             this.buttonAddPresets = new System.Windows.Forms.Button();
             this.labelAdminDeleteData = new System.Windows.Forms.Label();
@@ -221,6 +225,8 @@
             this.heightDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sizeTypeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.saveFileDialogExportReport = new System.Windows.Forms.SaveFileDialog();
+            this.saveFileDialogExportData = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialogImportData = new System.Windows.Forms.OpenFileDialog();
             this.tabControlMain.SuspendLayout();
             this.tabAwardPag.SuspendLayout();
             this.tableLayoutPanelAwardPag.SuspendLayout();
@@ -531,14 +537,14 @@
             this.dataGridViewStudentLookup.AllowUserToAddRows = false;
             this.dataGridViewStudentLookup.AllowUserToDeleteRows = false;
             this.dataGridViewStudentLookup.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewStudentLookup.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewStudentLookup.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewStudentLookup.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewStudentLookup.Location = new System.Drawing.Point(183, 63);
             this.dataGridViewStudentLookup.Name = "dataGridViewStudentLookup";
@@ -880,8 +886,8 @@
             // StudentReportCondition
             // 
             this.StudentReportCondition.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.StudentReportCondition.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.StudentReportCondition.DefaultCellStyle = dataGridViewCellStyle4;
             this.StudentReportCondition.HeaderText = "Condition";
             this.StudentReportCondition.Name = "StudentReportCondition";
             this.StudentReportCondition.ReadOnly = true;
@@ -2082,6 +2088,10 @@
             // 
             // tabGeneral
             // 
+            this.tabGeneral.Controls.Add(this.labelImportData);
+            this.tabGeneral.Controls.Add(this.buttonImportData);
+            this.tabGeneral.Controls.Add(this.labelExportData);
+            this.tabGeneral.Controls.Add(this.buttonExportData);
             this.tabGeneral.Controls.Add(this.labelDefaultPresets);
             this.tabGeneral.Controls.Add(this.buttonAddPresets);
             this.tabGeneral.Controls.Add(this.labelAdminDeleteData);
@@ -2097,6 +2107,45 @@
             this.tabGeneral.TabIndex = 0;
             this.tabGeneral.Text = "Other Settings";
             this.tabGeneral.UseVisualStyleBackColor = true;
+            // 
+            // labelImportData
+            // 
+            this.labelImportData.AutoSize = true;
+            this.labelImportData.Location = new System.Drawing.Point(146, 121);
+            this.labelImportData.Name = "labelImportData";
+            this.labelImportData.Size = new System.Drawing.Size(413, 13);
+            this.labelImportData.TabIndex = 14;
+            this.labelImportData.Text = "Imports data from a .PAG file that has been obtained from another copy of this pr" +
+    "ogram";
+            // 
+            // buttonImportData
+            // 
+            this.buttonImportData.Location = new System.Drawing.Point(8, 116);
+            this.buttonImportData.Name = "buttonImportData";
+            this.buttonImportData.Size = new System.Drawing.Size(125, 23);
+            this.buttonImportData.TabIndex = 13;
+            this.buttonImportData.Text = "Import Data";
+            this.buttonImportData.UseVisualStyleBackColor = true;
+            this.buttonImportData.Click += new System.EventHandler(this.ButtonImportData_Click);
+            // 
+            // labelExportData
+            // 
+            this.labelExportData.AutoSize = true;
+            this.labelExportData.Location = new System.Drawing.Point(146, 92);
+            this.labelExportData.Name = "labelExportData";
+            this.labelExportData.Size = new System.Drawing.Size(347, 13);
+            this.labelExportData.TabIndex = 12;
+            this.labelExportData.Text = "Exports data into a .PAG file so that it can be imported or sent elsewhere";
+            // 
+            // buttonExportData
+            // 
+            this.buttonExportData.Location = new System.Drawing.Point(7, 87);
+            this.buttonExportData.Name = "buttonExportData";
+            this.buttonExportData.Size = new System.Drawing.Size(125, 23);
+            this.buttonExportData.TabIndex = 11;
+            this.buttonExportData.Text = "Export Data";
+            this.buttonExportData.UseVisualStyleBackColor = true;
+            this.buttonExportData.Click += new System.EventHandler(this.ButtonExportData_Click);
             // 
             // labelDefaultPresets
             // 
@@ -2121,7 +2170,7 @@
             // labelAdminDeleteData
             // 
             this.labelAdminDeleteData.AutoSize = true;
-            this.labelAdminDeleteData.Location = new System.Drawing.Point(146, 92);
+            this.labelAdminDeleteData.Location = new System.Drawing.Point(146, 150);
             this.labelAdminDeleteData.Name = "labelAdminDeleteData";
             this.labelAdminDeleteData.Size = new System.Drawing.Size(237, 13);
             this.labelAdminDeleteData.TabIndex = 8;
@@ -2148,7 +2197,7 @@
             // buttonResetToDefault
             // 
             this.buttonResetToDefault.BackColor = System.Drawing.Color.Red;
-            this.buttonResetToDefault.Location = new System.Drawing.Point(6, 87);
+            this.buttonResetToDefault.Location = new System.Drawing.Point(6, 145);
             this.buttonResetToDefault.Name = "buttonResetToDefault";
             this.buttonResetToDefault.Size = new System.Drawing.Size(126, 23);
             this.buttonResetToDefault.TabIndex = 5;
@@ -2356,6 +2405,16 @@
             this.saveFileDialogExportReport.Filter = "Excel Spreadsheet (*.xlsx)|*.xlsx";
             this.saveFileDialogExportReport.Title = "Export Report";
             this.saveFileDialogExportReport.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialogExportReport_FileOk);
+            // 
+            // saveFileDialogExportData
+            // 
+            this.saveFileDialogExportData.Filter = "PAG Manager File (*.PAG)|*.PAG";
+            this.saveFileDialogExportData.FileOk += new System.ComponentModel.CancelEventHandler(this.SaveFileDialogExportData_FileOk);
+            // 
+            // openFileDialogImportData
+            // 
+            this.openFileDialogImportData.Filter = "PAG Manager File (*.PAG)|*.PAG";
+            this.openFileDialogImportData.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenFileDialogImportData_FileOk);
             // 
             // FormMain
             // 
@@ -2640,6 +2699,12 @@
         private System.Windows.Forms.Label labelAdminStudentID;
         private System.Windows.Forms.Button buttonAddPresets;
         private System.Windows.Forms.Label labelDefaultPresets;
+        private System.Windows.Forms.Label labelImportData;
+        private System.Windows.Forms.Button buttonImportData;
+        private System.Windows.Forms.Label labelExportData;
+        private System.Windows.Forms.Button buttonExportData;
+        private System.Windows.Forms.SaveFileDialog saveFileDialogExportData;
+        private System.Windows.Forms.OpenFileDialog openFileDialogImportData;
     }
 }
 
