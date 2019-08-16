@@ -1913,6 +1913,7 @@ namespace PAG_Manager
             listBoxStudentManagementList.Items.Add("New Student - Class");//adds student to list
             listBoxStudentManagementList.SelectedIndex = listBoxStudentManagementList.Items.Count - 1;//selects the student within the list
             textBoxStudentFName.Focus();//focuses on the student
+            labelUnsavedChanges.Visible = true;
         }
 
         private void buttonStudentManagementSaveChanges_Click(object sender, EventArgs e)//save changes button clicked
