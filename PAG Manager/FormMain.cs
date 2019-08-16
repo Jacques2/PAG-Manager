@@ -372,6 +372,7 @@ namespace PAG_Manager
                 {
                     unsavedChanges = true;
                     listBoxStudentNames.SelectedIndex = -1;
+                    buttonLookupSubmitModifications.Enabled = true;
                 }
             }
             if (listBoxStudentNames.SelectedIndex != -1 && unsavedChanges == false)
@@ -1770,14 +1771,17 @@ namespace PAG_Manager
         private void saveFileDialogExportReport_FileOk(object sender, CancelEventArgs e)//export pag dialog fully validated
         {
             string location = saveFileDialogExportReport.FileName;//gets the location to save to
-            sr.ExcelExport(location);//exports as excel document
-            try
+            bool success = sr.ExcelExport(location);//exports as excel document
+            if (success)
             {
-                System.Diagnostics.Process.Start(location);//opens excel document
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Could not open excel file", "PAG Manager");
+                try
+                {
+                    System.Diagnostics.Process.Start(location);//opens excel document
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Could not open excel file", "PAG Manager");
+                }
             }
         }
         bool loadingStudent = false;

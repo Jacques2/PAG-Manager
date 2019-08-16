@@ -520,7 +520,7 @@ namespace PAG_Manager
             return filteredReport;
         }
         //------------this section builds an excel spreadsheet---------------
-        public void ExcelExport(string inputLocation)
+        public bool ExcelExport(string inputLocation)
         {
             //firstly builds group data
             /* This is the biggest data type in the program, below shows the layout of the data type
@@ -534,6 +534,7 @@ namespace PAG_Manager
              
              
              */
+            bool success = true;
             SortedList<int, Tuple<string, Dictionary<string, Dictionary<string, List<Tuple<string, string>>>>>> data = new SortedList<int, Tuple<string, Dictionary<string, Dictionary<string, List<Tuple<string, string>>>>>>();
             List<int> listOfGroups = new List<int>();
             //step 1: add all groups to data
@@ -670,8 +671,10 @@ namespace PAG_Manager
             catch (Exception)
             {
                 MessageBox.Show("Unable to export to file, file may be open or read-only", "Error Exporting File");
+                success = false;
             }
             excel.Dispose();
+            return success;
         }
     }
 }
