@@ -14,7 +14,7 @@ namespace PAG_Manager
             this.labelVersion.Text = String.Format("Version 1.5");
             this.labelCopyright.Text = "Made by Jacques Eluecque in 2019";
             this.labelCompanyName.Text = "Made for Mrs Rojek and the Northgate Science Team";
-            this.textBoxDescription.Text = "This program will let you create, modify and award PAG's to an unlimited number of students, all in a portable, fast and convenient application";
+            this.textBoxDescription.Text = "This program will let you create, modify and award PAG's to an unlimited number of students, all in a portable, fast and convenient application" + Environment.NewLine + Environment.NewLine + "Updates can be found on this github page:" + Environment.NewLine + @"https://github.com/Jacques2/PAG-Manager/releases/latest";
         }
 
         #region Assembly Attribute Accessors
