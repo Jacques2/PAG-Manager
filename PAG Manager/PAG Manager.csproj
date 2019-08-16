@@ -137,6 +137,7 @@
     <None Include="MyAssets\presets.zip" />
     <None Include="MyAssets\SkillList.csv" />
     <None Include="MyAssets\SkillRequirement.csv" />
+    <None Include="MyAssets\UserManual2.pdf" />
     <None Include="packages.config" />
     <None Include="PAG Manager_TemporaryKey.pfx" />
     <None Include="Properties\app.manifest" />

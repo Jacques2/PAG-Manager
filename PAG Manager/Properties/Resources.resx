@@ -151,4 +151,7 @@
   <data name="_7" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\MyAssets\temp\7.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="UserManual" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\MyAssets\UserManual2.pdf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

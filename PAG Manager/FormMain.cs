@@ -2319,5 +2319,19 @@ namespace PAG_Manager
             }
             ZipFile.ExtractToDirectory(openFileDialogImportData.FileName, AppDomain.CurrentDomain.BaseDirectory + @"SaveData\" + fileName + @"\");
         }
+
+        private void OpenManualToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            File.WriteAllBytes(AppDomain.CurrentDomain.BaseDirectory + @"User Manual.pdf", Properties.Resources.UserManual);
+            try
+            {
+                System.Diagnostics.Process.Start(AppDomain.CurrentDomain.BaseDirectory + @"User Manual.pdf");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Unable to open User Manual, The Manual is located in the following location:" + Environment.NewLine + Environment.NewLine + AppDomain.CurrentDomain.BaseDirectory + Environment.NewLine + Environment.NewLine + "The folder containing the file will now be opened", "PAG Manager");
+                System.Diagnostics.Process.Start(AppDomain.CurrentDomain.BaseDirectory);
+            }
+        }
     }
 }
